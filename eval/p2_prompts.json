@@ -1,0 +1,102 @@
+[
+ {
+  "id": 0,
+  "type": "in-domain",
+  "prompt": "a red fish with a gold crown on its head"
+ },
+ {
+  "id": 1,
+  "type": "in-domain",
+  "prompt": "a drawing of a cartoon character with a hat on"
+ },
+ {
+  "id": 2,
+  "type": "in-domain",
+  "prompt": "a drawing of a cat wearing a helmet"
+ },
+ {
+  "id": 3,
+  "type": "in-domain",
+  "prompt": "a cartoon of a blue and black dragon"
+ },
+ {
+  "id": 4,
+  "type": "in-domain",
+  "prompt": "a drawing of a blue and white object floating in water"
+ },
+ {
+  "id": 5,
+  "type": "in-domain",
+  "prompt": "a bird with a long beak flying through the air"
+ },
+ {
+  "id": 6,
+  "type": "in-domain",
+  "prompt": "a drawing of a star with a red eye"
+ },
+ {
+  "id": 7,
+  "type": "in-domain",
+  "prompt": "a drawing of a cat with red eyes"
+ },
+ {
+  "id": 8,
+  "type": "in-domain",
+  "prompt": "a cartoon butterfly with blue eyes and yellow wings"
+ },
+ {
+  "id": 9,
+  "type": "in-domain",
+  "prompt": "a cartoon of a pikachu flying through the air"
+ },
+ {
+  "id": 10,
+  "type": "out-of-domain",
+  "prompt": "a photograph of a mountain lake at sunrise"
+ },
+ {
+  "id": 11,
+  "type": "out-of-domain",
+  "prompt": "a red sports car on a city street"
+ },
+ {
+  "id": 12,
+  "type": "out-of-domain",
+  "prompt": "a bowl of fruit on a wooden table"
+ },
+ {
+  "id": 13,
+  "type": "out-of-domain",
+  "prompt": "an astronaut riding a horse on the moon"
+ },
+ {
+  "id": 14,
+  "type": "out-of-domain",
+  "prompt": "a cozy living room with a fireplace"
+ },
+ {
+  "id": 15,
+  "type": "compositional",
+  "prompt": "two pokemon, one red and one blue, standing side by side"
+ },
+ {
+  "id": 16,
+  "type": "compositional",
+  "prompt": "a yellow pokemon holding a green leaf"
+ },
+ {
+  "id": 17,
+  "type": "compositional",
+  "prompt": "three small round pokemon in a row, the left one purple"
+ },
+ {
+  "id": 18,
+  "type": "compositional",
+  "prompt": "a blue pokemon on top of a red box"
+ },
+ {
+  "id": 19,
+  "type": "compositional",
+  "prompt": "a pink pokemon next to a black pokemon, white background"
+ }
+]
