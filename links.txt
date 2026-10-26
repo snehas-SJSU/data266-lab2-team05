@@ -2,7 +2,7 @@
 # Shared team lines first, then one section per member. Each member fills only her own section.
 
 ## Shared (team)
-GitHub repository: TBD
+GitHub repository: https://github.com/snehas-SJSU/data266-lab2-team05
 Commit/tag p1-v1.0: TBD
 Commit/tag p2-v1.0: TBD
 Commit/tag p3-v1.0: TBD
