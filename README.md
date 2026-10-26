@@ -35,7 +35,7 @@ The lab says not to commit PDFs, datasets, API keys, or tokens. Weights, generat
 
 | What | Where it comes from | Where a run reads it |
 | --- | --- | --- |
-| Part 1 PDFs and `Questions.csv` | Supplied with the lab | `Part1/data/` (not in git) |
+| Part 1 documents | Canvas and the Kaggle data tab: three economics PDFs, `Questions.csv`, and `kb_manifest.json` | Put them in `Part1/data/` on your machine. On Kaggle, attach the competition data. The lab says not to commit PDFs or datasets, so these files are not in this repo. |
 | Part 2 training set, 833 pairs | [reach-vb/pokemon-blip-captions](https://huggingface.co/datasets/reach-vb/pokemon-blip-captions) | The notebook downloads it. Cache: `Part2/data/pokemon-blip-captions`. On Colab the cache is on the VM. |
 | Part 2 weights (Sneha) | [rank 16, final](https://huggingface.co/Sneha-subbu/data266-lab2-p2-lora_r16), [rank 4](https://huggingface.co/Sneha-subbu/data266-lab2-p2-lora_r4) | Hugging Face |
 | Part 2 generated images (Sneha) | [data266-lab2-p2-images](https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p2-images) | Hugging Face |
