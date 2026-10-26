@@ -27,87 +27,6 @@ Python 3.13. Open a notebook from the repo root and use Restart & Run All. The f
 
 ---
 
-## Datasets
-
-| Part | Sneha Singh | Ritika Neema |
-| --- | --- | --- |
-| 1 | Canvas and the Kaggle data tab: three economics PDFs, `Questions.csv`, `kb_manifest.json` | Same files |
-| 2 | [reach-vb/pokemon-blip-captions](https://huggingface.co/datasets/reach-vb/pokemon-blip-captions) | Same dataset. Her own run is not recorded yet. |
-| 3 | [data266-lab2-p3-inputs](https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs) | Not recorded yet |
-
----
-
-## Part 1 — Multimodal RAG
-
-Notebook: `notebooks/p1_rag.ipynb`.
-
-The PDFs stay read-only. A fact added in one chat stays in that chat. Dense retrieval is the baseline. The final system mixes dense search with BM25.
-
-![Part 1 architecture: ingestion, retrieval, conversation memory, and evaluation](report/figures/part1/architecture.png)
-
-## Part 2 — Diffusion fine-tuning
-
-Notebook: `notebooks/p2_finetune.ipynb`.
-
-Two LoRA ranks, 4 and 16, on the same data and the same step budget. Rank 16 is the one we kept. Prompts are in `eval/p2_prompts.json`, written before training.
-
-![Part 2 architecture: data preparation, LoRA fine-tuning, generation, and evaluation](report/figures/part2/architecture.png)
-
-## Part 3 — Multimodal agents
-
-Notebook: `notebooks/p3_agents.ipynb`.
-
-The planner picks a route. Vision describes the image. The prompt agent rewrites the request. Generation makes the image. Critique can send it back, at most twice. A caption stops after vision. An unsafe request stops at the planner.
-
-![Part 3 architecture: planner, vision, prompt, generation, and critique](report/figures/part3/architecture.png)
-
----
-
-## How to run
-
-### Both
-
-Part 1. On Kaggle, open `notebooks/p1_rag.ipynb` from tag `p1-v1.0`. Attach the competition data and `Part1/validate_submission.py`. Turn on a GPU and internet. Run All. It writes `submission.csv` and checks it. The limit is 90 minutes on one 16 GB GPU.
-
-Part 2. On Colab, upload `notebooks/p2_finetune.ipynb` and Run All. It mounts Drive and saves to `MyDrive/data266_lab2_p2/`. A finished step is skipped. Training resumes from the checkpoint if the session drops.
-
-Part 3. On Colab, put `eval/` and `inputs/` in `MyDrive/data266_lab2_p3/`, upload `notebooks/p3_agents.ipynb`, and Run All. That path is 512 pixels and 30 steps. The last cell starts Gradio.
-
-### Sneha Singh
-
-Part 1. On my Mac I start Ollama with `qwen2.5vl:3b` and `qwen2.5:7b`, put the three PDFs in `Part1/data/`, and Run All. Notes: [Part1/sneha_singh/README.md](Part1/sneha_singh/README.md). Scores: [Part1/sneha_singh/results.md](Part1/sneha_singh/results.md).
-
-Part 2. Weights: [rank 16](https://huggingface.co/Sneha-subbu/data266-lab2-p2-lora_r16), [rank 4](https://huggingface.co/Sneha-subbu/data266-lab2-p2-lora_r4). Images: [data266-lab2-p2-images](https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p2-images). After the weights are cached, two prompts on my Mac:
-
-```bash
-.venv/bin/python Part2/sneha_singh/demo_generate.py "prompt one" "prompt two"
-```
-
-Scores: [Part2/sneha_singh/results.md](Part2/sneha_singh/results.md).
-
-Part 3. The bonus app is [data266-lab2-p3-agents](https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents), on the free ZeroGPU plan. The upload files are in `Part3/sneha_singh/hf_space/`, with their own `requirements.txt` because that build is Python 3.10. Notes: [Part3/sneha_singh/README.md](Part3/sneha_singh/README.md). Scores: [Part3/sneha_singh/results.md](Part3/sneha_singh/results.md).
-
-### Ritika Neema
-
-Part 1.
-
-Part 2.
-
-Part 3.
-
----
-
-## Models
-
-| Part | Models |
-| --- | --- |
-| 1, local | Ollama `qwen2.5vl:3b` for figures, `qwen2.5:7b` for answers; `all-MiniLM-L6-v2`; `ms-marco-MiniLM-L6-v2` reranker |
-| 1, Kaggle | `Qwen/Qwen2.5-VL-7B-Instruct` through `transformers` |
-| 2 | `stable-diffusion-v1-5/stable-diffusion-v1-5`, LoRA ranks 4 and 16; `openai/clip-vit-base-patch32`; LPIPS AlexNet; torchmetrics KID |
-| 3 | `Qwen2.5-VL-3B`; Stable Diffusion 1.5 img2img; InstructPix2Pix; the Part 2 rank-16 LoRA; CLIP ViT-B/32 |
-
----
-
 ## Repo layout
 
 ```text
@@ -129,3 +48,82 @@ data266-lab2-team05/
 ```
 
 The code is in the notebooks. Each of us has a `sneha_singh/` or `ritika_neema/` folder under the three parts. `Part3/sneha_singh/hf_space/` is only the bonus app upload. PDFs and images stay out of git.
+
+---
+
+## Datasets
+
+| Part | Sneha Singh | Ritika Neema |
+| --- | --- | --- |
+| 1 | Canvas and the Kaggle data tab: three economics PDFs, `Questions.csv`, `kb_manifest.json` | Same files |
+| 2 | [reach-vb/pokemon-blip-captions](https://huggingface.co/datasets/reach-vb/pokemon-blip-captions) | Same dataset. Her own run is not recorded yet. |
+| 3 | [data266-lab2-p3-inputs](https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs) | Not recorded yet |
+
+---
+
+## Models
+
+| Part | Models |
+| --- | --- |
+| 1, local | Ollama `qwen2.5vl:3b` for figures, `qwen2.5:7b` for answers; `all-MiniLM-L6-v2`; `ms-marco-MiniLM-L6-v2` reranker |
+| 1, Kaggle | `Qwen/Qwen2.5-VL-7B-Instruct` through `transformers` |
+| 2 | `stable-diffusion-v1-5/stable-diffusion-v1-5`, LoRA ranks 4 and 16; `openai/clip-vit-base-patch32`; LPIPS AlexNet; torchmetrics KID |
+| 3 | `Qwen2.5-VL-3B`; Stable Diffusion 1.5 img2img; InstructPix2Pix; the Part 2 rank-16 LoRA; CLIP ViT-B/32 |
+
+---
+
+## How to run
+
+### Both
+
+| Part | Where | What to do |
+| --- | --- | --- |
+| 1 | Kaggle | Open `notebooks/p1_rag.ipynb` from tag `p1-v1.0`. Attach the competition data and `Part1/validate_submission.py`. Turn on a GPU and internet. Run All. It writes `submission.csv` and checks it. Limit: 90 minutes on one 16 GB GPU. |
+| 2 | Colab | Upload `notebooks/p2_finetune.ipynb` and Run All. It mounts Drive and saves to `MyDrive/data266_lab2_p2/`. A finished step is skipped. Training resumes from the checkpoint if the session drops. |
+| 3 | Colab | Put `eval/` and `inputs/` in `MyDrive/data266_lab2_p3/`, upload `notebooks/p3_agents.ipynb`, and Run All. 512 pixels, 30 steps. The last cell starts Gradio. |
+
+### Sneha Singh
+
+| Part | Where | What to do |
+| --- | --- | --- |
+| 1 | Mac | Start Ollama `qwen2.5vl:3b` and `qwen2.5:7b`. Put the three PDFs in `Part1/data/`. Run All. [Notes](Part1/sneha_singh/README.md). [Scores](Part1/sneha_singh/results.md). |
+| 2 | Mac | Weights: [rank 16](https://huggingface.co/Sneha-subbu/data266-lab2-p2-lora_r16), [rank 4](https://huggingface.co/Sneha-subbu/data266-lab2-p2-lora_r4). Images: [data266-lab2-p2-images](https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p2-images). Two prompts: `.venv/bin/python Part2/sneha_singh/demo_generate.py "prompt one" "prompt two"`. [Scores](Part2/sneha_singh/results.md). |
+| 3 | Space | Bonus app: [data266-lab2-p3-agents](https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents), free ZeroGPU. Upload folder: `Part3/sneha_singh/hf_space/`, own `requirements.txt` because that build is Python 3.10. [Notes](Part3/sneha_singh/README.md). [Scores](Part3/sneha_singh/results.md). |
+
+### Ritika Neema
+
+| Part | Where | What to do |
+| --- | --- | --- |
+| 1 | | |
+| 2 | | |
+| 3 | | |
+
+---
+
+## Architecture
+
+One diagram per part. Both of us run this same design.
+
+### Part 1 — Multimodal RAG
+
+Notebook: `notebooks/p1_rag.ipynb`.
+
+The PDFs stay read-only. A fact added in one chat stays in that chat. Dense retrieval is the baseline. The final system mixes dense search with BM25.
+
+![Part 1 architecture: ingestion, retrieval, conversation memory, and evaluation](report/figures/part1/architecture.png)
+
+### Part 2 — Diffusion fine-tuning
+
+Notebook: `notebooks/p2_finetune.ipynb`.
+
+Two LoRA ranks, 4 and 16, on the same data and the same step budget. Rank 16 is the one we kept. Prompts are in `eval/p2_prompts.json`, written before training.
+
+![Part 2 architecture: data preparation, LoRA fine-tuning, generation, and evaluation](report/figures/part2/architecture.png)
+
+### Part 3 — Multimodal agents
+
+Notebook: `notebooks/p3_agents.ipynb`.
+
+The planner picks a route. Vision describes the image. The prompt agent rewrites the request. Generation makes the image. Critique can send it back, at most twice. A caption stops after vision. An unsafe request stops at the planner.
+
+![Part 3 architecture: planner, vision, prompt, generation, and critique](report/figures/part3/architecture.png)
