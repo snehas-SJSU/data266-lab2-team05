@@ -17,7 +17,7 @@ I built `notebooks/p1_rag.ipynb` and ran it locally. It parses the three PDFs, k
 
 ### Part 2
 
-I built and ran `notebooks/p2_finetune.ipynb` on a Colab L4: data prep, LoRA rank 4 and rank 16, and the 120 images. I scored KID, CLIP, and LPIPS, ran the safety checker and the memorization check, and uploaded both adapters and the images to Hugging Face. I made the blinded rating page and rated the 25 pairs. My notes are in `Part2/sneha_singh/results.md` and section 2.A of `report/report.md`. How to run it is in `README.md`. The prompt file is `eval/p2_prompts.json`.
+I built and ran `notebooks/p2_finetune.ipynb` on a Colab L4: data prep, LoRA rank 4 and rank 16, and the 120 images. I scored KID, CLIP, and LPIPS, ran the safety checker and the memorization check, and uploaded both adapters and the images to Hugging Face. I made the blinded rating page and rated the 25 pairs. Ritika Neema and Rajesh rated the same 25 pairs. Rajesh is the rater from outside the team. My notes are in `Part2/sneha_singh/results.md` and section III of `report/report.md`. How to run it is in `README.md`. The prompt file is `eval/p2_prompts.json`.
 
 ### Part 3
 
