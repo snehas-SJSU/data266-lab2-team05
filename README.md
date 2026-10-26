@@ -47,7 +47,7 @@ data266-lab2-team05/
 └── .gitignore
 ```
 
-The code is in the notebooks. Each of us has a `sneha_singh/` or `ritika_neema/` folder under the three parts. `Part3/sneha_singh/hf_space/` is only the bonus app upload. PDFs and images stay out of git.
+The code is in the notebooks. Each of us has a `sneha_singh/` or `ritika_neema/` folder under the three parts. `traces/` is the Part 3 log: one JSON file per request. The lab puts that folder here, next to `eval/`. `Part3/sneha_singh/hf_space/` is only the bonus app upload. PDFs and images stay out of git.
 
 ---
 
