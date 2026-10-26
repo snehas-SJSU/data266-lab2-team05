@@ -1,0 +1,11 @@
+-r Part1/requirements.txt
+# Part 2 (versions tested end to end locally and pinned for Colab); Part 3 starters below.
+diffusers==0.42.0
+peft==0.21.2
+datasets==5.1.0
+torchmetrics==1.9.0
+torch-fidelity==0.4.0
+lpips==0.1.4
+# accelerate is pinned by Part1/requirements.txt (1.12.0)
+# Additional starters for Part 3; its pipeline is not run here.
+gradio==5.8.0

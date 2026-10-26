@@ -1,0 +1,242 @@
+{
+ "r01": {
+  "kind": "scenario",
+  "id": "S08",
+  "mode": "critic",
+  "category": "edit_or_enhancement"
+ },
+ "r02": {
+  "kind": "scenario",
+  "id": "S09",
+  "mode": "baseline",
+  "category": "edit_or_enhancement"
+ },
+ "r03": {
+  "kind": "scenario",
+  "id": "S10",
+  "mode": "baseline",
+  "category": "domain_style_generation"
+ },
+ "r04": {
+  "kind": "redteam",
+  "id": "R03",
+  "mode": "critic",
+  "category": "instruction_in_image"
+ },
+ "r05": {
+  "kind": "scenario",
+  "id": "S07",
+  "mode": "baseline",
+  "category": "edit_or_enhancement"
+ },
+ "r06": {
+  "kind": "scenario",
+  "id": "S04",
+  "mode": "baseline",
+  "category": "style_change"
+ },
+ "r07": {
+  "kind": "redteam",
+  "id": "R07",
+  "mode": "critic",
+  "category": "unsafe_request"
+ },
+ "r08": {
+  "kind": "scenario",
+  "id": "S05",
+  "mode": "baseline",
+  "category": "style_change"
+ },
+ "r09": {
+  "kind": "redteam",
+  "id": "R06",
+  "mode": "critic",
+  "category": "unsafe_request"
+ },
+ "r10": {
+  "kind": "scenario",
+  "id": "S12",
+  "mode": "critic",
+  "category": "domain_style_generation"
+ },
+ "r11": {
+  "kind": "scenario",
+  "id": "S06",
+  "mode": "baseline",
+  "category": "style_change"
+ },
+ "r12": {
+  "kind": "scenario",
+  "id": "S11",
+  "mode": "baseline",
+  "category": "domain_style_generation"
+ },
+ "r13": {
+  "kind": "scenario",
+  "id": "S14",
+  "mode": "baseline",
+  "category": "ambiguous_or_broken_input"
+ },
+ "r14": {
+  "kind": "scenario",
+  "id": "S12",
+  "mode": "baseline",
+  "category": "domain_style_generation"
+ },
+ "r15": {
+  "kind": "scenario",
+  "id": "S11",
+  "mode": "critic",
+  "category": "domain_style_generation"
+ },
+ "r16": {
+  "kind": "scenario",
+  "id": "S08",
+  "mode": "baseline",
+  "category": "edit_or_enhancement"
+ },
+ "r17": {
+  "kind": "redteam",
+  "id": "R09",
+  "mode": "critic",
+  "category": "broken_file"
+ },
+ "r18": {
+  "kind": "scenario",
+  "id": "S03",
+  "mode": "baseline",
+  "category": "caption_visual_question"
+ },
+ "r19": {
+  "kind": "scenario",
+  "id": "S05",
+  "mode": "critic",
+  "category": "style_change"
+ },
+ "r20": {
+  "kind": "scenario",
+  "id": "S01",
+  "mode": "baseline",
+  "category": "caption_visual_question"
+ },
+ "r21": {
+  "kind": "redteam",
+  "id": "R01",
+  "mode": "critic",
+  "category": "instruction_in_image"
+ },
+ "r22": {
+  "kind": "scenario",
+  "id": "S15",
+  "mode": "baseline",
+  "category": "ambiguous_or_broken_input"
+ },
+ "r23": {
+  "kind": "redteam",
+  "id": "R02",
+  "mode": "critic",
+  "category": "instruction_in_image"
+ },
+ "r24": {
+  "kind": "scenario",
+  "id": "S06",
+  "mode": "critic",
+  "category": "style_change"
+ },
+ "r25": {
+  "kind": "scenario",
+  "id": "S10",
+  "mode": "critic",
+  "category": "domain_style_generation"
+ },
+ "r26": {
+  "kind": "scenario",
+  "id": "S01",
+  "mode": "critic",
+  "category": "caption_visual_question"
+ },
+ "r27": {
+  "kind": "redteam",
+  "id": "R04",
+  "mode": "critic",
+  "category": "instruction_in_image"
+ },
+ "r28": {
+  "kind": "scenario",
+  "id": "S09",
+  "mode": "critic",
+  "category": "edit_or_enhancement"
+ },
+ "r29": {
+  "kind": "scenario",
+  "id": "S13",
+  "mode": "baseline",
+  "category": "ambiguous_or_broken_input"
+ },
+ "r30": {
+  "kind": "redteam",
+  "id": "R10",
+  "mode": "critic",
+  "category": "empty_file"
+ },
+ "r31": {
+  "kind": "scenario",
+  "id": "S02",
+  "mode": "critic",
+  "category": "caption_visual_question"
+ },
+ "r32": {
+  "kind": "redteam",
+  "id": "R08",
+  "mode": "critic",
+  "category": "edit_of_real_person"
+ },
+ "r33": {
+  "kind": "scenario",
+  "id": "S02",
+  "mode": "baseline",
+  "category": "caption_visual_question"
+ },
+ "r34": {
+  "kind": "scenario",
+  "id": "S14",
+  "mode": "critic",
+  "category": "ambiguous_or_broken_input"
+ },
+ "r35": {
+  "kind": "scenario",
+  "id": "S13",
+  "mode": "critic",
+  "category": "ambiguous_or_broken_input"
+ },
+ "r36": {
+  "kind": "scenario",
+  "id": "S07",
+  "mode": "critic",
+  "category": "edit_or_enhancement"
+ },
+ "r37": {
+  "kind": "scenario",
+  "id": "S15",
+  "mode": "critic",
+  "category": "ambiguous_or_broken_input"
+ },
+ "r38": {
+  "kind": "scenario",
+  "id": "S04",
+  "mode": "critic",
+  "category": "style_change"
+ },
+ "r39": {
+  "kind": "redteam",
+  "id": "R05",
+  "mode": "critic",
+  "category": "unsafe_request"
+ },
+ "r40": {
+  "kind": "scenario",
+  "id": "S03",
+  "mode": "critic",
+  "category": "caption_visual_question"
+ }
+}

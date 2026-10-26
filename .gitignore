@@ -1,0 +1,17 @@
+__pycache__/
+.ipynb_checkpoints/
+.venv/
+*.pyc
+*.pt
+*.ckpt
+*.safetensors
+*.bin
+*.zip
+**/data/*
+!**/data/.gitkeep
+models/
+outputs/
+secrets.*
+.env
+*.pdf
+.DS_Store

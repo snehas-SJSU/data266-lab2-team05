@@ -1,0 +1,26 @@
+pair,prompt,rater1,rater2,rater3
+0,a red fish with a gold crown on its head,R,L,R
+1,a drawing of a cat wearing a helmet,L,L,R
+2,a cartoon of a blue and black dragon,L,L,L
+3,a drawing of a blue and white object floating in water,R,L,R
+4,a drawing of a blue and white object floating in water,L,L,L
+5,a bird with a long beak flying through the air,R,R,R
+6,a bird with a long beak flying through the air,R,R,R
+7,a drawing of a star with a red eye,L,R,R
+8,a drawing of a cat with red eyes,L,L,L
+9,a drawing of a cat with red eyes,R,R,R
+10,a cartoon butterfly with blue eyes and yellow wings,L,L,L
+11,a cartoon of a pikachu flying through the air,R,R,R
+12,a cartoon of a pikachu flying through the air,R,R,L
+13,a photograph of a mountain lake at sunrise,R,L,L
+14,a photograph of a mountain lake at sunrise,L,R,L
+15,a red sports car on a city street,R,R,R
+16,a red sports car on a city street,R,R,R
+17,an astronaut riding a horse on the moon,L,L,L
+18,a cozy living room with a fireplace,R,R,R
+19,"two pokemon, one red and one blue, standing side by side",R,L,R
+20,"two pokemon, one red and one blue, standing side by side",R,R,R
+21,a yellow pokemon holding a green leaf,R,L,L
+22,"three small round pokemon in a row, the left one purple",R,R,R
+23,a blue pokemon on top of a red box,L,L,L
+24,"a pink pokemon next to a black pokemon, white background",L,L,L

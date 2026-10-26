@@ -1,0 +1,4 @@
+model,KID_mean,KID_std,CLIP,LPIPS_diversity,trainable_params,gpu_hours,peak_mem_gb
+base,0.06024,0.00852,0.322,0.7349,,,
+lora_r4,0.02671,0.00617,0.311,0.7178,797184.0,0.2401,4.22
+lora_r16,0.02314,0.00506,0.3155,0.7123,3188736.0,0.2399,4.27

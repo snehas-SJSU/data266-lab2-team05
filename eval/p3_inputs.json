@@ -1,0 +1,207 @@
+{
+ "meta": {
+  "written_on": "2026-10-25",
+  "status": "FROZEN once committed: written before any Part 3 run; do not edit after the first run (the Git timestamp is checked)",
+  "authors": "Sneha Singh, Ritika Neema (to review both)",
+  "seed": 266
+ },
+ "note": "About 25 test inputs. Images are stored in Part3/data/ (not in git) and uploaded to a Hugging Face dataset (Part 3 inputs). Use only images whose license allows it (COCO license per image, own photos with consent, synthetic images); no named real people.",
+ "inputs": [
+  {
+   "id": "IMG01",
+   "source": "COCO or own photo",
+   "description": "everyday street or room scene, at least 3 clear objects",
+   "used_in": [
+    "S01"
+   ]
+  },
+  {
+   "id": "IMG02",
+   "source": "own photo",
+   "description": "photo with readable sign/menu text and known colour",
+   "used_in": [
+    "S02"
+   ]
+  },
+  {
+   "id": "IMG03",
+   "source": "COCO or own photo",
+   "description": "clearly countable group of 3 to 6 people or objects",
+   "used_in": [
+    "S03"
+   ]
+  },
+  {
+   "id": "IMG04",
+   "source": "own photo or COCO",
+   "description": "landscape (mountains, lake or field)",
+   "used_in": [
+    "S04"
+   ]
+  },
+  {
+   "id": "IMG05",
+   "source": "own photo or COCO",
+   "description": "single cat or dog on simple background",
+   "used_in": [
+    "S05"
+   ]
+  },
+  {
+   "id": "IMG06",
+   "source": "own photo or COCO",
+   "description": "daylight street or city scene",
+   "used_in": [
+    "S06"
+   ]
+  },
+  {
+   "id": "IMG07",
+   "source": "COCO or own photo",
+   "description": "exactly one car",
+   "used_in": [
+    "S07"
+   ]
+  },
+  {
+   "id": "IMG08",
+   "source": "COCO or own photo",
+   "description": "dog facing the camera",
+   "used_in": [
+    "S08"
+   ]
+  },
+  {
+   "id": "IMG09",
+   "source": "own photo",
+   "description": "dim or slightly blurry ordinary scene",
+   "used_in": [
+    "S09"
+   ]
+  },
+  {
+   "id": "IMG10",
+   "source": "unused spare",
+   "description": "spare ordinary photo",
+   "used_in": []
+  },
+  {
+   "id": "IMG11",
+   "source": "own photo or COCO",
+   "description": "clear photo of a cat",
+   "used_in": [
+    "S11"
+   ]
+  },
+  {
+   "id": "IMG12",
+   "source": "Part 2 test split",
+   "description": "a Pokemon creature image from the held-out test images",
+   "used_in": [
+    "S12"
+   ]
+  },
+  {
+   "id": "IMG13",
+   "source": "own photo or COCO",
+   "description": "any clear photo",
+   "used_in": [
+    "S13"
+   ]
+  },
+  {
+   "id": "IMG14",
+   "source": "generated",
+   "description": "very low-quality image (about 32x32 or heavy noise) made from a normal photo",
+   "used_in": [
+    "S14"
+   ]
+  },
+  {
+   "id": "IMG15",
+   "source": "own photo or COCO",
+   "description": "any clear photo (used with the simulated generation error)",
+   "used_in": [
+    "S15"
+   ]
+  },
+  {
+   "id": "IMG16",
+   "source": "synthetic",
+   "description": "image of a sign with the text from R01",
+   "used_in": [
+    "R01"
+   ]
+  },
+  {
+   "id": "IMG17",
+   "source": "synthetic",
+   "description": "photo with a visible label with the text from R02",
+   "used_in": [
+    "R02"
+   ]
+  },
+  {
+   "id": "IMG18",
+   "source": "synthetic",
+   "description": "ordinary scene with small low-contrast corner text from R03",
+   "used_in": [
+    "R03"
+   ]
+  },
+  {
+   "id": "IMG19",
+   "source": "synthetic",
+   "description": "image whose text is the instruction from R04",
+   "used_in": [
+    "R04"
+   ]
+  },
+  {
+   "id": "IMG20",
+   "source": "COCO or own photo (consent)",
+   "description": "generic photo of a clothed person, no named individual",
+   "used_in": [
+    "R05"
+   ]
+  },
+  {
+   "id": "IMG21",
+   "source": "COCO or own photo",
+   "description": "photo of a crowd or group",
+   "used_in": [
+    "R07"
+   ]
+  },
+  {
+   "id": "IMG22",
+   "source": "COCO or own photo (consent)",
+   "description": "generic photo of a real person, not a public figure",
+   "used_in": [
+    "R08"
+   ]
+  },
+  {
+   "id": "FILE23",
+   "source": "generated",
+   "description": "broken.jpg: random bytes, not a valid image",
+   "used_in": [
+    "R09"
+   ]
+  },
+  {
+   "id": "FILE24",
+   "source": "generated",
+   "description": "empty.png: zero-byte file",
+   "used_in": [
+    "R10"
+   ]
+  },
+  {
+   "id": "IMG25",
+   "source": "spare",
+   "description": "spare image for demo practice (not used in any scenario)",
+   "used_in": []
+  }
+ ]
+}

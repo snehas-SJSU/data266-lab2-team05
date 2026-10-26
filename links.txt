@@ -1,0 +1,29 @@
+# Final submission links - Team 05 (Pair_Programming_Team_05)
+# Shared team lines first, then one section per member. Each member fills only her own section.
+
+## Shared (team)
+GitHub repository: TBD
+Commit/tag p1-v1.0: TBD
+Commit/tag p2-v1.0: TBD
+Commit/tag p3-v1.0: TBD
+Final Kaggle notebook/submission: TBD
+
+## Sneha Singh
+# Part 1
+Part 1 Kaggle notebook (Sneha): TBD
+
+# Part 2 (graded links)
+Hugging Face Part 2 models: https://huggingface.co/Sneha-subbu/data266-lab2-p2-lora_r16 (final, rank 16); https://huggingface.co/Sneha-subbu/data266-lab2-p2-lora_r4 (rank 4)
+Hugging Face generated images: https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p2-images
+
+# Part 3
+Hugging Face Part 3 inputs: TBD
+
+## Ritika Neema
+# Part 1
+Part 1 Kaggle notebook (Ritika): TBD
+# Part 2
+Ritika Part 2 models: TBD
+Ritika Part 2 generated images: TBD
+# Part 3
+Ritika Part 3 inputs: TBD
