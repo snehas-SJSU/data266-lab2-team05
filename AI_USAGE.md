@@ -6,7 +6,7 @@ Each member records her own AI tools and what they were used for; do not edit th
 
 ### AI assistant
 
-Name:
+**Name:**
 
 An AI assistant helped me design. I read the papers. For each part the help was the design of the hard piece, and on top of that a brainstorm of what to take from the papers.
 
