@@ -86,7 +86,7 @@ The code is in the notebooks. Each of us has a `sneha_singh/` or `ritika_neema/`
 
 | Part | Where | What to do |
 | --- | --- | --- |
-| 1 | Mac | Start Ollama `qwen2.5vl:3b` and `qwen2.5:7b`. Put the three PDFs in `Part1/data/`. Run All. [Notes](Part1/sneha_singh/README.md). [Scores](Part1/sneha_singh/results.md). |
+| 1 | Mac | Start Ollama `qwen2.5vl:3b` and `qwen2.5:7b`. Put the three PDFs in `Part1/data/`. Run All. [Scores](Part1/sneha_singh/results.md). |
 | 2 | Mac | Weights: [rank 16](https://huggingface.co/Sneha-subbu/data266-lab2-p2-lora_r16), [rank 4](https://huggingface.co/Sneha-subbu/data266-lab2-p2-lora_r4). Images: [data266-lab2-p2-images](https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p2-images). Two prompts: `.venv/bin/python Part2/sneha_singh/demo_generate.py "prompt one" "prompt two"`. [Scores](Part2/sneha_singh/results.md). |
 | 3 | Space | Bonus app: [data266-lab2-p3-agents](https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents), free ZeroGPU. Upload folder: `Part3/sneha_singh/hf_space/`, own `requirements.txt` because that build is Python 3.10. [Notes](Part3/sneha_singh/README.md). [Scores](Part3/sneha_singh/results.md). |
 
