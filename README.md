@@ -4,7 +4,7 @@
 **Canvas / Kaggle:** `Pair_Programming_Team_05`
 **Seed:** 266
 **GPU:** one 16 GB GPU
-**Tags:** `p1-v1.0`, `p2-v1.0`, `p3-v1.0`, all at commit `0824415`. Later commits on `main` are documentation after those tags.
+**Tags:** `p1-v1.0` and `p3-v1.0` at commit `0824415`. `p2-v1.0` at commit `6cbb16b`.
 
 | Member | Folder |
 | --- | --- |
