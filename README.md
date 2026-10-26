@@ -1,93 +1,81 @@
-# DATA 266 Lab 2
+# DATA 266 Lab 2 — Team 05
 
-Team 05: Sneha Singh and Ritika Neema. Canvas and Kaggle team: `Pair_Programming_Team_05`. Private repository: [data266-lab2-team05](https://github.com/snehas-SJSU/data266-lab2-team05).
+**GitHub:** [data266-lab2-team05](https://github.com/snehas-SJSU/data266-lab2-team05)
+**Canvas / Kaggle:** `Pair_Programming_Team_05`
+**Seed:** 266
+**GPU:** one 16 GB GPU
+**Tags:** `p1-v1.0`, `p2-v1.0`, `p3-v1.0`, all at commit `0824415`. Later commits on `main` are documentation after those tags.
 
-Three parts: multimodal RAG over three economics PDFs, with a Kaggle competition (Part 1); fine-tuning Stable Diffusion 1.5 with LoRA on Pokemon BLIP captions (Part 2); a multimodal agent system (Part 3). Seed 266. One 16 GB GPU. Grading tags, created before the deadline: `p1-v1.0`, `p2-v1.0`, `p3-v1.0`.
+| Member | Folder |
+| --- | --- |
+| Sneha Singh | `sneha_singh/` under `Part1/`, `Part2/`, and `Part3/` |
+| Ritika Neema | `ritika_neema/` under `Part1/`, `Part2/`, and `Part3/` |
 
-No hosted API is used. Every model below runs locally, on Ollama, or on Kaggle or Colab. Both members use the same three notebooks. Each member's notes, runs, and links stay in her own section.
+Three parts, one shared notebook each: multimodal RAG over three economics PDFs, plus a Kaggle competition (Part 1); Stable Diffusion 1.5 fine-tuned with LoRA on Pokemon BLIP captions (Part 2); a multimodal agent system (Part 3). No hosted API is used. Every model runs locally, on Ollama, or on Kaggle or Colab. Each member's notes, runs, and links stay in her own folder. The full link list is `links.txt`.
+
+---
 
 ## Setup
 
 ```bash
-python -m venv .venv && source .venv/bin/activate
+git clone https://github.com/snehas-SJSU/data266-lab2-team05.git
+cd data266-lab2-team05
+python -m venv .venv
+source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
 Python 3.13. Open each notebook from the project root, or from `notebooks/`, and use Restart & Run All. The first cell prints the git commit, library versions, GPU, and seed. On Colab that commit prints `n/a` because the notebook is not inside this repository there.
 
-Weights, datasets, generated images, PDFs, and secrets stay out of git (`.gitignore`). Model weights and generated images are on Hugging Face. Why the Part 2 and Part 3 image folders are empty here is in [Part2/data/README.md](Part2/data/README.md) and [Part3/data/README.md](Part3/data/README.md).
+---
 
-| Part | Notebook | Where it runs |
+## Files not in git
+
+The lab says not to commit PDFs, datasets, API keys, or tokens. Weights, generated images, and the Part 3 inputs are on Hugging Face. `.gitignore` keeps everything inside a `data/` folder except a short README, so those folders look empty on GitHub.
+
+| What | Where it comes from | Where a run reads it |
 | --- | --- | --- |
-| 1 Multimodal RAG | `notebooks/p1_rag.ipynb` | Mac with Ollama, or Kaggle GPU for the submission |
-| 2 Diffusion fine-tuning | `notebooks/p2_finetune.ipynb` | Colab GPU. A short smoke test can run on CPU or Apple MPS |
-| 3 Multimodal agents | `notebooks/p3_agents.ipynb` | Colab GPU for the final run. Mac with Ollama for development |
+| Part 1 PDFs and `Questions.csv` | Supplied with the lab | `Part1/data/` (not in git) |
+| Part 2 training set, 833 pairs | [reach-vb/pokemon-blip-captions](https://huggingface.co/datasets/reach-vb/pokemon-blip-captions) | The notebook downloads it. Cache: `Part2/data/pokemon-blip-captions`. On Colab the cache is on the VM. |
+| Part 2 weights (Sneha) | [rank 16, final](https://huggingface.co/Sneha-subbu/data266-lab2-p2-lora_r16), [rank 4](https://huggingface.co/Sneha-subbu/data266-lab2-p2-lora_r4) | Hugging Face |
+| Part 2 generated images (Sneha) | [data266-lab2-p2-images](https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p2-images) | Hugging Face |
+| Part 3 test images (Sneha) | Chosen by us. Same files: [data266-lab2-p3-inputs](https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs) | Mac: `Part3/data/inputs/` (not committed). Colab: `MyDrive/data266_lab2_p3/inputs/`, with `eval/` in that same Drive folder. |
+| Part 3 bonus app (Sneha) | [data266-lab2-p3-agents](https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents) | Hugging Face Space, free ZeroGPU |
 
-## Part 1
+The Part 2 notebook drops corrupt and duplicate images and makes a 90/10 split with seed 266. Part 3 does not download its test images. If `IMG07.png` is missing, the notebook creates one silver sedan with seed 266. The file list, including the CC BY 2.0 COCO photos, is in [Part3/data/README.md](Part3/data/README.md). More on the empty folders: [Part2/data/README.md](Part2/data/README.md). Ritika's Part 2 models, Part 2 images, and Part 3 inputs are still open in `links.txt`.
 
-Shared notebook: `notebooks/p1_rag.ipynb`. Kaggle, for the graded submission: use the notebook from the `p1-v1.0` tag, attach the competition data and `Part1/validate_submission.py`, enable a GPU and internet, and Run All. The notebook reads `QUESTIONS_PATH` (default `Questions.csv`), writes `submission.csv`, and checks it with `validate_submission.py`. Submit that CSV from the Output tab. The lab limit is 90 minutes on one 16 GB GPU. Mac timings do not count for it.
+---
 
-### Sneha Singh
+## How to run
 
-Local: start Ollama with `qwen2.5vl:3b` and `qwen2.5:7b`, then Run All. Step-by-step notes are in [Part1/sneha_singh/README.md](Part1/sneha_singh/README.md). Scores are in [Part1/sneha_singh/results.md](Part1/sneha_singh/results.md).
+Both members use the same three notebooks. Commands below are from the repo root, after Setup.
 
-Development scores are in [Part1/sneha_singh/results.md](Part1/sneha_singh/results.md). Human ratings are 0/50. The timed Kaggle run is not done. The golden set still needs both members to review it.
+| Part | Member | Where | What to do |
+| --- | --- | --- | --- |
+| 1 | Sneha | Mac, Ollama | Start `qwen2.5vl:3b` and `qwen2.5:7b`, then Restart & Run All on `notebooks/p1_rag.ipynb`. |
+| 1 | Both | Kaggle GPU | Use the notebook from tag `p1-v1.0`. Attach the competition data and `Part1/validate_submission.py`. Turn on a GPU and internet. Run All. It reads `Questions.csv`, writes `submission.csv`, and checks it with `validate_submission.py`. Submit that CSV. Limit: 90 minutes on one 16 GB GPU. Mac timings do not count. |
+| 2 | Both | Colab GPU (T4, L4, or A100) | Upload `notebooks/p2_finetune.ipynb` and Run All. It installs the pinned packages, mounts Drive, and saves to `MyDrive/data266_lab2_p2/`. A finished step is skipped, and training resumes from the checkpoint after a disconnect. Prompts: `eval/p2_prompts.json`. |
+| 2 | Sneha | Mac, smoke test | `.venv/bin/python Part2/sneha_singh/smoke_test/smoke_test.py` after the dataset is cached. 32 images, 5 LoRA steps. This checks the pipeline. It is not the graded run. |
+| 2 | Sneha | Mac, demo | `.venv/bin/python Part2/sneha_singh/demo_generate.py "prompt one" "prompt two"` shows the base model beside the fine-tuned model. |
+| 3 | Sneha | Mac, Ollama | `qwen2.5vl:3b`, inputs in `Part3/data/inputs/`. This path uses 384px and 15 steps. It is not the graded run. |
+| 3 | Both | Colab GPU | Put `eval/` and `inputs/` in `MyDrive/data266_lab2_p3/`, upload `notebooks/p3_agents.ipynb`, and Run All. This path uses 512px and 30 steps. Delete `outputs/runs.jsonl` before a new graded run. The last cell starts Gradio and, on Colab, prints a public link. |
 
-### Ritika Neema
+Ritika still needs her own Part 1 run, her own Part 2 training run, and her own Part 3 pipeline run. Notes for those go in her folders.
 
-Her Part 1 notes are not in yet. They go in [Part1/ritika_neema/README.md](Part1/ritika_neema/README.md). She still needs to run this notebook herself and record that baseline. Her Kaggle link in `links.txt` is still open.
+---
 
-## Part 2
+## Results so far
 
-Shared notebook: `notebooks/p2_finetune.ipynb`. Colab: GPU runtime (T4, L4, or A100), upload the notebook, and Run All. It installs the pinned packages, mounts Drive, and saves to `MyDrive/data266_lab2_p2/`. A finished step is skipped, and training resumes from the checkpoint after a disconnect. The prompts are in `eval/p2_prompts.json`. The training images are not in git. The notebook downloads `reach-vb/pokemon-blip-captions` on the first run. See [Part2/data/README.md](Part2/data/README.md).
+| Part | Member | Run | Result |
+| --- | --- | --- | --- |
+| 1 | Sneha | Local notebook | Run is in. Human ratings are 0/50. The timed Kaggle run is not done. The golden set still needs both members. Detail: [Part1/sneha_singh/results.md](Part1/sneha_singh/results.md). |
+| 1 | Ritika | — | Not recorded yet. |
+| 2 | Sneha | NVIDIA L4. Rank 16 kept. | KID 0.0231 (base 0.0602). CLIP 0.3155 (base 0.322). 0.24 GPU-hours. 4.27 GB peak. About 15 minutes for each LoRA run. Human win rate 38.7% (95% CI 28.5–50.0%, 75 votes from three raters). Detail: [Part2/sneha_singh/results.md](Part2/sneha_singh/results.md). |
+| 2 | Ritika | Ratings only | She rated the 25 pairs. Vote: `Part2/sneha_singh/human_eval/ratings/ratings_Ritika_Neema.csv`. Her training run is not recorded. |
+| 3 | Sneha | 26 Oct, NVIDIA L4 | Routed 30 of 30. Passed 6/15 without the critique loop and 4/15 with it. Critic agreement 34/48. Red-team attack success 0/10. Median 15.1 s without the loop and 31.4 s with it. Both members agreed on all 40 ratings. Detail: [Part3/sneha_singh/results.md](Part3/sneha_singh/results.md). |
+| 3 | Ritika | Ratings only | She rated this run. Her own pipeline run is not in yet. |
 
-Smoke test, from the project root, after the dataset is cached in `Part2/data/`:
-
-```bash
-.venv/bin/python Part2/sneha_singh/smoke_test/smoke_test.py
-```
-
-That run uses 32 images and 5 LoRA steps. It checks data preparation, training, generation, and the metrics. It is not the graded run.
-
-### Sneha Singh
-
-The graded run is on an NVIDIA L4. Each LoRA run took about 15 minutes. Rank 16 is the model she kept: KID 0.0231 against the base model's 0.0602, CLIP 0.3155 against 0.322, 0.24 GPU-hours, 4.27 GB peak. The human win rate on her images is 38.7% (95% CI 28.5–50.0%, 75 votes from three raters). Numbers are in [Part2/sneha_singh/results.md](Part2/sneha_singh/results.md).
-
-Demo, base model beside the fine-tuned model:
-
-```bash
-.venv/bin/python Part2/sneha_singh/demo_generate.py "prompt one" "prompt two"
-```
-
-Weights and images: [rank 16, final](https://huggingface.co/Sneha-subbu/data266-lab2-p2-lora_r16), [rank 4](https://huggingface.co/Sneha-subbu/data266-lab2-p2-lora_r4), [generated images](https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p2-images). The same links are in `links.txt`.
-
-### Ritika Neema
-
-She rated the 25 blinded pairs. That vote is in `Part2/sneha_singh/human_eval/ratings/ratings_Ritika_Neema.csv`. Her own training run is not recorded yet. Notes for that run go in [Part2/ritika_neema/README.md](Part2/ritika_neema/README.md). Her model and image links in `links.txt` are still open.
-
-## Part 3
-
-Shared notebook: `notebooks/p3_agents.ipynb`. Colab: GPU runtime. Put `eval/` and an `inputs/` folder of the test images in `MyDrive/data266_lab2_p3/`, upload the notebook, and Run All. Finished cases are skipped on a later run, so delete `outputs/runs.jsonl` before a new graded run. The last cell starts the Gradio demo and, on Colab, prints a public link.
-
-Local development: Ollama with `qwen2.5vl:3b`, inputs in `Part3/data/inputs/` (not committed). The notebook does not download those images. The Mac path uses 384px and 15 steps. The Colab run uses 512px and 30 steps. Where each file comes from is in [Part3/data/README.md](Part3/data/README.md).
-
-### Sneha Singh
-
-Notes are in [Part3/sneha_singh/README.md](Part3/sneha_singh/README.md). The 26 Oct L4 run routed 30 of 30 scenario runs. Median time was 31.4 s with the critique loop and 15.1 s without it. Both of us rated that run and agreed on all 40. The Results cell printed 6/15 passed without the loop and 4/15 with it, critic agreement 34/48, and red-team attack success 0/10. The test images are at [Sneha-subbu/data266-lab2-p3-inputs](https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs).
-
-Part 3 bonus: the Gradio app is deployed as a Hugging Face Space on the free ZeroGPU plan: [Sneha-subbu/data266-lab2-p3-agents](https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents).
-
-### Ritika Neema
-
-Her Part 3 notes are not in yet. They go in [Part3/ritika_neema/README.md](Part3/ritika_neema/README.md). She still needs to run this notebook herself. Her rating CSV and her Hugging Face input link are still open.
-
-## Datasets
-
-The lab provides no Part 2 or Part 3 files, and it says not to commit datasets. `.gitignore` ignores everything inside a `data/` folder except a short README, so those folders look empty on GitHub.
-
-Part 2. `notebooks/p2_finetune.ipynb` downloads `reach-vb/pokemon-blip-captions` (833 image-caption pairs) on the first run and caches it at `Part2/data/pokemon-blip-captions`. A later run uses that cache. On Colab the cache is on the VM, not in this clone. The notebook then removes corrupt and duplicate images and makes a 90/10 split with seed 266. The graded outputs are a different set: [generated images](https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p2-images), [rank 16](https://huggingface.co/Sneha-subbu/data266-lab2-p2-lora_r16), and [rank 4](https://huggingface.co/Sneha-subbu/data266-lab2-p2-lora_r4). Detail is in [Part2/data/README.md](Part2/data/README.md).
-
-Part 3. The notebook does not download the test images. We chose them. On a Mac they are in `Part3/data/inputs/`. On Colab, put that folder in `MyDrive/data266_lab2_p3/inputs/` and put `eval/` in the same Drive folder before Run All. If `IMG07.png` is missing, the notebook creates one silver sedan with seed 266. The other files have to already be there. The same files are at [Sneha-subbu/data266-lab2-p3-inputs](https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs). COCO photos are CC BY 2.0. The rest are a darkened COCO photo, a 32×32 noisy photo, base Stable Diffusion images, one Part 2 test image, synthetic images with text on them, and a broken file plus an empty file. The list is in [Part3/data/README.md](Part3/data/README.md). The only Hugging Face dataset this notebook loads by itself is `Sneha-subbu/data266-lab2-p2-images`, and only to set the CLIP cutoff.
+---
 
 ## Models
 
@@ -98,11 +86,13 @@ Part 3. The notebook does not download the test images. We chose them. On a Mac 
 | 2 | `stable-diffusion-v1-5/stable-diffusion-v1-5` with LoRA ranks 4 and 16; `openai/clip-vit-base-patch32`; LPIPS AlexNet; torchmetrics KID | none |
 | 3 | `Qwen2.5-VL-3B` for language and vision; Stable Diffusion 1.5 img2img; InstructPix2Pix; the Part 2 rank-16 LoRA; CLIP ViT-B/32; the Stable Diffusion safety checker | none |
 
-## Folder structure
+---
+
+## Repo layout
 
 ```text
 data266-lab2-team05/
-├── README.md                 how to run each part, split by member
+├── README.md                 how to run each part
 ├── requirements.txt          pinned versions
 ├── notebooks/
 │   ├── p1_rag.ipynb          RAG and the Kaggle run
@@ -110,23 +100,64 @@ data266-lab2-team05/
 │   └── p3_agents.ipynb       agents and Gradio
 ├── eval/                     golden set, prompts, scenarios, result sheets
 ├── traces/                   Part 3 JSON traces
-├── Part1/ Part2/ Part3/      each member's notes (sneha_singh/ and ritika_neema/)
-│                             Part2/data and Part3/data hold READMEs only; images are not committed
+├── Part1/ Part2/ Part3/      sneha_singh/ and ritika_neema/
+│                             data/ holds a README only; images and PDFs are not committed
 ├── report/                   report draft and figures
-├── CONTRIBUTIONS.md          who did what, by member and part
-├── AI_USAGE.md               AI tools, by member and part
-├── links.txt                 repo, tags, Hugging Face, Kaggle, by member and part
+├── CONTRIBUTIONS.md          who did what
+├── AI_USAGE.md               AI tools
+├── links.txt                 repo, tags, Hugging Face, Kaggle
 └── .gitignore                data, secrets, weights
 ```
 
 There is no `src/` folder. The code is in the notebooks. `Part2/sneha_singh/outputs/` holds generated images and adapters and is not committed. The lab PDFs in `Lab-requirement/` stay on this machine.
 
-## Status
+---
 
-Grading tags `p1-v1.0`, `p2-v1.0`, and `p3-v1.0` are on GitHub and point at commit `0824415`. Later commits on `main` are documentation after those tags. Who has done what:
+## Part 1 — Multimodal RAG
 
-| Part | Sneha Singh | Ritika Neema |
-| --- | --- | --- |
-| 1 | Local notebook run is in. Golden-set review, human ratings, and the timed Kaggle run are open. | Her run is not recorded yet. |
-| 2 | Training, Hugging Face uploads, and the demo script are done. She rated the 25 pairs. | She rated the 25 pairs. Her own training run is not recorded yet. |
-| 3 | The 26 Oct L4 run and both ratings are in. Results cell: 6/15 without the critique loop, 4/15 with it. Bonus Space: [data266-lab2-p3-agents](https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents). | She rated this run. Her own pipeline run is not in yet. |
+Shared notebook: `notebooks/p1_rag.ipynb`.
+
+### Sneha Singh — `Part1/sneha_singh/`
+
+**Status:** local run is in. Human ratings 0/50. Timed Kaggle run is not done. Golden set still needs both members.
+**Notes:** [Part1/sneha_singh/README.md](Part1/sneha_singh/README.md). Scores: [Part1/sneha_singh/results.md](Part1/sneha_singh/results.md).
+
+### Ritika Neema — `Part1/ritika_neema/`
+
+**Status:** her run is not recorded. She still needs to run the notebook and fill her Kaggle link in `links.txt`.
+**Notes:** [Part1/ritika_neema/README.md](Part1/ritika_neema/README.md).
+
+## Part 2 — Diffusion fine-tuning
+
+Shared notebook: `notebooks/p2_finetune.ipynb`.
+
+![Part 2 architecture: data preparation, LoRA fine-tuning, generation, and evaluation](report/figures/part2/architecture.png)
+
+### Sneha Singh — `Part2/sneha_singh/`
+
+**Status:** graded L4 run is done. Rank 16 kept. KID 0.0231 (base 0.0602), CLIP 0.3155 (base 0.322), human win rate 38.7%.
+**Weights:** [rank 16](https://huggingface.co/Sneha-subbu/data266-lab2-p2-lora_r16), [rank 4](https://huggingface.co/Sneha-subbu/data266-lab2-p2-lora_r4), [images](https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p2-images).
+**Notes:** [Part2/sneha_singh/results.md](Part2/sneha_singh/results.md).
+
+### Ritika Neema — `Part2/ritika_neema/`
+
+**Status:** she rated the 25 pairs. Her own training run is not recorded. Her model and image links in `links.txt` are still open.
+**Notes:** [Part2/ritika_neema/README.md](Part2/ritika_neema/README.md).
+
+## Part 3 — Multimodal agents
+
+Shared notebook: `notebooks/p3_agents.ipynb`.
+
+![Part 3 architecture: planner, vision, prompt, generation, and critique](report/figures/part3/architecture.png)
+
+### Sneha Singh — `Part3/sneha_singh/`
+
+**Status:** 26 Oct L4 run is in. 6/15 passed without the critique loop, 4/15 with it. Attack success 0/10.
+**Bonus:** Gradio app on free ZeroGPU, [data266-lab2-p3-agents](https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents).
+**Inputs:** [data266-lab2-p3-inputs](https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs).
+**Notes:** [Part3/sneha_singh/README.md](Part3/sneha_singh/README.md). Scores: [Part3/sneha_singh/results.md](Part3/sneha_singh/results.md).
+
+### Ritika Neema — `Part3/ritika_neema/`
+
+**Status:** she rated this run. Her own pipeline run is not in yet. Her rating CSV and her Hugging Face input link are still open.
+**Notes:** [Part3/ritika_neema/README.md](Part3/ritika_neema/README.md).
