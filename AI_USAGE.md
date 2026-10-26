@@ -4,7 +4,7 @@ Each member records her own AI tools and what they were used for; do not edit th
 
 ## Sneha Singh
 
-Same four questions as my homework `AI_USE.md` files. The coding assistant is Cursor. Help stays about 25 percent. The runs, the tables, and the final sentences are mine. Each part lists the code it touched, then the writing.
+Same four questions as my homework `AI_USE.md` files. The coding assistant is Cursor. Each part lists where it was used in the code, then in the writing. The runs, the tables, and the final sentences are mine.
 
 ### Part 1
 
@@ -97,35 +97,54 @@ I opened the Space build log after Factory rebuild. pip stopped there. The app n
 
 I pinned `diffusers==0.41.0` and `pydantic==2.12.5`. `import spaces` is the first import. The GPU hook is the literal `@spaces.GPU` decorator. The vision processor is built without AutoProcessor. I uploaded each file myself. The request "Draw a small fire fox creature in Pokemon style" returned an image, and the critic stopped at 2 revisions. That Space is https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents. The free daily quota was then used up. I did not buy a larger quota.
 
-### Hard part: Part 2 and Part 3
+### Part 2: about 70 percent mine, about 30 percent where I used AI
 
-This is the share where I used Cursor. It is about 25 percent. The Colab training, the 26 Oct L4 run, and the printed scores are mine.
+Out of the whole Part 2 notebook, about 70 percent is work I did, and about 30 percent is where I used Cursor. I can point at the notebook for both.
 
-Part 2, coding.
+The 70 percent is the Colab L4 run. I downloaded the 833 pairs and read the counts the notebook printed: 0 corrupt, 0 duplicates, 750 train, 83 test. I wrote the 20 prompts in `eval/p2_prompts.json` before training. I trained both LoRA ranks, about 15 minutes each. I generated the 120 images, seeds 0 and 1, 512px, 30 steps. I ran KID, CLIP, and LPIPS and kept the saved table. I built the blinded page and rated the 25 pairs. Ritika and Rajesh rated them too. I looked at the 10 images the safety checker flagged. I chose rank 16 and did not train again. I uploaded the weights.
 
-- `notebooks/p2_finetune.ipynb`: LoRA only on `to_q`, `to_k`, `to_v`, and `to_out.0`. The VAE and the text encoder stay frozen. Rank 4 and rank 16 use the same 750 images, 1500 steps, batch 4, learning rate 0.0001, and seed 266.
-- The memorization check in that notebook: nearest training image by CLIP on 10 in-domain generations, then the tile distance on the 3 closest pairs.
-- `Part2/sneha_singh/push_model_cards.py`: uploads the two model-card READMEs only. The weights were not trained again.
+The 30 percent is the hard code and the hard writing, not a second training run. Cursor helped with the 90/10 split at seed 266 and the 512 crop, the LoRA targets `to_q`, `to_k`, `to_v`, and `to_out.0` with the VAE and text encoder frozen, the KID call of 20 in-domain images against 83 test images, and the memorization check of nearest training image by CLIP plus the tile distance. In the writing, Cursor was used on the architecture in `Part2/sneha_singh/results.md` and report section III, from Rombach et al., Hu et al., and Carlini et al., and on the results sentences that had rounded the notebook. Those sentences now say CLIP 0.3155, GPU-hours 0.2401 and 0.2399, and KID 0.06024 to 0.02314. The human win rate stays 0.387. `push_model_cards.py` only uploaded the two model-card READMEs after I logged in.
 
-Part 2, writing.
+| Notebook section | About 70 percent, mine | About 30 percent, where I used Cursor |
+| --- | --- | --- |
+| 2.1 Data preparation | The download of 833 pairs and the printed counts: 0 corrupt, 0 duplicates, 750 train, 83 test | The split code: seed 266, 90/10, resize and center-crop to 512 |
+| 2.3 Prompts, written before training | The 20 prompts in `eval/p2_prompts.json`: 10 in-domain, 5 out-of-domain, 5 compositional | None |
+| 2.2 Fine-tuning | Both LoRA runs, about 15 minutes each, 0.2401 and 0.2399 GPU-hours | The adapter code: `to_q`, `to_k`, `to_v`, `to_out.0` only. VAE and text encoder frozen. Same steps, batch 4, learning rate 0.0001, seed 266 for both ranks |
+| 2.3 Image generation | Seeds 0 and 1, 512px, 30 steps, guidance 7.5, 40 images per model | None |
+| 2.4 Evaluation | The metric run and the saved table | The KID setup in code: 20 in-domain images against the 83 test images, plus the CLIP and LPIPS calls |
+| Human evaluation | The blinded page, my 25 votes, Ritika's, and Rajesh's | None |
+| Safety | I ran the checker on all 120 images and looked at the 10 flags | The memorization code: nearest training image by CLIP on 10 generations, then the tile distance on the 3 closest pairs |
+| Failure modes and final model choice | I picked rank 16 and did not train again | The writing of that choice in `Part2/sneha_singh/results.md` and report section III |
 
-- The architecture in `Part2/sneha_singh/results.md` and report section III, from Rombach et al., Hu et al., and Carlini et al. The section says what this run trained, not a full diffusion retrain and not Carlini's extraction attack.
-- The results and safety sentences. The draft had rounded past the notebook: CLIP 0.316 and 0.24 GPU-hours. The file now has 0.3155, 0.2401, and 0.2399. KID 0.06024 to 0.02314 stays, and rank 16 stays, because the human win rate of 0.387 still reaches 0.5.
+Writing where Cursor was used. The architecture section, from Rombach et al., Hu et al., and Carlini et al. It says what this run trained. It is not a full diffusion retrain, and it is not Carlini's extraction attack. The results sentences were the other writing pass. The draft had rounded past the notebook: CLIP 0.316 and 0.24 GPU-hours. The file now has 0.3155, 0.2401, and 0.2399. KID 0.06024 to 0.02314 stays. The human win rate of 0.387 still reaches 0.5.
 
-Part 3, coding.
+`Part2/sneha_singh/push_model_cards.py` is the same kind of help. After I logged in, it uploaded the two model-card READMEs only.
 
-- The critic in `notebooks/p3_agents.ipynb`. A check is kept only when it is grounded in the request. The image is accepted only when every check passes. The CLIP cutoff of 0.26 is fit on the 120 Part 2 images, not on the 15 scenarios.
-- The text-only path. A request with no image does not go through the image processor.
+### Part 3: about 70 percent mine, about 30 percent where I used AI
 
-Part 3, writing.
+Part 3 is counted on its own, the same way. About 70 percent is work I did. About 30 percent is where I used Cursor, including the bonus Space. The 30 percent does not include the graded run.
 
-- The safety section of `Part3/sneha_singh/results.md` and report section IV, from Greshake et al. Text inside an uploaded image is data. The prompt agent does not copy it. The 6/15 and 4/15 scores were left as the Results cell printed them.
+The 70 percent is the 26 Oct L4 run of `notebooks/p3_agents.ipynb`. I wrote the 15 scenarios, the 10 red-team cases, and the 25-input list before that run. I loaded Qwen2.5-VL-3B, ran the 40 requests at 512px and 30 steps, and kept the traces. The routes matched 30 of 30. I opened the Colab demo. Ritika and I rated all 40 and agreed. The Results cell printed 6/15 without the critique loop, 4/15 with it, critic agreement 34/48, attack success 0/10, and median 15.1 s and 31.4 s. I did not type those numbers in, and I did not retune the critic after seeing 4/15.
 
-Bonus marks, coding. The graded app already ran in the notebook. The bonus is the same app on a free Hugging Face Space, and that build was the stuck part. Cursor was used on `Part3/sneha_singh/space/`:
+The 30 percent is the hard code inside that notebook, the safety writing, and the bonus build. Cursor helped with the typed state and the JSON trace, the planner's early stop, the rule that text in an image is data, the prompt code that does not copy that text, the generation branch among img2img, InstructPix2Pix, image operations, and the Part 2 LoRA, the critic checks that stay only when they are grounded in the request, the revision cap of 2, and the CLIP cutoff of 0.26 fit on the 120 Part 2 images rather than on the 15 scenarios. The writing in that 30 percent is the safety section of `Part3/sneha_singh/results.md` and report section IV, from Greshake et al.
 
-- `requirements.txt`: `diffusers==0.41.0` because the Space is Python 3.10, and `pydantic==2.12.5` because gradio's MCP extra rejects 2.14.1.
-- `agents.py`: `import spaces` before torch, the literal `@spaces.GPU` decorator, and the vision processor built without AutoProcessor.
-- I uploaded each fixed file. "Draw a small fire fox creature in Pokemon style" returned an image. The Space is https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents. I did not buy a larger quota.
+The bonus is inside this same 30 percent. The graded app already ran. The extra marks are that app on a free Hugging Face Space, and the Space would not build. Cursor was used on `Part3/sneha_singh/space/requirements.txt` (`diffusers==0.41.0` for Python 3.10, `pydantic==2.12.5`) and on `agents.py` (`import spaces` before torch, the literal `@spaces.GPU` decorator, the processor built without AutoProcessor, and the text-only path). I uploaded each file. "Draw a small fire fox creature in Pokemon style" returned an image. The Space is https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents. I did not buy a larger quota.
+
+| Notebook section | About 70 percent, mine | About 30 percent, where I used Cursor |
+| --- | --- | --- |
+| Shared state and trace | The saved JSON traces from the L4 run | The typed state and the one-trace-per-request code |
+| Vision-language model | The L4 load of Qwen2.5-VL-3B | None in the graded notebook. The Space load is under the bonus, below |
+| Planner | The 30 of 30 routes that matched | The route and refuse code, including the early stop for an unsafe or broken request |
+| Vision Understanding | The captions from the run | The rule in code that text in an image is data, not an instruction |
+| Prompt Engineering | The prompts the run actually sent | The code that does not copy image text into the generation prompt |
+| Image Generation | The 512px, 30-step images | The branch: img2img, InstructPix2Pix, image operations, or the Part 2 rank-16 LoRA |
+| Critique | The 15 revisions and the 4/15 result | The check code: grounded in the request, accept only when every check passes |
+| Orchestrator | I started the run and did not retune it after 4/15 | The revision cap of 2, and the path that stops after vision when no image is asked for |
+| Demo app, in the notebook | I opened it on Colab | None. The public Space is the bonus |
+| Rating page | Ritika and I rated all 40 and agreed | None |
+| CLIP threshold calibration | The printed means, 0.316 matched and 0.179 shuffled | The cutoff code: 0.26, fit on the 120 Part 2 images, not on the 15 scenarios |
+| Evaluation, IMG07, summary, Results | The Results cell. I did not type the scores in | None |
+| Findings, failure modes, safety summary | The 4/15 and 6/15 stay as printed | The safety writing in `Part3/sneha_singh/results.md` and report section IV, from Greshake et al. |
 
 ## Ritika Neema
 
