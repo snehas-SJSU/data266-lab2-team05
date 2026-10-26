@@ -17,7 +17,7 @@ Hugging Face Part 2 models: https://huggingface.co/Sneha-subbu/data266-lab2-p2-l
 Hugging Face generated images: https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p2-images
 
 # Part 3
-Hugging Face Part 3 inputs: TBD
+Hugging Face Part 3 inputs: https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs
 
 ## Ritika Neema
 # Part 1

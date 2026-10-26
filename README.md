@@ -73,7 +73,7 @@ Local development: Ollama with `qwen2.5vl:3b`, inputs in `Part3/data/inputs/` (n
 
 ### Sneha Singh
 
-Notes are in [Part3/sneha_singh/README.md](Part3/sneha_singh/README.md). The 26 Oct L4 run routed 30 of 30 scenario runs. Median time was 31.4 s with the critique loop and 15.1 s without it. Both of us rated that run and agreed on all 40. The Results cell printed 6/15 passed without the loop and 4/15 with it, critic agreement 34/48, and red-team attack success 0/10. The test images are not on Hugging Face yet.
+Notes are in [Part3/sneha_singh/README.md](Part3/sneha_singh/README.md). The 26 Oct L4 run routed 30 of 30 scenario runs. Median time was 31.4 s with the critique loop and 15.1 s without it. Both of us rated that run and agreed on all 40. The Results cell printed 6/15 passed without the loop and 4/15 with it, critic agreement 34/48, and red-team attack success 0/10. The test images are at [Sneha-subbu/data266-lab2-p3-inputs](https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs).
 
 ### Ritika Neema
 
@@ -85,7 +85,7 @@ The lab provides no Part 2 or Part 3 files, and it says not to commit datasets. 
 
 Part 2. `notebooks/p2_finetune.ipynb` downloads `reach-vb/pokemon-blip-captions` (833 image-caption pairs) on the first run and caches it at `Part2/data/pokemon-blip-captions`. A later run uses that cache. On Colab the cache is on the VM, not in this clone. The notebook then removes corrupt and duplicate images and makes a 90/10 split with seed 266. The graded outputs are a different set: [generated images](https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p2-images), [rank 16](https://huggingface.co/Sneha-subbu/data266-lab2-p2-lora_r16), and [rank 4](https://huggingface.co/Sneha-subbu/data266-lab2-p2-lora_r4). Detail is in [Part2/data/README.md](Part2/data/README.md).
 
-Part 3. The notebook does not download the test images. We chose them. On a Mac they are in `Part3/data/inputs/`. On Colab, put that folder in `MyDrive/data266_lab2_p3/inputs/` and put `eval/` in the same Drive folder before Run All. If `IMG07.png` is missing, the notebook creates one silver sedan with seed 266. The other files have to already be there. They are not on Hugging Face yet. COCO photos are CC BY 2.0. The rest are a darkened COCO photo, a 32×32 noisy photo, base Stable Diffusion images, one Part 2 test image, synthetic images with text on them, and a broken file plus an empty file. The list is in [Part3/data/README.md](Part3/data/README.md). The only Hugging Face dataset this notebook loads by itself is `Sneha-subbu/data266-lab2-p2-images`, and only to set the CLIP cutoff.
+Part 3. The notebook does not download the test images. We chose them. On a Mac they are in `Part3/data/inputs/`. On Colab, put that folder in `MyDrive/data266_lab2_p3/inputs/` and put `eval/` in the same Drive folder before Run All. If `IMG07.png` is missing, the notebook creates one silver sedan with seed 266. The other files have to already be there. The same files are at [Sneha-subbu/data266-lab2-p3-inputs](https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs). COCO photos are CC BY 2.0. The rest are a darkened COCO photo, a 32×32 noisy photo, base Stable Diffusion images, one Part 2 test image, synthetic images with text on them, and a broken file plus an empty file. The list is in [Part3/data/README.md](Part3/data/README.md). The only Hugging Face dataset this notebook loads by itself is `Sneha-subbu/data266-lab2-p2-images`, and only to set the CLIP cutoff.
 
 ## Models
 

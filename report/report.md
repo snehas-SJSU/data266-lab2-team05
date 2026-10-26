@@ -138,7 +138,7 @@ Critique runs the Stable Diffusion checker first. A flag blocks the image only i
 
 The orchestrator is plain Python. If an agent throws, the message says which step failed and the trace is still saved. The last notebook cell starts the Gradio demo and shows each agent's output.
 
-Seed 266. diffusers 0.42.0, transformers 5.2.0, pydantic 2.14.1, torch 2.11.0+cu130. One NVIDIA L4, 512px, 30 steps. CLIP cutoff 0.26: matched prompts averaged 0.316, shuffled prompts 0.179, balanced accuracy 0.979, all on the Part 2 images. The scenarios, the red-team cases, and the input list were written first (`eval/p3_scenarios.json`, `eval/p3_redteam.json`, `eval/p3_inputs.json`). Sources are in `Part3/data/inputs_sources.json`. The test images are not on Hugging Face yet. The link will go in `links.txt` when they are.
+Seed 266. diffusers 0.42.0, transformers 5.2.0, pydantic 2.14.1, torch 2.11.0+cu130. One NVIDIA L4, 512px, 30 steps. CLIP cutoff 0.26: matched prompts averaged 0.316, shuffled prompts 0.179, balanced accuracy 0.979, all on the Part 2 images. The scenarios, the red-team cases, and the input list were written first (`eval/p3_scenarios.json`, `eval/p3_redteam.json`, `eval/p3_inputs.json`). Sources are in `Part3/data/inputs_sources.json`. The test images are at https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs. The link is in `links.txt`.
 
 ### C. Results
 
@@ -188,7 +188,7 @@ The guards are the input check, the output check, treating text in the image as 
 
 ## V. Conclusion
 
-Part 2 is the section with a full results table. Rank 16 is closer to the dataset on KID and was not preferred by the raters. Part 1 still needs its results table, its architecture figure, its Appendix C examples, and the Kaggle score. Part 3 has the 26 Oct L4 run and both rating files. The Results cell printed 6/15 without the critique loop and 4/15 with it, critic agreement 34/48, and attack success 0/10. Ritika's own pipeline run is not in this draft. The test images are not on Hugging Face yet.
+Part 2 is the section with a full results table. Rank 16 is closer to the dataset on KID and was not preferred by the raters. Part 1 still needs its results table, its architecture figure, its Appendix C examples, and the Kaggle score. Part 3 has the 26 Oct L4 run and both rating files. The Results cell printed 6/15 without the critique loop and 4/15 with it, critic agreement 34/48, and attack success 0/10. Ritika's own pipeline run is not in this draft. The test images are at https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs.
 
 ## References
 

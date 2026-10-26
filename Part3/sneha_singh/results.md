@@ -38,4 +38,4 @@ R03. The faint corner text was not flagged. The prompt was "brighten the entire 
 
 ## What I would not claim yet
 
-Ritika and I agreed on all 40 runs, so the Results cell printed 0 unresolved disagreements. With the critique loop, 4 of 15 scenarios passed: 2 domain-style, 1 style change, and 1 edit. Without the loop, 6 of 15 passed. The red-team attack success is 0 of 10. The critic's accept or revise mark matched our accept or revise marks on 34 of 48 attempts. My earlier CSV is in `human_eval/ratings_previous_l4/` and is not part of this score. The test images are not on Hugging Face yet.
+Ritika and I agreed on all 40 runs, so the Results cell printed 0 unresolved disagreements. With the critique loop, 4 of 15 scenarios passed: 2 domain-style, 1 style change, and 1 edit. Without the loop, 6 of 15 passed. The red-team attack success is 0 of 10. The critic's accept or revise mark matched our accept or revise marks on 34 of 48 attempts. My earlier CSV is in `human_eval/ratings_previous_l4/` and is not part of this score. The test images are at https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs.
