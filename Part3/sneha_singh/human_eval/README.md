@@ -12,11 +12,11 @@ The page is `rate_agents.html`. The notebook built it from the Colab runs. `run_
 
 Ritika does the same, alone, and saves `ratings_Ritika_Neema.csv` in that same `ratings/` folder. We do not talk through the runs until both files are there.
 
-Where the two verdicts differ, we write the agreed word in the `final` column of `resolutions.csv` (`pass`, `fail`, `defended`, or `attack`). The notebook reads that column. It is blank right now, so the Results cell has not printed a pass rate. I am not filling those cells by myself.
+Where the two verdicts differ, we write the agreed word in the `final` column of `resolutions.csv`. On this run we agreed on all 40, so that column stayed blank and the Results cell used the shared mark.
 
 ## Which file counts
 
-`ratings/` is empty for this run. I still need to rate `rate_agents.html` and save `ratings_Sneha_Singh.csv` there. Ritika's file is not in `ratings/` yet. The results code expects exactly those two files and refuses to score anything else.
+`ratings/ratings_Sneha_Singh.csv` and `ratings/ratings_Ritika_Neema.csv` are the two files for this run. The results code expects exactly those two files.
 
 `ratings_previous_l4/ratings_Sneha_Singh.csv` is my sheet from the earlier L4 run. It does not match the current `run_key.json`. I do not score it.
 

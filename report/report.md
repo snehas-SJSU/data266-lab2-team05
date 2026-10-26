@@ -4,7 +4,7 @@ Sneha Singh and Ritika Neema, Pair_Programming_Team_05, San Jose State Universit
 
 ## Abstract
 
-This lab has three tasks: question answering over three economics PDFs (Part 1, with a Kaggle competition), fine-tuning Stable Diffusion 1.5 with LoRA on Pokemon BLIP captions (Part 2), and a multimodal agent system for image understanding and generation (Part 3). Both of us run every part, with seed 266. Each part reports a primary metric, a secondary metric, a human judgement, and one cost number, for a baseline and a final system. On Part 2, LoRA moved the pictures toward the Pokemon style (KID 0.060 for the base model, 0.023 for rank 16). Raters still picked the base model more often: rank 16 won 38.7% of 75 votes. Part 1 numbers and Ritika's own pipeline runs are not in this draft. The Part 3 pass counts are still open. The 26 Oct L4 run of the current critic is in the notebook: median 15.1 s without the critique loop and 31.4 s with it.
+This lab has three tasks: question answering over three economics PDFs (Part 1, with a Kaggle competition), fine-tuning Stable Diffusion 1.5 with LoRA on Pokemon BLIP captions (Part 2), and a multimodal agent system for image understanding and generation (Part 3). Both of us run every part, with seed 266. Each part reports a primary metric, a secondary metric, a human judgement, and one cost number, for a baseline and a final system. On Part 2, LoRA moved the pictures toward the Pokemon style (KID 0.060 for the base model, 0.023 for rank 16). Raters still picked the base model more often: rank 16 won 38.7% of 75 votes. Part 1 numbers and Ritika's own pipeline runs are not in this draft. On the 26 Oct L4 run, the Results cell printed 6/15 scenarios passed without the critique loop and 4/15 with it. The median was 15.1 s and 31.4 s.
 
 ## I. Introduction
 
@@ -144,10 +144,10 @@ Seed 266. diffusers 0.42.0, transformers 5.2.0, pydantic 2.14.1, torch 2.11.0+cu
 
 | Measurement | Baseline (no critique loop) | Final (critique loop) |
 | --- | --- | --- |
-| Primary: scenarios passed out of 15 | not printed yet | not printed yet |
-| Secondary: critic agreement with the raters | n/a | not printed yet |
-| Secondary: red-team attack success out of 10 | not run in this mode | not printed yet |
-| Human: pass/fail agreement of the two members | not printed yet | not printed yet |
+| Primary: scenarios passed out of 15 | 6/15 | 4/15 |
+| Secondary: critic agreement with the raters | n/a (no critic) | 34/48 = 0.71 |
+| Secondary: red-team attack success out of 10 | same safety checks | 0/10 |
+| Human: pass/fail agreement of the two members | 1.0 raw, Cohen kappa 1.0 | same ratings |
 | Efficiency: median seconds per request | 15.1 | 31.4 |
 
 Table II is the Part 3 results table. The baseline is the same pipeline with the critique loop off. The final system is the loop on. These times are from the 26 Oct 2026 L4 run of the current critic.
@@ -156,7 +156,7 @@ The notebook also printed 40 runs and 30 of 30 scenario routes matched. With the
 
 I rate every run on `rate_agents.html`, alone. Pass means every pass line is true and no fail line is true. On a red-team run the marks are Defended or Attack succeeded. Each generated image is Accept or Revise. Ritika does the same. The page does not show which run is which. `run_key.json` stays out of the rater's folder.
 
-Where we disagree, the agreed word goes in the `final` column of `resolutions.csv`. That column is blank. The Results cell printed "Ratings not available yet" because `ratings/` does not yet hold both CSV files. I am not typing a pass rate until that cell prints one.
+Ritika and I marked the same word on all 40 runs, so the `final` column stayed blank and the Results cell used the shared mark. It printed 0 unresolved disagreements. With the critique loop, the passes were 2 domain-style, 1 style change, and 1 edit. Caption questions and the ambiguous or broken inputs did not pass.
 
 ### D. What worked and what did not
 
@@ -188,7 +188,7 @@ The guards are the input check, the output check, treating text in the image as 
 
 ## V. Conclusion
 
-Part 2 is the section with a full results table. Rank 16 is closer to the dataset on KID and was not preferred by the raters. Part 1 still needs its results table, its architecture figure, its Appendix C examples, and the Kaggle score. Part 3 has the current-critic L4 run. It still needs both rating files and the pass rate the notebook prints from those files. Ritika's own run is not in this draft.
+Part 2 is the section with a full results table. Rank 16 is closer to the dataset on KID and was not preferred by the raters. Part 1 still needs its results table, its architecture figure, its Appendix C examples, and the Kaggle score. Part 3 has the 26 Oct L4 run and both rating files. The Results cell printed 6/15 without the critique loop and 4/15 with it, critic agreement 34/48, and attack success 0/10. Ritika's own pipeline run is not in this draft. The test images are not on Hugging Face yet.
 
 ## References
 

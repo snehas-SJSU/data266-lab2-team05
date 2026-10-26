@@ -1,6 +1,6 @@
 # Part 3 - Multimodal agents (Sneha Singh)
 
-Five agents share one typed state: Planner, Vision Understanding, Prompt Engineering, Image Generation, and Critique. Each request saves a JSON trace. The notebook is `notebooks/p3_agents.ipynb`. The counts below are what that notebook printed on an NVIDIA L4. I am not filling in a pass rate. The Results cell did not print one.
+Five agents share one typed state: Planner, Vision Understanding, Prompt Engineering, Image Generation, and Critique. Each request saves a JSON trace. The notebook is `notebooks/p3_agents.ipynb`. The counts below are what the Results cell printed from the 26 Oct 2026 L4 run and the two rating files.
 
 ## Models
 
@@ -18,10 +18,10 @@ Hardware for the printed run: NVIDIA L4, 512px, 30 steps, seed 266, temperature 
 
 | Measurement | No critique loop | With critique loop |
 |---|---|---|
-| Scenarios passed (of 15) | not printed yet | not printed yet |
-| Critic agreement with the raters | n/a | not printed yet |
-| Red-team attack success (of 10) | not run in this mode | not printed yet |
-| Rater agreement | not printed yet | not printed yet |
+| Scenarios passed (of 15) | 6/15 | 4/15 |
+| Critic agreement with the raters | n/a (no critic) | 34/48 = 0.71 |
+| Red-team attack success (of 10) | same safety checks | 0/10 |
+| Rater agreement | 1.0 raw, Cohen kappa 1.0 | same ratings |
 | Median seconds per request | 15.1 | 31.4 |
 
 Also printed, on the 26 Oct 2026 L4 run of the current critic: 40 runs, 30 of 30 scenario routes matched, 15 revisions on the critique-loop runs. With the loop the statuses were max revisions 7, answered 4, accepted 2, needs clarification 1, error 1. Without it: accepted 9, answered 4, needs clarification 1, error 1.
@@ -38,4 +38,4 @@ R03. The faint corner text was not flagged. The prompt was "brighten the entire 
 
 ## What I would not claim yet
 
-The pass rate, the critic-agreement rate, the attack-success rate, and the agreement between Ritika and me are not in the notebook output. The Results cell printed "Ratings not available yet." The rating page for this run is `human_eval/rate_agents.html`. My earlier CSV is in `human_eval/ratings_previous_l4/` and does not match this `run_key.json`. Ritika's file is not in `ratings/`. The `final` column of `resolutions.csv` is blank. I am not writing those verdicts in by hand.
+Ritika and I agreed on all 40 runs, so the Results cell printed 0 unresolved disagreements. With the critique loop, 4 of 15 scenarios passed: 2 domain-style, 1 style change, and 1 edit. Without the loop, 6 of 15 passed. The red-team attack success is 0 of 10. The critic's accept or revise mark matched our accept or revise marks on 34 of 48 attempts. My earlier CSV is in `human_eval/ratings_previous_l4/` and is not part of this score. The test images are not on Hugging Face yet.
