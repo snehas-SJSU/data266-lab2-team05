@@ -24,4 +24,4 @@ The last cell starts Gradio. On Colab it prints a public link.
 
 ## What is done
 
-The Colab run is in the notebook: 40 runs, routes matched on 30 of 30 scenarios, median 15.1 s without the critique loop and 22.6 s with it. My rating file is in `human_eval/ratings/`. Ritika's file is not there yet. `resolutions.csv` still has a blank `final` column, so the notebook has not printed a pass rate. The test images are not on Hugging Face yet. Ritika's own pipeline is not in `../ritika_neema/`.
+The 26 Oct 2026 Colab run is in the notebook: 40 runs, routes matched on 30 of 30 scenarios, median 15.1 s without the critique loop and 31.4 s with it. The rating page for that run is `human_eval/rate_agents.html`. My earlier rating file is in `human_eval/ratings_previous_l4/` and does not match this run. Ritika's file is not in `ratings/` yet. `resolutions.csv` still has a blank `final` column, so the notebook has not printed a pass rate. The test images are not on Hugging Face yet. Ritika's own pipeline is not in `../ritika_neema/`.

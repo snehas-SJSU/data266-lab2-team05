@@ -4,7 +4,7 @@ Sneha Singh and Ritika Neema, Pair_Programming_Team_05, San Jose State Universit
 
 ## Abstract
 
-This lab has three tasks: question answering over three economics PDFs (Part 1, with a Kaggle competition), fine-tuning Stable Diffusion 1.5 with LoRA on Pokemon BLIP captions (Part 2), and a multimodal agent system for image understanding and generation (Part 3). Both of us run every part, with seed 266. Each part reports a primary metric, a secondary metric, a human judgement, and one cost number, for a baseline and a final system. On Part 2, LoRA moved the pictures toward the Pokemon style (KID 0.060 for the base model, 0.023 for rank 16). Raters still picked the base model more often: rank 16 won 38.7% of 75 votes. Part 1 numbers and Ritika's own pipeline runs are not in this draft. The Part 3 pass counts are still open.
+This lab has three tasks: question answering over three economics PDFs (Part 1, with a Kaggle competition), fine-tuning Stable Diffusion 1.5 with LoRA on Pokemon BLIP captions (Part 2), and a multimodal agent system for image understanding and generation (Part 3). Both of us run every part, with seed 266. Each part reports a primary metric, a secondary metric, a human judgement, and one cost number, for a baseline and a final system. On Part 2, LoRA moved the pictures toward the Pokemon style (KID 0.060 for the base model, 0.023 for rank 16). Raters still picked the base model more often: rank 16 won 38.7% of 75 votes. Part 1 numbers and Ritika's own pipeline runs are not in this draft. The Part 3 pass counts are still open. The 26 Oct L4 run of the current critic is in the notebook: median 15.1 s without the critique loop and 31.4 s with it.
 
 ## I. Introduction
 
@@ -134,7 +134,7 @@ Vision reports text in the image as data. If the text looks like an instruction,
 
 Generation records the model, the prompt, the seed, and the step count. Style change is Stable Diffusion 1.5 img2img. An edit is InstructPix2Pix. Brooks et al. use a higher image guidance to stay closer to the source photo, so a revision that should change more lowers that guidance, and a revision that drifted raises it. Enhancement is brightness, contrast, and sharpening, scored by the measured change, because a second pass of the same operations cannot fix a miss. A Pokemon-style request loads the rank-16 LoRA from Hugging Face.
 
-Critique runs the Stable Diffusion checker first. A flag blocks the image only if the vision model agrees, because that checker flags ordinary cartoon creatures. Then it scores CLIP similarity against the target, with a cutoff of 0.26 fit on the 120 Part 2 images. It also checks whether the result moved toward the target compared with the input. The vision model answers two or three yes/no checks and gives one short judgement against my request only. A check is kept only when it uses a word from my request, so a detail copied from the caption cannot block the image. The image is accepted only when every remaining check passes, the CLIP score clears 0.26, and the vision model says the request is met. Otherwise the critic writes one revision, and the next prompt is told which checks already failed. It tries again at most twice. The first L4 run accepted on 2 of 3 checks. That is what let S12 through. The notebook no longer does that. Those printed timings are from the old run.
+Critique runs the Stable Diffusion checker first. A flag blocks the image only if the vision model agrees, because that checker flags ordinary cartoon creatures. Then it scores CLIP similarity against the target, with a cutoff of 0.26 fit on the 120 Part 2 images. It also checks whether the result moved toward the target compared with the input. The vision model answers two or three yes/no checks and gives one short judgement against my request only. A check is kept only when it uses a word from my request, so a detail copied from the caption cannot block the image. The image is accepted only when every remaining check passes, the CLIP score clears 0.26, and the vision model says the request is met. Otherwise the critic writes one revision, and the next prompt is told which checks already failed. It tries again at most twice. On the 26 Oct L4 run, S12 was not accepted: "The fish is blue" failed on every attempt.
 
 The orchestrator is plain Python. If an agent throws, the message says which step failed and the trace is still saved. The last notebook cell starts the Gradio demo and shows each agent's output.
 
@@ -148,11 +148,11 @@ Seed 266. diffusers 0.42.0, transformers 5.2.0, pydantic 2.14.1, torch 2.11.0+cu
 | Secondary: critic agreement with the raters | n/a | not printed yet |
 | Secondary: red-team attack success out of 10 | not run in this mode | not printed yet |
 | Human: pass/fail agreement of the two members | not printed yet | not printed yet |
-| Efficiency: median seconds per request | 15.1 | 22.6 |
+| Efficiency: median seconds per request | 15.1 | 31.4 |
 
-Table II is the Part 3 results table. The baseline is the same pipeline with the critique loop off. The final system is the loop on. The 15.1 s and 22.6 s numbers are from the first L4 run, before the critic was changed to require every check. I need a new Colab Run All before I quote a pass rate.
+Table II is the Part 3 results table. The baseline is the same pipeline with the critique loop off. The final system is the loop on. These times are from the 26 Oct 2026 L4 run of the current critic.
 
-The notebook also printed 40 runs and 30 of 30 scenario routes matched. With the critique loop it used 7 revisions: accepted 7, answered 4, max revisions 2, needs clarification 1, error 1. Without the loop: accepted 9, answered 4, needs clarification 1, error 1. Red-team cases ran once, on the full system, which is what the lab asks for the attack rate.
+The notebook also printed 40 runs and 30 of 30 scenario routes matched. With the critique loop it used 15 revisions: max revisions 7, answered 4, accepted 2, needs clarification 1, error 1. Without the loop: accepted 9, answered 4, needs clarification 1, error 1. Red-team cases ran once, on the full system, which is what the lab asks for the attack rate.
 
 I rate every run on `rate_agents.html`, alone. Pass means every pass line is true and no fail line is true. On a red-team run the marks are Defended or Attack succeeded. Each generated image is Accept or Revise. Ritika does the same. The page does not show which run is which. `run_key.json` stays out of the rater's folder.
 
@@ -160,15 +160,15 @@ Where we disagree, the agreed word goes in the `final` column of `resolutions.cs
 
 ### D. What worked and what did not
 
-On the first L4 run, every scenario took the route I expected. The critique loop cost about 7 seconds at the median.
+Every scenario took the route I expected. The critique loop cost about 16 seconds at the median.
 
-S12, on that run, "Make a similar creature but blue." The fish was not blue. "The fish is blue" failed, two other checks passed, and the old 2-of-3 rule accepted the image. The code now refuses to accept unless every check passes. S07 on that same run added "There is a building in the background," which I never asked for. A check that does not use a word from the request is now dropped.
+S12, "Make a similar creature but blue." "The fish is blue" failed on all three attempts. The check rate was 0, and the run stopped at the revision limit.
 
-S07, "Make the car red." The red leaked into the building. InstructPix2Pix often changes more than the object I named. The extra building check is the one the new filter drops.
+S07, "Make the car red." "The car is red" failed on the first attempt. The later attempts passed every check, and the run still stopped at the revision limit.
 
-S06, "night time with neon lights." "The scene is set at night" failed on all three attempts.
+S06, "night time with neon lights." "The scene is set at night" and "Neon lights are present throughout the scene" failed. S04 and S05 also hit the revision limit. S08 was accepted after one revision. S09 was accepted on the first attempt.
 
-R03. The faint text in the corner was not flagged. It was not copied into the prompt either.
+R03. The faint text in the corner was not flagged. The prompt was "brighten the entire image."
 
 ### E. Safety
 
@@ -182,13 +182,13 @@ The rule list is a small vocabulary. The checker is a 3B model. The safety check
 
 I can describe an image and answer a question about it, restyle it, edit it, brighten it, or draw a Pokemon-style creature with the Part 2 model. I refuse an unsafe request, I ask when the request is vague, and I say which step failed.
 
-The 3B critic accepted a creature that was not the colour I asked for, and it rejected a red car because of a check I never wrote. An edit can stain the background. Style change at 512px did not reach night lighting. Faint text in a corner was not read. The Part 2 model is for non-commercial research only.
+The 3B critic did not accept the blue creature: "The fish is blue" failed on every attempt. On the red-car edit, the first check failed, later checks passed, and the run still hit the revision limit. Style change did not reach night lighting. Faint text in a corner was not read. The Part 2 model is for non-commercial research only.
 
 The guards are the input check, the output check, treating text in the image as data, a revision limit of 2, a clear error, and a JSON trace for every request.
 
 ## V. Conclusion
 
-Part 2 is the section with a full results table. Rank 16 is closer to the dataset on KID and was not preferred by the raters. Part 1 still needs its results table, its architecture figure, its Appendix C examples, and the Kaggle score. Part 3 still needs a run of the current critic, both rating files, and the pass rate the notebook prints from those files. Ritika's own runs are not in this draft.
+Part 2 is the section with a full results table. Rank 16 is closer to the dataset on KID and was not preferred by the raters. Part 1 still needs its results table, its architecture figure, its Appendix C examples, and the Kaggle score. Part 3 has the current-critic L4 run. It still needs both rating files and the pass rate the notebook prints from those files. Ritika's own run is not in this draft.
 
 ## References
 

@@ -21,7 +21,7 @@ I built and ran `notebooks/p2_finetune.ipynb` on a Colab L4: data prep, LoRA ran
 
 ### Part 3
 
-I wrote the 15 scenarios, the 10 red-team cases, and the 25-input list before the runs. I built the five agents, the orchestrator, the Gradio app, the rating page, and the results code in `notebooks/p3_agents.ipynb`. I smoke-tested them on my Mac, then ran the 15 scenarios and 10 red-team cases on an L4. That run is in the notebook. The two rating files are not both in place, the agreed finals are blank, and the test inputs are not on Hugging Face yet. Notes are in `Part3/sneha_singh/results.md`.
+I wrote the 15 scenarios, the 10 red-team cases, and the 25-input list before the runs. I built the five agents, the orchestrator, the Gradio app, the rating page, and the results code in `notebooks/p3_agents.ipynb`. I smoke-tested them on my Mac, then ran the 15 scenarios and 10 red-team cases on an L4 on 26 Oct 2026 with the current critic. That run is in the notebook: 30 of 30 routes matched, median 15.1 s without the critique loop and 31.4 s with it. The pass rate is not printed. Both rating files for this run are not in place, the agreed finals are blank, and the test inputs are not on Hugging Face yet. Notes are in `Part3/sneha_singh/results.md`.
 
 ## Ritika Neema
 

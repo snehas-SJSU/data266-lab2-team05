@@ -73,7 +73,7 @@ Local development: Ollama with `qwen2.5vl:3b`, inputs in `Part3/data/inputs/` (n
 
 ### Sneha Singh
 
-Notes are in [Part3/sneha_singh/README.md](Part3/sneha_singh/README.md). The first L4 run routed 30 of 30 scenario runs. Median time was 22.6 s with the critique loop and 15.1 s without it. After that run, the critic was changed so an image is kept only when every check passes. Those timings are from the run before the change. A new Colab Run All has to finish before a pass rate is quoted. Her rating file is in. Ritika's rating file is not, `resolutions.csv` has a blank `final` column, and the test images are not on Hugging Face yet.
+Notes are in [Part3/sneha_singh/README.md](Part3/sneha_singh/README.md). The 26 Oct L4 run of the current critic routed 30 of 30 scenario runs. Median time was 31.4 s with the critique loop and 15.1 s without it. The pass rate is not printed yet. Her rating file for this run is not in yet. The CSV from the earlier run is in `ratings_previous_l4/` and does not match this `run_key.json`. Ritika's rating file is not in, `resolutions.csv` has a blank `final` column, and the test images are not on Hugging Face yet.
 
 ### Ritika Neema
 
@@ -118,4 +118,4 @@ The repository is on GitHub at commit `07f0705`. The three tags are not created 
 | --- | --- | --- |
 | 1 | Local notebook run is in. Golden-set review, human ratings, and the timed Kaggle run are open. | Her run is not recorded yet. |
 | 2 | Training, Hugging Face uploads, and the demo script are done. She rated the 25 pairs. | She rated the 25 pairs. Her own training run is not recorded yet. |
-| 3 | First L4 run is in the notebook. The critic change still needs a new Colab Run All. Pass counts are open. | Her run and her rating file are not in yet. |
+| 3 | The 26 Oct L4 run is in the notebook (30/30 routes, median 31.4 s with the critique loop and 15.1 s without). Pass counts are open. | Her run and her rating file are not in yet. |

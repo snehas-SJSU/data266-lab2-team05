@@ -16,7 +16,9 @@ Where the two verdicts differ, we write the agreed word in the `final` column of
 
 ## Which file counts
 
-`ratings/ratings_Sneha_Singh.csv` is the sheet from the page. It has my pass or defended mark and the accept/revise marks. Ritika's file is not in `ratings/` yet. The results code expects exactly those two files and refuses to score anything else.
+`ratings/` is empty for this run. I still need to rate `rate_agents.html` and save `ratings_Sneha_Singh.csv` there. Ritika's file is not in `ratings/` yet. The results code expects exactly those two files and refuses to score anything else.
+
+`ratings_previous_l4/ratings_Sneha_Singh.csv` is my sheet from the earlier L4 run. It does not match the current `run_key.json`. I do not score it.
 
 `ratings_recovered/` is an earlier reconstruction. The note in that folder says the original files were lost and the accept/revise column could not be restored. Some of my pass/fail marks in that copy do not match `ratings/ratings_Sneha_Singh.csv`. I do not use it for the score.
 
