@@ -9,6 +9,7 @@ __pycache__/
 *.zip
 **/data/*
 !**/data/.gitkeep
+!**/data/README.md
 models/
 outputs/
 secrets.*

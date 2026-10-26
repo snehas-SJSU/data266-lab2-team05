@@ -15,7 +15,7 @@ pip install -r requirements.txt
 
 Python 3.13. Open each notebook from the project root, or from `notebooks/`, and use Restart & Run All. The first cell prints the git commit, library versions, GPU, and seed. On Colab that commit prints `n/a` because the notebook is not inside this repository there.
 
-Weights, datasets, generated images, PDFs, and secrets stay out of git (`.gitignore`). Model weights and generated images are on Hugging Face.
+Weights, datasets, generated images, PDFs, and secrets stay out of git (`.gitignore`). Model weights and generated images are on Hugging Face. Why the Part 2 and Part 3 image folders are empty here is in [Part2/data/README.md](Part2/data/README.md) and [Part3/data/README.md](Part3/data/README.md).
 
 | Part | Notebook | Where it runs |
 | --- | --- | --- |
@@ -31,7 +31,7 @@ Shared notebook: `notebooks/p1_rag.ipynb`. Kaggle, for the graded submission: us
 
 Local: start Ollama with `qwen2.5vl:3b` and `qwen2.5:7b`, then Run All. Step-by-step notes are in [Part1/sneha_singh/README.md](Part1/sneha_singh/README.md). Scores are in [Part1/sneha_singh/results.md](Part1/sneha_singh/results.md).
 
-On the development golden set, the hybrid system is 23/25 correct and Recall@5 is 100%. The dense baseline is 13/25 and Recall@5 is 72.9%. Human ratings are 0/50. The timed Kaggle run is not done. The golden set still needs both members to review it.
+Development scores are in [Part1/sneha_singh/results.md](Part1/sneha_singh/results.md). Human ratings are 0/50. The timed Kaggle run is not done. The golden set still needs both members to review it.
 
 ### Ritika Neema
 
@@ -39,7 +39,7 @@ Her Part 1 notes are not in yet. They go in [Part1/ritika_neema/README.md](Part1
 
 ## Part 2
 
-Shared notebook: `notebooks/p2_finetune.ipynb`. Colab: GPU runtime (T4, L4, or A100), upload the notebook, and Run All. It installs the pinned packages, mounts Drive, and saves to `MyDrive/data266_lab2_p2/`. A finished step is skipped, and training resumes from the checkpoint after a disconnect. The prompts are in `eval/p2_prompts.json`.
+Shared notebook: `notebooks/p2_finetune.ipynb`. Colab: GPU runtime (T4, L4, or A100), upload the notebook, and Run All. It installs the pinned packages, mounts Drive, and saves to `MyDrive/data266_lab2_p2/`. A finished step is skipped, and training resumes from the checkpoint after a disconnect. The prompts are in `eval/p2_prompts.json`. The training images are not in git. The notebook downloads `reach-vb/pokemon-blip-captions` on the first run. See [Part2/data/README.md](Part2/data/README.md).
 
 Smoke test, from the project root, after the dataset is cached in `Part2/data/`:
 
@@ -69,7 +69,7 @@ She rated the 25 blinded pairs. That vote is in `Part2/sneha_singh/human_eval/ra
 
 Shared notebook: `notebooks/p3_agents.ipynb`. Colab: GPU runtime. Put `eval/` and an `inputs/` folder of the test images in `MyDrive/data266_lab2_p3/`, upload the notebook, and Run All. Finished cases are skipped on a later run, so delete `outputs/runs.jsonl` before a new graded run. The last cell starts the Gradio demo and, on Colab, prints a public link.
 
-Local development: Ollama with `qwen2.5vl:3b`, inputs in `Part3/data/inputs/` (not committed). The Mac path uses 384px and 15 steps. The Colab run uses 512px and 30 steps.
+Local development: Ollama with `qwen2.5vl:3b`, inputs in `Part3/data/inputs/` (not committed). The notebook does not download those images. The Mac path uses 384px and 15 steps. The Colab run uses 512px and 30 steps. Where each file comes from is in [Part3/data/README.md](Part3/data/README.md).
 
 ### Sneha Singh
 
@@ -78,6 +78,14 @@ Notes are in [Part3/sneha_singh/README.md](Part3/sneha_singh/README.md). The 26 
 ### Ritika Neema
 
 Her Part 3 notes are not in yet. They go in [Part3/ritika_neema/README.md](Part3/ritika_neema/README.md). She still needs to run this notebook herself. Her rating CSV and her Hugging Face input link are still open.
+
+## Datasets
+
+The lab provides no Part 2 or Part 3 files, and it says not to commit datasets. `.gitignore` ignores everything inside a `data/` folder except a short README, so those folders look empty on GitHub.
+
+Part 2. `notebooks/p2_finetune.ipynb` downloads `reach-vb/pokemon-blip-captions` (833 image-caption pairs) on the first run and caches it at `Part2/data/pokemon-blip-captions`. A later run uses that cache. On Colab the cache is on the VM, not in this clone. The notebook then removes corrupt and duplicate images and makes a 90/10 split with seed 266. The graded outputs are a different set: [generated images](https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p2-images), [rank 16](https://huggingface.co/Sneha-subbu/data266-lab2-p2-lora_r16), and [rank 4](https://huggingface.co/Sneha-subbu/data266-lab2-p2-lora_r4). Detail is in [Part2/data/README.md](Part2/data/README.md).
+
+Part 3. The notebook does not download the test images. We chose them. On a Mac they are in `Part3/data/inputs/`. On Colab, put that folder in `MyDrive/data266_lab2_p3/inputs/` and put `eval/` in the same Drive folder before Run All. If `IMG07.png` is missing, the notebook creates one silver sedan with seed 266. The other files have to already be there. They are not on Hugging Face yet. COCO photos are CC BY 2.0. The rest are a darkened COCO photo, a 32×32 noisy photo, base Stable Diffusion images, one Part 2 test image, synthetic images with text on them, and a broken file plus an empty file. The list is in [Part3/data/README.md](Part3/data/README.md). The only Hugging Face dataset this notebook loads by itself is `Sneha-subbu/data266-lab2-p2-images`, and only to set the CLIP cutoff.
 
 ## Models
 
@@ -101,6 +109,7 @@ data266-lab2-team05/
 ├── eval/                     golden set, prompts, scenarios, result sheets
 ├── traces/                   Part 3 JSON traces
 ├── Part1/ Part2/ Part3/      each member's notes (sneha_singh/ and ritika_neema/)
+│                             Part2/data and Part3/data hold READMEs only; images are not committed
 ├── report/                   report draft and figures
 ├── CONTRIBUTIONS.md          who did what, by member and part
 ├── AI_USAGE.md               AI tools, by member and part
@@ -112,7 +121,7 @@ There is no `src/` folder. The code is in the notebooks. `Part2/sneha_singh/outp
 
 ## Status
 
-The repository is on GitHub at commit `07f0705`. The three tags are not created yet. Who has done what:
+Grading tags `p1-v1.0`, `p2-v1.0`, and `p3-v1.0` are on GitHub and point at commit `0824415`. Later commits on `main` are documentation after those tags. Who has done what:
 
 | Part | Sneha Singh | Ritika Neema |
 | --- | --- | --- |
