@@ -70,7 +70,7 @@ Ritika still needs her own Part 1 run, her own Part 2 training run, and her own 
 | --- | --- | --- | --- |
 | 1 | Sneha | Local notebook | Run is in. Human ratings are 0/50. The timed Kaggle run is not done. The golden set still needs both members. Detail: [Part1/sneha_singh/results.md](Part1/sneha_singh/results.md). |
 | 1 | Ritika | — | Not recorded yet. |
-| 2 | Sneha | NVIDIA L4. Rank 16 kept. | KID 0.0231 (base 0.0602). CLIP 0.3155 (base 0.322). 0.24 GPU-hours. 4.27 GB peak. About 15 minutes for each LoRA run. Human win rate 38.7% (95% CI 28.5–50.0%, 75 votes from three raters). Detail: [Part2/sneha_singh/results.md](Part2/sneha_singh/results.md). |
+| 2 | Sneha | NVIDIA L4. Rank 16 kept. | KID 0.02314 (base 0.06024). CLIP 0.3155 (base 0.3220). 0.2399 GPU-hours. 4.27 GB peak. About 15 minutes for each LoRA run. Human win rate 0.387 (29/75, 95% CI 0.285 to 0.5). Detail: [Part2/sneha_singh/results.md](Part2/sneha_singh/results.md). |
 | 2 | Ritika | Ratings only | She rated the 25 pairs. Vote: `Part2/sneha_singh/human_eval/ratings/ratings_Ritika_Neema.csv`. Her training run is not recorded. |
 | 3 | Sneha | 26 Oct, NVIDIA L4 | Routed 30 of 30. Passed 6/15 without the critique loop and 4/15 with it. Critic agreement 34/48. Red-team attack success 0/10. Median 15.1 s without the loop and 31.4 s with it. Both members agreed on all 40 ratings. Detail: [Part3/sneha_singh/results.md](Part3/sneha_singh/results.md). |
 | 3 | Ritika | Ratings only | She rated this run. Her own pipeline run is not in yet. |
@@ -117,6 +117,8 @@ There is no `src/` folder. The code is in the notebooks. `Part2/sneha_singh/outp
 
 Shared notebook: `notebooks/p1_rag.ipynb`.
 
+![Part 1 architecture: ingestion, retrieval, conversation memory, and evaluation](report/figures/part1/architecture.png)
+
 ### Sneha Singh — `Part1/sneha_singh/`
 
 **Status:** local run is in. Human ratings 0/50. Timed Kaggle run is not done. Golden set still needs both members.
@@ -135,7 +137,7 @@ Shared notebook: `notebooks/p2_finetune.ipynb`.
 
 ### Sneha Singh — `Part2/sneha_singh/`
 
-**Status:** graded L4 run is done. Rank 16 kept. KID 0.0231 (base 0.0602), CLIP 0.3155 (base 0.322), human win rate 38.7%.
+**Status:** graded L4 run is done. Rank 16 kept. KID 0.02314 (base 0.06024), CLIP 0.3155 (base 0.3220), human win rate 0.387.
 **Weights:** [rank 16](https://huggingface.co/Sneha-subbu/data266-lab2-p2-lora_r16), [rank 4](https://huggingface.co/Sneha-subbu/data266-lab2-p2-lora_r4), [images](https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p2-images).
 **Notes:** [Part2/sneha_singh/results.md](Part2/sneha_singh/results.md).
 

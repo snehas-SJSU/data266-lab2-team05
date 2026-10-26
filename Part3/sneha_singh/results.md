@@ -2,6 +2,12 @@
 
 Five agents share one typed state: Planner, Vision Understanding, Prompt Engineering, Image Generation, and Critique. Each request saves a JSON trace. The notebook is `notebooks/p3_agents.ipynb`. The counts below are what the Results cell printed from the 26 Oct 2026 L4 run and the two rating files.
 
+## Architecture
+
+![Part 3 architecture: planner, vision, prompt, generation, and critique](../../report/figures/part3/architecture.png)
+
+The figure is the path in the sections below. An unsafe, unsupported, or broken request stops early. A caption or question stops after Vision. A generation request goes through Prompt Engineering and Image Generation, then Critique, which can send it back for at most two revisions.
+
 ## Models
 
 I use Qwen2.5-VL-3B for every language and vision step. It is the same family as Part 1, and it fits on one 16 GB GPU next to the image model. Style change is Stable Diffusion 1.5 img2img. Edits are InstructPix2Pix. Enhancement is image operations, scored by measured brightness and sharpness. A Pokemon-style request loads my Part 2 rank-16 LoRA. CLIP ViT-B/32 scores the result. The Stable Diffusion safety checker flags an output, and the vision model has to agree before I block it, because that checker flags ordinary cartoon art.

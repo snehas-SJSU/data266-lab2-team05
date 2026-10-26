@@ -4,7 +4,7 @@ Sneha Singh and Ritika Neema, Pair_Programming_Team_05, San Jose State Universit
 
 ## Abstract
 
-This lab has three tasks: question answering over three economics PDFs (Part 1, with a Kaggle competition), fine-tuning Stable Diffusion 1.5 with LoRA on Pokemon BLIP captions (Part 2), and a multimodal agent system for image understanding and generation (Part 3). Both of us run every part, with seed 266. Each part reports a primary metric, a secondary metric, a human judgement, and one cost number, for a baseline and a final system. On Part 2, LoRA moved the pictures toward the Pokemon style (KID 0.060 for the base model, 0.023 for rank 16). Raters still picked the base model more often: rank 16 won 38.7% of 75 votes. Part 1 numbers and Ritika's own pipeline runs are not in this draft. On the 26 Oct L4 run, the Results cell printed 6/15 scenarios passed without the critique loop and 4/15 with it. The median was 15.1 s and 31.4 s.
+This lab has three tasks: question answering over three economics PDFs (Part 1, with a Kaggle competition), fine-tuning Stable Diffusion 1.5 with LoRA on Pokemon BLIP captions (Part 2), and a multimodal agent system for image understanding and generation (Part 3). Both of us run every part, with seed 266. Each part reports a primary metric, a secondary metric, a human judgement, and one cost number, for a baseline and a final system. On Part 2, LoRA moved the pictures toward the Pokemon style (KID 0.06024 for the base model, 0.02314 for rank 16). Raters still picked the base model more often: rank 16 won 29 of 75 votes (win rate 0.387). Part 1 numbers and Ritika's own pipeline runs are not in this draft. On the 26 Oct L4 run, the Results cell printed 6/15 scenarios passed without the critique loop and 4/15 with it. The median was 15.1 s and 31.4 s.
 
 ## I. Introduction
 
@@ -16,7 +16,11 @@ The numbers below are from Sneha's notebook outputs. Ritika runs the same three 
 
 ### A. Architecture
 
-The system answers questions about three read-only economics PDFs from text, figures, and tables. It extracts text and separate visual objects, describes trusted figures with a vision-language model, stores vectors in ChromaDB, and compares dense-only retrieval with a hybrid dense and BM25 retriever. Answers use isolated conversation memory and a fixed JSON schema. A user edit stays inside that conversation and is not written back into the documents. The architecture figure for this part is not in the draft yet. The longer working notes are in `Part1_Report_Draft.md`.
+The system answers questions about three read-only economics PDFs from text, figures, and tables. It extracts text and separate visual objects, describes trusted figures with a vision-language model, stores vectors in ChromaDB, and compares dense-only retrieval with a hybrid dense and BM25 retriever. Answers use isolated conversation memory and a fixed JSON schema. A user edit stays inside that conversation and is not written back into the documents. The figure below is that pipeline. The longer working notes are in `Part1_Report_Draft.md`.
+
+![Architecture](figures/part1/architecture.png)
+
+*Part 1 pipeline. Three read-only PDFs are split into text and figures. Appendix C stays quarantined. Dense retrieval is the baseline. The hybrid retriever is the final system. Answers stay inside one conversation.*
 
 ### B. Results
 
@@ -46,7 +50,7 @@ The Kaggle result is still pending. The final submission, the leaderboard rank, 
 
 I fine-tuned Stable Diffusion 1.5 on Pokemon BLIP captions with two LoRA runs, rank 4 and rank 16. Same data, 1500 steps, batch 4. I compared both with the base model on 20 fixed prompts, 40 images per model. I kept rank 16.
 
-Stable Diffusion denoises in the latent space of a frozen autoencoder, and the text gets in through cross-attention in the UNet [4]. I left the VAE, the CLIP text encoder, and the original UNet weights frozen, and trained only LoRA adapters [5] on `to_q`, `to_k`, `to_v`, and `to_out`, with `lora_alpha` equal to the rank. Rank 4 has 797,184 trainable parameters. Rank 16 has 3,188,736. The loss is the mean squared error between the predicted noise and the noise that was added. AdamW, learning rate 1e-4, gradient clip 1.0, fp16 autocast, micro-batch 2 with 2 accumulation steps (batch 4), 1500 steps. Both runs start from seed 266, so the data order and the noise draws start the same way. Figure 1 is that pipeline.
+Stable Diffusion denoises in the latent space of a frozen autoencoder, and the text gets in through cross-attention in the UNet [4]. I left the VAE, the CLIP text encoder, and the original UNet weights frozen, and trained only LoRA adapters [5] on `to_q`, `to_k`, `to_v`, and `to_out`, with `lora_alpha` equal to the rank. Rank 4 has 797,184 trainable parameters. Rank 16 has 3,188,736. The loss is the mean squared error between the predicted noise and the noise that was added. AdamW, learning rate 0.0001, gradient clip 1.0, fp16 autocast, micro-batch 2 with 2 accumulation steps (batch 4), 1500 steps. Both runs start from seed 266, so the data order and the noise draws start the same way. Figure 1 is that pipeline.
 
 ![Architecture](figures/part2/architecture.png)
 
@@ -70,19 +74,19 @@ Figure 2 is the required 8-prompt grid, seed 0, base beside rank 4 beside rank 1
 
 | Measurement | Baseline (base model) | Rank 4 | Final (rank 16) |
 | --- | --- | --- | --- |
-| Primary: KID, lower better | 0.0602 +/- 0.0085 | 0.0267 +/- 0.0062 | 0.0231 +/- 0.0051 |
-| Primary: CLIP score | 0.322 | 0.311 | 0.3155 |
-| Secondary: LPIPS diversity | 0.735 | 0.718 | 0.712 |
-| Human: win rate of rank 16 vs base | — | not compared | 38.7% (29/75; 95% interval 28.5–50.0%) |
-| Efficiency: GPU-hours (peak memory) | — | 0.240 (4.22 GB) | 0.240 (4.27 GB) |
+| Primary: KID, lower better | 0.06024 +/- 0.00852 | 0.02671 +/- 0.00617 | 0.02314 +/- 0.00506 |
+| Primary: CLIP score | 0.3220 | 0.3110 | 0.3155 |
+| Secondary: LPIPS diversity | 0.7349 | 0.7178 | 0.7123 |
+| Human: win rate of rank 16 vs base | — | not compared | 0.387 (29/75; 95% interval 0.285 to 0.5) |
+| Efficiency: GPU-hours (peak memory) | — | 0.2401 (4.22 GB) | 0.2399 (4.27 GB) |
 
-Table I is the Part 2 results table. The baseline is the base model. The final system is rank 16. Rank 4 is the other required run, on the same data and the same 1500 steps. The mean loss over the last tenth of training was 0.0535 for rank 4 and 0.0533 for rank 16. The three raters landed at 44%, 40%, and 32%. In-domain 41.0% (39 votes), out-of-domain 44.4% (18), compositional 27.8% (18). They agreed on 16 of 25 pairs.
+Table I is the Part 2 results table. The baseline is the base model. The final system is rank 16. Rank 4 is the other required run, on the same data and the same 1500 steps. The mean loss over the last tenth of training was 0.0535 for rank 4 and 0.0533 for rank 16. Per rater, the human-evaluation cell printed Rajesh 0.4, Ritika Neema 0.44, and Sneha Singh 0.32. By prompt type it printed in-domain 0.41 (39 votes), out-of-domain 0.444 (18), and compositional 0.278 (18). They agreed on 16 of 25 pairs.
 
 KID is between the in-domain generations (10 prompts × 2 seeds = 20 images) and the 83 test images. CLIP score is the cosine similarity between a prompt and its image, `openai/clip-vit-base-patch32`, over all 40 images of that model. Twenty images is a small KID sample, so I also report the torchmetrics subset standard deviation. Diversity is the mean LPIPS (AlexNet) distance between the two seeds of each prompt. For the human test I drew 25 of the 40 prompt-seed pairs at random with seed 266, rank 16 against the base model, and swapped left and right. Both team members and one person outside the team each picked the image that matched the prompt better and looked more like a clean Pokemon illustration. The page was blind. The answer key was not on it. Efficiency is GPU-hours per run and peak GPU memory from `torch.cuda.max_memory_allocated`.
 
 ### D. What worked and what did not
 
-KID falls from 0.060 to 0.023–0.027. That gap is larger than the noise, so the fine-tune really did shift the pictures toward the dataset. CLIP and LPIPS move the other way: closer to the dataset style, a little worse at the wording of the prompt, and a little less varied across seeds. Rank 16 beats rank 4 by a small amount on KID and CLIP, inside the KID noise. That fits Hu et al. [5], who found that a small rank already does most of the work. I still keep rank 16. Time and memory matched, and the adapter is about four times larger (about 12.8 MB against about 3.2 MB). The human interval includes 50%, so I cannot say people preferred the fine-tune. For a general or compositional prompt I would use the base model.
+KID falls from 0.06024 to 0.02671 and 0.02314. That gap is larger than the subset standard deviation, so the fine-tune shifted the pictures toward the dataset. CLIP and LPIPS move the other way: closer to the dataset style, a little worse at the wording of the prompt, and a little less varied across seeds. Rank 16 beats rank 4 by a small amount on KID and CLIP, inside the KID noise. That fits Hu et al. [5], who found that a small rank already does most of the work. I still keep rank 16. The runs took 864.2 s and 863.8 s, and rank 16 has 3,188,736 trainable parameters against 797,184 for rank 4. The human interval includes 0.5, so the votes do not separate the fine-tune from the base model. For a general or compositional prompt I would use the base model.
 
 Two failures. Figure 3 shows them for the out-of-domain and compositional prompts, seed 0.
 
@@ -90,7 +94,7 @@ Two failures. Figure 3 shows them for the out-of-domain and compositional prompt
 
 *Figure 3. Base, rank 4, and rank 16 on the prompts that are not in-domain. Several compositional prompts drop an object or a count. The lake, the car, and the living room stayed photographic.*
 
-Compositional prompts drop part of the request. "A yellow pokemon holding a green leaf" has no leaf. "Three small round pokemon in a row, the left one purple" is one creature, and the count is wrong. "A blue pokemon on top of a red box" has no box. "A pink pokemon next to a black pokemon" has no black creature. The base model did draw the red box. This is the same place the human votes were worst, 27.8%.
+Compositional prompts drop part of the request. "A yellow pokemon holding a green leaf" has no leaf. "Three small round pokemon in a row, the left one purple" is one creature, and the count is wrong. "A blue pokemon on top of a red box" has no box. "A pink pokemon next to a black pokemon" has no black creature. The base model did draw the red box. This is the same place the human votes were worst, win rate 0.278.
 
 The outputs also repeat. The same teal, pointy-eared creature shows up on unrelated prompts. On out-of-domain prompts the lake, the car, and the living room stayed photographic. The fruit bowl became a few green fruits, and the astronaut became a cartoon figure with no horse.
 
@@ -104,13 +108,13 @@ The characters in the training images are copyrighted, so the adapters and the g
 
 *Figure 4. The 10 images the safety checker flagged. They are cartoon creatures, so these flags are false positives.*
 
-For the memorization check I took 10 in-domain generations of rank 16 and found the closest training image by CLIP similarity. The scores are 0.79 to 0.94. Figure 5 is the three closest pairs: same kind of creature, different pose and color.
+For the memorization check I took 10 in-domain generations of rank 16, seed 0, and found the closest training image by CLIP similarity. The scores are 0.789 to 0.938. Figure 5 is the three closest pairs: same kind of creature, different pose and color.
 
 ![Closest training images](figures/part2/memorization.png)
 
 *Figure 5. The three generations whose nearest training image had the highest CLIP similarity. The poses and colors differ.*
 
-I also measured the largest per-tile RMS distance to that training image, over 16 tiles: 0.58 to 0.80. Carlini et al. [6] treat something near 0.15 as a near-copy, with their own scaling, which is not identical to mine. Nothing I generated landed near that range. This is not their full experiment. They drew hundreds of samples per prompt. I drew one seed on 10 prompts.
+I also measured the largest per-tile RMS distance to that training image, over 16 tiles: 0.584 to 0.801. Carlini et al. [6] treat something near 0.15 as a near-copy, with their own scaling, which is not identical to mine. Nothing I generated landed near that range. This is not their full experiment. They drew hundreds of samples per prompt. I drew one seed on 10 prompts.
 
 ## IV. Part 3: Multimodal agents
 
