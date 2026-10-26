@@ -21,7 +21,7 @@ I built and ran `notebooks/p2_finetune.ipynb` on a Colab L4: data prep, LoRA ran
 
 ### Part 3
 
-I wrote the 15 scenarios, the 10 red-team cases, and the 25-input list before the runs. I built the five agents, the orchestrator, the Gradio app, the rating page, and the results code in `notebooks/p3_agents.ipynb`. I smoke-tested them on my Mac, then ran the 15 scenarios and 10 red-team cases on an L4 on 26 Oct 2026 with the current critic. That run is in the notebook: 30 of 30 routes matched, median 15.1 s without the critique loop and 31.4 s with it. Ritika and I both rated that run and agreed on all 40. The Results cell printed 6/15 scenarios passed without the critique loop and 4/15 with it, critic agreement 34/48, and attack success 0/10. The test inputs are at https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs. I deployed the Gradio app as a Hugging Face Space for the Part 3 bonus: https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents. It runs on the free ZeroGPU plan. Notes are in `Part3/sneha_singh/results.md`.
+I wrote the 15 scenarios, the 10 red-team cases, and the 25-input list before the runs. I built the five agents, the orchestrator, the Gradio app, the rating page, and the results code in `notebooks/p3_agents.ipynb`. Text found in an image is data: the prompt agent does not copy it, and the critic keeps a check only when it is grounded in the request. I smoke-tested on my Mac at 384px and 15 steps, then ran the 15 scenarios and 10 red-team cases on an L4 on 26 Oct 2026 at 512px and 30 steps, seed 266, temperature 0. That run is in the notebook: 30 of 30 routes matched, median 15.1 s without the critique loop and 31.4 s with it. Ritika and I both rated that run and agreed on all 40. The Results cell printed 6/15 scenarios passed without the critique loop and 4/15 with it, critic agreement 34/48, and attack success 0/10. I did not retune the critic after seeing 4/15. The test inputs are at https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs. I deployed the same app as a Hugging Face Space on the free ZeroGPU plan: https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents. The Space source is `Part3/sneha_singh/space/`. The architecture figure is `report/figures/part3/architecture.png`. Notes are in `Part3/sneha_singh/results.md` and section IV of `report/report.md`.
 
 ## Ritika Neema
 
@@ -35,4 +35,4 @@ Rated the 25 blinded image pairs. No other Part 2 work is recorded yet (`Part2/r
 
 ### Part 3
 
-To be filled by Ritika (`Part3/ritika_neema/`).
+Rated the 26 Oct L4 run. She and I agreed on all 40. Her own pipeline run is not recorded yet (`Part3/ritika_neema/`).
