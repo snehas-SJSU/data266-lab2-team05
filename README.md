@@ -100,11 +100,7 @@ The code is in the notebooks. Each of us has a `sneha_singh/` or `ritika_neema/`
 
 ---
 
-## Architecture
-
-One diagram per part. Both of us run this same design.
-
-### Part 1 — Multimodal RAG
+## Part 1 — Multimodal RAG
 
 Notebook: `notebooks/p1_rag.ipynb`.
 
@@ -112,7 +108,7 @@ The PDFs stay read-only. A fact added in one chat stays in that chat. Dense retr
 
 ![Part 1 architecture: ingestion, retrieval, conversation memory, and evaluation](report/figures/part1/architecture.png)
 
-### Part 2 — Diffusion fine-tuning
+## Part 2 — Diffusion fine-tuning
 
 Notebook: `notebooks/p2_finetune.ipynb`.
 
@@ -120,7 +116,7 @@ Two LoRA ranks, 4 and 16, on the same data and the same step budget. Rank 16 is 
 
 ![Part 2 architecture: data preparation, LoRA fine-tuning, generation, and evaluation](report/figures/part2/architecture.png)
 
-### Part 3 — Multimodal agents
+## Part 3 — Multimodal agents
 
 Notebook: `notebooks/p3_agents.ipynb`.
 
