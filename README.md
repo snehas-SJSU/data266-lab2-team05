@@ -73,7 +73,7 @@ Local development: Ollama with `qwen2.5vl:3b`, inputs in `Part3/data/inputs/` (n
 
 ### Sneha Singh
 
-Notes are in [Part3/sneha_singh/README.md](Part3/sneha_singh/README.md). The 26 Oct L4 run routed 30 of 30 scenario runs. Median time was 31.4 s with the critique loop and 15.1 s without it. Both of us rated that run and agreed on all 40. The Results cell printed 6/15 passed without the loop and 4/15 with it, critic agreement 34/48, and red-team attack success 0/10. The test images are at [Sneha-subbu/data266-lab2-p3-inputs](https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs).
+Notes are in [Part3/sneha_singh/README.md](Part3/sneha_singh/README.md). The 26 Oct L4 run routed 30 of 30 scenario runs. Median time was 31.4 s with the critique loop and 15.1 s without it. Both of us rated that run and agreed on all 40. The Results cell printed 6/15 passed without the loop and 4/15 with it, critic agreement 34/48, and red-team attack success 0/10. The test images are at [Sneha-subbu/data266-lab2-p3-inputs](https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs). The Gradio app is deployed for the Part 3 bonus at [Sneha-subbu/data266-lab2-p3-agents](https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents), on the free ZeroGPU plan.
 
 ### Ritika Neema
 

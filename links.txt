@@ -18,6 +18,7 @@ Hugging Face generated images: https://huggingface.co/datasets/Sneha-subbu/data2
 
 # Part 3
 Hugging Face Part 3 inputs: https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs
+Hugging Face Part 3 Space (bonus): https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents
 
 ## Ritika Neema
 # Part 1

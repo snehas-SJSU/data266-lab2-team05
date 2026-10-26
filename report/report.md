@@ -136,7 +136,7 @@ Generation records the model, the prompt, the seed, and the step count. Style ch
 
 Critique runs the Stable Diffusion checker first. A flag blocks the image only if the vision model agrees, because that checker flags ordinary cartoon creatures. Then it scores CLIP similarity against the target, with a cutoff of 0.26 fit on the 120 Part 2 images. It also checks whether the result moved toward the target compared with the input. The vision model answers two or three yes/no checks and gives one short judgement against my request only. A check is kept only when it uses a word from my request, so a detail copied from the caption cannot block the image. The image is accepted only when every remaining check passes, the CLIP score clears 0.26, and the vision model says the request is met. Otherwise the critic writes one revision, and the next prompt is told which checks already failed. It tries again at most twice. On the 26 Oct L4 run, S12 was not accepted: "The fish is blue" failed on every attempt.
 
-The orchestrator is plain Python. If an agent throws, the message says which step failed and the trace is still saved. The last notebook cell starts the Gradio demo and shows each agent's output.
+The orchestrator is plain Python. If an agent throws, the message says which step failed and the trace is still saved. The last notebook cell starts the Gradio demo and shows each agent's output. I also deployed that app as a Hugging Face Space for the Part 3 bonus, on the free ZeroGPU plan: https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents.
 
 Seed 266. diffusers 0.42.0, transformers 5.2.0, pydantic 2.14.1, torch 2.11.0+cu130. One NVIDIA L4, 512px, 30 steps. CLIP cutoff 0.26: matched prompts averaged 0.316, shuffled prompts 0.179, balanced accuracy 0.979, all on the Part 2 images. The scenarios, the red-team cases, and the input list were written first (`eval/p3_scenarios.json`, `eval/p3_redteam.json`, `eval/p3_inputs.json`). Sources are in `Part3/data/inputs_sources.json`. The test images are at https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs. The link is in `links.txt`.
 
@@ -188,7 +188,7 @@ The guards are the input check, the output check, treating text in the image as 
 
 ## V. Conclusion
 
-Part 2 is the section with a full results table. Rank 16 is closer to the dataset on KID and was not preferred by the raters. Part 1 still needs its results table, its architecture figure, its Appendix C examples, and the Kaggle score. Part 3 has the 26 Oct L4 run and both rating files. The Results cell printed 6/15 without the critique loop and 4/15 with it, critic agreement 34/48, and attack success 0/10. Ritika's own pipeline run is not in this draft. The test images are at https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs.
+Part 2 is the section with a full results table. Rank 16 is closer to the dataset on KID and was not preferred by the raters. Part 1 still needs its results table, its architecture figure, its Appendix C examples, and the Kaggle score. Part 3 has the 26 Oct L4 run and both rating files. The Results cell printed 6/15 without the critique loop and 4/15 with it, critic agreement 34/48, and attack success 0/10. Ritika's own pipeline run is not in this draft. The test images are at https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs. The Part 3 bonus Space is https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents.
 
 ## References
 
