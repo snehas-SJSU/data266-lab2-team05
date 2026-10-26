@@ -16,7 +16,7 @@ Numbers and discussion: [`results.md`](results.md).
 - `source_notes.md`: my cross-document reading notes.
 - `outputs/`: generated crops, index, raw evaluation records (not in Git).
 - `../sample_submission.csv`, `../validate_submission.py`: professor's format example and checker.
-- `../requirements.txt`: pinned Part 1 environment.
+- `../../requirements.txt`: pinned environment for the whole lab, including Part 1.
 
 ## Pipeline
 

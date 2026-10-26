@@ -68,11 +68,11 @@ Ritika still needs her own Part 1 run, her own Part 2 training run, and her own 
 
 | Part | Member | Run | Result |
 | --- | --- | --- | --- |
-| 1 | Sneha | Local notebook | Run is in. Human ratings are 0/50. The timed Kaggle run is not done. The golden set still needs both members. Detail: [Part1/sneha_singh/results.md](Part1/sneha_singh/results.md). |
+| 1 | Sneha | Local notebook | Run is in. Human ratings and the timed Kaggle run are not done. The golden set still needs both members. Scores: [Part1/sneha_singh/results.md](Part1/sneha_singh/results.md). |
 | 1 | Ritika | — | Not recorded yet. |
 | 2 | Sneha | NVIDIA L4. Rank 16 kept. | KID 0.02314 (base 0.06024). CLIP 0.3155 (base 0.3220). 0.2399 GPU-hours. 4.27 GB peak. About 15 minutes for each LoRA run. Human win rate 0.387 (29/75, 95% CI 0.285 to 0.5). Detail: [Part2/sneha_singh/results.md](Part2/sneha_singh/results.md). |
 | 2 | Ritika | Ratings only | She rated the 25 pairs. Vote: `Part2/sneha_singh/human_eval/ratings/ratings_Ritika_Neema.csv`. Her training run is not recorded. |
-| 3 | Sneha | 26 Oct, NVIDIA L4 | Routed 30 of 30. Passed 6/15 without the critique loop and 4/15 with it. Critic agreement 34/48. Red-team attack success 0/10. Median 15.1 s without the loop and 31.4 s with it. Both members agreed on all 40 ratings. Detail: [Part3/sneha_singh/results.md](Part3/sneha_singh/results.md). |
+| 3 | Sneha | 26 Oct, NVIDIA L4 | Run is in. Both members rated it. Scores: [Part3/sneha_singh/results.md](Part3/sneha_singh/results.md). |
 | 3 | Ritika | Ratings only | She rated this run. Her own pipeline run is not in yet. |
 
 ---
@@ -101,6 +101,7 @@ data266-lab2-team05/
 ├── eval/                     golden set, prompts, scenarios, result sheets
 ├── traces/                   Part 3 JSON traces
 ├── Part1/ Part2/ Part3/      sneha_singh/ and ritika_neema/
+│                             Part3/sneha_singh/hf_space/ is the bonus app upload
 │                             data/ holds a README only; images and PDFs are not committed
 ├── report/                   report draft and figures
 ├── CONTRIBUTIONS.md          who did what
@@ -121,7 +122,7 @@ Shared notebook: `notebooks/p1_rag.ipynb`.
 
 ### Sneha Singh — `Part1/sneha_singh/`
 
-**Status:** local run is in. Human ratings 0/50. Timed Kaggle run is not done. Golden set still needs both members.
+**Status:** local run is in. Human ratings and the timed Kaggle run are not done. Golden set still needs both members.
 **Notes:** [Part1/sneha_singh/README.md](Part1/sneha_singh/README.md). Scores: [Part1/sneha_singh/results.md](Part1/sneha_singh/results.md).
 
 ### Ritika Neema — `Part1/ritika_neema/`
@@ -154,8 +155,8 @@ Shared notebook: `notebooks/p3_agents.ipynb`.
 
 ### Sneha Singh — `Part3/sneha_singh/`
 
-**Status:** 26 Oct L4 run is in. 6/15 passed without the critique loop, 4/15 with it. Attack success 0/10.
-**Bonus:** Gradio app on free ZeroGPU, [data266-lab2-p3-agents](https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents).
+**Status:** 26 Oct L4 run is in. Both members rated it. Scores are in `results.md`.
+**Bonus:** Gradio app on free ZeroGPU, [data266-lab2-p3-agents](https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents). The files uploaded for that app are in `Part3/sneha_singh/hf_space/`. That folder keeps its own `requirements.txt` because the Space build is Python 3.10.
 **Inputs:** [data266-lab2-p3-inputs](https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs).
 **Notes:** [Part3/sneha_singh/README.md](Part3/sneha_singh/README.md). Scores: [Part3/sneha_singh/results.md](Part3/sneha_singh/results.md).
 
