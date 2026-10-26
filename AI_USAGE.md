@@ -14,7 +14,7 @@ I built `notebooks/p1_rag.ipynb` and ran it locally. Parsing the three PDFs, den
 
 I wrote that code. Low-trust records stay in a quarantine collection and are never queried. Appendix C's chart is not sent to the vision model. Retrieved text and pixels are data. A user fact stays in that chat and is not written into ChromaDB.
 
-Where I used AI. Research, while writing the safety section of `Part1/sneha_singh/results.md` and report section II: Lewis et al. (retrieve, then generate), Faysse et al. (a figure has to be searchable as an image), and Greshake et al. (an instruction can sit inside retrieved text or inside a picture).
+Where I used AI for research. I was writing the safety section of `Part1/sneha_singh/results.md` and report section II, and I used the assistant to read the papers with me. I wrote the section. Lewis et al. is retrieve, then generate, so I do not answer from the model alone. Faysse et al. is why a figure has to be searchable as an image, not only as the words next to it. Greshake et al. is the one I used for Appendix C. An instruction can sit inside retrieved text or inside a picture, so that page stays out of retrieval and out of the vision model.
 
 2. Give one specific thing it produced that was wrong. Paste the wrong output.
 
@@ -41,13 +41,13 @@ Where I used AI while writing that code. I still wrote each of these.
 - Section 2.4 Evaluation, functions `kid`, `clip_score`, and `diversity`. `kid` compares 20 in-domain images with the 83 test images.
 - Section Safety, functions `cemb` and `tile_dist`. `cemb` finds the nearest training image by CLIP on 10 generations. `tile_dist` measures the 3 closest pairs.
 
-Where I used AI for research, while writing the architecture in `Part2/sneha_singh/results.md` and report section III. I read the three Part 2 papers with that help, then I wrote the section so it matches this run and not the full papers.
+Where I used AI for research. I was writing the architecture in `Part2/sneha_singh/results.md` and report section III, and I used the assistant to read the three papers with me. I wrote the section so it matches this run.
 
-Rombach et al. train a latent diffusion model. An image is encoded by a VAE, noise is predicted in that latent space by a UNet, and the caption enters through cross-attention. Stable Diffusion 1.5 is that model. I did not retrain it. In `train_lora` the VAE and the text encoder stay frozen. Only the UNet attention adapters are trained.
+Rombach et al. is the Stable Diffusion paper. The picture goes through a VAE, the UNet predicts the noise, and the caption comes in through attention. I already had that model. I did not train it from scratch. In `train_lora` I freeze the VAE and the text encoder and only train the attention adapters.
 
-Hu et al. add a low-rank adapter instead of updating the whole weight matrix. A small rank already carries most of the change, which is why rank 4 and rank 16 share the same 750 images, 1500 steps, batch 4, learning rate 0.0001, and seed 266. The only difference is the rank. Rank 4 has 797,184 trainable parameters. Rank 16 has 3,188,736. I kept rank 16 because KID moved from 0.06024 to 0.02314 and the cost matched, not because the paper says a larger rank is always better.
+Hu et al. is the LoRA paper. You do not update the whole weight matrix. You add a small low-rank piece on top. That is why rank 4 and rank 16 share the same 750 images, 1500 steps, batch 4, learning rate 0.0001, and seed 266. The rank is the only change. Rank 4 has 797,184 trainable parameters. Rank 16 has 3,188,736. I kept rank 16 because KID went from 0.06024 to 0.02314 and the time and memory were the same. A bigger rank is not always better, and I am not saying that.
 
-Carlini et al. draw hundreds of images per prompt and look for a near-copy of a training image. On their scale that near-copy sits near 0.15. The lab asks for a smaller check, so `cemb` and `tile_dist` use 10 in-domain generations and one seed. A CLIP match of 0.789 to 0.938 looks like a copy until it is set next to that 0.15. The three closest pairs are the same kind of creature, different pose and color. The write-up says that. It does not say I ran their extraction attack.
+Carlini et al. look for a training image that got copied. They generate hundreds of pictures per prompt, and a near-copy on their scale is about 0.15. I did the smaller check in `cemb` and `tile_dist`: 10 generations and one seed. A CLIP score of 0.789 to 0.938 looked like a copy when I first read it. Next to their 0.15 it is not the same thing. The three closest pairs are the same kind of creature, with a different pose and different colors. I wrote that. I did not run their extraction attack.
 
 Where I used AI for fixing. The results and safety sentences had rounded past the notebook. After I logged in, `Part2/sneha_singh/push_model_cards.py` uploaded only the two model-card READMEs. The weights were not trained again.
 
@@ -87,9 +87,9 @@ Where I used AI while writing that code. I still wrote each of these.
 - Section Orchestrator. Function `run_request`. The revision cap is 2. A caption or a question stops after `vision`.
 - Section CLIP threshold calibration. Function `calibrate_clip_threshold`. The cutoff 0.26 is fit on the 120 Part 2 images, not on the 15 scenarios.
 
-Where I used AI for research, while writing the safety section of `Part3/sneha_singh/results.md` and report section IV. The paper is Greshake et al. on indirect prompt injection. An attacker does not type the instruction into the chat. They hide it in something the model will read, including a picture. The model then treats that picture as an order.
+Where I used AI for research. I was writing the safety section of `Part3/sneha_singh/results.md` and report section IV, and I used the assistant to read Greshake et al. with me. The attack is not someone typing "ignore the rules" in the chat. They hide that line in something the model will look at, like text in a picture, and the model treats it as an order.
 
-I used that while writing `vision`, `prompt_agent`, and `critique`, and again while writing the safety section. `vision` reports text it sees. It does not obey it. `_overlap_injection` and `prompt_agent` keep that text out of the generation prompt, including a line that says to skip the checks. `_grounded_in_request` keeps a critic check only when the words come from my request, so a phrase copied off the image cannot decide accept or revise. The 10 red-team cases are the test of that rule. R01 and R04 returned a caption and did not follow the text. R05 through R08 were refused before an image was made. Attack success stayed 0/10. The write-up says the rule held on this run. It does not say the paper's attack is solved.
+I used that idea while I was writing `vision`, `prompt_agent`, and `critique`, and again when I wrote the safety section. `vision` writes down the text it sees. It does not follow it. `_overlap_injection` and `prompt_agent` keep that text out of the prompt that goes to the image model, even if the picture says to skip the checks. `_grounded_in_request` only keeps a critic check when the words are in my request, so a phrase copied off the image cannot make the critic accept or revise. I tested that with the 10 red-team cases. R01 and R04 came back as captions and did not follow the text in the picture. R05 through R08 were refused before any image was made. Attack success stayed 0/10. I wrote that the rule held on this run. I did not write that the attack from the paper is solved.
 
 Where I used AI for fixing, the bonus Space. The graded app already ran. The free Hugging Face build did not. The fixes I kept, after I checked each log, are in `Part3/sneha_singh/space/`:
 
