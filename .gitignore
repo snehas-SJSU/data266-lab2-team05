@@ -15,4 +15,5 @@ outputs/
 secrets.*
 .env
 *.pdf
+Lab-papers/
 .DS_Store
