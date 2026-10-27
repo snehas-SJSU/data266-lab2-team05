@@ -2,9 +2,7 @@
 
 Store Ritika's Part 1 implementation notes, local run logs, and contribution-specific artifacts here. The shared Part 1 notebook is at the repository root: `../../notebooks/p1_rag.ipynb`.
 
-Sneha's current Part 1 status (scores, bugs to fix, and what is still open for both of us) is in:
-
-- `../sneha_singh/results.md` — section **Status for teammates**
-- `../../CONTRIBUTIONS.md` — Sneha → Part 1
+Team Part 1 status (scores, bugs, open work): [`../README.md`](../README.md).  
+Sneha detail: `../sneha_singh/results.md`. Contribution log: `../../CONTRIBUTIONS.md`.
 
 Record your own Part 1 pipeline run and links in this folder when ready.

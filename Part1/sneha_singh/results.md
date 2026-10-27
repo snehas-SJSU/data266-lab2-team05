@@ -1,14 +1,6 @@
 # Part 1 - Multimodal RAG (Sneha Singh)
 
-## Status for teammates (Ritika)
-
-What Sneha has done so far, and what is still open. Full detail is in the sections below. Same summary is in `CONTRIBUTIONS.md`.
-
-- **Done:** `notebooks/p1_rag.ipynb` (local Ollama run), Appendix C quarantine, conversation memory, architecture figure, passage-reranker OFF vs ON ablation, notes in this file, tag `p1-v1.0` at `1311cf4`.
-- **Current strength:** Recall@5 is 100%. Answers are 20/25 with the reranker off and 19/25 with it on. Prefer OFF as the main system until ON beats OFF on answers (lab +2 bonus needs that improvement). Do **not** retrain; fix pipeline bugs.
-- **Fix next:** G04 (Table B-2 year check), G15 (session override keeps 6.0%), G20 (revision month/year). Then re-run the ablation.
-- **Both of us still need:** review `eval/golden_set.json`, rate groundedness 1–5 on the 25 answers, Appendix C examples in `report/report.md`, fill the Part 1 results table from a notebook print, Kaggle 90-minute GPU run and link in `links.txt`.
-- **Ritika:** record her own Part 1 pipeline run under `Part1/ritika_neema/`.
+Team status (done, scores, bugs, open work) lives at Part 1 level: [`../README.md`](../README.md). Same summary is in `CONTRIBUTIONS.md`.
 
 Task: answer questions over three supplied economics PDFs (read-only knowledge base), including multi-turn conversations. Notebook: `notebooks/p1_rag.ipynb`. The table below is the notebook print from the passage-reranker ablation in `Part1/sneha_singh/outputs/evaluation/reranker_ablation/metrics.json`. It is **automated, provisional golden-set development results, not a Kaggle score**. Both members must review the questions and supply real groundedness ratings; a fresh team-authored frozen evaluation is still required.
 

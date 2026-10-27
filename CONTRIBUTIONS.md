@@ -13,24 +13,7 @@ Pair_Programming_Team_05: Sneha Singh, Ritika Neema
 
 ### Part 1
 
-I built and ran `notebooks/p1_rag.ipynb` locally (Ollama `qwen2.5:7b` answers, `qwen2.5vl:3b` figure captions). It parses the three PDFs, quarantines Appendix C, answers from text, figures, and tables, and keeps conversation edits out of the index. Architecture figure: `report/figures/part1/architecture.png`. Notes: `Part1/sneha_singh/results.md`. Graded tag `p1-v1.0` is at commit `1311cf4`.
-
-**Latest notebook print (passage-reranker ablation, not a Kaggle score):**
-
-| Measure | Reranker OFF | Reranker ON |
-| --- | --- | --- |
-| Answers correct | 20/25 | 19/25 |
-| Retrieval Recall@5 | 100% | 100% |
-| All required sources in top 5 | 100% | 100% |
-| Citation support—model judge | 94.4% | 97.3% |
-| Median seconds/question | 55.63 | 50.12 |
-| Generation / judge errors | 2 / 0 | 2 / 0 |
-
-Source: notebook cell that loads `Part1/sneha_singh/outputs/evaluation/reranker_ablation/metrics.json`. Retrieval is strong. Prefer **reranker OFF** as the main system for now: the +2 bonus needs the reranker to improve answers, and ON is currently 19/25 against 20/25. No retraining: Part 1 is RAG; remaining work is pipeline bug fixes.
-
-**Bugs to fix next (do not retrain):** G04 (Table B-2 year / arithmetic verify), G15 (`session_override` drops the temporary 6.0% assumption), G20 (revision event month/year). Shared failures on both arms. Reranker ON also loses G02, G05, G08; OFF also fails G12 and G14.
-
-**Still open for both of us:** review `eval/golden_set.json`, fill human groundedness ratings (1–5) for the 25 answers, write Appendix C safety examples in the report, fill the report Part 1 results table from a notebook print, and run the timed Kaggle GPU submission (`links.txt` still TBD). Ritika still needs her own Part 1 pipeline run recorded under `Part1/ritika_neema/`.
+I built and ran `notebooks/p1_rag.ipynb` locally. Team-facing Part 1 status (scores, bugs, open work) is in `Part1/README.md`. Detail notes: `Part1/sneha_singh/results.md`. Graded tag `p1-v1.0` is at commit `1311cf4`. Latest ablation print: 20/25 answers with reranker OFF, 19/25 with ON, Recall@5 100% both. Prefer OFF until ON improves answers. No retraining; fix G04, G15, G20 next. Golden-set review, human ratings, Appendix C examples, report table, and Kaggle run are still open. Ritika still needs her own Part 1 run under `Part1/ritika_neema/`.
 
 ### Part 2
 
