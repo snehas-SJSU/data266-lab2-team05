@@ -191,3 +191,128 @@ This verifies the focused repairs only; it is not a new full-set accuracy result
 Clean current-source notebook execution completed successfully: **31/31 code cells, 0 cell errors, 281 passing deterministic regression tests, and 16/16 passing actual-model synthetic checks**. The executed outputs are saved in the canonical notebook. An independent read-only check confirmed all execution counts, absence of error outputs, synthetic-check completion, and the matching notebook-source SHA-256 `98cdf730284d760148e9440907c132ccd3383880d783dd7c3015b989543619ba`. Verification details are in `outputs/evaluation/notebook_verification.json`. Full evaluation, local submission export and report regeneration were disabled for this verification.
 
 The gated workflow then started the paired passage-reranking experiment, protocol `6cd647741508538295bed272ccb6b24c5750b2425a81135572ecc18ee73a3a34`, under `outputs/evaluation/reranker_ablation/`. It runs the same 25 original golden questions in each hybrid arm, first OFF then ON, with other retrieval/generation/grading settings fixed. Both arms must finish before any improvement is reported. These are automated/provisional post-feedback development diagnostics; Kaggle GPU validation and an independent team-reviewed holdout remain pending.
+
+## Completed passage-reranker comparison
+
+Automated/provisional **post-feedback golden-set development ablation**, not an untouched holdout or Kaggle score. Both arms are hybrid pipelines. Only candidate passage reranking is toggled; source-anchor cross-encoder ranking, fact ranking, candidate generation, routing, context expansion, generator, top-five budget and grading remain fixed. This is not a dense-versus-hybrid comparison or removal of all cross-encoder uses.
+
+| Measure | Passage reranking OFF | Passage reranking ON | ON minus OFF |
+|---|---:|---:|---:|
+| Answers correct | 20 / 25 (80%) | 19 / 25 (76%) | -1 answer; -4 percentage points |
+| Retrieval Recall@5 | 100.0% | 100.0% | 0.0 percentage points |
+| All required sources found in top 5 | 100.0% | 100.0% | 0.0 percentage points |
+| Citation support (model judge) | 94.4% (34/36) | 97.3% (36/37) | +2.9 percentage points |
+| Median seconds per question | 55.63 | 50.12 | -5.50 seconds |
+| Generation / judge runtime errors | 2 / 0 | 2 / 0 | 0 / 0 |
+| Unscored questions | 0 | 0 | 0 |
+
+**No answer-accuracy improvement was demonstrated.** Passage reranking gained G12 and G14 but lost G02, G05 and G08, a net loss of one strict pass. Model-judged citation support increased and median response time was lower in this run; a single ordered 25-question-per-arm run does not establish a reliable speed or accuracy advantage. OFF's one-answer lead is also too limited to claim general superiority. Retrieval source coverage was already saturated in both arms, and 100% retrieval does not certify correct operand selection, units, reasoning or final claims.
+
+### Remaining failures and grading limitations
+
+- OFF strict failures: G04, G12, G14, G15 and G20. Its rejected generations were G04 and G14.
+- ON strict failures: G02, G04, G05, G08, G15 and G20. Its rejected generations were G04 and G20. All rejected generations remain counted as incorrect; none were retried away.
+- G02 ON emitted a dimensionally wrong car-economy calculation (`20000 * 12 / 24000 = 10`). The semantic judge incorrectly accepted it; the fixed numeric check retained the failure. G05 ON used a base-year normalization incompatible with the fixed reference, although its semantic judge accepted it. These are not evidence of reliable arithmetic or normalization merely because citations were accepted.
+- G04 in both arms bound a duration-comparison request to an unrelated unemployment-rate table cell. G20 still failed event/date/replaced-estimate resolution; OFF gave an unsupported/incomplete answer and ON rejected its plan. These are genuine scope/completeness limitations.
+- G08 ON gave the source-supported explanation that rebasing preserves percentage returns but used the wrong `false_premise` status for a neutral question. Its judge reason also contradicted the actual candidate. G15 in both arms clearly separated the temporary input from the documentary value, yet the judge rejected it with a self-contradictory reason. Their strict false grades are preserved, not manually promoted to passes.
+- G12 OFF failed the unchanged concept-pattern check despite semantic acceptance; G14 OFF was rejected by an over-restrictive source-support audit. The recorded errors and drafts remain available for review. No implementation or rubric was changed after inspecting this experiment's predictions, and no replacement experiment was run to obtain a higher score.
+
+### Completion and provenance
+
+Both native experiment status and the entire gated workflow are complete, with locks removed. Independent read-only verification confirmed **50 unique graded rows**, the original questions, matching arm/evaluation signatures, aggregate metrics, unchanged notebook source hash and protected inputs. The earlier 10/25 dense and 15/25 hybrid first-pass new-question results, all historical development tables, reference answers, source data and human-review files remain unchanged.
+
+- Outputs: `outputs/evaluation/reranker_ablation/` (`off.jsonl`, `on.jsonl`, `metrics.json`, `run_manifest.json`, `status.json`).
+- Protocol: `6cd647741508538295bed272ccb6b24c5750b2425a81135572ecc18ee73a3a34`.
+- OFF generation signature: `53300f88aa954fa69c0ef2bf2432de46b6897321831cb7256bae8f6e406c3ac0`.
+- ON generation signature: `ab5261f04dab10e3f6cb01d76cc20b226a739a9cfa6c5a7260c2b7863ff75145`.
+- Shared evaluation signature: `e0247f3f92c5a637449862feb5bf538fa0451ff5da36f8460de6289dd5f52b3a`.
+- Golden-set SHA-256: `efc5942fe7627483fa28382a94be611ed8793b9f35b874200e52e36015fd0349`.
+- Notebook source SHA-256: `98cdf730284d760148e9440907c132ccd3383880d783dd7c3015b989543619ba`.
+
+The prior focused repair gate passed 5/5; clean execution passed all 31 code cells, 281 deterministic tests and 16 actual-model synthetic checks. Those checks establish execution and targeted mechanism coverage, not general model reliability. The next decision needs real team review of the failed cases and independent evaluation; Kaggle GPU validation remains pending. No weight fine-tuning, new model download, Git commit, upload or competition submission was performed. The completion watch is being stopped after reporting this measured outcome.
+
+## Newly authorized mechanism repairs after the completed comparison
+
+The user requested the remaining fixes after reviewing the completed experiment. The 20/25 OFF and 19/25 ON results and every saved prediction remain unchanged. Subsequent checks are post-feedback development diagnostics, not a replacement frozen ablation or a new holdout.
+
+Source-page review clarified the remaining failures: G02 mixed price/quantity roles; G04's guard demanded unemployment-rate cells for a duration-in-weeks request; G05 used the correct base-year normalization of 1 but omitted the year 2005; G08 used a false-premise status for a neutral yes/no question and omitted one base date; G20 lost the actual dated revision notice in favor of a cross-reference/publication context. In particular, the earlier shorthand description of G05 as a normalization error was imprecise: its numeric failure was the missing year, not the value 1.
+
+The canonical notebook now derives quantity-year and valuation-year operands from a consistent printed quantity/price table, rejects duration-to-rate measure substitution, retains exact proof evidence through fact filtering, exposes short dated event clauses inside visual context, follows section text even when that page's visual was already retrieved, distinguishes event dates from publication vintages, and preserves source-bound index years/base dates. A leading neutral polar question cannot acquire a false-premise status merely because it is followed by an explanation request. These are source-derived contracts over arbitrary entities, amounts and years; generation helpers receive no evaluation IDs or reference answers. The lab's prohibition on hard-coded answers/question-specific rules remains a required compliance check, and no post-feedback score should be presented as an untouched final evaluation.
+
+All **300 deterministic regression tests pass**, including alternate entities/years, ambiguous or inconsistent tables, rate-versus-duration negatives, event-versus-publication dates, physical base captions versus VLM guesses, and a wired quantity-price generation test. Five additional alternate-input actual-model source-contract checks are implemented, but have not yet passed an actual run. Current-source clean notebook verification is also pending again because the source code changed.
+
+One gated workflow under `outputs/evaluation/mechanism_repair_20261026_v6/` is testing ten document-backed development cases: G02/G04/G05/G08/G20 plus G12/G21 and U02/U13/U20 regression controls. If all ten strict checks pass without runtime/judge errors, it will execute the clean canonical notebook, including the original sixteen synthetic checks and five new alternate-input source-contract checks. It does not launch a new full 25-question evaluation or rerun the completed reranker experiment. Historical measured reranker results will be recomputed from preserved rows and displayed read-only in notebook output, explicitly marked historical when the generation source version differs.
+
+The biased judge failures remain recorded for genuine human review; no grade, reference, tolerance or human rating has been altered. No weight fine-tuning or new model download is part of this repair workflow.
+
+### Follow-up unit repair and verification status
+
+The v6 targeted development check completed at **9/10**, with zero generation or judge runtime errors and protected inputs unchanged (generation signature `00a94a77fdfeb2474a25170e757562448ccff4857574f9e6d9223884cceeb2b6`). Its sole strict failure, U02, was genuine: alongside the correct direct rate difference, it emitted a relative-percent calculation mislabeled as a percentage-point shortfall. That failed grade and all ten predictions remain preserved. The strict gate stopped before clean notebook execution.
+
+The canonical notebook now validates requested percentage-point gaps against bound already-percent source observations: a simple gap requires direct subtraction; a normalized relative change cannot be mislabeled as a point gap or added when only the point gap was requested. Correctly labeled relative changes remain allowed when explicitly requested. Seven alternate-number regression checks cover mixed requests, rendering, and disguised ratio expressions. **307 deterministic tests passed.** This is bounded validation of simple source-rate gaps, not a general dimensional-algebra guarantee.
+
+A new v7 diagnostic workflow uses the same ten post-feedback development cases, with U02 first, and preserves the v6 directory. Actual-model acceptance and current-source clean execution (31 cells, original 16 synthetics and five source-contract checks) remain pending. No new full-25 score or replacement reranker experiment is claimed.
+
+The v7 run subsequently completed **9/10**, with **one rejected generation** and zero judge runtime errors (signature `ad6775d87d09a4cb17f4783de1b9bdfb80d791cb081a15c07e91d333e8cdc944`). All other nine cases passed. U02 repeatedly proposed an invalid second calculation despite the unit rejection; its final plan subtracted an input a second time. The rejection is a preserved strict failure, not a successful answer. Independent checks confirmed ten unique signed rows and unchanged protected inputs. Clean execution did not start.
+
+The follow-up v8 planning contract now constrains a single requested gap between exactly two same-citation, explicitly percent-valued observations to at most one direct subtraction. It does not supply an expected result, choose the operand order, remove a rejected calculation after generation, or apply to mixed relative/ratio/weighted requests. Existing operand, direction, support and correctness checks remain active. Six alternate-input deterministic tests include the actual planner-schema path; **313 regressions pass**. A sixth actual-model source-contract fixture uses an alternate entity, period and rates; its expectations remain confined to testing. The new v8 workflow must pass the ten focused cases before clean execution of all 31 cells, original sixteen synthetic checks and all six source-contract checks. Those current-source model/clean checks remain pending. Every earlier failure and completed comparison remains unchanged; this is post-feedback development work, not independent validation.
+
+### Completed v8 scoped verification — 26 October 2026
+
+The entire v8 gated workflow is now complete, with both locks removed. These are **automated/provisional post-feedback development diagnostics**, not an independent holdout, a new full-25 comparison or a Kaggle score.
+
+| Verification | Measured outcome |
+|---|---:|
+| Targeted document-backed strict checks | 10/10 |
+| Focused generation / judge runtime errors | 0 / 0 |
+| Deterministic regression tests | 313/313 |
+| Clean canonical notebook code cells | 31/31 |
+| Notebook error outputs | 0 |
+| Original actual-model synthetic checks | 16/16 |
+| Alternate-input actual-model source-contract checks | 6/6 |
+
+All targeted cases U02, G02, G04, G05, G08, G20, G12, G21, U13 and U20 passed the unchanged strict grading. U02 now gives only the source-bound subtraction and correct percentage-point unit; the alternate entity/year/rates fixture C6 also passed. Together with the other focused and synthetic checks, this verifies the repaired quantity/price roles, duration scope, source base-year/base-date retention, dated revision binding, neutral-question status and simple two-rate gap paths within their tested scope. It does not establish universal reasoning reliability or eliminate known semantic-judge bias.
+
+Independent read-only verification confirmed ten unique fully graded rows, exact original questions, matching generation/evaluation signatures, current notebook source identity, all 31 distinct executed code cells with saved outputs, recomputed synthetic signatures, and unchanged protected source/reference/first-pass/ablation files. The original sixteen and six alternate-input model checks are complete and passing under current signatures. Historical reranker metrics are displayed read-only in saved notebook output, explicitly marked as a different source version; neither arm was rerun or regraded. No report, submission or new full-25 evaluation was generated.
+
+- Targeted outputs: `outputs/evaluation/mechanism_repair_20261026_v8/`.
+- Targeted generation signature: `d687ce2aae2c156937e461ae1261179a9238635aa2780600824363b2d07230ac`.
+- Targeted evaluation signature: `d64d85c759ff25f91007b617fb4d1b7b8d938f778f6a5255bcd7e82143a1da26`.
+- Current notebook source SHA-256: `b06f7a02a8fe45638239ab169b5b5339ac70e39177adaf3afc729f5b57c31b15`.
+- Verification: `outputs/evaluation/notebook_verification.json`, `synthetic_checks.json` and `synthetic_source_contract_checks.json`.
+
+All v6/v7 failures and historical tables remain preserved; no false grade, rubric, reference value, tolerance or human rating was changed. Fresh independent team-authored evaluation, both real human ratings and Kaggle GPU validation remain pending. Post-feedback development scores must not be reported as untouched final-test performance; the lab's prohibition on question-specific rules and tuning on reported questions still requires team compliance review. No new model download, weight training, Git commit, upload or submission occurred. The completion watch is stopped after this scoped verification.
+
+## Independent follow-up code audit — 26 October 2026
+
+After the user requested further checking and automatic repairs, a read-only independent audit and deterministic alternate-input reproductions identified nine additional implementation errors. Repairs and regression fixtures remain entirely in the canonical notebook:
+
+1. Citation evidence now matches the exact normalized visual label and corrected variant. A citation to Table Z-1 cannot borrow Table Z-10 or its corrected counterpart; indexed metadata takes precedence over incidental caption mentions. Empty evidence text no longer raises a matching error.
+2. Mixed figure/table lists preserve each explicitly stated kind instead of converting the table into a second figure.
+3. Arithmetic validation recognizes scientific notation, including the calculator's own large/small formatted results, without changing the fixed evaluation tolerances or expected answers.
+4. Structured observation units are resolved locally from the requested column/row before a genuinely shared unit heading; an unrelated percent column no longer turns monetary columns into percent rates.
+5. Fractional monetary inputs are not automatically annotated as percentages. A percentage-equivalent operand needs explicit documentary share support, rather than merely having magnitude below one.
+6. Undated conflicts have a bounded additional witness: two different documents making the same explicitly scoped example/entity statement, differing only in one asserted numeric value. Different entities/measures and equal values are negative tests. This is not a general solver for arbitrary prose disagreement, and the existing semantic/support/revision audits remain required.
+7. Native evaluation identity includes the live trusted corpus, passage-reranking toggle, declared encoder/reranker revisions and retrieval backend. Declared versus live corpus/model mismatches are rejected, and changes during evaluation are checked. Material live retrieval changes cannot silently retain the former generation cache identity.
+8. Frozen-test resumption compares protected inputs against the original manifest before replacing it. It cannot silently establish a new source-integrity baseline after a source changes.
+9. Protocol fingerprints include executable top-level conditional/import/expression statements inside tagged protocol cells, rather than skipping everything except declarations and assignments.
+
+The regression count increased from 313 to **336**, using alternate labels, entities, quantities, units and isolated provenance fixtures. The original golden set, strict references/status/numeric/pattern/semantic rubrics and every historical failed grade were preserved. Citation evidence binding was corrected for future evaluation, but historical predictions or grades were not recomputed. The earlier 10/10 targeted result is historical after these generation/evaluation changes; it is not a fresh score for this source version.
+
+| Current-source verification | Outcome |
+|---|---:|
+| Deterministic regressions | 336/336 |
+| Clean canonical code cells | 31/31 |
+| Notebook error outputs | 0 |
+| Original actual-model synthetic checks | 16/16 |
+| Alternate-input actual-model source-contract checks | 6/6 |
+| New full-25 comparison / reranker rerun | Neither performed |
+
+The clean run completed successfully and saved current executed notebook outputs. Independent read-only checks recomputed both model-check signatures, matched the notebook source identity, confirmed 31 distinct executed cells without error outputs, verified all 22 complete passing model-check rows, and confirmed all 24 protected files were unchanged. Those protected files include the source/reference inputs, entire saved first-pass and reranker experiments, and the prior v8 targeted run. The audit lock was removed and the process exited successfully. No downloads, weight training, report regeneration, Git commit, upload or submission were needed.
+
+- Audit outputs: `outputs/evaluation/audit_20261026_v9/` (manifest, status, summary and prior verification snapshot).
+- Current notebook source SHA-256: `f4bb96e39fa422aea204954ce86b3a02a4408c37b2506cf866429613eb0b3510`.
+- Generation component: `1cb2fef6fcf71dc1ba19ad1e3e7fa9c68b0f7b95b9ffb00fe10ecb8ed1a2ec9d`.
+- Evaluation component: `483ada45cda034b4c7a099ed3a2e558910f829255c59033d006f5c846fd5f831`.
+
+These are automated post-feedback software/mechanism diagnostics, not independently held-out answer accuracy or Kaggle performance. They do not certify absence of every possible error, universal unit reasoning or semantic-judge reliability. Fresh independently team-authored questions, genuine human ratings, compliance review and Kaggle GPU validation remain pending.
