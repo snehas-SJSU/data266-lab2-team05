@@ -65,8 +65,8 @@ The code is in the notebooks. Each of us has a `sneha_singh/` or `ritika_neema/`
 
 | Part | Models |
 | --- | --- |
-| 1, local | Ollama `qwen2.5vl:3b` for figures, `qwen2.5:7b` for answers; `all-MiniLM-L6-v2`; `ms-marco-MiniLM-L6-v2` reranker |
-| 1, Kaggle | `Qwen/Qwen2.5-VL-7B-Instruct` through `transformers` |
+| 1, local (measured) | Ollama still used for current scores: `qwen2.5vl:3b` for figures, `qwen2.5:7b` for answers; `all-MiniLM-L6-v2`; `ms-marco-MiniLM-L6-v2` reranker. Ablation table in [Part1/sneha_singh/results.md](Part1/sneha_singh/results.md) is from this path (Ollama `0.34.4`). |
+| 1, Kaggle (not run yet) | Notebook switches to `Qwen/Qwen2.5-VL-7B-Instruct` through `transformers` (no Ollama). Code is ready; the 90-minute GPU run is still open. Mac scores are not Kaggle scores. |
 | 2 | `stable-diffusion-v1-5/stable-diffusion-v1-5`, LoRA ranks 4 and 16; `openai/clip-vit-base-patch32`; LPIPS AlexNet; torchmetrics KID |
 | 3 | `Qwen2.5-VL-3B`; Stable Diffusion 1.5 img2img; InstructPix2Pix; the Part 2 rank-16 LoRA; CLIP ViT-B/32 |
 
@@ -86,7 +86,7 @@ The code is in the notebooks. Each of us has a `sneha_singh/` or `ritika_neema/`
 
 | Part | Where | What to do |
 | --- | --- | --- |
-| 1 | Mac | Start Ollama `qwen2.5vl:3b` and `qwen2.5:7b`. Put the three PDFs in `Part1/data/`. Run All. [Scores](Part1/sneha_singh/results.md). |
+| 1 | Mac | Local measured path: start Ollama `qwen2.5vl:3b` and `qwen2.5:7b`. Put the three PDFs in `Part1/data/`. Run All. Current scores are from this path, not from the Kaggle HF model. [Scores](Part1/sneha_singh/results.md). |
 | 2 | Colab | Graded run: `notebooks/p2_finetune.ipynb` on an L4. Weights: [rank 16](https://huggingface.co/Sneha-subbu/data266-lab2-p2-lora_r16), [rank 4](https://huggingface.co/Sneha-subbu/data266-lab2-p2-lora_r4). Images: [data266-lab2-p2-images](https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p2-images). [Scores](Part2/sneha_singh/results.md). |
 | 3 | Colab | Graded run: `notebooks/p3_agents.ipynb` on an L4 (26 Oct). Inputs: [data266-lab2-p3-inputs](https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs). [Scores](Part3/sneha_singh/results.md). |
 

@@ -12,6 +12,17 @@ What is done on Part 1 so far, and what is still open. Same numbers as the noteb
 - Passage-reranker OFF vs ON ablation saved under `Part1/sneha_singh/outputs/evaluation/reranker_ablation/`.
 - Graded tag `p1-v1.0` points at commit `1311cf4`.
 
+### Models in use (verified)
+
+Part 1 has **not** stopped Ollama for the scores below. Two backends exist in `notebooks/p1_rag.ipynb`; only the local one has been measured.
+
+| Runtime | When it runs | Models | Status |
+| --- | --- | --- | --- |
+| Local Mac (Ollama) | Default when not on Kaggle | Answers: `qwen2.5:7b` (Q4_K_M). Figures: `qwen2.5vl:3b`. Encoder: `all-MiniLM-L6-v2`. Reranker: `ms-marco-MiniLM-L6-v2` (CPU). | **This is what produced the 20/25 and 19/25 table.** Manifest: `"inference": "local Ollama"`, Ollama `0.34.4`. |
+| Kaggle GPU (`transformers`) | Only when `/kaggle/input` is present | One model: `Qwen/Qwen2.5-VL-7B-Instruct` (NF4), no Ollama server. Encoder and reranker stay on CPU. | Code is in the notebook. **GPU run not done yet.** Mac scores are not Kaggle scores. |
+
+Do not treat the Hugging Face Kaggle path as the source of the current golden-set table. The Kaggle 90-minute run is still open.
+
 ### Latest notebook print (not a Kaggle score)
 
 | Measure | Reranker OFF | Reranker ON |
@@ -54,12 +65,12 @@ The figure is the pipeline in the sections below. Three read-only PDFs are chunk
 
 ## Models and why I chose them
 
-Latest notebook print (26 October): the passage-reranker ablation on the hybrid pipeline, with the cross-encoder off versus on. Both arms keep dense + BM25 fusion. A separate frozen new-question comparison and the Kaggle GPU run are still open.
+Latest notebook print (26 October): the passage-reranker ablation on the hybrid pipeline, with the cross-encoder off versus on. Both arms keep dense + BM25 fusion. Those arms used the **local Ollama** answerer, not the Kaggle Hugging Face model. A separate frozen new-question comparison and the Kaggle GPU run are still open.
 
 1. **Reranker OFF**: hybrid retrieval without the CPU cross-encoder passage reranker.
 2. **Reranker ON**: the same hybrid pipeline with `ms-marco-MiniLM-L6-v2` passage reranking.
-3. **Figure descriptions**: Ollama `qwen2.5vl:3b` describes trusted figures so they are searchable; **answers** come from `qwen2.5:7b` (Q4_K_M, local Ollama, temperature 0, seed 266), grounded on retrieved text and figure descriptions (text-only, no direct image input).
-4. **Kaggle backend** (`Qwen/Qwen2.5-VL-7B-Instruct` via `transformers`) is written in the notebook but its GPU run is not tested yet.
+3. **Local answer path (measured):** Ollama `qwen2.5vl:3b` describes trusted figures; **answers** and the provisional judge use `qwen2.5:7b` (Q4_K_M, local Ollama `0.34.4`, temperature 0, seed 266), grounded on retrieved text and figure descriptions (text-only, no direct image input). This is what the ablation table reports.
+4. **Kaggle answer path (not measured yet):** when the notebook detects Kaggle, it loads `Qwen/Qwen2.5-VL-7B-Instruct` with `transformers` (NF4 on one 16 GB GPU) and does not start Ollama. That run has not been completed, so there is no Kaggle score to put in the report yet.
 
 ## Preprocessing
 - Page-aware text chunks, separate figure and table crops, table-row records, and trust levels from the manifest; the low-trust Appendix C is quarantined and never used as evidence.
@@ -67,7 +78,7 @@ Latest notebook print (26 October): the passage-reranker ablation on the hybrid 
 - Golden set: 25 questions (5 multi-turn across two conversations), a draft pending both members' review and a fresh independent frozen set.
 
 ## Hardware
-Local Mac with Ollama (CPU cross-encoder). The required end-to-end run on a 16 GB Kaggle GPU within 90 minutes has **not** been done yet.
+Local Mac with Ollama for the current scores (CPU cross-encoder). The required end-to-end run on a 16 GB Kaggle GPU within 90 minutes, using `Qwen/Qwen2.5-VL-7B-Instruct`, has **not** been done yet.
 
 ## Test metrics (development diagnostics)
 
