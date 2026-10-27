@@ -2,7 +2,7 @@
 
 This folder is empty on GitHub on purpose. `.gitignore` ignores everything under `data/` except this README and `.gitkeep`. The photos, the broken test files, and `inputs_sources.json` stay on the machine that prepared them. They are not a Hugging Face dataset the notebook downloads.
 
-`notebooks/p3_agents.ipynb` only reads a folder that is already there:
+`notebooks/sneha_singh/p3_agents.ipynb` only reads a folder that is already there:
 
 - On a Mac, `Part3/data/inputs/`.
 - On Colab, upload that same folder to `MyDrive/data266_lab2_p3/inputs/` before Run All. Also upload `eval/`.

@@ -1,6 +1,6 @@
 # Part 3 - Multimodal agents (Sneha Singh)
 
-The notebook is [`../../notebooks/p3_agents.ipynb`](../../notebooks/p3_agents.ipynb). The five agents, the evaluation, and the Gradio app are in that notebook. [`results.md`](results.md) has the numbers the notebook printed.
+The notebook is [`../../notebooks/sneha_singh/p3_agents.ipynb`](../../notebooks/sneha_singh/p3_agents.ipynb). The five agents, the evaluation, and the Gradio app are in that notebook. [`results.md`](results.md) has the numbers the notebook printed.
 
 ## What I built
 

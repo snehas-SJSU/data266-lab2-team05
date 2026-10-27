@@ -6,7 +6,7 @@ What is done on Part 1 so far, and what is still open. Same numbers as the noteb
 
 ### Done (Sneha)
 
-- Built and ran `notebooks/p1_rag.ipynb` locally (Ollama `qwen2.5:7b` answers, `qwen2.5vl:3b` figure captions).
+- Built and ran `notebooks/sneha_singh/p1_rag.ipynb` locally (Ollama `qwen2.5:7b` answers, `qwen2.5vl:3b` figure captions).
 - Parses the three PDFs, quarantines Appendix C, answers from text/figures/tables, keeps conversation edits out of the index.
 - Architecture figure: `report/figures/part1/architecture.png`.
 - Passage-reranker OFF vs ON ablation saved under `Part1/sneha_singh/outputs/evaluation/reranker_ablation/`.
@@ -14,7 +14,7 @@ What is done on Part 1 so far, and what is still open. Same numbers as the noteb
 
 ### Models in use (verified)
 
-Part 1 has **not** stopped Ollama for the scores below. Two backends exist in `notebooks/p1_rag.ipynb`; only the local one has been measured.
+Part 1 has **not** stopped Ollama for the scores below. Two backends exist in `notebooks/sneha_singh/p1_rag.ipynb`; only the local one has been measured.
 
 | Runtime | When it runs | Models | Status |
 | --- | --- | --- | --- |
@@ -55,7 +55,7 @@ Shared on both arms. Reranker OFF also fails G12 and G14. Reranker ON also loses
 5. Timed Kaggle GPU run (≤ 90 minutes) and put the link in `links.txt`.
 6. Ritika: record her own Part 1 pipeline run under `Part1/ritika_neema/`.
 
-Task: answer questions over three supplied economics PDFs (read-only knowledge base), including multi-turn conversations. Notebook: `notebooks/p1_rag.ipynb`. The table below is the notebook print from the passage-reranker ablation in `Part1/sneha_singh/outputs/evaluation/reranker_ablation/metrics.json`. It is **automated, provisional golden-set development results, not a Kaggle score**. Both members must review the questions and supply real groundedness ratings; a fresh team-authored frozen evaluation is still required.
+Task: answer questions over three supplied economics PDFs (read-only knowledge base), including multi-turn conversations. Notebook: `notebooks/sneha_singh/p1_rag.ipynb`. The table below is the notebook print from the passage-reranker ablation in `Part1/sneha_singh/outputs/evaluation/reranker_ablation/metrics.json`. It is **automated, provisional golden-set development results, not a Kaggle score**. Both members must review the questions and supply real groundedness ratings; a fresh team-authored frozen evaluation is still required.
 
 ## Architecture
 

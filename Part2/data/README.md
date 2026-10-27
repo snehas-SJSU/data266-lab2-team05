@@ -2,7 +2,7 @@
 
 This folder is empty on GitHub on purpose. `.gitignore` ignores everything under `data/` except this README and `.gitkeep`.
 
-The training set is not stored in the repository. `notebooks/p2_finetune.ipynb` loads it itself:
+The training set is not stored in the repository. `notebooks/sneha_singh/p2_finetune.ipynb` loads it itself:
 
 - Hugging Face dataset: `reach-vb/pokemon-blip-captions` (833 image-caption pairs).
 - Local cache, created on the first run: `Part2/data/pokemon-blip-captions`.

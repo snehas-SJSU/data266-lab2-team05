@@ -2,7 +2,7 @@
 
 Sneha Singh and Ritika Neema. Canvas and Kaggle name: `Pair_Programming_Team_05`.
 
-We share one notebook per part. Part 1 answers questions about three economics PDFs. Part 2 fine-tunes Stable Diffusion 1.5 with LoRA on Pokémon captions. Part 3 is five agents that read an image, make a new one, and check it. Seed 266. No hosted API. Models run on our machines, through Ollama, or on Kaggle or Colab.
+Each of us keeps her own notebooks under `notebooks/<name>/`. Part 1 answers questions about three economics PDFs. Part 2 fine-tunes Stable Diffusion 1.5 with LoRA on Pokémon captions. Part 3 is five agents that read an image, make a new one, and check it. Seed 266. No hosted API. Models run on our machines, through Ollama, or on Kaggle or Colab.
 
 | Member | Folder |
 | --- | --- |
@@ -18,9 +18,11 @@ data266-lab2-team05/
 ├── README.md
 ├── requirements.txt
 ├── notebooks/
-│   ├── p1_rag.ipynb
-│   ├── p2_finetune.ipynb
-│   └── p3_agents.ipynb
+│   ├── sneha_singh/
+│   │   ├── p1_rag.ipynb
+│   │   ├── p2_finetune.ipynb
+│   │   └── p3_agents.ipynb
+│   └── ritika_neema/   (Ritika's notebooks when ready)
 ├── eval/
 ├── traces/
 ├── Part1/  Part2/  Part3/
@@ -96,17 +98,17 @@ Python 3.13. Open a notebook from the repo root and use Restart & Run All. The f
 
 | Part | Where | What to do |
 | --- | --- | --- |
-| 1 | Kaggle | Open `notebooks/p1_rag.ipynb` from tag `p1-v1.0`. Attach the competition data and `Part1/validate_submission.py`. Turn on a GPU and internet. Run All. It writes `submission.csv` and checks it. Limit: 90 minutes on one 16 GB GPU. |
-| 2 | Colab | Upload `notebooks/p2_finetune.ipynb` and Run All. It mounts Drive and saves to `MyDrive/data266_lab2_p2/`. A finished step is skipped. Training resumes from the checkpoint if the session drops. |
-| 3 | Colab | Put `eval/` and `inputs/` in `MyDrive/data266_lab2_p3/`, upload `notebooks/p3_agents.ipynb`, and Run All. 512 pixels, 30 steps. The last cell starts Gradio. |
+| 1 | Kaggle | Open `notebooks/sneha_singh/p1_rag.ipynb` from tag `p1-v1.0`. Attach the competition data and `Part1/validate_submission.py`. Turn on a GPU and internet. Run All. It writes `submission.csv` and checks it. Limit: 90 minutes on one 16 GB GPU. |
+| 2 | Colab | Upload `notebooks/sneha_singh/p2_finetune.ipynb` and Run All. It mounts Drive and saves to `MyDrive/data266_lab2_p2/`. A finished step is skipped. Training resumes from the checkpoint if the session drops. |
+| 3 | Colab | Put `eval/` and `inputs/` in `MyDrive/data266_lab2_p3/`, upload `notebooks/sneha_singh/p3_agents.ipynb`, and Run All. 512 pixels, 30 steps. The last cell starts Gradio. |
 
 ### Sneha Singh
 
 | Part | Where | What to do |
 | --- | --- | --- |
 | 1 | Mac | Local measured path: start Ollama `qwen2.5vl:3b` and `qwen2.5:7b`. Put the three PDFs in `Part1/data/`. Run All. Current scores are from this path, not from the Kaggle HF model. [Scores](Part1/sneha_singh/results.md). |
-| 2 | Colab | Graded run: `notebooks/p2_finetune.ipynb` on an L4. Weights: [rank 16](https://huggingface.co/Sneha-subbu/data266-lab2-p2-lora_r16), [rank 4](https://huggingface.co/Sneha-subbu/data266-lab2-p2-lora_r4). Images: [data266-lab2-p2-images](https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p2-images). [Scores](Part2/sneha_singh/results.md). |
-| 3 | Colab | Graded run: `notebooks/p3_agents.ipynb` on an L4 (26 Oct). Inputs: [data266-lab2-p3-inputs](https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs). [Scores](Part3/sneha_singh/results.md). |
+| 2 | Colab | Graded run: `notebooks/sneha_singh/p2_finetune.ipynb` on an L4. Weights: [rank 16](https://huggingface.co/Sneha-subbu/data266-lab2-p2-lora_r16), [rank 4](https://huggingface.co/Sneha-subbu/data266-lab2-p2-lora_r4). Images: [data266-lab2-p2-images](https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p2-images). [Scores](Part2/sneha_singh/results.md). |
+| 3 | Colab | Graded run: `notebooks/sneha_singh/p3_agents.ipynb` on an L4 (26 Oct). Inputs: [data266-lab2-p3-inputs](https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs). [Scores](Part3/sneha_singh/results.md). |
 
 **Bonus (Part 3 Space, optional):** same Gradio app on Hugging Face free ZeroGPU: [data266-lab2-p3-agents](https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents). Upload folder: `Part3/sneha_singh/hf_space/` (own `requirements.txt`; that build is Python 3.10). This is not the graded Colab run.
 
@@ -122,19 +124,19 @@ Python 3.13. Open a notebook from the repo root and use Restart & Run All. The f
 
 ## Part 1 — Multimodal RAG
 
-Notebook: `notebooks/p1_rag.ipynb`. Architecture image is at the top of this README (`report/figures/part1/architecture.png`).
+Notebook: `notebooks/sneha_singh/p1_rag.ipynb`. Architecture image is at the top of this README (`report/figures/part1/architecture.png`).
 
 The PDFs stay read-only. A fact added in one chat stays in that chat. Dense retrieval is the baseline. The final system mixes dense search with BM25.
 
 ## Part 2 — Diffusion fine-tuning
 
-Notebook: `notebooks/p2_finetune.ipynb`. Architecture image is at the top of this README (`report/figures/part2/architecture.png`).
+Notebook: `notebooks/sneha_singh/p2_finetune.ipynb`. Architecture image is at the top of this README (`report/figures/part2/architecture.png`).
 
 Two LoRA ranks, 4 and 16, on the same data and the same step budget. Rank 16 is the one we kept. Prompts are in `eval/p2_prompts.json`, written before training.
 
 ## Part 3 — Multimodal agents
 
-Notebook: `notebooks/p3_agents.ipynb` (graded on Colab). Architecture image is at the top of this README (`report/figures/part3/architecture.png`).
+Notebook: `notebooks/sneha_singh/p3_agents.ipynb` (graded on Colab). Architecture image is at the top of this README (`report/figures/part3/architecture.png`).
 
 The planner picks a route. Vision describes the image. The prompt agent rewrites the request. Generation makes the image. Critique can send it back, at most twice. A caption stops after vision. An unsafe request stops at the planner.
 

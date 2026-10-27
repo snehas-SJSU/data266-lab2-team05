@@ -12,7 +12,7 @@ An AI assistant helped me design. I read the papers. For each part the help was 
 
 ### Part 1
 
-AI helped me design the retrieval and the grounded answer in `notebooks/p1_rag.ipynb`.
+AI helped me design the retrieval and the grounded answer in `notebooks/sneha_singh/p1_rag.ipynb`.
 
 Retrieval. `HybridRetriever.retrieve` mixes a dense MiniLM score with BM25. `PassageReranker.score` reorders the passages for the question. `expand_context` brings in the chunks that sit next to a hit, so the answer is not stuck on one short passage. `retrieve_dense` stays beside it as the dense-only baseline.
 
@@ -30,7 +30,7 @@ Greshake et al. An instruction can hide in a page or a picture. I turned that in
 
 ### Part 2
 
-AI helped me design which layers the adapter trains in `notebooks/p2_finetune.ipynb`.
+AI helped me design which layers the adapter trains in `notebooks/sneha_singh/p2_finetune.ipynb`.
 
 `train_lora` puts the adapter on `to_q`, `to_k`, `to_v`, and `to_out.0`. The VAE, the text encoder, and the original UNet weights stay frozen. The loss is the mean squared error on the noise. `lora_alpha` equals the rank.
 
@@ -48,7 +48,7 @@ Carlini et al. They draw hundreds of images per prompt and call a near-copy some
 
 ### Part 3
 
-AI helped me design the prompt check, the critique check, and the revision loop in `notebooks/p3_agents.ipynb`.
+AI helped me design the prompt check, the critique check, and the revision loop in `notebooks/sneha_singh/p3_agents.ipynb`.
 
 `vision` writes down any text it sees in the picture and stores it as data. `prompt_agent`, with `_overlap_injection`, keeps that text out of the prompt that goes to the image model, even when the picture says to skip the checks. `_grounded_in_request` keeps a phrase only when the words are already in the request.
 

@@ -1,7 +1,7 @@
 """Upload Part 2 model cards only. Does not retrain and does not re-upload weights.
 
 The live rank-16 card rounds CLIP 0.3155 to 0.316. This writes the digits printed
-in notebooks/p2_finetune.ipynb and uploads README.md for both adapters.
+in notebooks/sneha_singh/p2_finetune.ipynb and uploads README.md for both adapters.
 
     huggingface-cli login
     .venv/bin/python Part2/sneha_singh/push_model_cards.py

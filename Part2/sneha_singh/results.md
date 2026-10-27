@@ -1,6 +1,6 @@
 # Part 2 - Diffusion fine-tuning (Sneha Singh)
 
-I fine-tuned Stable Diffusion 1.5 on Pokemon BLIP captions and compared two LoRA ranks with the base model. The run is `notebooks/p2_finetune.ipynb`, trained on a Colab NVIDIA L4. The numbers below come from that notebook's saved outputs.
+I fine-tuned Stable Diffusion 1.5 on Pokemon BLIP captions and compared two LoRA ranks with the base model. The run is `notebooks/sneha_singh/p2_finetune.ipynb`, trained on a Colab NVIDIA L4. The numbers below come from that notebook's saved outputs.
 
 ## Architecture
 

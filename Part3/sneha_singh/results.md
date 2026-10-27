@@ -1,6 +1,6 @@
 # Part 3 - Multimodal agents (Sneha Singh)
 
-Five agents share one typed state: Planner, Vision Understanding, Prompt Engineering, Image Generation, and Critique. Each request saves a JSON trace. The notebook is `notebooks/p3_agents.ipynb`. The counts below are what the Results cell printed from the 26 Oct 2026 L4 run and the two rating files.
+Five agents share one typed state: Planner, Vision Understanding, Prompt Engineering, Image Generation, and Critique. Each request saves a JSON trace. The notebook is `notebooks/sneha_singh/p3_agents.ipynb`. The counts below are what the Results cell printed from the 26 Oct 2026 L4 run and the two rating files.
 
 ## Architecture
 
