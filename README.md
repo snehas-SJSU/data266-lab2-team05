@@ -87,8 +87,10 @@ The code is in the notebooks. Each of us has a `sneha_singh/` or `ritika_neema/`
 | Part | Where | What to do |
 | --- | --- | --- |
 | 1 | Mac | Start Ollama `qwen2.5vl:3b` and `qwen2.5:7b`. Put the three PDFs in `Part1/data/`. Run All. [Scores](Part1/sneha_singh/results.md). |
-| 2 | Mac | Weights: [rank 16](https://huggingface.co/Sneha-subbu/data266-lab2-p2-lora_r16), [rank 4](https://huggingface.co/Sneha-subbu/data266-lab2-p2-lora_r4). Images: [data266-lab2-p2-images](https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p2-images). Two prompts: `.venv/bin/python Part2/sneha_singh/demo_generate.py "prompt one" "prompt two"`. [Scores](Part2/sneha_singh/results.md). |
-| 3 | Space | Bonus app: [data266-lab2-p3-agents](https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents), free ZeroGPU. Upload folder: `Part3/sneha_singh/hf_space/`, own `requirements.txt` because that build is Python 3.10. [Notes](Part3/sneha_singh/README.md). [Scores](Part3/sneha_singh/results.md). |
+| 2 | Colab | Graded run: `notebooks/p2_finetune.ipynb` on an L4. Weights: [rank 16](https://huggingface.co/Sneha-subbu/data266-lab2-p2-lora_r16), [rank 4](https://huggingface.co/Sneha-subbu/data266-lab2-p2-lora_r4). Images: [data266-lab2-p2-images](https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p2-images). [Scores](Part2/sneha_singh/results.md). |
+| 3 | Colab | Graded run: `notebooks/p3_agents.ipynb` on an L4 (26 Oct). Inputs: [data266-lab2-p3-inputs](https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs). [Scores](Part3/sneha_singh/results.md). |
+
+**Bonus (Part 3 Space, optional):** same Gradio app on Hugging Face free ZeroGPU: [data266-lab2-p3-agents](https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents). Upload folder: `Part3/sneha_singh/hf_space/` (own `requirements.txt`; that build is Python 3.10). This is not the graded Colab run.
 
 ### Ritika Neema
 
@@ -118,8 +120,10 @@ Two LoRA ranks, 4 and 16, on the same data and the same step budget. Rank 16 is 
 
 ## Part 3 — Multimodal agents
 
-Notebook: `notebooks/p3_agents.ipynb`.
+Notebook: `notebooks/p3_agents.ipynb` (graded on Colab).
 
 The planner picks a route. Vision describes the image. The prompt agent rewrites the request. Generation makes the image. Critique can send it back, at most twice. A caption stops after vision. An unsafe request stops at the planner.
+
+Bonus: the same app as a Hugging Face Space, [data266-lab2-p3-agents](https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents), from `Part3/sneha_singh/hf_space/`.
 
 ![Part 3 architecture: planner, vision, prompt, generation, and critique](report/figures/part3/architecture.png)
