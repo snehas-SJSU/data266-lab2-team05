@@ -1,6 +1,16 @@
 # Part 1 - Multimodal RAG (Sneha Singh)
 
-Task: answer questions over three supplied economics PDFs (read-only knowledge base), including multi-turn conversations. Notebook: `notebooks/p1_rag.ipynb`. The numbers below come from the completed local Qwen comparison in `Part1/sneha_singh/outputs/evaluation/metrics.json`, `results.csv` and `run_manifest.json`, run signature `9fc585264f13424683217c1f522596794292dc62d79d9703cf90133429ded7bb`. They are **automated, provisional post-feedback development diagnostics on an AI-assisted draft golden set, not an untouched benchmark or Kaggle score**. Both members must review the questions and supply real groundedness ratings; a fresh team-authored frozen evaluation is still required.
+## Status for teammates (Ritika)
+
+What Sneha has done so far, and what is still open. Full detail is in the sections below. Same summary is in `CONTRIBUTIONS.md`.
+
+- **Done:** `notebooks/p1_rag.ipynb` (local Ollama run), Appendix C quarantine, conversation memory, architecture figure, passage-reranker OFF vs ON ablation, notes in this file, tag `p1-v1.0` at `1311cf4`.
+- **Current strength:** Recall@5 is 100%. Answers are 20/25 with the reranker off and 19/25 with it on. Prefer OFF as the main system until ON beats OFF on answers (lab +2 bonus needs that improvement). Do **not** retrain; fix pipeline bugs.
+- **Fix next:** G04 (Table B-2 year check), G15 (session override keeps 6.0%), G20 (revision month/year). Then re-run the ablation.
+- **Both of us still need:** review `eval/golden_set.json`, rate groundedness 1–5 on the 25 answers, Appendix C examples in `report/report.md`, fill the Part 1 results table from a notebook print, Kaggle 90-minute GPU run and link in `links.txt`.
+- **Ritika:** record her own Part 1 pipeline run under `Part1/ritika_neema/`.
+
+Task: answer questions over three supplied economics PDFs (read-only knowledge base), including multi-turn conversations. Notebook: `notebooks/p1_rag.ipynb`. The table below is the notebook print from the passage-reranker ablation in `Part1/sneha_singh/outputs/evaluation/reranker_ablation/metrics.json`. It is **automated, provisional golden-set development results, not a Kaggle score**. Both members must review the questions and supply real groundedness ratings; a fresh team-authored frozen evaluation is still required.
 
 ## Architecture
 
@@ -10,10 +20,10 @@ The figure is the pipeline in the sections below. Three read-only PDFs are chunk
 
 ## Models and why I chose them
 
-Latest work (26 October): additional explanation-grounding and explicit trust-reporting fixes are under actual-model verification. The full 23/25 hybrid and 13/25 dense table below belongs to the earlier `9fc585...` source, not the newly edited notebook. A separate frozen new-question comparison is gated on passing the focused checks; no new-test score is available yet.
+Latest notebook print (26 October): the passage-reranker ablation on the hybrid pipeline, with the cross-encoder off versus on. Both arms keep dense + BM25 fusion. A separate frozen new-question comparison and the Kaggle GPU run are still open.
 
-1. **Dense baseline**: `all-MiniLM-L6-v2` embeddings in ChromaDB; the simple retrieval baseline the lab asks for.
-2. **Hybrid final system**: dense + BM25 fusion, exact figure-label priority, a CPU cross-encoder reranker (`ms-marco-MiniLM-L6-v2`) and neighbouring-context expansion; same encoder and answer generator as the baseline so retrieval is the only change.
+1. **Reranker OFF**: hybrid retrieval without the CPU cross-encoder passage reranker.
+2. **Reranker ON**: the same hybrid pipeline with `ms-marco-MiniLM-L6-v2` passage reranking.
 3. **Figure descriptions**: Ollama `qwen2.5vl:3b` describes trusted figures so they are searchable; **answers** come from `qwen2.5:7b` (Q4_K_M, local Ollama, temperature 0, seed 266), grounded on retrieved text and figure descriptions (text-only, no direct image input).
 4. **Kaggle backend** (`Qwen/Qwen2.5-VL-7B-Instruct` via `transformers`) is written in the notebook but its GPU run is not tested yet.
 
@@ -27,42 +37,43 @@ Local Mac with Ollama (CPU cross-encoder). The required end-to-end run on a 16 G
 
 ## Test metrics (development diagnostics)
 
-Most recent completed full development comparison, before the latest explanation fixes: 25 hybrid and 25 dense answers, all graded under generation signature `9fc585264f13424683217c1f522596794292dc62d79d9703cf90133429ded7bb` and evaluation signature `fea59ee324e9efe748deaa569e99e322c79bd528e608ffd789e2c457eef8f653`. Both JSONL files have 25 unique question IDs and match the metrics and manifest. The runner completed successfully, verified protected inputs unchanged, and removed its lock. It executed canonical notebook definitions, not a new Restart/Run All; a separate clean verification had passed for that earlier source. Do not treat that earlier verification as a clean execution of the newly edited notebook.
+Run finished. Automated/provisional golden-set development results—not a Kaggle score. Source: `Part1/sneha_singh/outputs/evaluation/reranker_ablation/metrics.json` (same digits as the notebook print).
 
-| Measurement | Dense baseline | Hybrid final |
-|---|---|---|
-| Answer correctness (of 25) | 13 / 25 (52%) | 23 / 25 (92%) |
-| Retrieval Recall@5 | 72.9% | 100.0% |
-| All required sources in top 5 | 66.7% | 100.0% |
-| Citation support (model judge) | 77.4% (24/31) | 100.0% (39/39) |
-| Median seconds per question | 67.86 | 42.26 |
-| Generation / judge errors | 1 / 0 | 0 / 0 |
+| Measure | Reranker OFF | Reranker ON |
+| --- | --- | --- |
+| Answers correct | 20/25 | 19/25 |
+| Retrieval Recall@5 | 100% | 100% |
+| All required sources in top 5 | 100% | 100% |
+| Citation support—model judge | 94.4% | 97.3% |
+| Median seconds/question | 55.63 | 50.12 |
+| Generation / judge errors | 2 / 0 | 2 / 0 |
 | Human groundedness (both members) | pending | pending |
 | Human agreement within one point | pending | pending |
 
-## Comparison (baseline vs final)
-- The hybrid system answered 23 of 25 questions correctly against 13 for the dense baseline, with higher Recall@5 and model-judged citation support, and a lower measured median time per question in this local run. The baseline's one rejected generation is counted as incorrect, not omitted.
-- The preceding full run (`df6118a756d1...`) scored dense 10/25 and hybrid 19/25. The current source-derived reasoning fixes increased strict hybrid correctness by four questions; retrieval remained at 100%. This is improvement on the same post-feedback development set, not evidence of independent generalization.
-- Correctness and citation scores use a same-model judge, so they can share answerer biases; human groundedness ratings from both members are still to be collected.
+## Comparison (reranker off vs on)
+- Both arms kept Recall@5 and all-required-sources at 100%. Turning the passage reranker on raised model-judged citation support from 94.4% to 97.3% and cut the median time from 55.63 s to 50.12 s.
+- Answer correctness moved the other way: 20/25 with the reranker off, 19/25 with it on. The paired change list gained G12 and G14 and lost G02, G05, and G08.
+- Each arm had 2 generation errors and 0 judge errors. Correctness and citation scores use a same-model judge, so they can share answerer biases; human groundedness ratings from both members are still to be collected.
 
 ## Strengths
-- Retrieval improved with hybrid search and reranking; the measured median response time was lower in this run. Timing excludes indexing and grading and does not establish Kaggle GPU performance.
+- Retrieval stayed at 100% Recall@5 on both arms. Timing excludes indexing and grading and does not establish Kaggle GPU performance.
 - Answers are grounded JSON with cited sources, and trust levels and a quarantined low-trust appendix are respected.
-- No generation or judge errors in the hybrid run; the baseline retains one rejected generation. Everything is local (no hosted API).
+- Everything is local (no hosted API).
 
 ## Weaknesses / limitations
 - Results are development diagnostics on a draft golden set that informed the design; a fresh frozen team-authored set is still needed.
 - Human groundedness ratings, the Kaggle GPU run and its 90-minute check, and the final Kaggle submission are not done.
 - Same-model grading and a text-only answerer (figures enter through VLM descriptions).
-- Model-judged citation support of 100% does not establish that every claim is correct: the G12 explanation contradicts its own cited source. Internal audits and the semantic/citation judge missed that error. The strict correctness score remains 23/25.
+- The passage reranker did not raise answer correctness on this set (19/25 against 20/25). Both arms still have 2 generation errors.
 
-## Failed cases in the last completed full development comparison
+## Failed cases (earlier dense vs hybrid development run)
+
+The notes below are from an earlier dense-versus-hybrid comparison, not from the reranker OFF/ON table above. Keep them as development history until both members review the current ablation failures.
 
 - Hybrid G12 omits the required imported-consumption distinction and incorrectly says the GDP deflator remained positive in 2009. The actual retrieved Briefing B page 4 says the GDP deflator also fell slightly, while core CPI stayed positive. This is a real source-grounding error, not merely wording. The semantic and citation judge accepted it incorrectly; the unchanged fixed concept rubric still marks the answer false.
 - Hybrid G21 correctly returns conflict, both 9.8 and 9.6, no explicit revision, and preference for DOC1. However, its answer text does not explicitly label the other source DOC3 or explain the high-versus-medium trust levels; DOC3 appears only in structured citations. The unchanged required-pattern check fails. The semantic judge's pass does not override that failure.
-- Dense G19 is the only rejected generation: its source-scope/operand audit rejected the plan after bounded retries, despite a positive-sounding audit explanation. It remains counted as incorrect. Other dense failures include retrieval mix-ups, incomplete explanations and unreliable semantic judgments; no failed row was removed.
-- G04, G09, G13, G14, G18, G19 and G24 all pass in the current hybrid full run. Prior failures and intermediate diagnostic attempts remain in evaluation history.
-- Both members must review these cases. The strict automated score is 23/25; no reference answers, numeric tolerance, fixed concept checks or grades were changed. Human ratings remain 0/50, pending real member review.
+- Dense G19 is a rejected generation: its source-scope/operand audit rejected the plan after bounded retries, despite a positive-sounding audit explanation. It remains counted as incorrect.
+- On the current reranker ablation, turning the reranker on gained G12 and G14 and lost G02, G05, and G08. Human ratings remain pending.
 
 ## Latest correction checks
 
