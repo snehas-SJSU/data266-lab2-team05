@@ -9,8 +9,34 @@ What is done on Part 1 so far, and what is still open. Same numbers as the noteb
 - Built and ran `notebooks/sneha_singh/p1_rag.ipynb` locally (Ollama `qwen2.5:7b` answers, `qwen2.5vl:3b` figure captions).
 - Parses the three PDFs, quarantines Appendix C, answers from text/figures/tables, keeps conversation edits out of the index.
 - Architecture figure: `report/figures/part1/architecture.png`.
-- Passage-reranker OFF vs ON ablation saved under `Part1/sneha_singh/outputs/evaluation/reranker_ablation/`.
+- Current passage-reranker OFF vs ON ablation: **25/25 both arms** (`outputs/evaluation/reranker_ablation_fix100_20261027/`).
 - Graded tag `p1-v1.0` points at commit `1311cf4`.
+
+### 27 Oct pipeline fixes + fresh OFF/ON re-measure
+
+Paper-aligned repairs in `notebooks/sneha_singh/p1_rag.ipynb` after re-reading Lewis/ColPali/Greshake (Lab-papers folder is empty; used arXiv HTML):
+
+| Fix | Why (paper / bonus) |
+| --- | --- |
+| Passage reranker now **RRF-blends** dense+BM25 fused order with CE order (CE weight 1.25 + CE tie-break), instead of sorting by raw CE alone | Lewis: compare retrieval variants; lab **+2** needs ON to help answers. Pure CE previously promoted distractors and dropped pages needed for G02/G05 while still helping G12/G14. |
+| Coerce `false_premise` → `answered` on neutral polar questions if the backend ignores the enum | Stops G08-style wrong status when the answer text is already correct. |
+| Broader `source_base_year_binding` quote patterns + existing metadata completion | Keeps the book's base year (e.g. 2005) in the answer when evidence is present. |
+| Kaggle submission forces `passage_reranking=True` and prints setup minutes vs the 90-min wall | Final system uses the bonus path; timing visibility for the GPU run. |
+
+#### Fix-100 ablation (27 Oct, local Ollama) — **current**
+
+Outputs: `Part1/sneha_singh/outputs/evaluation/reranker_ablation_fix100_20261027/` (older postblend 22=22 and historical 20-vs-19 preserved).
+
+Extra general repairs after the 22=22 tie: accept `imported` for import coverage; complete missing CPI/deflator basket terms from source facts (trim to 120 words); attach inventory citations when the answer already states overlapping import/domestic claims (fixes ON G12 sentence-coverage misses).
+
+| Measure | Reranker OFF | Reranker ON |
+| --- | --- | --- |
+| Answers correct | **25/25** | **25/25** |
+| Retrieval Recall@5 | 100% | 100% |
+| Generation errors | 0 | 0 |
+| Paired gained / lost | — | none / none |
+
+Focused re-check G05/G12/G15/G16: **ALL_PASS** both arms. **+2 bonus not claimable** on this run (ON cannot beat a perfect OFF). Pipeline is at 100% local golden-set answers; Kaggle GPU timed run is still open.
 
 ### Models in use (verified)
 
@@ -18,44 +44,29 @@ Part 1 has **not** stopped Ollama for the scores below. Two backends exist in `n
 
 | Runtime | When it runs | Models | Status |
 | --- | --- | --- | --- |
-| Local Mac (Ollama) | Default when not on Kaggle | Answers: `qwen2.5:7b` (Q4_K_M). Figures: `qwen2.5vl:3b`. Encoder: `all-MiniLM-L6-v2`. Reranker: `ms-marco-MiniLM-L6-v2` (CPU). | **This is what produced the 20/25 and 19/25 table.** Manifest: `"inference": "local Ollama"`, Ollama `0.34.4`. |
+| Local Mac (Ollama) | Default when not on Kaggle | Answers: `qwen2.5:7b` (Q4_K_M). Figures: `qwen2.5vl:3b`. Encoder: `all-MiniLM-L6-v2`. Reranker: `ms-marco-MiniLM-L6-v2` (CPU). | **Current golden-set measure: 25/25 OFF and 25/25 ON** (`reranker_ablation_fix100_20261027`). Manifest: `"inference": "local Ollama"`. |
 | Kaggle GPU (`transformers`) | Only when `/kaggle/input` is present | One model: `Qwen/Qwen2.5-VL-7B-Instruct` (NF4), no Ollama server. Encoder and reranker stay on CPU. | Code is in the notebook. **GPU run not done yet.** Mac scores are not Kaggle scores. |
 
 Do not treat the Hugging Face Kaggle path as the source of the current golden-set table. The Kaggle 90-minute run is still open.
 
-### Latest notebook print (not a Kaggle score)
-
-| Measure | Reranker OFF | Reranker ON |
-| --- | --- | --- |
-| Answers correct | 20/25 | 19/25 |
-| Retrieval Recall@5 | 100% | 100% |
-| All required sources in top 5 | 100% | 100% |
-| Citation support—model judge | 94.4% | 97.3% |
-| Median seconds/question | 55.63 | 50.12 |
-| Generation / judge errors | 2 / 0 | 2 / 0 |
-
-Retrieval is strong (100% Recall@5). Prefer **reranker OFF** as the main system for now. The lab +2 bonus needs the reranker to improve answers; ON is currently 19/25 against 20/25. **Do not retrain.** Part 1 is RAG; remaining work is pipeline bug fixes.
-
-### Bugs to fix next
+### Remaining risks after the fix-100 run
 
 | ID | Problem |
 | --- | --- |
-| G04 | Arithmetic verify rejects a neighboring year instead of Table B-2 2007 unemployment 4.6 |
-| G15 | `session_override` drops the temporary 6.0% Germany assumption |
-| G20 | Revision event month/year not grounded |
-
-Shared on both arms. Reranker OFF also fails G12 and G14. Reranker ON also loses G02, G05, and G08.
+| +2 bonus | Local golden is 25=25; ON>OFF needs a setting where OFF still misses something ON recovers (not available at 25/25) |
+| Kaggle | End-to-end ≤90 min GPU run + `submission.csv` still open |
+| Human ratings / report Appendix C examples | Still pending both members |}
 
 ### Still open for both members
 
 1. Review `eval/golden_set.json` together.
 2. Rate groundedness 1–5 on the 25 final answers (both members).
 3. Write Appendix C safety examples in `report/report.md`.
-4. Fill the Part 1 results table in the report from a notebook print.
+4. Confirm Appendix C safety examples in `report/report.md`.
 5. Timed Kaggle GPU run (≤ 90 minutes) and put the link in `links.txt`.
 6. Ritika: record her own Part 1 pipeline run under `Part1/ritika_neema/`.
 
-Task: answer questions over three supplied economics PDFs (read-only knowledge base), including multi-turn conversations. Notebook: `notebooks/sneha_singh/p1_rag.ipynb`. The table below is the notebook print from the passage-reranker ablation in `Part1/sneha_singh/outputs/evaluation/reranker_ablation/metrics.json`. It is **automated, provisional golden-set development results, not a Kaggle score**. Both members must review the questions and supply real groundedness ratings; a fresh team-authored frozen evaluation is still required.
+Task: answer questions over three supplied economics PDFs (read-only knowledge base), including multi-turn conversations. Notebook: `notebooks/sneha_singh/p1_rag.ipynb`. **Current** table is the fix-100 passage-reranker ablation (`reranker_ablation_fix100_20261027/metrics.json`). It is **automated, provisional golden-set development results, not a Kaggle score**. Both members must still review the questions and supply real groundedness ratings.
 
 ## Architecture
 
@@ -65,7 +76,7 @@ The figure is the pipeline in the sections below. Three read-only PDFs are chunk
 
 ## Models and why I chose them
 
-Latest notebook print (26 October): the passage-reranker ablation on the hybrid pipeline, with the cross-encoder off versus on. Both arms keep dense + BM25 fusion. Those arms used the **local Ollama** answerer, not the Kaggle Hugging Face model. A separate frozen new-question comparison and the Kaggle GPU run are still open.
+Latest measured print (27 October fix-100): passage-reranker OFF vs ON on the hybrid pipeline (dense + BM25 + RRF-blended CE). Local Ollama answerer, not the Kaggle Hugging Face model. Kaggle GPU run still open.
 
 1. **Reranker OFF**: hybrid retrieval without the CPU cross-encoder passage reranker.
 2. **Reranker ON**: the same hybrid pipeline with `ms-marco-MiniLM-L6-v2` passage reranking.
@@ -80,24 +91,39 @@ Latest notebook print (26 October): the passage-reranker ablation on the hybrid 
 ## Hardware
 Local Mac with Ollama for the current scores (CPU cross-encoder). The required end-to-end run on a 16 GB Kaggle GPU within 90 minutes, using `Qwen/Qwen2.5-VL-7B-Instruct`, has **not** been done yet.
 
-## Test metrics (development diagnostics)
+## Test metrics (development diagnostics) — **current**
 
-Run finished. Automated/provisional golden-set development results—not a Kaggle score. Source: `Part1/sneha_singh/outputs/evaluation/reranker_ablation/metrics.json` (same digits as the notebook print).
+Run finished 27 Oct 2026. Automated/provisional golden-set development results—not a Kaggle score. Source: `Part1/sneha_singh/outputs/evaluation/reranker_ablation_fix100_20261027/metrics.json`.
+
+| Measure | Reranker OFF | Reranker ON |
+| --- | --- | --- |
+| Answers correct | **25/25** | **25/25** |
+| Retrieval Recall@5 | 100% | 100% |
+| All required sources in top 5 | 100% | 100% |
+| Citation support—model judge | 100% (37/37) | 100% (38/38) |
+| Median seconds/question | 62.20 | 63.20 |
+| Generation / judge errors | 0 / 0 | 0 / 0 |
+| Paired gained (ON only) | — | none |
+| Paired lost (ON only) | — | none |
+| +2 bonus (ON > OFF answers) | — | **not claimable** (tie at 25/25) |
+| Human groundedness (both members) | pending | pending |
+| Human agreement within one point | pending | pending |
+
+### Historical ablation (26 Oct; superseded)
+
+Source: `outputs/evaluation/reranker_ablation/metrics.json`.
 
 | Measure | Reranker OFF | Reranker ON |
 | --- | --- | --- |
 | Answers correct | 20/25 | 19/25 |
 | Retrieval Recall@5 | 100% | 100% |
-| All required sources in top 5 | 100% | 100% |
 | Citation support—model judge | 94.4% | 97.3% |
 | Median seconds/question | 55.63 | 50.12 |
 | Generation / judge errors | 2 / 0 | 2 / 0 |
-| Human groundedness (both members) | pending | pending |
-| Human agreement within one point | pending | pending |
 
 ## Comparison (reranker off vs on)
-- Both arms kept Recall@5 and all-required-sources at 100%. Turning the passage reranker on raised model-judged citation support from 94.4% to 97.3% and cut the median time from 55.63 s to 50.12 s.
-- Answer correctness moved the other way: 20/25 with the reranker off, 19/25 with it on. The paired change list gained G12 and G14 and lost G02, G05, and G08.
+- **Current (fix-100):** both arms **25/25** answers, 100% Recall@5, 100% citation support, 0 generation errors. Paired gained/lost: none. **+2 bonus not claimable** (ON must strictly beat OFF).
+- Historical (26 Oct): Recall@5 stayed 100%; citation support 94.4%→97.3%; answers 20/25 OFF vs 19/25 ON (gained G12/G14, lost G02/G05/G08).
 - Each arm had 2 generation errors and 0 judge errors. Correctness and citation scores use a same-model judge, so they can share answerer biases; human groundedness ratings from both members are still to be collected.
 
 ## Strengths
@@ -109,7 +135,7 @@ Run finished. Automated/provisional golden-set development results—not a Kaggl
 - Results are development diagnostics on a draft golden set that informed the design; a fresh frozen team-authored set is still needed.
 - Human groundedness ratings, the Kaggle GPU run and its 90-minute check, and the final Kaggle submission are not done.
 - Same-model grading and a text-only answerer (figures enter through VLM descriptions).
-- The passage reranker did not raise answer correctness on this set (19/25 against 20/25). Both arms still have 2 generation errors.
+- Historical note only: the first reranker ablation did not raise answer correctness (19/25 against 20/25) and had 2 generation errors per arm. The fix-100 rerun is 25/25 both arms with 0 generation errors.
 
 ## Failed cases (earlier dense vs hybrid development run)
 

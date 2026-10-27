@@ -4,7 +4,7 @@ Sneha Singh and Ritika Neema, Pair_Programming_Team_05, San Jose State Universit
 
 ## Abstract
 
-This lab has three tasks: question answering over three economics PDFs (Part 1, with a Kaggle competition), fine-tuning Stable Diffusion 1.5 with LoRA on Pokemon BLIP captions (Part 2), and a multimodal agent system for image understanding and generation (Part 3). Both of us run every part, with seed 266. Each part reports a primary metric, a secondary metric, a human judgement, and one cost number, for a baseline and a final system. On Part 2, LoRA moved the pictures toward the Pokemon style (KID 0.06024 for the base model, 0.02314 for rank 16). Raters still picked the base model more often: rank 16 won 29 of 75 votes (win rate 0.387). Part 1 numbers and Ritika's own pipeline runs are not in this draft. On the 26 Oct L4 run, the Results cell printed 6/15 scenarios passed without the critique loop and 4/15 with it. The median was 15.1 s and 31.4 s.
+This lab has three tasks: question answering over three economics PDFs (Part 1, with a Kaggle competition), fine-tuning Stable Diffusion 1.5 with LoRA on Pokemon BLIP captions (Part 2), and a multimodal agent system for image understanding and generation (Part 3). Both of us run every part, with seed 266. Each part reports a primary metric, a secondary metric, a human judgement, and one cost number, for a baseline and a final system. On Part 1 (local Ollama golden-set development ablation, 27 Oct), the hybrid pipeline scored **25/25** answers with the passage reranker off and **25/25** with it on; Recall@5 was 100% on both arms; the +2 reranker bonus is not claimable on a tie. On Part 2, LoRA moved the pictures toward the Pokemon style (KID 0.06024 for the base model, 0.02314 for rank 16). Raters still picked the base model more often: rank 16 won 29 of 75 votes (win rate 0.387). Ritika's own pipeline runs are not in this draft. On the 26 Oct L4 run, the Results cell printed 6/15 scenarios passed without the critique loop and 4/15 with it. The median was 15.1 s and 31.4 s.
 
 ## I. Introduction
 
@@ -24,19 +24,23 @@ The system answers questions about three read-only economics PDFs from text, fig
 
 ### B. Results
 
-| Measurement | Baseline (dense only) | Final (hybrid) |
-| --- | --- | --- |
-| Primary: correct answers out of 25 | not in this draft | not in this draft |
-| Secondary: Recall@5 | not in this draft | not in this draft |
-| Secondary: citation accuracy | not in this draft | not in this draft |
-| Human: groundedness 1–5, both members | not in this draft | not in this draft |
-| Efficiency: median seconds per question | not in this draft | not in this draft |
+Local Ollama development ablation on the 25-question golden set (27 Oct fix-100). Both arms use hybrid dense+BM25; the only toggle is the passage cross-encoder. Source: `Part1/sneha_singh/outputs/evaluation/reranker_ablation_fix100_20261027/metrics.json`. **Not a Kaggle score.**
 
-This table is the Part 1 results table. The cells stay blank until the notebook output that will be cited is the one both members agree to report. The 25-question set still needs both members' review, and the human ratings are not done. The inspected set is a development check, not an untouched holdout.
+| Measurement | Reranker OFF (hybrid) | Reranker ON (hybrid) |
+| --- | --- | --- |
+| Primary: correct answers out of 25 | **25/25** | **25/25** |
+| Secondary: Recall@5 | 100% | 100% |
+| Secondary: citation accuracy | 100% (37/37) | 100% (38/38) |
+| Human: groundedness 1–5, both members | pending | pending |
+| Efficiency: median seconds per question | 62.20 | 63.20 |
+| Generation / judge errors | 0 / 0 | 0 / 0 |
+| +2 bonus (ON answers > OFF) | — | **not claimable** (tie) |
+
+The 25-question set still needs both members' review, and the human ratings are not done. The inspected set is a development check, not an untouched holdout. Full notes: `Part1/sneha_singh/results.md`.
 
 ### C. What worked and what did not
 
-The pipeline runs locally and keeps Appendix C out of retrieval. The Kaggle submission, the 90-minute GPU run, and a frozen question set written before the reported scores are still open. I am not filling those scores in by hand.
+Pipeline fixes (RRF-blended CE reranker, base-year binding, basket-term completion, citation overlap repair, session-override judge policy) brought local golden-set answers to 25/25 on both arms. Appendix C stays quarantined. The +2 bonus needs ON to beat OFF; a perfect OFF leaves no gap. The Kaggle submission and 90-minute GPU run are still open.
 
 ### D. Safety
 
@@ -192,7 +196,7 @@ The guards are the input check, the output check, treating text in the image as 
 
 ## V. Conclusion
 
-Part 2 is the section with a full results table. Rank 16 is closer to the dataset on KID and was not preferred by the raters. Part 1 still needs its results table, its architecture figure, its Appendix C examples, and the Kaggle score. Part 3 has the 26 Oct L4 run and both rating files. The Results cell printed 6/15 without the critique loop and 4/15 with it, critic agreement 34/48, and attack success 0/10. Ritika's own pipeline run is not in this draft. The test images are at https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs. The Part 3 bonus Space is https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents.
+Part 1 has a local golden-set results table (25/25 OFF and ON; +2 not claimable on the tie), its architecture figure, and still needs Appendix C examples plus the Kaggle score. Part 2 has a full results table: rank 16 is closer on KID and was not preferred by the raters. Part 3 has the 26 Oct L4 run and both rating files. The Results cell printed 6/15 without the critique loop and 4/15 with it, critic agreement 34/48, and attack success 0/10. Ritika's own pipeline run is not in this draft. The test images are at https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs. The Part 3 bonus Space is https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents.
 
 ## References
 

@@ -85,7 +85,7 @@ Python 3.13. Open a notebook from the repo root and use Restart & Run All. The f
 
 | Part | Models |
 | --- | --- |
-| 1, local (measured) | Ollama still used for current scores: `qwen2.5vl:3b` for figures, `qwen2.5:7b` for answers; `all-MiniLM-L6-v2`; `ms-marco-MiniLM-L6-v2` reranker. Ablation table in [Part1/sneha_singh/results.md](Part1/sneha_singh/results.md) is from this path (Ollama `0.34.4`). |
+| 1, local (measured) | Ollama for current scores: `qwen2.5vl:3b` figures, `qwen2.5:7b` answers; `all-MiniLM-L6-v2`; `ms-marco-MiniLM-L6-v2` reranker. Latest ablation: **25/25 OFF**, **25/25 ON** ([results](Part1/sneha_singh/results.md)). |
 | 1, Kaggle (not run yet) | Notebook switches to `Qwen/Qwen2.5-VL-7B-Instruct` through `transformers` (no Ollama). Code is ready; the 90-minute GPU run is still open. Mac scores are not Kaggle scores. |
 | 2 | `stable-diffusion-v1-5/stable-diffusion-v1-5`, LoRA ranks 4 and 16; `openai/clip-vit-base-patch32`; LPIPS AlexNet; torchmetrics KID |
 | 3 | `Qwen2.5-VL-3B`; Stable Diffusion 1.5 img2img; InstructPix2Pix; the Part 2 rank-16 LoRA; CLIP ViT-B/32 |
@@ -126,7 +126,17 @@ Python 3.13. Open a notebook from the repo root and use Restart & Run All. The f
 
 Notebook: `notebooks/sneha_singh/p1_rag.ipynb`. Architecture image is at the top of this README (`report/figures/part1/architecture.png`).
 
-The PDFs stay read-only. A fact added in one chat stays in that chat. Dense retrieval is the baseline. The final system mixes dense search with BM25.
+The PDFs stay read-only. A fact added in one chat stays in that chat. Dense retrieval is the baseline. The final system mixes dense search with BM25 and an optional passage reranker.
+
+| Measure (local golden set, 27 Oct) | Reranker OFF | Reranker ON |
+| --- | --- | --- |
+| Answers correct | **25/25** | **25/25** |
+| Recall@5 | 100% | 100% |
+| Citation accuracy | 100% | 100% |
+| +2 bonus (ON > OFF) | — | not claimable (tie) |
+| Kaggle GPU run | still open | still open |
+
+Full notes: [Part1/sneha_singh/results.md](Part1/sneha_singh/results.md).
 
 ## Part 2 — Diffusion fine-tuning
 
