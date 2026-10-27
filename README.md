@@ -9,7 +9,7 @@ We share one notebook per part. Part 1 answers questions about three economics P
 | Sneha Singh | `sneha_singh/` under `Part1/`, `Part2/`, and `Part3/` |
 | Ritika Neema | `ritika_neema/` under `Part1/`, `Part2/`, and `Part3/` |
 
-Repo: [data266-lab2-team05](https://github.com/snehas-SJSU/data266-lab2-team05). Tags: `p1-v1.0` at `0824415`, `p2-v1.0` at `6cbb16b`, `p3-v1.0` at `a5f796e`. Links for both of us are in `links.txt`.
+Repo: [data266-lab2-team05](https://github.com/snehas-SJSU/data266-lab2-team05). Tags: `p1-v1.0` at `1311cf4`, `p2-v1.0` at `6cbb16b`, `p3-v1.0` at `a5f796e`. Links for both of us are in `links.txt`.
 
 ---
 
