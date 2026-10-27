@@ -13,7 +13,7 @@ Pair_Programming_Team_05: Sneha Singh, Ritika Neema
 
 ### Part 1
 
-I built and ran `notebooks/p1_rag.ipynb` locally. Team-facing Part 1 status (scores, bugs, open work) is in `Part1/README.md`. Detail notes: `Part1/sneha_singh/results.md`. Graded tag `p1-v1.0` is at commit `1311cf4`. Latest ablation print: 20/25 answers with reranker OFF, 19/25 with ON, Recall@5 100% both. Prefer OFF until ON improves answers. No retraining; fix G04, G15, G20 next. Golden-set review, human ratings, Appendix C examples, report table, and Kaggle run are still open. Ritika still needs her own Part 1 run under `Part1/ritika_neema/`.
+I built and ran `notebooks/p1_rag.ipynb` locally. Team-facing Part 1 status (scores, bugs, open work) is in `Part1/sneha_singh/results.md`. Graded tag `p1-v1.0` is at commit `1311cf4`.
 
 ### Part 2
 
