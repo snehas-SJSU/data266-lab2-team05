@@ -11,6 +11,48 @@ We share one notebook per part. Part 1 answers questions about three economics P
 
 Repo: [data266-lab2-team05](https://github.com/snehas-SJSU/data266-lab2-team05). Tags: `p1-v1.0` at `1311cf4`, `p2-v1.0` at `6cbb16b`, `p3-v1.0` at `a5f796e`. Links for both of us are in `links.txt`.
 
+## Folder structure
+
+```text
+data266-lab2-team05/
+├── README.md
+├── requirements.txt
+├── notebooks/
+│   ├── p1_rag.ipynb
+│   ├── p2_finetune.ipynb
+│   └── p3_agents.ipynb
+├── eval/
+├── traces/
+├── Part1/  Part2/  Part3/
+│   ├── sneha_singh/
+│   └── ritika_neema/
+├── report/
+│   └── figures/
+│       ├── part1/architecture.png
+│       ├── part2/architecture.png
+│       └── part3/architecture.png
+├── CONTRIBUTIONS.md
+├── AI_USAGE.md
+├── links.txt
+└── .gitignore
+```
+
+The code is in the notebooks. Each of us has a `sneha_singh/` or `ritika_neema/` folder under the three parts. `traces/` is the Part 3 log: one JSON file per request. The lab puts that folder here, next to `eval/`. `Part3/sneha_singh/hf_space/` is only the bonus app upload. PDFs and images stay out of git.
+
+## Architecture images
+
+Part 1 — Multimodal RAG:
+
+![Part 1 architecture: ingestion, retrieval, conversation memory, and evaluation](report/figures/part1/architecture.png)
+
+Part 2 — Diffusion fine-tuning:
+
+![Part 2 architecture: data preparation, LoRA fine-tuning, generation, and evaluation](report/figures/part2/architecture.png)
+
+Part 3 — Multimodal agents:
+
+![Part 3 architecture: planner, vision, prompt, generation, and critique](report/figures/part3/architecture.png)
+
 ---
 
 ## Setup
@@ -24,30 +66,6 @@ pip install -r requirements.txt
 ```
 
 Python 3.13. Open a notebook from the repo root and use Restart & Run All. The first cell prints the commit, the library versions, the GPU, and the seed. On Colab that commit is `n/a`, because the notebook is not inside this repo there.
-
----
-
-## Repo layout
-
-```text
-data266-lab2-team05/
-├── README.md
-├── requirements.txt
-├── notebooks/
-│   ├── p1_rag.ipynb
-│   ├── p2_finetune.ipynb
-│   └── p3_agents.ipynb
-├── eval/
-├── traces/
-├── Part1/  Part2/  Part3/
-├── report/
-├── CONTRIBUTIONS.md
-├── AI_USAGE.md
-├── links.txt
-└── .gitignore
-```
-
-The code is in the notebooks. Each of us has a `sneha_singh/` or `ritika_neema/` folder under the three parts. `traces/` is the Part 3 log: one JSON file per request. The lab puts that folder here, next to `eval/`. `Part3/sneha_singh/hf_space/` is only the bonus app upload. PDFs and images stay out of git.
 
 ---
 
@@ -104,26 +122,20 @@ The code is in the notebooks. Each of us has a `sneha_singh/` or `ritika_neema/`
 
 ## Part 1 — Multimodal RAG
 
-Notebook: `notebooks/p1_rag.ipynb`.
+Notebook: `notebooks/p1_rag.ipynb`. Architecture image is at the top of this README (`report/figures/part1/architecture.png`).
 
 The PDFs stay read-only. A fact added in one chat stays in that chat. Dense retrieval is the baseline. The final system mixes dense search with BM25.
 
-![Part 1 architecture: ingestion, retrieval, conversation memory, and evaluation](report/figures/part1/architecture.png)
-
 ## Part 2 — Diffusion fine-tuning
 
-Notebook: `notebooks/p2_finetune.ipynb`.
+Notebook: `notebooks/p2_finetune.ipynb`. Architecture image is at the top of this README (`report/figures/part2/architecture.png`).
 
 Two LoRA ranks, 4 and 16, on the same data and the same step budget. Rank 16 is the one we kept. Prompts are in `eval/p2_prompts.json`, written before training.
 
-![Part 2 architecture: data preparation, LoRA fine-tuning, generation, and evaluation](report/figures/part2/architecture.png)
-
 ## Part 3 — Multimodal agents
 
-Notebook: `notebooks/p3_agents.ipynb` (graded on Colab).
+Notebook: `notebooks/p3_agents.ipynb` (graded on Colab). Architecture image is at the top of this README (`report/figures/part3/architecture.png`).
 
 The planner picks a route. Vision describes the image. The prompt agent rewrites the request. Generation makes the image. Critique can send it back, at most twice. A caption stops after vision. An unsafe request stops at the planner.
 
 Bonus: the same app as a Hugging Face Space, [data266-lab2-p3-agents](https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents), from `Part3/sneha_singh/hf_space/`.
-
-![Part 3 architecture: planner, vision, prompt, generation, and critique](report/figures/part3/architecture.png)
