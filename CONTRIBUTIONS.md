@@ -27,12 +27,22 @@ I wrote the 15 scenarios, the 10 red-team cases, and the 25-input list before th
 
 ### Part 1
 
-To be filled by Ritika (`Part1/ritika_neema/`).
+I built my own pipeline in `notebooks/ritika_neema/p1_rag.ipynb`: PyMuPDF ingestion with every numbered Figure
+and Table cropped as an image with its label and caption, Qwen2.5-VL figure descriptions, bge-small-en-v1.5
+embeddings in ChromaDB plus BM25 with reciprocal rank fusion, exact figure lookup, a separate memory per
+conversation, and citations built from the evidence the model used. My golden set is
+`eval/ritika_neema/p1_golden_set.json` (25 questions, none from `Questions.csv`), committed before tuning.
+I lead the Kaggle GPU run and the final Kaggle submission. Results: to be added from the executed notebook.
 
 ### Part 2
 
-Rated the 25 blinded image pairs. No other Part 2 work is recorded yet (`Part2/ritika_neema/`).
+Rated the 25 blinded image pairs for Sneha's runs. My own pipeline is `notebooks/ritika_neema/p2_finetune.ipynb`:
+LoRA rank 8 and DoRA rank 8 on the same data, steps and seed, with KID, CLIP score, LPIPS, NSFW filter and a
+memorization check. Final model LoRA rank 8; results in `Part2/ritika_neema/results.md`.
 
 ### Part 3
 
-Rated the 26 Oct L4 run. She and I agreed on all 40. Her own pipeline run is not recorded yet (`Part3/ritika_neema/`).
+Rated the 26 Oct L4 run with Sneha; we agreed on all 40. My own pipeline is `notebooks/ritika_neema/p3_agents.ipynb`:
+five agents over a typed state with a JSON trace per request (`traces/ritika_neema/`), run on the team's frozen
+15 scenarios and 10 red-team cases with and without the critique loop, plus a Gradio app. Ran it on a Colab T4
+on 28 Oct 2026; automatic results and failure analysis in `Part3/ritika_neema/README.md`, human rating pending.

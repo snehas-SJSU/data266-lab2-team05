@@ -1,5 +1,5 @@
 # Pinned versions. Lab starter stack, or the equivalent this repo actually runs.
-# Part 1 uses pdfplumber instead of PyMuPDF. Part 3 uses plain Python instead of LangGraph.
+# Sneha's Part 1 uses pdfplumber; Ritika's Part 1 (notebooks/ritika_neema) uses PyMuPDF. Part 3 uses plain Python instead of LangGraph.
 # CLIP scores use transformers, not a separate open_clip package.
 # Ollama is installed separately. The Kaggle GPU path keeps Kaggle's CUDA torch build.
 
@@ -13,6 +13,7 @@ sentence-transformers==5.2.3
 chromadb==1.5.5
 rank-bm25==0.2.2
 pdfplumber==0.11.8
+pymupdf==2.0
 pypdfium2==5.13.0
 pypdf==6.7.2
 Pillow==11.0.0

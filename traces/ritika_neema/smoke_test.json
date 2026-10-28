@@ -1,0 +1,94 @@
+{
+ "request_id": "smoke_test",
+ "user_request": "Describe this image.",
+ "image_path": "/content/data266-lab2-team05/outputs/p3_ritika/inputs/inputs/IMG01.jpg",
+ "use_critique": true,
+ "simulate_generation_error": false,
+ "status": "ok",
+ "plan": {
+  "route": "caption_or_question",
+  "reason": "The user requested to describe the image.",
+  "request_policy": "passed (rules + model)",
+  "raw": "{\"route\": \"caption_or_question\", \"unsafe\": false, \"reason\": \"The user requested to describe the image.\"}"
+ },
+ "vision": {
+  "caption": "A cozy living room with a mix of vintage and modern decor.",
+  "objects": [
+   "furniture",
+   "couches",
+   "chairs",
+   "table",
+   "lamp",
+   "rug",
+   "picture frame",
+   "vase",
+   "flowers"
+  ],
+  "visible_text": "",
+  "answer": "This image depicts a cozy living room with a mix of vintage and modern decor.",
+  "quality": {
+   "width": 600,
+   "height": 416,
+   "mean_luma": 152.4,
+   "sharpness": 894.4,
+   "warnings": []
+  },
+  "injection_in_image": false,
+  "raw": "{\"caption\": \"A cozy living room with a mix of vintage and modern decor.\", \"objects\": [\"furniture\", \"couches\", \"chairs\", \"table\", \"lamp\", \"rug\", \"picture frame\", \"vase\", \"flowers\"], \"visible_text\": \"\", \"answer\": \"This image depicts a cozy living room with a mix of vintage and modern decor.\", \"low_quality\": false}"
+ },
+ "prompt": {},
+ "generation": {},
+ "critiques": [],
+ "final_message": "This image depicts a cozy living room with a mix of vintage and modern decor.",
+ "output_path": null,
+ "steps": [
+  {
+   "agent": "input",
+   "seconds": 0.02,
+   "output": {
+    "loaded": true
+   },
+   "error": null
+  },
+  {
+   "agent": "planner",
+   "seconds": 25.9,
+   "output": {
+    "route": "caption_or_question",
+    "reason": "The user requested to describe the image.",
+    "request_policy": "passed (rules + model)"
+   },
+   "error": null
+  },
+  {
+   "agent": "vision",
+   "seconds": 26.52,
+   "output": {
+    "caption": "A cozy living room with a mix of vintage and modern decor.",
+    "objects": [
+     "furniture",
+     "couches",
+     "chairs",
+     "table",
+     "lamp",
+     "rug",
+     "picture frame",
+     "vase",
+     "flowers"
+    ],
+    "visible_text": "",
+    "answer": "This image depicts a cozy living room with a mix of vintage and modern decor.",
+    "quality": {
+     "width": 600,
+     "height": 416,
+     "mean_luma": 152.4,
+     "sharpness": 894.4,
+     "warnings": []
+    },
+    "injection_in_image": false
+   },
+   "error": null
+  }
+ ],
+ "seconds": 52.44
+}

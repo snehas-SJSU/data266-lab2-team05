@@ -78,14 +78,34 @@ The Space image is Python 3.10, so `diffusers==0.42.0` has no build there. The l
 
 ## Ritika Neema
 
+### AI assistant
+
+**Name:** Claude Code (Anthropic), model Claude Opus 5.5, used in VS Code.
+
+Claude Code wrote most of the code in my three notebooks in `notebooks/ritika_neema/` from my instructions and
+the lab handout, and drafted my Part 1 golden set and these notes. I reviewed the code, ran every notebook myself
+on Kaggle or Colab, and every number I report comes from those executed outputs. The design choices below are the
+ones I checked and can explain.
+
 ### Part 1
 
-To be filled by Ritika: AI tools used, what for, and what she reviewed. Nothing recorded yet.
+`notebooks/ritika_neema/p1_rag.ipynb`. Claude Code wrote the PyMuPDF ingestion (caption detection by heading
+font, figure crops from the raster image or vector drawings under each caption, table text cut at the `Source`
+line), the ChromaDB + BM25 index with reciprocal rank fusion, exact Figure/Table lookup, the per-conversation
+memory, and the answer step where Qwen2.5-VL returns evidence ids and the code builds the citations. It found
+two crop bugs during a local dry run (a Table pulled into Figure 1-4, and Figure 2-7 cropped to an arrow icon)
+and fixed them. It drafted `eval/ritika_neema/p1_golden_set.json`; I check each expected value against the PDFs and
+commit it before any tuning.
 
 ### Part 2
 
-To be filled by Ritika.
+`notebooks/ritika_neema/p2_finetune.ipynb`. Claude Code wrote the data cleaning (exact and average-hash
+duplicates), the cached-latent training loop shared by the LoRA rank 8 and DoRA rank 8 runs, generation with the
+NSFW filter, KID / CLIP / LPIPS evaluation, the CLIP nearest-neighbour memorization check, the blinded pair
+sheet and the model cards.
 
 ### Part 3
 
-To be filled by Ritika.
+`notebooks/ritika_neema/p3_agents.ipynb`. Claude Code wrote the typed state and JSON trace, the five agents,
+the orchestrator, the evaluation over the team's frozen scenarios and red-team cases, and the Gradio app. It
+tested the control flow locally with stub models (no GPU) before I ran it for real.
