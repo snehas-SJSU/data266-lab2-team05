@@ -1,0 +1,105 @@
+{
+  "schema_version": "1.0",
+  "created_date": "2026-10-27",
+  "authorship": "Sneha Singh POC held-out set for passage-reranker OFF vs ON (+2). Not the golden set; not for tuning answer code.",
+  "review_status": "poc_only",
+  "usage": "Development ablation only. Prove whether CE passage reranking improves answers on harder retrieval-sensitive questions.",
+  "items": [
+    {
+      "id": "B01",
+      "category": "facts_tables",
+      "conversation_id": "B01",
+      "turn": 1,
+      "question": "According to Chapter 2, when the price of imported goods increases relative to the price of goods produced in the United States, which index increases faster—the CPI or the GDP deflator?",
+      "expected_answer": "The CPI increases faster than the GDP deflator when imported-goods prices rise relative to U.S.-produced goods.",
+      "expected_status": "answered",
+      "numbers": [],
+      "required_patterns": ["CPI|consumer", "faster|relative|import"],
+      "sources": [{"doc_id": "DOC1", "page": 27}]
+    },
+    {
+      "id": "B02",
+      "category": "conflicts_revisions",
+      "conversation_id": "B02",
+      "turn": 1,
+      "question": "Briefing B's erratum for Figure B-5: what erroneous 2012 China unemployment value was plotted, and what corrected value replaces it?",
+      "expected_answer": "The erroneous plotted 2012 value 4.5% is replaced by 4.1%.",
+      "expected_status": "answered",
+      "numbers": [4.5, 4.1],
+      "required_patterns": ["errat|correct|replac|wrong|erroneous"],
+      "sources": [{"doc_id": "DOC3", "page": 6}]
+    },
+    {
+      "id": "B03",
+      "category": "conflicts_revisions",
+      "conversation_id": "B03",
+      "turn": 1,
+      "question": "In Supplement A, which month and year of the comprehensive national-accounts benchmark revision changes U.S. 2010 output growth, and from what earlier estimate to what revised estimate?",
+      "expected_answer": "July 2013 revises U.S. 2010 growth from 3.0% to 2.4%.",
+      "expected_status": "answered",
+      "numbers": [2013, 2010, 3.0, 2.4],
+      "required_patterns": ["July", "benchmark|national.accounts"],
+      "sources": [{"doc_id": "DOC2", "page": 3}]
+    },
+    {
+      "id": "B04",
+      "category": "two_sources",
+      "conversation_id": "B04",
+      "turn": 1,
+      "question": "Using Briefing B's 2009 comparison: what happened to headline CPI inflation because of energy prices, and how did the GDP deflator and core CPI behave that year?",
+      "expected_answer": "Headline CPI turned negative as energy prices collapsed; the GDP deflator fell slightly while core CPI stayed positive.",
+      "expected_status": "answered",
+      "numbers": [2009],
+      "required_patterns": ["energy|oil", "negative|fell|collapse", "core"],
+      "sources": [{"doc_id": "DOC3", "page": 4}]
+    },
+    {
+      "id": "B05",
+      "category": "two_sources",
+      "conversation_id": "B05",
+      "turn": 1,
+      "question": "Chapter 2 gives an approximate U.S. output-growth threshold for unchanged unemployment; Table B-1 gives a Euro-area Okun threshold. Report both percentages and their gap in percentage points. Are they for the same economy?",
+      "expected_answer": "About 3% (U.S.) versus 1.6% (Euro area), a 1.4 percentage-point gap; different economies.",
+      "expected_status": "answered",
+      "numbers": [3, 1.6, 1.4],
+      "required_patterns": ["different|not the same|Euro|U\\.S\\.|US"],
+      "sources": [{"doc_id": "DOC1", "page": 29}, {"doc_id": "DOC3", "page": 2}]
+    },
+    {
+      "id": "B06",
+      "category": "figures",
+      "conversation_id": "B06",
+      "turn": 1,
+      "question": "Figures A-4 and A-5 normalize which months to 1.0? Does that rebasing change the percentage return between the same two calendar months?",
+      "expected_answer": "A-4 uses January 2007=1.0 and A-5 uses January 2009=1.0; rebasing does not change percentage returns between the same months.",
+      "expected_status": "answered",
+      "numbers": [2007, 2009],
+      "required_patterns": ["January|Jan", "not|no|same|preserv"],
+      "sources": [{"doc_id": "DOC2", "page": 5, "figure_id": "Figure A-4"}, {"doc_id": "DOC2", "page": 5, "figure_id": "Figure A-5"}]
+    },
+    {
+      "id": "B07",
+      "category": "facts_tables",
+      "conversation_id": "B07",
+      "turn": 1,
+      "question": "Briefing B compares mean U.S. unemployment duration for 2000–2007 with 2010. What are those two durations in weeks, and about how many times larger is the 2010 duration?",
+      "expected_answer": "About 9 weeks versus 33 weeks, roughly 3.67 times larger.",
+      "expected_status": "answered",
+      "numbers": [9, 33, 3.67],
+      "required_patterns": ["week"],
+      "sources": [{"doc_id": "DOC3", "page": 5}]
+    },
+    {
+      "id": "B08",
+      "category": "facts_tables",
+      "conversation_id": "B08",
+      "turn": 1,
+      "question": "Chapter 2: the GDP deflator measures the average price of which set of goods, and the CPI the average price of which set? Name one reason the two sets differ that involves goods sold to firms rather than consumers.",
+      "expected_answer": "GDP deflator: goods produced (output). CPI: goods consumed. Some GDP goods are sold to firms (capital/intermediate), not consumers.",
+      "expected_status": "answered",
+      "numbers": [],
+      "required_patterns": ["produc|output|deflator", "consum|CPI", "firm|machine|capital|invest"],
+      "sources": [{"doc_id": "DOC1", "page": 26}]
+    }
+  ]
+}

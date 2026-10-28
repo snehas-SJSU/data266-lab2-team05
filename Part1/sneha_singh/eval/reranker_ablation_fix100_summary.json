@@ -1,0 +1,11 @@
+{
+  "protocol": "fix100_20261027",
+  "evaluation_use": "local Ollama golden-set passage-reranker OFF vs ON",
+  "off_correct": 25,
+  "on_correct": 25,
+  "n": 25,
+  "off_recall_at_5": 1.0,
+  "on_recall_at_5": 1.0,
+  "bonus_plus2_claimable": false,
+  "note": "Full row dumps live under outputs/evaluation/reranker_ablation_fix100_20261027/ (gitignored)."
+}
