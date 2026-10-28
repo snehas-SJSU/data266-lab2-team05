@@ -35,3 +35,12 @@ faster, so it is the final run. Exact numbers are in the executed notebook (Cell
 
 Failure modes seen in the grids: (1) compositional prompts do not bind colours or counts to the right objects
 in any model; (2) the safety checker blacks out harmless cartoon prompts, which also distorts the raw metrics.
+
+## Files here
+
+| File | What it is |
+| --- | --- |
+| `results.md` | Full write-up: setup, training, both metric tables, memorization, choice, failure modes |
+| `demo_generate.py` | Demo script: base and LoRA r8 side by side for any prompt and seed |
+| `human_eval/` | How the blinded pairs are rated, and `merge_ratings.py` for the raters' sheets |
+| `smoke_test/` | 256px Mac check that the final adapter loads from Hugging Face |
