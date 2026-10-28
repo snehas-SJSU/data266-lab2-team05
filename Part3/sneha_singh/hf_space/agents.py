@@ -20,9 +20,9 @@ IN_COLAB = "google.colab" in sys.modules
 if not IN_COLAB and os.path.basename(os.getcwd()) == "notebooks": os.chdir("..")      # always work from the repo root
 if IN_COLAB:
     ROOT = "/content/drive/MyDrive/data266_lab2_p3"        # upload eval/ and inputs/ here (see README); results are saved here too
-    P = dict(eval=f"{ROOT}/eval", inputs=f"{ROOT}/inputs", human=f"{ROOT}/human_eval", out=f"{ROOT}/outputs", traces=f"{ROOT}/traces")
+    P = dict(eval=f"{ROOT}/eval", inputs=f"{ROOT}/inputs", human=f"{ROOT}/human_eval", out=f"{ROOT}/outputs", traces=f"{ROOT}/traces/sneha_singh")
 else:
-    P = dict(eval="eval", inputs="Part3/data/inputs", human="Part3/sneha_singh/human_eval", out="outputs/p3", traces="traces")
+    P = dict(eval="eval", inputs="Part3/data/inputs", human="Part3/sneha_singh/human_eval", out="outputs/p3", traces="traces/sneha_singh")
 P["inputs"] = os.environ.get("P3_INPUT_DIR", P["inputs"]); P["out"] = os.environ.get("P3_OUT_DIR", P["out"]); P["traces"] = os.environ.get("P3_TRACES_DIR", P["traces"])
 EVAL_LIMIT = int(os.environ["P3_EVAL_LIMIT"]) if os.environ.get("P3_EVAL_LIMIT") else None      # None = run everything
 for d in (P["out"], P["traces"], P["human"]): os.makedirs(d, exist_ok=True)

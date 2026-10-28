@@ -25,6 +25,8 @@ data266-lab2-team05/
 │   └── ritika_neema/   (Ritika's notebooks when ready)
 ├── eval/
 ├── traces/
+│   ├── sneha_singh/
+│   └── ritika_neema/
 ├── Part1/  Part2/  Part3/
 │   ├── sneha_singh/
 │   └── ritika_neema/
@@ -39,7 +41,7 @@ data266-lab2-team05/
 └── .gitignore
 ```
 
-The code is in the notebooks. Each of us has a `sneha_singh/` or `ritika_neema/` folder under the three parts. `traces/` is the Part 3 log: one JSON file per request. The lab puts that folder here, next to `eval/`. `Part3/sneha_singh/hf_space/` is only the bonus app upload. PDFs and images stay out of git.
+The code is in the notebooks. Each of us has a `sneha_singh/` or `ritika_neema/` folder under the three parts. `traces/sneha_singh/` and `traces/ritika_neema/` hold each member's Part 3 request logs (one JSON per request). `Part3/sneha_singh/hf_space/` is only the bonus app upload. PDFs and images stay out of git.
 
 ## Architecture images
 

@@ -6,7 +6,7 @@ The notebook is [`../../notebooks/sneha_singh/p3_agents.ipynb`](../../notebooks/
 
 I wrote the 15 scenarios, the 10 red-team cases, and the 25-input list before I ran anything. They are in [`../../eval/p3_scenarios.json`](../../eval/p3_scenarios.json), [`../../eval/p3_redteam.json`](../../eval/p3_redteam.json), and [`../../eval/p3_inputs.json`](../../eval/p3_inputs.json).
 
-The flow is the one in the lab. The planner checks the request and picks a route. Vision describes the image. The prompt agent rewrites the request. Generation makes the image. Critique checks it and can send it back, at most twice. Caption questions stop after vision. An unsafe, vague, or unsupported request stops at the planner. Every request writes a JSON trace under `../../traces/`. A bad file or a crashed step becomes a short message, not a stack trace.
+The flow is the one in the lab. The planner checks the request and picks a route. Vision describes the image. The prompt agent rewrites the request. Generation makes the image. Critique checks it and can send it back, at most twice. Caption questions stop after vision. An unsafe, vague, or unsupported request stops at the planner. Every request writes a JSON trace under `../../traces/sneha_singh/`. A bad file or a crashed step becomes a short message, not a stack trace.
 
 Generation has four modes. Style change is Stable Diffusion 1.5 img2img. Edits use InstructPix2Pix. Enhancement is ordinary image operations, judged by brightness and sharpness. A Pokemon-style request uses my Part 2 rank-16 LoRA from Hugging Face.
 
