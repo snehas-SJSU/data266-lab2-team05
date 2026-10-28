@@ -1,0 +1,41 @@
+id,conversation_id,question_id,answer,figure_references,citations,status
+1,C001,Q001,The supplied documents do not provide the requested information.,NONE,NONE,not_found
+2,C002,Q002,"We should worry about rising unemployment rates because they indicate inefficiencies in resource utilization, affect the welfare of the unemployed, and can lead to overheating economies and increasing inflation.",NONE,"DOC1:p24,DOC1:p30,DOC1:p25",answered
+3,C003,Q003,"Economists measure economic growth without price changes by constructing real GDP, which is the sum of the quantities of final goods times constant (rather than current) prices. This eliminates the effect of increasing prices on the measure of GDP.",NONE,"DOC1:p19,DOC1:p33",answered
+4,C004,Q004,-2.3%,NONE,"DOC1:p2,DOC1:p21",answered
+5,C005,Q005,"After the 2008 crisis, U.S. unemployment increased dramatically to nearly 10%, as reported in Document 1, page 5.",NONE,DOC1:p5,answered
+6,C006,Q006,The supplied documents do not provide the requested information.,NONE,NONE,not_found
+7,C007,Q007,"The 2008 financial crisis had a significant impact on global stock markets, affecting not just the U.S., but also Europe and emerging markets.",NONE,DOC1:p2,answered
+8,C008,Q008,"No, fast economic growth does not always mean fewer people out of work in the U.S.",NONE,DOC1:p24,answered
+9,C009,Q009,"No, consumer prices and overall economic prices are not always in sync in the U.S.",NONE,"DOC1:p26,DOC1:p27",answered
+10,C010,Q010,"Before the crisis, unemployment was not uniformly high across Europe. However, the Euro area performed poorly compared to the United States. The crisis exacerbated these issues, leading to significant increases in unemployment rates. European states' protective measures for workers, including generous unemployment insurance, contributed to the problem.",NONE,"DOC1:p9,DOC1:p7",answered
+11,C011,Q011,"China's rapid growth continued through the 2008 financial crisis due to several factors. First, China's output growth has been consistently high, averaging around 10% annually since 1980, as shown in Figure 1-6. Second, despite a slowdown in Chinese exports during the crisis, the adverse effect on demand was mitigated by a significant fiscal expansion, particularly an increase in public investment. Additionally, encouraging foreign firms to relocate and produce in China helped boost productivity and output, as these firms are typically more productive than domestic ones.",Figure 1-6,"DOC1:Figure 1-6,DOC1:p11,DOC1:p2",answered
+12,C012,Q012,"Mortgage-backed securities played a significant role in the financial crisis by being bundled and repackaged into new securities, which were then sold to other banks and investors. This practice made the value of these securities nearly impossible to assess due to their complexity and opacity. As a result, many banks held these securities rather than the underlying mortgages, exacerbating the crisis when housing prices declined and the quality of the loans became apparent.",NONE,"DOC1:p1,DOC1:p2,DOC1:p3,DOC1:p32",answered
+13,C013,Q013,"When housing prices fall, people tend to cut their consumption due to concerns about economic downturns and the loss of financial wealth.",NONE,"DOC1:p2,DOC1:p3",answered
+14,C014,Q014,"A recession is defined as a period of negative GDP growth, typically lasting at least two consecutive quarters of negative growth.",NONE,"DOC1:p21,DOC1:p22,DOC1:p28",answered
+15,C015,Q015,Emerging and developing economies grew faster than advanced economies before the crisis.,NONE,DOC1:p1,answered
+16,C016,Q016,"The unemployment rate projected for the Euro area in 2012, according to Figure A-2, was approximately 10%.",Figure A-2,DOC2:Figure A-2,answered
+17,C017,Q017,"The Euro area unemployment rate in 2012, according to Figure A-3, was approximately 11%",Figure A-3,DOC2:Figure A-3,answered
+18,C018,Q018,The supplied documents do not provide the requested information.,NONE,NONE,not_found
+19,C019,Q019,"The value of the U.S. stock price index in December 2010, according to Figure A-5, is approximately 1.6.",Figure A-5,DOC2:Figure A-5,answered
+20,C020,Q020,The supplied documents do not provide the requested information.,NONE,NONE,not_found
+21,C021,Q021,Source observations: Figure B-5 | year=2012 | Figure B-5=4.5%. Units: percent. Frequency: annual average.,Figure B-5,DOC3:Figure B-5,answered
+22,C022,Q022,"Core CPI inflation excess over headline CPI inflation in 2009: -0.4 = -0.4. In 2009, the gap between headline and core CPI inflation was unusually large.",Figure B-4,DOC3:Figure B-4,answered
+23,C023,Q023,The supplied documents do not provide the requested information.,NONE,NONE,not_found
+24,C024,Q024,The supplied documents do not provide the requested information.,NONE,NONE,not_found
+25,C025,Q025,The supplied documents do not provide the requested information.,NONE,NONE,not_found
+26,C026,Q026,China's output growth in 2012 was reported as 7.7% according to Table A-2.,Table A-2,DOC2:Table A-2,conflict
+27,C027,Q027,Output growth rate: 2010 (source column) = 3%.,Table 1-2,DOC1:Table 1-2,answered
+28,C028,Q028,Unemployment rate (%): 2010 (source column) = 9.8%.,Table B-2,DOC3:Table B-2,answered
+29,C029,Q029,"China's economy contracted in 2009 due to the global financial crisis, as evidenced by the zero growth rate reported in 2008 and the large negative growth rate of 9.2% in 2009.",Table 1-4,"DOC1:p21,DOC1:Table 1-4",answered
+30,C030,Q030,"Lehman Brothers went bankrupt on September 15, 2008.",NONE,DOC1:p1,answered
+31,C031,Q031,Unemployment rate: 2012 (source column) = 9.9%.,Table 1-3,DOC1:Table 1-3,answered
+32,C032,Q032,-1.7%,NONE,DOC1:p6,answered
+33,C032,Q033,The supplied documents do not provide the requested information.,NONE,NONE,not_found
+34,C032,Q034,The supplied documents do not provide the requested information.,NONE,NONE,not_found
+35,C033,Q035,The supplied documents do not provide the requested information.,NONE,NONE,not_found
+36,C033,Q036,The supplied documents do not provide the requested information.,NONE,NONE,not_found
+37,C033,Q037,I cannot permanently edit the read-only knowledge base. Temporary assumptions apply only within this conversation; source documents remain unchanged.,NONE,NONE,session_override
+38,C034,Q038,Euro area output change in 2009: -4.2 = -4.2. Euro area output growth rate in 2009 was −4.2%.,Table 1-3,DOC1:Table 1-3,answered
+39,C035,Q039,The supplied documents do not provide the requested information.,NONE,NONE,not_found
+40,C035,Q040,The supplied documents do not provide the requested information.,NONE,NONE,not_found
