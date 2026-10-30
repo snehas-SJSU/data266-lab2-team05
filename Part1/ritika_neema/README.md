@@ -89,3 +89,64 @@ Hybrid went from 13 to 16 correct: G06, G24 and G25 now pass (table values and s
 failing: G04, G05, G14, G15, G22 (values), G07 (conflict), G18, G19, G21 (false premise). With version 2 the reranker fixed G04, G14 and G15 and broke G20 and G24, one more correct
 answer than hybrid, but with lower Recall@5 and citation accuracy. The reranker settings were fixed before either
 run and were not changed.
+
+### Version 3 changes
+
+Also general, and made after seeing the version 2 answers:
+
+1. The answer must state the exact evidence values with units and years, also for why/how questions.
+2. Number grounding: each value in an answer is checked against the evidence. A value found nowhere in the
+   evidence, and not the difference or sum of two evidence values, is unsupported and the answer becomes
+   `not_found`. When the model cites no table or figure, the table or figure that holds the exact value is cited.
+3. A `not_found` answer gives no number.
+4. When tables from two or more documents are in the evidence, the prompt asks the model to check for a conflict.
+5. The evaluation adds an approximate Kaggle-style score (0.4 facts, 0.2 status, 0.2 figure F1, 0.2 citations)
+   per question and per component.
+
+Golden set, version 3 (Kaggle Tesla T4, 28 Oct 2026, `p1_rag_v3.ipynb`; whole run 29.4 min):
+
+| System | Correct / 25 | Recall@5 | Citation accuracy | Median s / question | Kaggle-style score |
+| --- | --- | --- | --- | --- | --- |
+| Baseline (dense only) | 13 | 0.913 | 0.837 | 8.50 | 0.684 |
+| Hybrid + exact figure lookup (final) | 14 | 1.000 | 0.880 | 8.69 | 0.750 |
+| Hybrid + exact figure lookup + reranker | 16 | 0.957 | 0.768 | 8.62 | 0.739 |
+
+Kaggle-style components for hybrid: facts 0.667, status 0.800, figures 0.733, citations 0.883. Against
+version 2, hybrid lost G20 (answered not_found) and G24 (session override answered as answered) and fixed none,
+so correct answers fell from 16 to 14 while citations improved. With 25 questions a change of two is within
+what a prompt change alone can move. Kaggle public score: **0.526** (Kaggle notebook version 2, which runs this
+version 3 code), up from 0.495, so version 3 is the current final. A first attempt to submit it failed with
+"Submission contains null values" because an evaluation CSV was submitted instead of `submission.csv`; the
+evaluation files now go to an `eval/` subfolder and the notebook checks the submission for cells Kaggle would
+read as null.
+
+| Version | Main change | Golden correct (hybrid) | Kaggle public |
+| --- | --- | --- | --- |
+| v1 | hybrid retrieval, raw table text | 13 / 25 | 0.441 |
+| v2 | tables as labelled rows, status definitions | 16 / 25 | 0.495 |
+| v3 | exact values, number grounding, citation fill, not_found cleanup, conflict check | 14 / 25 | 0.526 |
+
+### Version 4 changes (after Sneha's notebook)
+
+General checks on the model's work, taken from the approach in `notebooks/sneha_singh/p1_rag.ipynb`:
+
+1. Calculator: the model writes any arithmetic as an expression; the code evaluates it only if every operand is
+   a value in the evidence or supplied by the user, and appends the checked result to the answer.
+2. Conflict witness: table cells are read as (entity, quantity, year) facts. When two documents disagree on the
+   asked entity, quantity and year, and the differing value is not the other document's bracketed forecast,
+   the prompt states the conflict instead of a generic reminder.
+3. Citations for text the answer quotes (eight consecutive words in common with a retrieved chunk).
+
+Golden set, version 4 (Kaggle Tesla T4, 28 Oct 2026, `p1_rag_v4.ipynb`; whole run 29.7 min):
+
+| System | Correct / 25 | Recall@5 | Citation accuracy | Median s / question | Kaggle-style score |
+| --- | --- | --- | --- | --- | --- |
+| Baseline (dense only) | 13 | 0.913 | 0.808 | 9.12 | 0.695 |
+| Hybrid + exact figure lookup (final) | 15 | 1.000 | 0.773 | 9.05 | 0.747 |
+| Hybrid + exact figure lookup + reranker | 17 | 0.957 | 0.771 | 9.24 | 0.758 |
+
+Against version 3 (hybrid): correct 14 to 15 and status 0.800 to 0.880 (the calculator fixed G15; G18 is now
+false premise and G24 session override), but citations fell from 0.883 to 0.800 and figures from 0.733 to 0.720,
+so the Kaggle-style score is unchanged (0.750 and 0.747). The extra quoted-text citations add pages that are not
+in the gold evidence. The conflict witness did not fire on G07 (its answer cites only Document 3's Table B-2; the
+witness needs both documents' tables in the evidence). Not submitted to Kaggle (daily limit); version 3 (0.526) stays the final.
