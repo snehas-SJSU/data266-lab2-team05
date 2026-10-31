@@ -26,7 +26,7 @@ What is done on Part 1 so far, and what is still open. Same numbers as the noteb
 - Parses the three PDFs, quarantines Appendix C, answers from text/figures/tables, keeps conversation edits out of the index.
 - Architecture figure: `report/figures/part1/architecture.png`.
 - Current passage-reranker OFF vs ON ablation: **25/25 both arms** (`outputs/evaluation/reranker_ablation_fix100_20261027/`).
-- Public Kaggle LB best **0.860** (practice CSV). Executed notebook is in git: [`lab2-notebook` v16](https://www.kaggle.com/code/snehasjsu/lab2-notebook/versions/16), Tesla T4, seed 266, 40 rows, validator passed, 1084 s including setup (limit 90 min). Submission SHA256 `408d5b97…`. No leaderboard score is recorded for this run.
+- Public Kaggle LB best **0.860** (practice CSV). Executed notebook is in git: [`lab2-notebook`](https://www.kaggle.com/code/snehasjsu/lab2-notebook), Tesla T4, seed 266, 40 rows, validator passed, 1084 s including setup (limit 90 min). Submission SHA256 `408d5b97…`. No leaderboard score is recorded for this run.
 
 ### 27 Oct pipeline fixes + fresh OFF/ON re-measure
 

@@ -6,11 +6,11 @@ GitHub repository: https://github.com/snehas-SJSU/data266-lab2-team05
 Commit/tag p1-v1.0: 05b776c
 Commit/tag p2-v1.0: 6cbb16b
 Commit/tag p3-v1.0: 05b776c
-Final Kaggle notebook/submission: https://www.kaggle.com/code/snehasjsu/lab2-notebook/versions/16
+Final Kaggle notebook/submission: https://www.kaggle.com/code/snehasjsu/lab2-notebook
 
 ## Sneha Singh
 # Part 1
-Part 1 Kaggle notebook (Sneha): https://www.kaggle.com/code/snehasjsu/lab2-notebook/versions/16
+Part 1 Kaggle notebook (Sneha): https://www.kaggle.com/code/snehasjsu/lab2-notebook
 
 # Part 2 (graded links)
 Hugging Face Part 2 models: https://huggingface.co/Sneha-subbu/data266-lab2-p2-lora_r16 (final, rank 16); https://huggingface.co/Sneha-subbu/data266-lab2-p2-lora_r4 (rank 4)
