@@ -23,7 +23,7 @@ Hugging Face Part 3 Space (bonus): https://huggingface.co/spaces/Sneha-subbu/dat
 
 ## Ritika Neema
 # Part 1
-Part 1 Kaggle notebook (Ritika): TBD (after the Kaggle run)
+Part 1 Kaggle notebook (Ritika): https://www.kaggle.com/code/ritikamukeshneema/notebook21dce8bf43/notebook?scriptVersionId=364009184 (v3 + reranker, public score 0.576)
 # Part 2
 Ritika Part 2 models: https://huggingface.co/neema30/data266-lab2-p2-ritika-lora-r8 (LoRA rank 8); https://huggingface.co/neema30/data266-lab2-p2-ritika-dora-r8 (DoRA rank 8)
 Ritika Part 2 generated images: https://huggingface.co/datasets/neema30/data266-lab2-p2-ritika-images

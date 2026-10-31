@@ -35,7 +35,11 @@ and Table cropped as an image with its label and caption, Qwen2.5-VL figure desc
 embeddings in ChromaDB plus BM25 with reciprocal rank fusion, exact figure lookup, a separate memory per
 conversation, and citations built from the evidence the model used. My golden set is
 `eval/ritika_neema/p1_golden_set.json` (25 questions, none from `Questions.csv`), committed before tuning.
-I lead the Kaggle GPU run and the final Kaggle submission. Results: to be added from the executed notebook.
+I ran five versions on a Kaggle T4 (public scores 0.441, 0.495, 0.526, then 0.576). My final is version 3
+with the `ms-marco-MiniLM-L-6-v2` passage reranker: on my golden set it gets 16/25 against 14/25 for hybrid
+without it, and on a held-out set of 25 new questions (`eval/ritika_neema/p1_holdout_set.json`, never used to
+tune) 21/25 against 19/25. It also costs some figure and citation accuracy. Details and every table are in
+`Part1/ritika_neema/README.md`.
 
 ### Part 2
 
