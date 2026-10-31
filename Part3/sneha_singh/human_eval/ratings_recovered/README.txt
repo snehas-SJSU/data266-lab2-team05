@@ -1,1 +1,0 @@
-Verdicts restored from the computed table of the original first-round ratings (rater1=ritika, rater2=sneha). The accept/revise per-image column could not be restored (empty). Original files were lost on Oct 25.
