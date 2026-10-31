@@ -107,9 +107,10 @@ Do not treat Mac golden-set scores as Kaggle scores. Competition-CSV fixes are i
 
 ### Still open for both members
 
-1. Fill `eval/human_review.csv` columns `groundedness_1_to_5` (and optionally `answer_correct` / `notes`) — both raters, 25 golden answers.
-2. After Kaggle `lab2-notebook` Save Version finishes: commit the **executed** notebook + its CSV, update `links.txt` if the version number changes, retag `p1-v1.0`.
-3. Ritika: finish recording her own Part 1 pipeline under `Part1/ritika_neema/` / her Kaggle link.
+1. After Kaggle `lab2-notebook` Save Version finishes: commit the **executed** notebook + its CSV, update `links.txt` if the version number changes, retag `p1-v1.0`.
+2. Ritika: finish recording her own Part 1 pipeline under `Part1/ritika_neema/` / her Kaggle link.
+
+Both raters' groundedness scores are in `eval/human_review.csv` (mean 4.88, within one point on 25/25).
 
 Appendix C safety write-up is in `report/report.md` §II.D. Public LB **0.860** and compliance notebook are already documented.
 

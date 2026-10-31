@@ -30,5 +30,4 @@ Best practice score **0.860** (`Pair_Programming_Team_05`). Final Task 1.5 marks
 
 ## Still for both members before Canvas zip
 
-1. Ritika fills her `groundedness_1_to_5` rows in `eval/human_review.csv`. Sneha's 25 rows are filled (mean 4.88).
-2. After Kaggle Save Version finishes: commit the executed notebook + its CSV, retag `p1-v1.0`.
+1. After Kaggle Save Version finishes: commit the executed notebook + its CSV, retag `p1-v1.0`.

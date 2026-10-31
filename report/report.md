@@ -31,16 +31,16 @@ Local Ollama development ablation on the 25-question golden set (27 Oct fix-100)
 | Primary: correct answers out of 25 | **25/25** | **25/25** |
 | Secondary: Recall@5 | 100% | 100% |
 | Secondary: citation accuracy | 100% (37/37) | 100% (38/38) |
-| Human: groundedness 1–5, both members | pending | pending |
+| Human: groundedness 1–5, both members | 4.88 (agree within 1: 25/25) | 4.88 (agree within 1: 25/25) |
 | Efficiency: median seconds per question | 62.20 | 63.20 |
 | Generation / judge errors | 0 / 0 | 0 / 0 |
 | +2 bonus (ON answers > OFF) | — | **not claimable** (tie) |
 
-The 25-question set still needs both members' review, and the human ratings are not done. The inspected set is a development check, not an untouched holdout. Full notes: `Part1/sneha_singh/results.md`.
+Both members' groundedness ratings are in `eval/human_review.csv` (mean 4.88, agreement within one point on all 25). The inspected set is a development check, not an untouched holdout. Full notes: `Part1/sneha_singh/results.md`.
 
 ### C. What worked and what did not
 
-Pipeline fixes (RRF-blended CE reranker, base-year binding, basket-term completion, citation overlap repair, session-override judge policy) brought local golden-set answers to 25/25 on both arms. Appendix C stays quarantined. The +2 bonus needs ON to beat OFF; a perfect OFF leaves no gap. Public practice LB best is **0.860**. The graded path is the Kaggle notebook (`lab2-notebook`) with general policies only; the executed Save Version is committed after the GPU run finishes. Human groundedness ratings in `eval/human_review.csv` are still to be filled by both members.
+Pipeline fixes (RRF-blended CE reranker, base-year binding, basket-term completion, citation overlap repair, session-override judge policy) brought local golden-set answers to 25/25 on both arms. Appendix C stays quarantined. The +2 bonus needs ON to beat OFF; a perfect OFF leaves no gap. Public practice LB best is **0.860**. The graded path is the Kaggle notebook (`lab2-notebook`) with general policies only; the executed Save Version is committed after the GPU run finishes. Both groundedness columns in `eval/human_review.csv` are filled (mean 4.88).
 
 ### D. Safety (Appendix C)
 
