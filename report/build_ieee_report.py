@@ -266,7 +266,9 @@ def build():
     r2 = abs_p.add_run(
         "This report covers three systems, all run at seed 266. Hybrid retrieval over three "
         "economics PDFs answered 25 of 25 golden-set questions with the passage reranker off "
-        "and 25 of 25 with it on. Recall at 5 was 100%, and mean groundedness was 4.88. The "
+        "and 25 of 25 with it on. Recall at 5 was 100%, and mean groundedness was 4.88. In a "
+        "second pipeline the reranker raised correct answers from 14 to 16 of 25 on the golden "
+        "set and from 19 to 21 on 25 held-out questions. The "
         "best public Kaggle submission.csv score is 0.860. LoRA fine-tuning of "
         "Stable Diffusion 1.5 lowered KID from 0.06024 to 0.02314. Rank 16 won 29 of 75 blind "
         "votes against the base model. A five-step image agent passed 6 of 15 scenarios without "
@@ -318,20 +320,35 @@ def build():
 
     subhead(doc, "B.  Results")
     body(doc,
-         "Table I is the 27 October golden set. Both columns are hybrid retrieval. The only "
-         "switch is the passage reranker. The table shows no gain: the same 25 answers are "
-         "correct either way, so the reranker bonus is not claimed. Recall at 5 stays at 100%. "
+         "Table I has two pipelines. Both columns are hybrid retrieval and the only switch is "
+         "the passage reranker. The top block is the 27 October golden set of the pipeline "
+         "above: the same 25 answers are correct either way, a tie. Recall at 5 stays at 100%. "
          "Citation accuracy stays at 100%, on 37 citations with the reranker off and 38 with it on.",
          indent=False)
-    table_title(doc, "TABLE I.  GOLDEN SET, RERANKER OFF AND ON")
+    body(doc,
+         "The lower blocks are Ritika's pipeline: tables rebuilt as labelled rows, bge-small "
+         "embeddings plus BM25, and Qwen2.5-VL-7B in 4-bit on a Kaggle Tesla T4 (30 October, "
+         "36.3 minutes). Its reranker is ms-marco-MiniLM-L-6-v2 over the top 20 fused records, "
+         "fixed as the final system before the run. Her golden set had been seen while she "
+         "built earlier versions, so she also wrote 25 held-out questions and committed them "
+         "before any run on them. The reranker adds two correct answers on each set and raises "
+         "the public Kaggle score from 0.526 to 0.576. This is the reranker bonus we claim.")
+    table_title(doc, "TABLE I.  GOLDEN SETS, RERANKER OFF AND ON")
     add_table(
         doc,
         ["Measurement", "Off", "On"],
         [
-            ["Correct answers / 25", "25", "25"],
+            ["Pipeline 1, golden set: correct / 25", "25", "25"],
             ["Recall at 5", "100%", "100%"],
             ["Citation accuracy", "100% (37/37)", "100% (38/38)"],
             ["Median seconds / question", "62.20", "63.20"],
+            ["Pipeline 2, golden set: correct / 25", "14", "16"],
+            ["Recall at 5", "1.000", "0.957"],
+            ["Citation accuracy", "0.880", "0.768"],
+            ["Median seconds / question", "8.48", "8.48"],
+            ["Pipeline 2, held-out: correct / 25", "19", "21"],
+            ["Recall at 5", "0.826", "0.957"],
+            ["Pipeline 2, Kaggle public score", "0.526", "0.576"],
         ],
         [2400, 1300, 1300],
     )
@@ -344,9 +361,11 @@ def build():
     subhead(doc, "C.  What worked and what did not")
     body(doc,
          "Keeping one memory per conversation stopped a chat assumption from being written "
-         "into the files. The reranker did not change any answer on this set. Once the right "
+         "into the files. In pipeline 1 the reranker did not change any answer. Once the right "
          "page was already in the top five, it had nothing left to fix, and it added about "
-         "one second per question.",
+         "one second per question. In pipeline 2 it fixed three golden questions and broke "
+         "one. It helped facts and status but lowered figure and citation scores, likely "
+         "because it ranks the passage holding a value above the figure or table record.",
          indent=False)
 
     subhead(doc, "D.  Safety")
@@ -548,7 +567,9 @@ def build():
     body(doc,
          "Part 1. Hybrid dense+BM25 retrieval with grounded citations answered all 25 golden-set "
          "questions (Recall@5 100%, mean groundedness 4.88). The optional passage reranker did "
-         "not change any answer on that set. On the public Kaggle leaderboard our best "
+         "not change any answer on that set. In Ritika's pipeline it raised correct answers "
+         "from 14 to 16 on her golden set and from 19 to 21 on held-out questions, and her "
+         "public Kaggle score from 0.526 to 0.576. On the public Kaggle leaderboard our best "
          "submission.csv score is 0.860 (team Pair_Programming_Team_05). Appendix C stayed "
          "out of the index, so the injected chart instruction could not steer answers.",
          indent=False)

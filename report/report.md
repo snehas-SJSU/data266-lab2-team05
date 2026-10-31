@@ -4,7 +4,7 @@ Sneha Singh and Ritika Neema, Pair_Programming_Team_05, San Jose State Universit
 
 ## Abstract
 
-This lab has three tasks: question answering over three economics PDFs (Part 1, with a Kaggle competition), fine-tuning Stable Diffusion 1.5 with LoRA on Pokemon BLIP captions (Part 2), and a multimodal agent system for image understanding and generation (Part 3). Both of us run every part, with seed 266. Each part reports a primary metric, a secondary metric, a human judgement, and one cost number, for a baseline and a final system. On Part 1 (local Ollama golden-set development ablation, 27 Oct), the hybrid pipeline scored **25/25** answers with the passage reranker off and **25/25** with it on; Recall@5 was 100% on both arms; the +2 reranker bonus is not claimable on a tie. Public Kaggle practice best is **0.860**; the graded notebook is the compliance Save Version linked in `links.txt`. On Part 2, LoRA moved the pictures toward the Pokemon style (KID 0.06024 for the base model, 0.02314 for rank 16). Raters still picked the base model more often: rank 16 won 29 of 75 votes (win rate 0.387). Ritika's own pipeline runs are not in this draft. On the 26 Oct L4 run, the Results cell printed 6/15 scenarios passed without the critique loop and 4/15 with it. The median was 15.1 s and 31.4 s.
+This lab has three tasks: question answering over three economics PDFs (Part 1, with a Kaggle competition), fine-tuning Stable Diffusion 1.5 with LoRA on Pokemon BLIP captions (Part 2), and a multimodal agent system for image understanding and generation (Part 3). Both of us run every part, with seed 266. Each part reports a primary metric, a secondary metric, a human judgement, and one cost number, for a baseline and a final system. On Part 1 (local Ollama golden-set development ablation, 27 Oct), the hybrid pipeline scored **25/25** answers with the passage reranker off and **25/25** with it on; Recall@5 was 100% on both arms, a tie. Ritika's own pipeline gains from the same kind of passage reranker: 16/25 against 14/25 on her golden set, and 21/25 against 19/25 on 25 held-out questions never used for tuning; this is the team's +2 reranker claim. Public Kaggle practice best is **0.860**; the graded notebook is the compliance Save Version linked in `links.txt`. On Part 2, LoRA moved the pictures toward the Pokemon style (KID 0.06024 for the base model, 0.02314 for rank 16). Raters still picked the base model more often: rank 16 won 29 of 75 votes (win rate 0.387). Ritika's own pipeline runs are not in this draft. On the 26 Oct L4 run, the Results cell printed 6/15 scenarios passed without the critique loop and 4/15 with it. The median was 15.1 s and 31.4 s.
 
 ## I. Introduction
 
@@ -34,13 +34,29 @@ Local Ollama development ablation on the 25-question golden set (27 Oct fix-100)
 | Human: groundedness 1–5, both members | 4.88 (agree within 1: 25/25) | 4.88 (agree within 1: 25/25) |
 | Efficiency: median seconds per question | 62.20 | 63.20 |
 | Generation / judge errors | 0 / 0 | 0 / 0 |
-| +2 bonus (ON answers > OFF) | — | **not claimable** (tie) |
+| +2 bonus (ON answers > OFF) | — | tie on this pipeline; see Ritika's ablation below |
+
+**Reranker ablation, Ritika's pipeline (the +2 bonus claim).** Ritika's notebook `notebooks/ritika_neema/p1_rag.ipynb` is a separate pipeline: PyMuPDF ingestion with tables rebuilt as labelled rows, `BAAI/bge-small-en-v1.5` in ChromaDB plus BM25 fused by reciprocal rank, exact lookup of a named Figure or Table, and `Qwen/Qwen2.5-VL-7B-Instruct` in 4-bit for figure descriptions and answers. The reranker is `cross-encoder/ms-marco-MiniLM-L-6-v2` over the top 20 fused candidates. It was fixed as the final system before the run (`P1_RERANK=1`). Kaggle Tesla T4, 30 Oct 2026, whole run 36.3 min, the 40 Kaggle questions 18.0 min. Her golden set is `eval/ritika_neema/p1_golden_set.json`; her held-out set `eval/ritika_neema/p1_holdout_set.json` is 25 new questions written after her versions 1-4 and committed before any run on it.
+
+| Measurement | Dense only (baseline) | Hybrid, reranker OFF | Hybrid, reranker ON (final) |
+| --- | --- | --- | --- |
+| Primary: golden set correct / 25 | 13 | 14 | **16** |
+| Secondary: golden Recall@5 | 0.913 | 1.000 | 0.957 |
+| Secondary: golden citation accuracy | 0.837 | 0.880 | 0.768 |
+| Golden Kaggle-style score (0.4 facts, 0.2 status, 0.2 figures, 0.2 citations) | 0.684 | 0.750 | 0.739 |
+| Held-out correct / 25 | — | 19 | **21** |
+| Held-out Recall@5 | — | 0.826 | 0.957 |
+| Held-out Kaggle-style score | — | 0.834 | 0.875 |
+| Efficiency: golden median seconds / question | 8.31 | 8.48 | 8.48 |
+| Kaggle public score | — | 0.526 | **0.576** |
+
+On the golden set the reranker fixed G04, G14 and G15 and broke G23. Its gain is in facts (0.667 to 0.707) and status (0.800 to 0.840); figure F1 (0.733 to 0.640) and citations (0.883 to 0.800) fell, so the golden Kaggle-style score dropped slightly (0.750 to 0.739). On the held-out set only figure F1 fell (0.747 to 0.720). The 0.526 is the same code with the reranker off (Kaggle version 2). Ritika's golden set was seen while she built versions 2-4, which is why the held-out set was added. Full version history: `Part1/ritika_neema/README.md`.
 
 Both members' groundedness ratings are in `eval/human_review.csv` (mean 4.88, agreement within one point on all 25). The inspected set is a development check, not an untouched holdout. Full notes: `Part1/sneha_singh/results.md`.
 
 ### C. What worked and what did not
 
-Pipeline fixes (RRF-blended CE reranker, base-year binding, basket-term completion, citation overlap repair, session-override judge policy) brought local golden-set answers to 25/25 on both arms. Appendix C stays quarantined. The +2 bonus needs ON to beat OFF; a perfect OFF leaves no gap. Public practice LB best is **0.860**. The graded path is the Kaggle notebook (`lab2-notebook`) with general policies only; the executed Save Version is committed after the GPU run finishes. Both groundedness columns in `eval/human_review.csv` are filled (mean 4.88).
+Pipeline fixes (RRF-blended CE reranker, base-year binding, basket-term completion, citation overlap repair, session-override judge policy) brought local golden-set answers to 25/25 on both arms. Appendix C stays quarantined. On this pipeline a perfect OFF leaves no gap for the reranker. On Ritika's pipeline, where hybrid alone gets 14/25, the reranker adds two correct answers on each of her two sets. A likely reason is that it lifts the passage that holds the asked value but sometimes pushes the figure or table record out of what the model cites, so figure and citation scores drop. Public practice LB best is **0.860**. The graded path is the Kaggle notebook (`lab2-notebook`) with general policies only; the executed Save Version is committed after the GPU run finishes. Both groundedness columns in `eval/human_review.csv` are filled (mean 4.88).
 
 ### D. Safety (Appendix C)
 
@@ -230,7 +246,7 @@ Ritika ran the same 15 scenarios and 10 red-team cases on a Colab T4 on 28 Oct 2
 
 ## V. Conclusion
 
-Part 1 has a local golden-set results table (25/25 OFF and ON; +2 not claimable on the tie), its architecture figure, an Appendix C safety write-up, groundedness ratings (mean 4.88), and a public Kaggle practice best of 0.860. The executed Kaggle notebook is committed (Tesla T4, 40 rows validated, 1084 s). Public Kaggle best score is **0.860**. Part 2 has Sneha's rank-16 table and Ritika's LoRA-versus-DoRA table. Rank 16 was not preferred by the raters. Ritika's own blinded win rate is still missing. Part 3 has the 26 Oct L4 run and both rating files. The Results cell printed 6/15 without the critique loop and 4/15 with it. After the two raters' attempt strings were aligned, critic agreement is 36/48 = 0.75, and attack success is 0/10. Ritika's 28 Oct automatic table is in section IV.G. Her human rubric sheet is still empty. The test images are at https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs. The Part 3 bonus Space is https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents.
+Part 1 has a local golden-set results table (25/25 OFF and ON, a tie), Ritika's reranker ablation (golden 16/25 ON against 14/25 OFF, held-out 21/25 against 19/25, Kaggle public 0.576 against 0.526), which is the +2 reranker claim, its architecture figure, an Appendix C safety write-up, groundedness ratings (mean 4.88), and a public Kaggle practice best of 0.860. The executed Kaggle notebook is committed (Tesla T4, 40 rows validated, 1084 s). Public Kaggle best score is **0.860**. Part 2 has Sneha's rank-16 table and Ritika's LoRA-versus-DoRA table. Rank 16 was not preferred by the raters. Ritika's own blinded win rate is still missing. Part 3 has the 26 Oct L4 run and both rating files. The Results cell printed 6/15 without the critique loop and 4/15 with it. After the two raters' attempt strings were aligned, critic agreement is 36/48 = 0.75, and attack success is 0/10. Ritika's 28 Oct automatic table is in section IV.G. Her human rubric sheet is still empty. The test images are at https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs. The Part 3 bonus Space is https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents.
 
 ## References
 
