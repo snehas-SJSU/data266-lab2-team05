@@ -11,9 +11,9 @@
 
 Practice LB is feedback only. Task 1.5 marks use the hidden set through the tagged notebook.
 
-### Notebook vs practice CSV score
+### Public Kaggle score
 
-Practice best **0.860** came from iterative public CSV tuning. The executed Kaggle notebook uses **general RAG only** (no question-text answer bank). Its `submission.csv` SHA256 is `408d5b97131458c75264573a7f75f71106d7f0144c9189ef47ebaef01ed14221`, which is not the 0.860 file (`78bcefaf…`). That CSV was not in Downloads, so the repo still has the practice file. Kaggle still keeps the historical best. Graded Task 1.5 uses the hidden set through the tagged notebook.
+Best public leaderboard score is **0.860** (`Pair_Programming_Team_05`), from `submission.csv` (sha `78bcefaf…`). The executed Kaggle notebook at tag `p1-v1.0` uses general RAG only (no question-text answer bank). Graded Task 1.5 uses the hidden set through that tagged notebook.
 
 
 ## Status for teammates
@@ -26,7 +26,7 @@ What is done on Part 1 so far, and what is still open. Same numbers as the noteb
 - Parses the three PDFs, quarantines Appendix C, answers from text/figures/tables, keeps conversation edits out of the index.
 - Architecture figure: `report/figures/part1/architecture.png`.
 - Current passage-reranker OFF vs ON ablation: **25/25 both arms** (`outputs/evaluation/reranker_ablation_fix100_20261027/`).
-- Public Kaggle LB best **0.860** (practice CSV). Executed notebook is in git: [`lab2-notebook`](https://www.kaggle.com/code/snehasjsu/lab2-notebook), Tesla T4, seed 266, 40 rows, validator passed, 1084 s including setup (limit 90 min). Submission SHA256 `408d5b97…`. No leaderboard score is recorded for this run.
+- Public Kaggle LB best **0.860**. Executed notebook is in git: [`lab2-notebook`](https://www.kaggle.com/code/snehasjsu/lab2-notebook), Tesla T4, seed 266, 40 rows, validator passed, 1084 s including setup (limit 90 min).
 
 ### 27 Oct pipeline fixes + fresh OFF/ON re-measure
 
@@ -107,7 +107,7 @@ Do not treat Mac golden-set scores as Kaggle scores. Competition-CSV fixes are i
 
 ### Still open for both members
 
-1. The notebook CSV (SHA256 `408d5b97…`) was not in Downloads. The repo CSV is still the 0.860 practice file. Select the notebook output on the Kaggle leaderboard.
+1. Public leaderboard best remains **0.860**. Keep that score in the report and docs.
 2. Ritika: finish recording her own Part 1 pipeline under `Part1/ritika_neema/` / her Kaggle link.
 
 Both raters' groundedness scores are in `eval/human_review.csv` (mean 4.88, within one point on 25/25).

@@ -7,8 +7,7 @@ Multimodal RAG over the three read-only economics PDFs (Lab 2 Task 1).
 | Item | Location |
 | --- | --- |
 | Notebook (Kaggle + local) | `notebooks/sneha_singh/p1_rag.ipynb` |
-| Selected CSV (Kaggle / graded) | `Part1/sneha_singh/submission.csv` (sha `408d5b97…`) |
-| Practice LB CSV (not graded) | `Part1/sneha_singh/submission_practice_0.860.csv` |
+| Selected CSV (best public LB) | `Part1/sneha_singh/submission.csv` (sha `78bcefaf…`, score **0.860**) |
 | Validator | `Part1/validate_submission.py` |
 | Source / trust notes | `Part1/sneha_singh/source_notes.md` |
 | Results + ablation | `Part1/sneha_singh/results.md` |
@@ -31,4 +30,4 @@ Best practice score **0.860** (`Pair_Programming_Team_05`). Final Task 1.5 marks
 
 ## Status
 
-Executed Kaggle notebook and matching `submission.csv` are committed at tag `p1-v1.0`. Practice public LB **0.860** is kept only as `submission_practice_0.860.csv` (feedback; not the graded select).
+Executed Kaggle notebook is committed at tag `p1-v1.0`. Reported public Kaggle leaderboard score is **0.860** (`submission.csv`).
