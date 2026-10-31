@@ -11,6 +11,11 @@
 
 Practice LB is feedback only. Task 1.5 marks use the hidden set through the tagged notebook.
 
+### Notebook vs practice CSV score
+
+Practice best **0.860** came from iterative public CSV tuning. The final Kaggle notebook (`lab2-notebook` v16+) uses **general RAG only** (no question-text answer bank), so the notebook-produced public score may be **lower than 0.860**. Kaggle still keeps the historical best. Graded Task 1.5 uses the hidden set through the tagged notebook, not the hand-tuned CSV.
+
+
 ## Status for teammates
 
 What is done on Part 1 so far, and what is still open. Same numbers as the notebook print of the passage-reranker ablation.
@@ -21,7 +26,7 @@ What is done on Part 1 so far, and what is still open. Same numbers as the noteb
 - Parses the three PDFs, quarantines Appendix C, answers from text/figures/tables, keeps conversation edits out of the index.
 - Architecture figure: `report/figures/part1/architecture.png`.
 - Current passage-reranker OFF vs ON ablation: **25/25 both arms** (`outputs/evaluation/reranker_ablation_fix100_20261027/`).
-- Public Kaggle LB best **0.860**. Notebook cleared of question-ID / question-text answer banks; final Save Version + tag `p1-v1.0` still required for graded hidden set.
+- Public Kaggle LB best **0.860**. Compliance notebook (~0.62 MB) on Kaggle as [`lab2-notebook` v16](https://www.kaggle.com/code/snehasjsu/lab2-notebook/versions/16). After the run finishes: select notebook CSV, replace repo CSV if needed, retag `p1-v1.0`.
 
 ### 27 Oct pipeline fixes + fresh OFF/ON re-measure
 
