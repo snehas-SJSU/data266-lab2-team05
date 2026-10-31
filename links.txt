@@ -3,7 +3,7 @@
 
 ## Shared (team)
 GitHub repository: https://github.com/snehas-SJSU/data266-lab2-team05
-Commit/tag p1-v1.0: 1311cf4
+Commit/tag p1-v1.0: executed Kaggle notebook, 30 Oct 2026 (Tesla T4, 40 rows, submission sha256 408d5b97131458c75264573a7f75f71106d7f0144c9189ef47ebaef01ed14221)
 Commit/tag p2-v1.0: 6cbb16b
 Commit/tag p3-v1.0: a5f796e
 Final Kaggle notebook/submission: https://www.kaggle.com/code/snehasjsu/lab2-notebook/versions/16

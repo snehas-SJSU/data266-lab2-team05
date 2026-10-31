@@ -13,7 +13,7 @@ Practice LB is feedback only. Task 1.5 marks use the hidden set through the tagg
 
 ### Notebook vs practice CSV score
 
-Practice best **0.860** came from iterative public CSV tuning. The final Kaggle notebook (`lab2-notebook` v16+) uses **general RAG only** (no question-text answer bank), so the notebook-produced public score may be **lower than 0.860**. Kaggle still keeps the historical best. Graded Task 1.5 uses the hidden set through the tagged notebook, not the hand-tuned CSV.
+Practice best **0.860** came from iterative public CSV tuning. The executed Kaggle notebook uses **general RAG only** (no question-text answer bank). Its `submission.csv` SHA256 is `408d5b97131458c75264573a7f75f71106d7f0144c9189ef47ebaef01ed14221`, which is not the 0.860 file (`78bcefaf…`). That CSV was not in Downloads, so the repo still has the practice file. Kaggle still keeps the historical best. Graded Task 1.5 uses the hidden set through the tagged notebook.
 
 
 ## Status for teammates
@@ -26,7 +26,7 @@ What is done on Part 1 so far, and what is still open. Same numbers as the noteb
 - Parses the three PDFs, quarantines Appendix C, answers from text/figures/tables, keeps conversation edits out of the index.
 - Architecture figure: `report/figures/part1/architecture.png`.
 - Current passage-reranker OFF vs ON ablation: **25/25 both arms** (`outputs/evaluation/reranker_ablation_fix100_20261027/`).
-- Public Kaggle LB best **0.860**. Compliance notebook (~0.62 MB) on Kaggle as [`lab2-notebook` v16](https://www.kaggle.com/code/snehasjsu/lab2-notebook/versions/16). After the run finishes: select notebook CSV, replace repo CSV if needed, retag `p1-v1.0`.
+- Public Kaggle LB best **0.860** (practice CSV). Executed notebook is in git: [`lab2-notebook` v16](https://www.kaggle.com/code/snehasjsu/lab2-notebook/versions/16), Tesla T4, seed 266, 40 rows, validator passed, 1084 s including setup (limit 90 min). Submission SHA256 `408d5b97…`. No leaderboard score is recorded for this run.
 
 ### 27 Oct pipeline fixes + fresh OFF/ON re-measure
 
@@ -102,12 +102,12 @@ Do not treat Mac golden-set scores as Kaggle scores. Competition-CSV fixes are i
 | ID | Problem |
 | --- | --- |
 | +2 bonus | **Claimable in bonus notebook** `p1_bonus_plus2_poc.ipynb`: OFF **18/25**, ON **19/25** (`eval/bonus_plus2_ablation_summary.json`). Graded `p1_rag.ipynb` unchanged. |
-| Kaggle | Public **0.860**. Re-Save Version with compliance notebook (no Q-hardcodes), select that CSV, retag `p1-v1.0`, update `links.txt` |
+| Kaggle | Executed notebook committed (T4, 40 rows, validated, 1084 s). Practice public best **0.860** is a different CSV. Select the notebook output on Kaggle if it is not already the chosen submission. |
 | Human ratings / report Appendix C examples | Still pending both members |}
 
 ### Still open for both members
 
-1. After Kaggle `lab2-notebook` Save Version finishes: commit the **executed** notebook + its CSV, update `links.txt` if the version number changes, retag `p1-v1.0`.
+1. The notebook CSV (SHA256 `408d5b97…`) was not in Downloads. The repo CSV is still the 0.860 practice file. Select the notebook output on the Kaggle leaderboard.
 2. Ritika: finish recording her own Part 1 pipeline under `Part1/ritika_neema/` / her Kaggle link.
 
 Both raters' groundedness scores are in `eval/human_review.csv` (mean 4.88, within one point on 25/25).
