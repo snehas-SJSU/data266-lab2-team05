@@ -14,11 +14,14 @@ from docx.shared import Emu, Inches, Pt, RGBColor, Twips
 ROOT = Path(__file__).resolve().parent
 # Compressed JPEGs keep the Word file small enough for GitHub to open.
 FIG = ROOT / "figures_compressed"
+# Architecture diagrams are wide; keep a sharper full-width set.
+FIG_ARCH = ROOT / "figures_arch"
 OUT = ROOT / "DATA266_Lab2_Team05_IEEE.docx"
 
 # Usable width inside 0.63 in margins on US Letter: 7.24 in.
 # Two columns with a 0.2 in gap: about 3.52 in each.
 COL_W = Inches(3.45)
+FULL_W = Inches(7.0)
 
 
 def set_run_font(run, size=10, bold=False, italic=False, color=None):
@@ -132,6 +135,22 @@ def figure(doc, path, cap, width=None, height=None):
     else:
         run.add_picture(str(path), width=width or COL_W)
     caption(doc, cap)
+
+
+def architecture_figure(doc, path, cap):
+    """Put each architecture on its own 1-column page.
+
+    Continuous column breaks are unreliable in Word→PDF (figures get
+    squeezed into one 3.45 in column). A new-page 1-column section keeps
+    the flowchart at full printable width so box text stays readable.
+    """
+    sec = doc.add_section(WD_SECTION.NEW_PAGE)
+    configure_page(sec)
+    set_columns(sec, 1)
+    figure(doc, path, cap, width=FULL_W)
+    sec2 = doc.add_section(WD_SECTION.NEW_PAGE)
+    configure_page(sec2)
+    set_columns(sec2, 2, 288)
 
 
 def shade_header(cell):
@@ -301,7 +320,7 @@ def build():
          "is not indexed and its pixels are not described. Fig. 1 is that pipeline. The appendix "
          "has no arrow into retrieval.",
          indent=False)
-    figure(doc, FIG / "part1" / "architecture.jpg",
+    architecture_figure(doc, FIG_ARCH / "part1_architecture.jpg",
            "Fig. 1. Three PDFs are indexed. Appendix C is left out. Dense retrieval is the baseline. The final retriever adds BM25 and an optional passage reranker.")
     body(doc,
          "Dense retrieval is the baseline. The final retriever adds BM25 and can rerank the "
@@ -379,7 +398,7 @@ def build():
          "the base UNet frozen [2]. Rank 4 has 797,184 trainable parameters. Rank 16 has "
          "3,188,736. We kept rank 16. Mean loss over the last tenth of training was 0.0535 "
          "and 0.0533. The runs took 864.2 s and 863.8 s. Fig. 2 is this pipeline.")
-    figure(doc, FIG / "part2" / "architecture.jpg",
+    architecture_figure(doc, FIG_ARCH / "part2_architecture.jpg",
            "Fig. 2. One dataset, two LoRA ranks on a frozen Stable Diffusion 1.5, then the same 20 prompts for the base model and both adapters.")
     body(doc,
          "Twenty prompts were saved before training ended: 10 from the test captions, 5 "
@@ -476,7 +495,7 @@ def build():
          "Critique accepts the image or writes one revision, and it stops after two revisions. "
          "Fig. 7 shows where a request stops early.",
          indent=False)
-    figure(doc, FIG / "part3" / "architecture.jpg",
+    architecture_figure(doc, FIG_ARCH / "part3_architecture.jpg",
            "Fig. 7. A caption, an unsafe request, or a vague request stops early. The critic revises at most twice. Every request saves a JSON trace.")
     body(doc,
          "Style change is Stable Diffusion image-to-image. Edits use InstructPix2Pix [5]. "
