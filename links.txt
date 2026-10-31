@@ -3,10 +3,11 @@
 
 ## Shared (team)
 GitHub repository: https://github.com/snehas-SJSU/data266-lab2-team05
-Commit/tag p1-v1.0: 05b776c
+Commit/tag p1-v1.0: TBD_AFTER_COMMIT
 Commit/tag p2-v1.0: 6cbb16b
 Commit/tag p3-v1.0: 05b776c
 Final Kaggle notebook/submission: https://www.kaggle.com/code/snehasjsu/lab2-notebook
+# p1-v1.0 is the executed Kaggle notebook (outputs kept) + submission.csv sha256 408d5b97…
 
 ## Sneha Singh
 # Part 1

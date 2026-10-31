@@ -7,7 +7,8 @@ Multimodal RAG over the three read-only economics PDFs (Lab 2 Task 1).
 | Item | Location |
 | --- | --- |
 | Notebook (Kaggle + local) | `notebooks/sneha_singh/p1_rag.ipynb` |
-| Practice / selected CSV | `Part1/sneha_singh/submission.csv` |
+| Selected CSV (Kaggle / graded) | `Part1/sneha_singh/submission.csv` (sha `408d5b97…`) |
+| Practice LB CSV (not graded) | `Part1/sneha_singh/submission_practice_0.860.csv` |
 | Validator | `Part1/validate_submission.py` |
 | Source / trust notes | `Part1/sneha_singh/source_notes.md` |
 | Results + ablation | `Part1/sneha_singh/results.md` |
@@ -16,7 +17,7 @@ Multimodal RAG over the three read-only economics PDFs (Lab 2 Task 1).
 | Architecture figure | `report/figures/part1/architecture.png` |
 | Report section | `report/report.md` §II |
 | Kaggle link | `links.txt` → `lab2-notebook` |
-| Tag | `p1-v1.0` (retag after executed Kaggle notebook is committed) |
+| Tag | `p1-v1.0` (executed Kaggle notebook + matching CSV) |
 
 ## How to run
 
@@ -28,6 +29,6 @@ Multimodal RAG over the three read-only economics PDFs (Lab 2 Task 1).
 
 Best practice score **0.860** (`Pair_Programming_Team_05`). Final Task 1.5 marks use the hidden set through the tagged notebook.
 
-## Still for both members before Canvas zip
+## Status
 
-1. After Kaggle Save Version finishes: commit the executed notebook + its CSV, retag `p1-v1.0`.
+Executed Kaggle notebook and matching `submission.csv` are committed at tag `p1-v1.0`. Practice public LB **0.860** is kept only as `submission_practice_0.860.csv` (feedback; not the graded select).

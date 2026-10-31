@@ -14,7 +14,7 @@ Pair_Programming_Team_05: Sneha Singh, Ritika Neema
 
 ### Part 1
 
-I built `notebooks/sneha_singh/p1_rag.ipynb` (ingestion, hybrid dense+BM25 retrieval, optional CE passage reranker, conversation memory, Appendix C quarantine, grounded JSON answers). Local golden-set ablation (27 Oct fix-100, Ollama): **25/25 OFF** and **25/25 ON**, Recall@5 100% (+2 bonus not claimable on the tie). The graded notebook is the executed Kaggle run in `notebooks/sneha_singh/p1_rag.ipynb` (`Qwen/Qwen2.5-VL-7B-Instruct` NF4, no question-text answer bank). Tag `p1-v1.0` is `05b776c`. That run scored 0.64 on the public leaderboard. Notes: `Part1/sneha_singh/results.md`, `source_notes.md`, and `report/DATA266_Lab2_Team05_IEEE.docx`.
+I built `notebooks/sneha_singh/p1_rag.ipynb` (ingestion, hybrid dense+BM25 retrieval, optional CE passage reranker, conversation memory, Appendix C quarantine, grounded JSON answers). Local golden-set ablation (27 Oct fix-100, Ollama): **25/25 OFF** and **25/25 ON**, Recall@5 100% (+2 bonus not claimable on the tie). The graded notebook is the executed Kaggle run in `notebooks/sneha_singh/p1_rag.ipynb` (`Qwen/Qwen2.5-VL-7B-Instruct` NF4, no question-text answer bank). Tag `p1-v1.0` points at the executed Kaggle notebook commit (outputs kept; submission sha `408d5b97…`, public LB ~0.64). Notes: `Part1/sneha_singh/results.md`, `source_notes.md`, and `report/DATA266_Lab2_Team05_IEEE.docx`.
 
 ### Part 2
 
