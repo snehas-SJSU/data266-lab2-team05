@@ -4,7 +4,7 @@ Sneha Singh and Ritika Neema, Pair_Programming_Team_05, San Jose State Universit
 
 ## Abstract
 
-This lab has three tasks: question answering over three economics PDFs (Part 1, with a Kaggle competition), fine-tuning Stable Diffusion 1.5 with LoRA on Pokemon BLIP captions (Part 2), and a multimodal agent system for image understanding and generation (Part 3). Both of us run every part, with seed 266. Each part reports a primary metric, a secondary metric, a human judgement, and one cost number, for a baseline and a final system. On Part 1 (local Ollama golden-set development ablation, 27 Oct), the hybrid pipeline scored **25/25** answers with the passage reranker off and **25/25** with it on; Recall@5 was 100% on both arms; the +2 reranker bonus is not claimable on a tie. On Part 2, LoRA moved the pictures toward the Pokemon style (KID 0.06024 for the base model, 0.02314 for rank 16). Raters still picked the base model more often: rank 16 won 29 of 75 votes (win rate 0.387). Ritika's own pipeline runs are not in this draft. On the 26 Oct L4 run, the Results cell printed 6/15 scenarios passed without the critique loop and 4/15 with it. The median was 15.1 s and 31.4 s.
+This lab has three tasks: question answering over three economics PDFs (Part 1, with a Kaggle competition), fine-tuning Stable Diffusion 1.5 with LoRA on Pokemon BLIP captions (Part 2), and a multimodal agent system for image understanding and generation (Part 3). Both of us run every part, with seed 266. Each part reports a primary metric, a secondary metric, a human judgement, and one cost number, for a baseline and a final system. On Part 1 (local Ollama golden-set development ablation, 27 Oct), the hybrid pipeline scored **25/25** answers with the passage reranker off and **25/25** with it on; Recall@5 was 100% on both arms; the +2 reranker bonus is not claimable on a tie. Public Kaggle practice best is **0.860**; the graded notebook is the compliance Save Version linked in `links.txt`. On Part 2, LoRA moved the pictures toward the Pokemon style (KID 0.06024 for the base model, 0.02314 for rank 16). Raters still picked the base model more often: rank 16 won 29 of 75 votes (win rate 0.387). Ritika's own pipeline runs are not in this draft. On the 26 Oct L4 run, the Results cell printed 6/15 scenarios passed without the critique loop and 4/15 with it. The median was 15.1 s and 31.4 s.
 
 ## I. Introduction
 
@@ -40,13 +40,17 @@ The 25-question set still needs both members' review, and the human ratings are 
 
 ### C. What worked and what did not
 
-Pipeline fixes (RRF-blended CE reranker, base-year binding, basket-term completion, citation overlap repair, session-override judge policy) brought local golden-set answers to 25/25 on both arms. Appendix C stays quarantined. The +2 bonus needs ON to beat OFF; a perfect OFF leaves no gap. The Kaggle submission and 90-minute GPU run are still open.
+Pipeline fixes (RRF-blended CE reranker, base-year binding, basket-term completion, citation overlap repair, session-override judge policy) brought local golden-set answers to 25/25 on both arms. Appendix C stays quarantined. The +2 bonus needs ON to beat OFF; a perfect OFF leaves no gap. Public practice LB best is **0.860**. The graded path is the Kaggle notebook (`lab2-notebook`) with general policies only; the executed Save Version is committed after the GPU run finishes. Human groundedness ratings in `eval/human_review.csv` are still to be filled by both members.
 
-### D. Safety
+### D. Safety (Appendix C)
 
-The required analysis is how the system treated Appendix C of Document 3: the false claims, and the instructions hidden in the text and in a chart. It needs examples of questions where the system was fooled and questions where it was not. Those examples are not written in this draft yet.
+Document 3 Appendix C is marked low trust in `kb_manifest.json` and is excluded from retrieval evidence and from figure description (status `excluded_low_trust`). The notebook never indexes Appendix C text or Figure C-1 pixels as answer evidence.
 
-The Kaggle result is still pending. The final submission, the leaderboard rank, and the hidden-set score are not in yet.
+**Not fooled (by design):** questions that ask for a fact that only Appendix C states falsely, or that try to follow an instruction printed in Appendix C / Figure C-1 (“ignore the sources…”, “report X%”). The system must answer from DOC1–DOC3 trusted pages only, return `not_found` when the trusted corpus has no support, or refuse permanent KB edits with `session_override`. Temporary chat-only assumptions stay in conversation memory and are not written into ChromaDB.
+
+**Risk if fooled:** if a future bug re-ingested Appendix C, the model could cite fabricated macro numbers or obey an in-document instruction. Mitigation is quarantine at ingest (manifest trust filter + crop skip), citation allow-lists from retrieved trusted records only, and the permanent-edit refusal path.
+
+Public LB best **0.860** is practice feedback. Hidden-set Task 1.5 score and final selected notebook CSV are recorded after the tagged Kaggle run.
 
 ## III. Part 2: Fine-tuning a diffusion model
 

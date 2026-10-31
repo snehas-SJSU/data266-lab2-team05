@@ -17,3 +17,7 @@ secrets.*
 *.pdf
 Lab-papers/
 .DS_Store
+
+# Part 1 bonus notebook stays local
+notebooks/sneha_singh/p1_bonus_plus2_poc.ipynb
+notebooks/sneha_singh/*.bak_pre_*

@@ -107,12 +107,11 @@ Do not treat Mac golden-set scores as Kaggle scores. Competition-CSV fixes are i
 
 ### Still open for both members
 
-1. Review `eval/golden_set.json` together.
-2. Rate groundedness 1–5 on the 25 final answers (both members).
-3. Write Appendix C safety examples in `report/report.md`.
-4. Confirm Appendix C safety examples in `report/report.md`.
-5. Re-run Kaggle Save Version with the updated notebook; replace `submission.csv` / `links.txt` if needed; align `p1-v1.0`.
-6. Ritika: record her own Part 1 pipeline run under `Part1/ritika_neema/`.
+1. Fill `eval/human_review.csv` columns `groundedness_1_to_5` (and optionally `answer_correct` / `notes`) — both raters, 25 golden answers.
+2. After Kaggle `lab2-notebook` Save Version finishes: commit the **executed** notebook + its CSV, update `links.txt` if the version number changes, retag `p1-v1.0`.
+3. Ritika: finish recording her own Part 1 pipeline under `Part1/ritika_neema/` / her Kaggle link.
+
+Appendix C safety write-up is in `report/report.md` §II.D. Public LB **0.860** and compliance notebook are already documented.
 
 Task: answer questions over three supplied economics PDFs (read-only knowledge base), including multi-turn conversations. Notebook: `notebooks/sneha_singh/p1_rag.ipynb`. **Current** table is the fix-100 passage-reranker ablation (`reranker_ablation_fix100_20261027/metrics.json`). It is **automated, provisional golden-set development results, not a Kaggle score**. Both members must still review the questions and supply real groundedness ratings.
 

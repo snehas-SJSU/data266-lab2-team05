@@ -13,7 +13,7 @@ Pair_Programming_Team_05: Sneha Singh, Ritika Neema
 
 ### Part 1
 
-I built and ran `notebooks/sneha_singh/p1_rag.ipynb` locally. Latest local golden-set passage-reranker ablation (27 Oct fix-100): **25/25 OFF** and **25/25 ON** (Recall@5 100%; +2 bonus not claimable on the tie). Team-facing status is in `Part1/sneha_singh/results.md` and section II of `report/report.md`. Scores use Ollama (`qwen2.5:7b` / `qwen2.5vl:3b`); the Kaggle `Qwen/Qwen2.5-VL-7B-Instruct` path is in the notebook but not run yet. Graded tag `p1-v1.0` is at commit `1311cf4`.
+I built `notebooks/sneha_singh/p1_rag.ipynb` (ingestion, hybrid dense+BM25 retrieval, optional CE passage reranker, conversation memory, Appendix C quarantine, grounded JSON answers). Local golden-set ablation (27 Oct fix-100, Ollama): **25/25 OFF** and **25/25 ON**, Recall@5 100% (+2 bonus not claimable on the tie). Public Kaggle practice best **0.860**. The graded notebook path uses `Qwen/Qwen2.5-VL-7B-Instruct` NF4 on Kaggle with general lab policies only (no question-text answer bank); Save Version `lab2-notebook` v16+ is in `links.txt`. Notes: `Part1/sneha_singh/results.md`, `source_notes.md`, report §II. Tag `p1-v1.0` will be retagged to the commit that contains the executed Kaggle notebook.
 
 ### Part 2
 

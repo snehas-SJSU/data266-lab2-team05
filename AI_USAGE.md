@@ -20,6 +20,8 @@ Figures and the answer. `OllamaVLM.describe` turns a figure into words with Qwen
 
 That design is what went into `Part1/sneha_singh/results.md` and the Part 1 write-up in `report/report.md`.
 
+Cursor later helped shrink the notebook under Kaggle’s 1 MB kernel limit, remove question-specific canned answers (lab rule), and refresh Part 1 links/docs. I reviewed those edits and run the Kaggle Save Version myself.
+
 On top of that design, AI helped me brainstorm what to take from the papers.
 
 Lewis et al. The order is retrieve, then generate. Their retriever is a dense encoder over Wikipedia. I kept that order. The retriever here is the hybrid one above.
