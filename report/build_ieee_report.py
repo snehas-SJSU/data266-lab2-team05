@@ -306,7 +306,8 @@ def build():
          "Dense retrieval is the baseline. The final retriever adds BM25 and can rerank the "
          "fused list with a cross-encoder. We blend the two rankings rather than sorting by "
          "the cross-encoder alone. An answer is a status, a short text, and citations that "
-         "have to name a retrieved record. A temporary number supplied in chat is used only "
+         "have to name a retrieved record. The answer is written from those records, in the "
+         "retrieve-then-generate order [6]. A temporary number supplied in chat is used only "
          "in that conversation and is not written back into the index. A request to edit the "
          "documents permanently is refused.")
     body(doc,
@@ -351,6 +352,8 @@ def build():
     body(doc,
          "Appendix C is dropped at ingest. A false claim on that page, or the instruction "
          "drawn inside Figure C-1, cannot be retrieved and is not shown to the vision model. "
+         "That chart is an indirect prompt injection: an instruction aimed at the model, hidden "
+         "in the document [7]. "
          "A citation has to name a record that was actually retrieved.",
          indent=False)
     body(doc,
@@ -404,13 +407,29 @@ def build():
         ],
         [1400, 1200, 1200, 1200],
     )
+    table_title(doc, "TABLE III.  LORA RANK 8 AND DORA RANK 8")
+    add_table(
+        doc,
+        ["Model", "KID", "CLIP", "GPU-hours"],
+        [
+            ["Base", "0.08577 ± 0.01124", "0.3215", "—"],
+            ["LoRA rank 8", "0.05606 ± 0.00671", "0.3147", "0.4223"],
+            ["DoRA rank 8", "0.05352 ± 0.00673", "0.3167", "0.5262"],
+        ],
+        [1300, 1700, 1000, 1000],
+    )
     body(doc,
          "Both members and one rater from outside the team compared rank 16 with the base "
          "model on 25 blind pairs, sides swapped. Rank 16 won 29 of 75 votes, a rate of "
          "0.387. The 95% interval runs from 0.285 to 0.5, so the votes do not separate the "
          "adapter from the base model. The raters agreed on 16 of the 25 pairs. Fig. 3 is "
          "the in-domain sheet behind the KID number. Fig. 4 is the other prompts. Counts and "
-         "second objects drop out. On those compositional prompts the win rate was 0.278.")
+         "second objects drop out. On those compositional prompts the win rate was 0.278. "
+         "A second pair compared LoRA rank 8 with DoRA rank 8 on the same captions, 1200 steps, "
+         "and seed 266 [3]. Table III shows the same pattern as rank 16: KID falls, CLIP barely "
+         "moves. DoRA’s KID edge over LoRA, 0.0025, sits inside one standard deviation, and DoRA "
+         "used more GPU time (0.5262 hours against 0.4223). We kept LoRA rank 8 for that pair. "
+         "Rank 16 remains the run with the blind human study.")
     figure(
         doc, FIG / "part2" / "grid.png",
         "Fig. 3. Base, rank 4, and rank 16 on the first eight in-domain prompts, seed 0.",
@@ -440,7 +459,7 @@ def build():
          "training image by CLIP similarity. Scores run from 0.789 to 0.938. Fig. 6 shows the "
          "three closest pairs. The creature type matches. The pose and the colors do not. The "
          "largest per-tile RMS distance to that training image, over 16 tiles, was 0.584 to "
-         "0.801. Carlini et al. treat a distance near 0.15 as a near-copy, on their own scale [3]. "
+         "0.801. Carlini et al. treat a distance near 0.15 as a near-copy, on their own scale [4]. "
          "Nothing we generated was in that range. This check is one seed on 10 prompts, not their full study.")
     figure(doc, FIG / "part2" / "memorization.png",
            "Fig. 6. Three generations and the training image with the highest CLIP similarity. Pose and color differ.",
@@ -459,7 +478,7 @@ def build():
     figure(doc, FIG / "part3" / "architecture.png",
            "Fig. 7. A caption, an unsafe request, or a vague request stops early. The critic revises at most twice. Every request saves a JSON trace.")
     body(doc,
-         "Style change is Stable Diffusion image-to-image. Edits use InstructPix2Pix [4]. "
+         "Style change is Stable Diffusion image-to-image. Edits use InstructPix2Pix [5]. "
          "Enhancement is brightness, contrast, and sharpening. A Pokemon-style request loads "
          "the rank-16 adapter from Section III. Language and vision calls are Qwen2.5-VL-3B "
          "at temperature 0. Text found in the image is stored as text. It is not copied into "
@@ -468,13 +487,13 @@ def build():
 
     subhead(doc, "B.  Results")
     body(doc,
-         "Fifteen scenarios and ten red-team cases were written before the run. Table III is "
+         "Fifteen scenarios and ten red-team cases were written before the run. Table IV is "
          "the 26 October run on an L4, at 512 pixels and 30 steps, seed 266. The baseline "
          "column is the same pipeline with the critique loop off. The final column is the "
          "loop on. The loop does not help. It passes fewer scenarios and takes about twice "
          "as long.",
          indent=False)
-    table_title(doc, "TABLE III.  WITH AND WITHOUT THE CRITIQUE LOOP")
+    table_title(doc, "TABLE IV.  WITH AND WITHOUT THE CRITIQUE LOOP")
     add_table(
         doc,
         ["Measurement", "No critique", "With critique"],
@@ -493,7 +512,15 @@ def build():
          "mark matched ours on 34 of 48 attempts. The passes with the loop on were two "
          "domain-style images, one style change, and one edit. A request to make a creature "
          "blue failed “the fish is blue” on every attempt. A night scene did not gain neon "
-         "lights. One edit was accepted on the first try, and one after a single revision.")
+         "lights. One edit was accepted on the first try, and one after a single revision. "
+         "Fig. 8 is the domain-style output that did come out clean: a green lizard-like "
+         "creature from the LoRA rank-8 adapter, on the request “draw a green lizard creature "
+         "in Pokemon style.”")
+    figure(
+        doc, FIG / "part3" / "domain_style.png",
+        "Fig. 8. Domain-style generation with the LoRA rank-8 adapter. The creature is in the training style. The flat background matches the caption set.",
+        width=Inches(2.6),
+    )
 
     subhead(doc, "C.  Safety and system card")
     body(doc,
@@ -529,8 +556,11 @@ def build():
     refs = [
         "[1]  R. Rombach, A. Blattmann, D. Lorenz, P. Esser, and B. Ommer, “High-resolution image synthesis with latent diffusion models,” in Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit., 2022, pp. 10684–10695.",
         "[2]  E. J. Hu et al., “LoRA: Low-rank adaptation of large language models,” in Proc. Int. Conf. Learn. Represent., 2022.",
-        "[3]  N. Carlini et al., “Extracting training data from diffusion models,” in Proc. USENIX Security Symp., 2023, pp. 5253–5270.",
-        "[4]  T. Brooks, A. Holynski, and A. A. Efros, “InstructPix2Pix: Learning to follow image editing instructions,” in Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit., 2023, pp. 18392–18402.",
+        "[3]  S.-Y. Liu et al., “DoRA: Weight-decomposed low-rank adaptation,” in Proc. Int. Conf. Mach. Learn., 2024.",
+        "[4]  N. Carlini et al., “Extracting training data from diffusion models,” in Proc. USENIX Security Symp., 2023, pp. 5253–5270.",
+        "[5]  T. Brooks, A. Holynski, and A. A. Efros, “InstructPix2Pix: Learning to follow image editing instructions,” in Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit., 2023, pp. 18392–18402.",
+        "[6]  P. Lewis et al., “Retrieval-augmented generation for knowledge-intensive NLP tasks,” in Proc. Adv. Neural Inf. Process. Syst., 2020.",
+        "[7]  K. Greshake, S. Abdelnabi, S. Mishra, C. Endres, T. Holz, and M. Fritz, “Not what you’ve signed up for: Compromising real-world LLM-integrated applications with indirect prompt injection,” in Proc. ACM Workshop Artif. Intell. Secur., 2023, pp. 79–90.",
     ]
     for ref in refs:
         p = P(doc, ref, size=8, align="justify", before=0, after=2)
