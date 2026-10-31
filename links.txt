@@ -3,7 +3,7 @@
 
 ## Shared (team)
 GitHub repository: https://github.com/snehas-SJSU/data266-lab2-team05
-Commit/tag p1-v1.0: resolve with `git rev-parse p1-v1.0` (executed notebook+CSV)
+Commit/tag p1-v1.0: 71f3503
 Commit/tag p2-v1.0: 6cbb16b
 Commit/tag p3-v1.0: 05b776c
 Final Kaggle notebook/submission: https://www.kaggle.com/code/snehasjsu/lab2-notebook
