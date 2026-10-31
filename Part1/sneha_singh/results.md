@@ -101,7 +101,7 @@ Do not treat Mac golden-set scores as Kaggle scores. Competition-CSV fixes are i
 
 | ID | Problem |
 | --- | --- |
-| +2 bonus | **Claimable in bonus notebook** `p1_bonus_plus2_poc.ipynb`: OFF **18/25**, ON **19/25** (`eval/bonus_plus2_ablation_summary.json`). Graded `p1_rag.ipynb` unchanged. |
+| +2 bonus | **Not claimed** on graded `p1_rag.ipynb` (golden-set OFF/ON tied 25/25). Bonus PoC notebook/outputs removed from the repo. |
 | Kaggle | Executed notebook committed (T4, 40 rows, validated, 1084 s). Practice public best **0.860** is a different CSV. Select the notebook output on Kaggle if it is not already the chosen submission. |
 | Human ratings / report Appendix C examples | Still pending both members |}
 
