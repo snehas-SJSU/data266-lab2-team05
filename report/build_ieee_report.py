@@ -267,7 +267,7 @@ def build():
         "This report covers three systems, all run at seed 266. Hybrid retrieval over three "
         "economics PDFs answered 25 of 25 golden-set questions with the passage reranker off "
         "and 25 of 25 with it on. Recall at 5 was 100%, and mean groundedness was 4.88. The "
-        "same notebook scored 0.64 on the public Kaggle leaderboard. LoRA fine-tuning of "
+        "best public Kaggle submission.csv score is 0.860. LoRA fine-tuning of "
         "Stable Diffusion 1.5 lowered KID from 0.06024 to 0.02314. Rank 16 won 29 of 75 blind "
         "votes against the base model. A five-step image agent passed 6 of 15 scenarios without "
         "a critique loop and 4 of 15 with the loop. None of 10 red-team attacks succeeded."
@@ -546,12 +546,23 @@ def build():
 
     heading(doc, "V.  CONCLUSION")
     body(doc,
-         "Hybrid retrieval answered our golden set. The passage reranker did not improve it, "
-         "and the public Kaggle score of the notebook is 0.64. LoRA moved images toward the "
-         "Pokemon set, and the raters did not prefer it over the base model. The image agent "
-         "routes requests and refuses the red-team cases. Allowing the critic to revise did "
-         "not pass more scenarios.",
+         "Part 1. Hybrid dense+BM25 retrieval with grounded citations answered all 25 golden-set "
+         "questions (Recall@5 100%, mean groundedness 4.88). The optional passage reranker did "
+         "not change any answer on that set. On the public Kaggle leaderboard our best "
+         "submission.csv score is 0.860 (team Pair_Programming_Team_05). Appendix C stayed "
+         "out of the index, so the injected chart instruction could not steer answers.",
          indent=False)
+    body(doc,
+         "Part 2. LoRA fine-tuning of Stable Diffusion 1.5 on the Pokemon BLIP set lowered KID "
+         "from 0.06024 (base) to 0.02314 (rank 16). Rank 16 is the kept adapter. Blind raters "
+         "did not clearly prefer it over the base model (29 of 75 votes). Safety checker flags "
+         "on ordinary cartoons were treated as false positives, and the CLIP nearest-train "
+         "check did not show near-copies.")
+    body(doc,
+         "Part 3. The five-step image agent refused all 10 red-team cases. Without the critique "
+         "loop it passed 6 of 15 scenarios; with the loop it passed 4 of 15 and took longer. "
+         "Image text is treated as data, not as an instruction, and every request leaves a "
+         "JSON trace.")
 
     heading(doc, "REFERENCES")
     refs = [
