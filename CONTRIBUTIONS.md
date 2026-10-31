@@ -6,8 +6,9 @@ Pair_Programming_Team_05: Sneha Singh, Ritika Neema
 
 | | Date | Topic | Link |
 | --- | --- | --- | --- |
-| 1 | | | |
-| 2 | | | |
+| 1 | | Part 1 architecture. We kept dense retrieval as the baseline and hybrid dense plus BM25 as the final retriever. Appendix C stays out of the index, including Figure C-1, so a line in that chart cannot be retrieved. A number given “for this chat only” stays in that conversation and is not written back into the documents. The passage reranker did not change the golden-set score (25/25 either way), so we did not claim that bonus. | |
+| 2 | | Part 2 tradeoff. Same Pokemon captions, same base model, seed 266. Rank 16 lowered KID more than rank 4, so that is the run in the blind study, even though the raters did not prefer it over the base model (29 of 75). A second pair, LoRA rank 8 and DoRA rank 8, moved KID by about the same amount. DoRA’s extra gain was inside the noise and used more GPU time, so we kept LoRA rank 8 for that pair. | |
+| 3 | | Part 3 design and the critique loop. Five agents share one state. Text inside an image is data, not an instruction. The critic may revise at most twice. After the run, the loop passed 4 of 15 scenarios and the same pipeline without it passed 6 of 15, so we did not retune the critic to chase the higher number. Attack success on the 10 red-team cases was 0. | |
 
 ## Sneha Singh
 
