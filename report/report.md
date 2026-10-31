@@ -10,7 +10,7 @@ This lab has three tasks: question answering over three economics PDFs (Part 1, 
 
 This is one report for all three parts. Each part has an architecture figure, one results table, a short account of what worked and what did not, and a safety section. The four measurements are the ones the lab names. A number appears here only after a notebook printed it. Code is in `notebooks/`. Evaluation files are in `eval/`. Weights and generated images are on Hugging Face (`links.txt`).
 
-The numbers below are from Sneha's notebook outputs. Ritika runs the same three notebooks. Her separate runs are not in this draft. Her Part 2 votes are already inside the 75-vote human result.
+The numbers below are from the executed notebooks. Sneha's Part 2 is the rank-4 versus rank-16 comparison. Ritika's own Part 2 is LoRA rank 8 versus DoRA rank 8, in section III.F. Her votes on Sneha's 25 pairs are already inside the 75-vote result. Her own 25-pair sheet is not filled yet.
 
 ## II. Part 1: Multimodal RAG
 
@@ -124,6 +124,25 @@ For the memorization check I took 10 in-domain generations of rank 16, seed 0, a
 
 I also measured the largest per-tile RMS distance to that training image, over 16 tiles: 0.584 to 0.801. Carlini et al. [6] treat something near 0.15 as a near-copy, with their own scaling, which is not identical to mine. Nothing I generated landed near that range. This is not their full experiment. They drew hundreds of samples per prompt. I drew one seed on 10 prompts.
 
+### F. Ritika's own runs
+
+Ritika trained a second pair on the same Pokemon captions and the same base model: LoRA rank 8 and DoRA rank 8. The notebook is `notebooks/ritika_neema/p2_finetune.ipynb` (Colab T4, seed 266). Cell 3 removed 0 corrupt images, 0 exact duplicates, and 2 near-duplicates, leaving 831 images, then split 748 train and 83 test at 512×512. Both runs used 1200 steps, effective batch 4, and learning rate 0.0001.
+
+| Run | Trainable params | Steps | Batch | Learning rate | GPU-hours | Peak memory |
+| --- | --- | --- | --- | --- | --- | --- |
+| LoRA rank 8 (final) | 1,594,368 | 1200 | 4 | 0.0001 | 0.4223 | 2.55 GB |
+| DoRA rank 8 | 1,694,208 | 1200 | 4 | 0.0001 | 0.5262 | 2.62 GB |
+
+Cell 7b drops the 3 images the safety checker blacked out and scores the other 37 the same way for every model. KID is the  in-domain generations against the 83 test images.
+
+| Model | KID | CLIP (all) | LPIPS |
+| --- | --- | --- | --- |
+| Base | 0.08577 +/- 0.01124 | 0.3215 | 0.7375 |
+| LoRA rank 8 | 0.05606 +/- 0.00671 | 0.3147 | 0.7110 |
+| DoRA rank 8 | 0.05352 +/- 0.00673 | 0.3167 | 0.7033 |
+
+She keeps LoRA rank 8. The KID gap versus DoRA sits inside one standard deviation, and LoRA uses less GPU time. Weights: [LoRA rank 8](https://huggingface.co/neema30/data266-lab2-p2-ritika-lora-r8), [DoRA rank 8](https://huggingface.co/neema30/data266-lab2-p2-ritika-dora-r8). Images: [dataset](https://huggingface.co/datasets/neema30/data266-lab2-p2-ritika-images). Cell 10 printed `no ratings yet` for her own 25 blinded pairs, so that win rate is not in this report.
+
 ## IV. Part 3: Multimodal agents
 
 ### A. Architecture
@@ -200,7 +219,7 @@ The guards are the input check, the output check, treating text in the image as 
 
 ## V. Conclusion
 
-Part 1 has a local golden-set results table (25/25 OFF and ON; +2 not claimable on the tie), its architecture figure, an Appendix C safety write-up, groundedness ratings (mean 4.88), and a public Kaggle practice best of 0.860. The executed Kaggle notebook still has to be committed and `p1-v1.0` retagged. Part 2 has a full results table: rank 16 is closer on KID and was not preferred by the raters. Part 3 has the 26 Oct L4 run and both rating files. The Results cell printed 6/15 without the critique loop and 4/15 with it, critic agreement 34/48, and attack success 0/10. Ritika's own pipeline run is not in this draft. The test images are at https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs. The Part 3 bonus Space is https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents.
+Part 1 has a local golden-set results table (25/25 OFF and ON; +2 not claimable on the tie), its architecture figure, an Appendix C safety write-up, groundedness ratings (mean 4.88), and a public Kaggle practice best of 0.860. The executed Kaggle notebook still has to be committed and `p1-v1.0` retagged. Part 2 has Sneha's rank-16 table and Ritika's LoRA-versus-DoRA table. Rank 16 was not preferred by the raters. Ritika's own blinded win rate is still missing. Part 3 has the 26 Oct L4 run and both rating files. The Results cell printed 6/15 without the critique loop and 4/15 with it, critic agreement 34/48, and attack success 0/10. Ritika's own pipeline run is not in this draft. The test images are at https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs. The Part 3 bonus Space is https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents.
 
 ## References
 
