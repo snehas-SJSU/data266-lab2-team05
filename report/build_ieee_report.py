@@ -338,8 +338,8 @@ def build():
     body(doc,
          "Both members scored the same answers from 1 to 5. The mean was 4.88. Scores agreed "
          "within one point on all 25 questions, and they matched exactly on all 25. The Kaggle "
-         "run finished 40 questions in 1084 seconds, inside the 90 minute limit, and scored "
-         "0.64 on the public leaderboard. Our 25 questions were easier than that set.")
+         "run finished 40 questions in 1084 seconds, inside the 90 minute limit. Our best "
+         "public leaderboard score is 0.860. Our 25 questions were easier than that set.")
 
     subhead(doc, "C.  What worked and what did not")
     body(doc,
