@@ -20,7 +20,7 @@ Figures and the answer. `OllamaVLM.describe` turns a figure into words with Qwen
 
 That design is what went into `Part1/sneha_singh/results.md` and the Part 1 write-up in `report/report.md`.
 
-Cursor later helped shrink the notebook under Kaggle’s 1 MB kernel limit, remove question-specific canned answers (lab rule), and refresh Part 1 links/docs. I reviewed those edits and run the Kaggle Save Version myself.
+AI also helped me get the notebook onto Kaggle. The kernel source has to stay under 1 MB. I cleared the saved outputs and left the long local regression cell out of the upload. The last-mile path is `apply_general_answer_policies`. It does not paste a fixed sentence for a competition question. It refuses a permanent edit of the documents, keeps a figure label the question already named, and looks up a chart value from retrieved facts. I read those edits. The Save Version is the run I start on Kaggle.
 
 On top of that design, AI helped me brainstorm what to take from the papers.
 
