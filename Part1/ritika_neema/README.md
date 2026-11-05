@@ -44,6 +44,10 @@ re-run the last cell for the mean and agreement.
 
 ## Results
 
+The executed notebooks for versions 1-4 (`p1_rag_v1.ipynb` to `p1_rag_v4.ipynb`) were removed from `main` in
+commit `5aeb91f`. They are kept in git history at commit `91930bc`, e.g.
+`git show 91930bc:notebooks/ritika_neema/p1_rag_v3.ipynb > p1_rag_v3.ipynb`.
+
 ### Version 1 (Kaggle Tesla T4, 28 Oct 2026, `p1_rag_v1.ipynb`)
 
 Golden set (25 questions), printed by the evaluation cell. Whole run 25.7 min; the 40 Kaggle questions took

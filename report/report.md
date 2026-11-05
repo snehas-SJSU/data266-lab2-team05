@@ -31,7 +31,7 @@ Local Ollama development ablation on the 25-question golden set (27 Oct fix-100)
 | Primary: correct answers out of 25 | **25/25** | **25/25** |
 | Secondary: Recall@5 | 100% | 100% |
 | Secondary: citation accuracy | 100% (37/37) | 100% (38/38) |
-| Human: groundedness 1–5, both members | 4.88 (agree within 1: 25/25) | 4.88 (agree within 1: 25/25) |
+| Human: groundedness 1–5, both members | 4.88 (within 1: 24/25) | 4.88 (within 1: 24/25) |
 | Efficiency: median seconds per question | 62.20 | 63.20 |
 | Generation / judge errors | 0 / 0 | 0 / 0 |
 | +2 bonus (ON answers > OFF) | — | tie on this pipeline; see Ritika's ablation below |
@@ -52,7 +52,7 @@ Local Ollama development ablation on the 25-question golden set (27 Oct fix-100)
 
 On the golden set the reranker fixed G04, G14 and G15 and broke G23. Its gain is in facts (0.667 to 0.707) and status (0.800 to 0.840); figure F1 (0.733 to 0.640) and citations (0.883 to 0.800) fell, so the golden Kaggle-style score dropped slightly (0.750 to 0.739). On the held-out set only figure F1 fell (0.747 to 0.720). The 0.526 is the same code with the reranker off (Kaggle version 2). Ritika's golden set was seen while she built versions 2-4, which is why the held-out set was added. Full version history: `Part1/ritika_neema/README.md`.
 
-Both members' groundedness ratings are in `eval/human_review.csv` (mean 4.88, agreement within one point on all 25). The inspected set is a development check, not an untouched holdout. Full notes: `Part1/sneha_singh/results.md`.
+Both members' groundedness ratings are in `eval/human_review.csv` (mean 4.88 for each rater; within one point on 24 of 25, exact on 22; the one larger gap is G02, rated 4 and 2). The inspected set is a development check, not an untouched holdout. Full notes: `Part1/sneha_singh/results.md`.
 
 ### C. What worked and what did not
 
@@ -246,7 +246,7 @@ Ritika ran the same 15 scenarios and 10 red-team cases on a Colab T4 on 28 Oct 2
 
 ## V. Conclusion
 
-Part 1 has a local golden-set results table (25/25 OFF and ON, a tie), Ritika's reranker ablation (golden 16/25 ON against 14/25 OFF, held-out 21/25 against 19/25, Kaggle public 0.576 against 0.526), which is the +2 reranker claim, its architecture figure, an Appendix C safety write-up, groundedness ratings (mean 4.88), and a public Kaggle practice best of 0.860. The executed Kaggle notebook is committed (Tesla T4, 40 rows validated, 1084 s). Public Kaggle best score is **0.860**. Part 2 has Sneha's rank-16 table and Ritika's LoRA-versus-DoRA table. Rank 16 was not preferred by the raters. Ritika's own blinded win rate is still missing. Part 3 has the 26 Oct L4 run and both rating files. The Results cell printed 6/15 without the critique loop and 4/15 with it. After the two raters' attempt strings were aligned, critic agreement is 36/48 = 0.75, and attack success is 0/10. Ritika's 28 Oct automatic table is in section IV.G. Her human rubric sheet is still empty. The test images are at https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs. The Part 3 bonus Space is https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents.
+Part 1 has a local golden-set results table (25/25 OFF and ON, a tie), Ritika's reranker ablation (golden 16/25 ON against 14/25 OFF, held-out 21/25 against 19/25, Kaggle public 0.576 against 0.526), which is the +2 reranker claim, its architecture figure, an Appendix C safety write-up, groundedness ratings (mean 4.88, within one point on 24 of 25), and a public Kaggle practice best of 0.860. The executed Kaggle notebook is committed (Tesla T4, 40 rows validated, 1084 s). Public Kaggle best score is **0.860**. Part 2 has Sneha's rank-16 table and Ritika's LoRA-versus-DoRA table. Rank 16 was not preferred by the raters. Ritika's own blinded win rate is still missing. Part 3 has the 26 Oct L4 run and both rating files. The Results cell printed 6/15 without the critique loop and 4/15 with it. After the two raters' attempt strings were aligned, critic agreement is 36/48 = 0.75, and attack success is 0/10. Ritika's 28 Oct automatic table is in section IV.G. Her human rubric sheet is still empty. The test images are at https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs. The Part 3 bonus Space is https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents.
 
 ## References
 

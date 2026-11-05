@@ -110,7 +110,7 @@ Do not treat Mac golden-set scores as Kaggle scores. Competition-CSV fixes are i
 1. Public leaderboard best remains **0.860**. Keep that score in the report and docs.
 2. Ritika: finish recording her own Part 1 pipeline under `Part1/ritika_neema/` / her Kaggle link.
 
-Both raters' groundedness scores are in `eval/human_review.csv` (mean 4.88, within one point on 25/25).
+Both raters' groundedness scores are in `eval/human_review.csv` (mean 4.88 for each rater; within one point on 24/25).
 
 Appendix C safety write-up is in `report/report.md` §II.D. Public LB **0.860** and compliance notebook are already documented.
 
