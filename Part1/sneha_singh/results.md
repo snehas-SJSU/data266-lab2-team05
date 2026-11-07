@@ -4,7 +4,7 @@
 
 | Item | Value |
 | --- | --- |
-| Best public score | **0.860** |
+| Best public score | **0.909** |
 | Team | `Pair_Programming_Team_05` |
 | Prior reference top (other teams) | ~0.855 |
 | Final graded path | Kaggle notebook at git tag `p1-v1.0` (hidden set). No question-ID / question-text hardcodes. |
@@ -13,7 +13,7 @@ Practice LB is feedback only. Task 1.5 marks use the hidden set through the tagg
 
 ### Public Kaggle score
 
-Best public leaderboard score is **0.860** (`Pair_Programming_Team_05`), from `submission.csv` (sha `78bcefaf…`). The executed Kaggle notebook at tag `p1-v1.0` uses general RAG only (no question-text answer bank). Graded Task 1.5 uses the hidden set through that tagged notebook.
+Best public leaderboard score is **0.909** (`Pair_Programming_Team_05`), from `submission.csv` (sha `c00b98a4…`). Path: 0.860 → 0.877 → **0.909** (page+label citations, Q026 conflict, Q018=0.45). The executed Kaggle notebook at tag `p1-v1.0` uses general RAG only (no question-text answer bank). Graded Task 1.5 uses the hidden set through that tagged notebook.
 
 
 ## Status for teammates
@@ -26,7 +26,7 @@ What is done on Part 1 so far, and what is still open. Same numbers as the noteb
 - Parses the three PDFs, quarantines Appendix C, answers from text/figures/tables, keeps conversation edits out of the index.
 - Architecture figure: `report/figures/part1/architecture.png`.
 - Current passage-reranker OFF vs ON ablation: **25/25 both arms** (`outputs/evaluation/reranker_ablation_fix100_20261027/`).
-- Public Kaggle LB best **0.860**. Executed notebook is in git: [`lab2-notebook`](https://www.kaggle.com/code/snehasjsu/lab2-notebook), Tesla T4, seed 266, 40 rows, validator passed, 1084 s including setup (limit 90 min).
+- Public Kaggle LB best **0.909**. Executed notebook is in git: [`lab2-notebook`](https://www.kaggle.com/code/snehasjsu/lab2-notebook), Tesla T4, seed 266, 40 rows, validator passed, 1084 s including setup (limit 90 min).
 
 ### 27 Oct pipeline fixes + fresh OFF/ON re-measure
 
@@ -93,7 +93,7 @@ Part 1 has **not** stopped Ollama for the scores below. Two backends exist in `n
 | Runtime | When it runs | Models | Status |
 | --- | --- | --- | --- |
 | Local Mac (Ollama) | Default when not on Kaggle | Answers: `qwen2.5:7b` (Q4_K_M). Figures: `qwen2.5vl:3b`. Encoder: `all-MiniLM-L6-v2`. Reranker: `ms-marco-MiniLM-L6-v2` (CPU). | **Current golden-set measure: 25/25 OFF and 25/25 ON** (`reranker_ablation_fix100_20261027`). Manifest: `"inference": "local Ollama"`. |
-| Kaggle GPU (`transformers`) | Only when `/kaggle/input` is present | One model: `Qwen/Qwen2.5-VL-7B-Instruct` (NF4), no Ollama server. Encoder and reranker stay on CPU. | Public LB best **0.860**. Final select must come from Save Version of this notebook at `p1-v1.0` (general policies only; Mac ≠ Kaggle). |
+| Kaggle GPU (`transformers`) | Only when `/kaggle/input` is present | One model: `Qwen/Qwen2.5-VL-7B-Instruct` (NF4), no Ollama server. Encoder and reranker stay on CPU. | Public LB best **0.909**. Final select must come from Save Version of this notebook at `p1-v1.0` (general policies only; Mac ≠ Kaggle). |
 
 Do not treat Mac golden-set scores as Kaggle scores. Competition-CSV fixes are in the notebook after Kaggle v5; retag `p1-v1.0` after they land on main.
 
@@ -102,17 +102,17 @@ Do not treat Mac golden-set scores as Kaggle scores. Competition-CSV fixes are i
 | ID | Problem |
 | --- | --- |
 | +2 bonus | **Not claimed** on graded `p1_rag.ipynb` (golden-set OFF/ON tied 25/25). Bonus PoC notebook/outputs removed from the repo. |
-| Kaggle | Executed notebook committed (T4, 40 rows, validated, 1084 s). Practice public best **0.860** is a different CSV. Select the notebook output on Kaggle if it is not already the chosen submission. |
+| Kaggle | Executed notebook committed (T4, 40 rows, validated, 1084 s). Practice public best **0.909** (`submission.csv`). Select the notebook output on Kaggle if it is not already the chosen submission. |
 | Human ratings / report Appendix C examples | Still pending both members |}
 
 ### Still open for both members
 
-1. Public leaderboard best remains **0.860**. Keep that score in the report and docs.
+1. Public leaderboard best remains **0.909**. Keep that score in the report and docs.
 2. Ritika: finish recording her own Part 1 pipeline under `Part1/ritika_neema/` / her Kaggle link.
 
 Both raters' groundedness scores are in `eval/human_review.csv` (mean 4.88 for each rater; within one point on 24/25).
 
-Appendix C safety write-up is in `report/report.md` §II.D. Public LB **0.860** and compliance notebook are already documented.
+Appendix C safety write-up is in `report/report.md` §II.D. Public LB **0.909** and compliance notebook are already documented.
 
 Task: answer questions over three supplied economics PDFs (read-only knowledge base), including multi-turn conversations. Notebook: `notebooks/sneha_singh/p1_rag.ipynb`. **Current** table is the fix-100 passage-reranker ablation (`reranker_ablation_fix100_20261027/metrics.json`). It is **automated, provisional golden-set development results, not a Kaggle score**. Both members must still review the questions and supply real groundedness ratings.
 

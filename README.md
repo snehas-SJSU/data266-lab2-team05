@@ -88,7 +88,7 @@ Python 3.13. Open a notebook from the repo root and use Restart & Run All. The f
 | Part | Models |
 | --- | --- |
 | 1, local (measured) | Ollama for current scores: `qwen2.5vl:3b` figures, `qwen2.5:7b` answers; `all-MiniLM-L6-v2`; `ms-marco-MiniLM-L6-v2` reranker. Latest ablation: **25/25 OFF**, **25/25 ON** ([results](Part1/sneha_singh/results.md)). |
-| 1, Kaggle | `Qwen/Qwen2.5-VL-7B-Instruct` (NF4). Public LB best **0.860**. Final CSV must come from this notebook at tag `p1-v1.0` (general RAG only; no question hardcodes). Mac scores are not Kaggle scores. |
+| 1, Kaggle | `Qwen/Qwen2.5-VL-7B-Instruct` (NF4). Public LB best **0.909**. Final CSV must come from this notebook at tag `p1-v1.0` (general RAG only; no question hardcodes). Mac scores are not Kaggle scores. |
 | 2 | `stable-diffusion-v1-5/stable-diffusion-v1-5`, LoRA ranks 4 and 16; `openai/clip-vit-base-patch32`; LPIPS AlexNet; torchmetrics KID |
 | 3 | `Qwen2.5-VL-3B`; Stable Diffusion 1.5 img2img; InstructPix2Pix; the Part 2 rank-16 LoRA; CLIP ViT-B/32 |
 
