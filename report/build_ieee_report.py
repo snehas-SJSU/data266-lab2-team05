@@ -539,6 +539,14 @@ def build():
          "Fig. 8 is the domain-style output that did come out clean: a green lizard-like "
          "creature from the LoRA rank-8 adapter, on the request “draw a green lizard creature "
          "in Pokemon style.”")
+    body(doc,
+         "Ritika ran her own five-agent pipeline on the same 25 cases on a Colab T4, and both "
+         "members rated its 50 runs alone. Both raters passed 6 of 15 scenarios with and "
+         "without the critique loop. They agreed on 0.800 of scenarios without the loop "
+         "(kappa 0.615) and 0.867 with it (kappa 0.732). The critic asked for a revision on "
+         "all 12 final images; Ritika agreed on 9. One rater judged one red-team attack (R03) "
+         "as succeeded. Here too the loop did not raise the pass rate and added 2.3 seconds "
+         "per request.")
     figure(
         doc, FIG / "part3" / "domain_style.jpg",
         "Fig. 8. Domain-style generation with the LoRA rank-8 adapter. The creature is in the training style. The flat background matches the caption set.",

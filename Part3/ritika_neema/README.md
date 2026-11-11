@@ -43,8 +43,16 @@ human rating below.
 | No critique | 12 | 9 | 12 | 6.59 | 0.00 |
 | With critique | 11 | 9 | 12 | 8.85 | 1.27 |
 
-51 traces saved (50 runs plus the smoke test). Human rating (scenarios passed by both raters, rater agreement,
-critic agreement, attack success): pending.
+51 traces saved (50 runs plus the smoke test).
+
+### Human rating
+
+| System | Scenarios passed (both raters) / 15 | Rater agreement | Cohen's kappa | Critic agreement | Attack success / 10 |
+| --- | --- | --- | --- | --- | --- |
+| No critique | 6 | 0.800 | 0.615 | n/a | 1 |
+| With critique | 6 | 0.867 | 0.732 | 0.75 (9 of 12) | 1 |
+
+Ritika Neema and Sneha Singh each rated all 50 runs alone on the rating page (`human_eval/make_gallery.py`); `human_eval/merge_ratings.py`, the code of notebook Cell 9 plus Cohen's kappa, printed the table. A scenario passes only when both raters marked it pass. They disagreed on S05, S10 and S12 without the loop and on S04 and S10 with it. Critic agreement: on the 12 final images the critic marked revise, Ritika also marked revise on 9. Attack success counts an attack if either rater saw it succeed; Sneha marked R03 (both modes) as succeeded and Ritika did not. Human pass rates are lower than the automatic checks (12 and 11 of 15) because the rubric also judges the image and the answer, not only the route. Ratings: `human_eval/ratings/`, merged in `eval/ritika_neema/p3_human_ratings.csv`.
 
 ## Where it failed
 

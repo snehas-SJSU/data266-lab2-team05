@@ -53,4 +53,5 @@ LoRA rank 8 won 49 of 75 votes (win rate 0.747); results in `Part2/ritika_neema/
 Rated the 26 Oct L4 run with Sneha; we agreed on all 40. My own pipeline is `notebooks/ritika_neema/p3_agents.ipynb`:
 five agents over a typed state with a JSON trace per request (`traces/ritika_neema/`), run on the team's frozen
 15 scenarios and 10 red-team cases with and without the critique loop, plus a Gradio app. Ran it on a Colab T4
-on 28 Oct 2026; automatic results and failure analysis in `Part3/ritika_neema/README.md`, human rating pending.
+on 28 Oct 2026. Sneha and I each rated its 50 runs alone: 6/15 scenarios passed by both raters with and without the
+critique loop (agreement 0.800 and 0.867, kappa 0.615 and 0.732); results and failure analysis in `Part3/ritika_neema/README.md`.
