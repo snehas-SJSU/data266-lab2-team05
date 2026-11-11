@@ -47,7 +47,23 @@ max 0.900 (mean 0.776), DoRA r8 max 0.912 (mean 0.798); 0 of 20 above 0.95 for b
 the "pikachu" prompt against Pikachu training images, the same character rather than a copy
 (`memorization_*.png` in the notebook outputs).
 
-Human evaluation (Cell 10): blinded 25 pairs, LoRA r8 against base, 3 raters. Pending.
+Human evaluation: blinded 25 pairs, LoRA r8 against base, 3 raters (Ritika Neema, Sneha Singh, Rajesh), each
+rating alone. The first set from Cell 9 (pair-sampling seed 266) was not rated because its key had been opened;
+`human_eval/make_pairs.py` rebuilt the pairs with the same code and seed 267 from the published images.
+`human_eval/merge_ratings.py` (the code of Cell 10) printed: 3 raters x 25 pairs | final wins 49, base wins 12,
+ties 14 | win rate (ties as half) 0.747 (95% Wilson interval 0.638 to 0.831).
+
+| Breakdown | Win rate | Votes |
+| --- | --- | --- |
+| Ritika Neema | 0.80 | 25 |
+| Sneha Singh | 0.76 | 25 |
+| Rajesh | 0.68 | 25 |
+| In-domain prompts | 0.819 | 36 |
+| Compositional prompts | 0.690 | 21 |
+| Out-of-domain prompts | 0.667 | 18 |
+
+All three raters gave the same answer on 13 of 25 pairs. Ratings: `human_eval/ratings/`, merged in
+`eval/ritika_neema/p2_human_ratings.csv`.
 
 ## Choice
 

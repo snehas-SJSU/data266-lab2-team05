@@ -14,7 +14,7 @@ Pair_Programming_Team_05: Sneha Singh, Ritika Neema
 
 ### Part 1
 
-I built `notebooks/sneha_singh/p1_rag.ipynb` (ingestion, hybrid dense+BM25 retrieval, optional CE passage reranker, conversation memory, Appendix C quarantine, grounded JSON answers). Local golden-set ablation (27 Oct fix-100, Ollama): **25/25 OFF** and **25/25 ON**, Recall@5 100% (+2 bonus not claimable on the tie). The graded notebook is the executed Kaggle run in `notebooks/sneha_singh/p1_rag.ipynb` (`Qwen/Qwen2.5-VL-7B-Instruct` NF4, no question-text answer bank). Tag `p1-v1.0` points at the executed Kaggle notebook commit (outputs kept). Public Kaggle leaderboard best **0.909**. Notes: `Part1/sneha_singh/results.md`, `source_notes.md`, and `report/DATA266_Lab2_Team05_IEEE.docx`.
+I built `notebooks/sneha_singh/p1_rag.ipynb` (ingestion, hybrid dense+BM25 retrieval, optional CE passage reranker, conversation memory, Appendix C quarantine, grounded JSON answers). Local golden-set ablation (27 Oct fix-100, Ollama): **25/25 OFF** and **25/25 ON**, Recall@5 100%, a tie on this pipeline; the team's +2 reranker claim uses Ritika's ablation. The graded notebook is the executed Kaggle run in `notebooks/sneha_singh/p1_rag.ipynb` (`Qwen/Qwen2.5-VL-7B-Instruct` NF4, no question-text answer bank). Tag `p1-v1.0` points at the executed Kaggle notebook commit (outputs kept). Public Kaggle leaderboard best **0.909**. Notes: `Part1/sneha_singh/results.md`, `source_notes.md`, and `report/DATA266_Lab2_Team05_IEEE.docx`.
 
 ### Part 2
 
@@ -45,7 +45,8 @@ tune) 21/25 against 19/25. It also costs some figure and citation accuracy. Deta
 
 Rated the 25 blinded image pairs for Sneha's runs. My own pipeline is `notebooks/ritika_neema/p2_finetune.ipynb`:
 LoRA rank 8 and DoRA rank 8 on the same data, steps and seed, with KID, CLIP score, LPIPS, NSFW filter and a
-memorization check. Final model LoRA rank 8; results in `Part2/ritika_neema/results.md`.
+memorization check. Final model LoRA rank 8. On 25 blinded pairs against the base model, rated by Sneha, Rajesh and me,
+LoRA rank 8 won 49 of 75 votes (win rate 0.747); results in `Part2/ritika_neema/results.md`.
 
 ### Part 3
 

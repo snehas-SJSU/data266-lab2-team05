@@ -135,7 +135,7 @@ The PDFs stay read-only. A fact added in one chat stays in that chat. Dense retr
 | Answers correct | **25/25** | **25/25** |
 | Recall@5 | 100% | 100% |
 | Citation accuracy | 100% | 100% |
-| +2 bonus (ON > OFF) | — | not claimable (tie) |
+| +2 bonus (ON > OFF) | — | tie on this pipeline; the team claims the +2 with Ritika's pipeline (16/25 vs 14/25 golden, 21/25 vs 19/25 held-out; `Part1/ritika_neema/README.md`) |
 | Kaggle GPU run | v5 done (~30–40 min); re-run after 27 Oct competition fixes | same |
 
 Full notes: [Part1/sneha_singh/results.md](Part1/sneha_singh/results.md).

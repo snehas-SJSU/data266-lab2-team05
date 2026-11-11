@@ -101,7 +101,7 @@ Do not treat Mac golden-set scores as Kaggle scores. Competition-CSV fixes are i
 
 | ID | Problem |
 | --- | --- |
-| +2 bonus | **Not claimed** on graded `p1_rag.ipynb` (golden-set OFF/ON tied 25/25). Bonus PoC notebook/outputs removed from the repo. |
+| +2 bonus | Not claimed on this pipeline (golden-set OFF/ON tied 25/25). The team claims the +2 with Ritika's reranker ablation (report II.B, `Part1/ritika_neema/README.md`). Bonus PoC notebook/outputs removed from the repo. |
 | Kaggle | Executed notebook committed (T4, 40 rows, validated, 1084 s). Practice public best **0.909** (`submission.csv`). Select the notebook output on Kaggle if it is not already the chosen submission. |
 | Human ratings / report Appendix C examples | Still pending both members |}
 
@@ -153,7 +153,7 @@ Run finished 27 Oct 2026. Automated/provisional golden-set development results�
 | Generation / judge errors | 0 / 0 | 0 / 0 |
 | Paired gained (ON only) | — | none |
 | Paired lost (ON only) | — | none |
-| +2 bonus (ON > OFF answers) | — | **not claimable** (tie at 25/25) |
+| +2 bonus (ON > OFF answers) | — | tie at 25/25 on this pipeline; team claim uses Ritika's ablation |
 | Human groundedness (both members) | pending | pending |
 | Human agreement within one point | pending | pending |
 

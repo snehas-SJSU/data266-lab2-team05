@@ -449,7 +449,10 @@ def build():
          "and seed 266 [3]. Table III shows the same pattern as rank 16: KID falls, CLIP barely "
          "moves. DoRA’s KID edge over LoRA, 0.0025, sits inside one standard deviation, and DoRA "
          "used more GPU time (0.5262 hours against 0.4223). We kept LoRA rank 8 for that pair. "
-         "Rank 16 remains the run with the blind human study.")
+         "The same three raters compared LoRA rank 8 with the base model on 25 new blind "
+         "pairs. Rank 8 won 49 of 75 votes, the base model 12, with 14 ties: a win rate of "
+         "0.747 with ties as half (95% interval 0.638 to 0.831). It was preferred most on "
+         "in-domain prompts (0.819) and least on out-of-domain prompts (0.667).")
     figure(
         doc, FIG / "part2" / "grid.jpg",
         "Fig. 3. Base, rank 4, and rank 16 on the first eight in-domain prompts, seed 0.",

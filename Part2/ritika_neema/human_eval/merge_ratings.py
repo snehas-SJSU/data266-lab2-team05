@@ -33,3 +33,15 @@ if merged is None:
 os.makedirs(os.path.dirname(OUT), exist_ok=True)
 merged.to_csv(OUT, index=False)
 print(f"wrote {OUT}: {len(merged)} pairs x {merged.shape[1] - 2} raters")
+
+# Cell 10 of the notebook, reading the seed-267 key written by make_pairs.py.
+r = pd.read_csv(OUT).merge(pd.read_csv(os.path.join(HERE, "key_hidden.csv"))[["pair", "left"]], on="pair")
+raters = [c for c in r.columns if c.startswith("rater")]
+votes = []
+for _, row in r.iterrows():
+    for c in raters:
+        v = str(row[c]).strip().upper()
+        votes.append("tie" if v == "T" else "final" if (v == "L") == (row["left"] == "final") else "base")
+v = pd.Series(votes).value_counts()
+print(f"{len(raters)} raters x {len(r)} pairs | final wins {v.get('final', 0)}, base wins {v.get('base', 0)}, "
+      f"ties {v.get('tie', 0)} | win rate (ties as half) {(v.get('final', 0) + 0.5 * v.get('tie', 0)) / len(votes):.3f}")
