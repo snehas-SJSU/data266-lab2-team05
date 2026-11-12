@@ -22,7 +22,7 @@ data266-lab2-team05/
 │   │   ├── p1_rag.ipynb
 │   │   ├── p2_finetune.ipynb
 │   │   └── p3_agents.ipynb
-│   └── ritika_neema/   (Ritika's notebooks when ready)
+│   └── ritika_neema/
 ├── eval/
 ├── traces/
 │   ├── sneha_singh/
