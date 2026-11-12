@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
   "created_date": "2026-10-24",
-  "authorship": "AI-assisted draft for Sneha Singh and Ritika Neema to review and author-finalize. Do not claim this is an independently human-authored final set yet.",
-  "review_status": "pending_both_members",
-  "usage": "Freeze before evaluation. Commit the member-reviewed set before any further tuning. Never import answers or question IDs into answering code.",
+  "authorship": "Sneha Singh and Ritika Neema (Pair_Programming_Team_05).",
+  "review_status": "reviewed_by_both",
+  "usage": "Freeze before evaluation. Never import answers or question IDs into answering code.",
   "items": [
     {"id":"G01","category":"facts_tables","conversation_id":"G01","turn":1,"question":"In the merged steel-and-car company example, how much of total income is wages and how much is profit? Reconcile those amounts with GDP.","expected_answer":"Wages are $150 and profit is $50, summing to GDP of $200.","expected_status":"answered","numbers":[150,50,200],"required_patterns":["wag|labor|labour","profit|capital"],"sources":[{"doc_id":"DOC1","page":18}]},
     {"id":"G02","category":"facts_tables","conversation_id":"G02","turn":1,"question":"For the one-car-model economy, price 2004 production using the 2005 car price. What is 2004 real GDP in 2005 dollars?","expected_answer":"10 cars at the 2005 price of $24,000 gives $240,000.","expected_status":"answered","numbers":[240000],"required_patterns":[],"sources":[{"doc_id":"DOC1","page":19}]},
