@@ -78,7 +78,7 @@ Python 3.13. Open a notebook from the repo root and use Restart & Run All. The f
 | Part | Sneha Singh | Ritika Neema |
 | --- | --- | --- |
 | 1 | Canvas and the Kaggle data tab: three economics PDFs, `Questions.csv`, `kb_manifest.json` | Same files |
-| 2 | [reach-vb/pokemon-blip-captions](https://huggingface.co/datasets/reach-vb/pokemon-blip-captions) | Same dataset. Her own run is not recorded yet. |
+| 2 | [reach-vb/pokemon-blip-captions](https://huggingface.co/datasets/reach-vb/pokemon-blip-captions) | Same dataset. Images: [data266-lab2-p2-ritika-images](https://huggingface.co/datasets/neema30/data266-lab2-p2-ritika-images) |
 | 3 | [data266-lab2-p3-inputs](https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs) (public). Bonus Space: [data266-lab2-p3-agents](https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents) (public ZeroGPU) | Same team inputs + Space |
 
 ---
@@ -118,9 +118,9 @@ Python 3.13. Open a notebook from the repo root and use Restart & Run All. The f
 
 | Part | Where | What to do |
 | --- | --- | --- |
-| 1 | | |
-| 2 | | |
-| 3 | | |
+| 1 | Kaggle | `notebooks/ritika_neema/p1_rag.ipynb`. Notes: `Part1/ritika_neema/`. |
+| 2 | Colab | `notebooks/ritika_neema/p2_finetune.ipynb`. Weights: [LoRA r8](https://huggingface.co/neema30/data266-lab2-p2-ritika-lora-r8), [DoRA r8](https://huggingface.co/neema30/data266-lab2-p2-ritika-dora-r8). |
+| 3 | Colab | `notebooks/ritika_neema/p3_agents.ipynb`. Notes: `Part3/ritika_neema/`. |
 
 ---
 
