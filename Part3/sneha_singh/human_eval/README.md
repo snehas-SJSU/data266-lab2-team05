@@ -12,7 +12,7 @@ The page is `rate_agents.html`. The notebook built it from the Colab runs. `run_
 
 Ritika does the same, alone, and saves `ratings_Ritika_Neema.csv` in that same `ratings/` folder. We do not talk through the runs until both files are there.
 
-Where the two verdicts differ, we write the agreed word in the `final` column of `resolutions.csv`. On this run we agreed on all 40, so that column stayed blank and the Results cell used the shared mark.
+Where the two verdicts differ, we write the agreed word in the `final` column of `resolutions.csv`. On this run we disagreed on 11 of 40 first-pass marks; those rows have `final` filled and are what scoring uses.
 
 ## Which file counts
 

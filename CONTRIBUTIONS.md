@@ -22,7 +22,7 @@ I built and ran `notebooks/sneha_singh/p2_finetune.ipynb` on a Colab L4: data pr
 
 ### Part 3
 
-I wrote the 15 scenarios, the 10 red-team cases, and the 25-input list before the runs. I built the five agents, the orchestrator, the Gradio app, the rating page, and the results code in `notebooks/sneha_singh/p3_agents.ipynb`. Text found in an image is data: the prompt agent does not copy it, and the critic keeps a check only when it is grounded in the request. I smoke-tested on my Mac at 384px and 15 steps, then ran the 15 scenarios and 10 red-team cases on an L4 (24 GB VRAM) on 26 Oct 2026 at 512px and 30 steps, seed 266, temperature 0. That run is in the notebook: 30 of 30 routes matched, median 15.1 s without the critique loop and 31.4 s with it. Ritika and I both rated that run and agreed on all 40. The Results cell printed 6/15 scenarios passed without the critique loop and 4/15 with it, critic agreement 34/48 = 0.71, and attack success 0/10. I did not retune the critic after seeing 4/15. The test inputs are at https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs.
+I wrote the 15 scenarios, the 10 red-team cases, and the 25-input list before the runs. I built the five agents, the orchestrator, the Gradio app, the rating page, and the results code in `notebooks/sneha_singh/p3_agents.ipynb`. Text found in an image is data: the prompt agent does not copy it, and the critic keeps a check only when it is grounded in the request. I smoke-tested on my Mac at 384px and 15 steps, then ran the 15 scenarios and 10 red-team cases on an L4 (24 GB VRAM) on 26 Oct 2026 at 512px and 30 steps, seed 266, temperature 0. That run is in the notebook: 30 of 30 routes matched, median 15.1 s without the critique loop and 31.4 s with it. Ritika and I both rated that run independently (11 first-pass disagreements, resolved in `resolutions.csv`; agreement 0.725 / kappa 0.573). Scored results: 6/15 scenarios passed without the critique loop and 4/15 with it, critic agreement 34/48 = 0.71, and attack success 0/10. I did not retune the critic after seeing 4/15. The test inputs are at https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs.
 
 I deployed the same app as a **public** Hugging Face Space on the free ZeroGPU plan (+2 bonus): https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents. Public inputs: https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs. Both are in `links.txt`. The Space source is `Part3/sneha_singh/hf_space/`. The architecture figure is `report/figures/part3/architecture.png`. Notes are in `Part3/sneha_singh/results.md` and section IV of `report/report.md`.
 
@@ -50,7 +50,7 @@ LoRA rank 8 won 49 of 75 votes (win rate 0.747); results in `Part2/ritika_neema/
 
 ### Part 3
 
-Rated the 26 Oct L4 run with Sneha; we agreed on all 40. My own pipeline is `notebooks/ritika_neema/p3_agents.ipynb`:
+Rated the 26 Oct L4 run with Sneha independently (disagreements resolved in `Part3/sneha_singh/human_eval/resolutions.csv`). My own pipeline is `notebooks/ritika_neema/p3_agents.ipynb`:
 five agents over a typed state with a JSON trace per request (`traces/ritika_neema/`), run on the team's frozen
 15 scenarios and 10 red-team cases with and without the critique loop, plus a Gradio app. Ran it on a Colab T4
 on 28 Oct 2026. Sneha and I each rated its 50 runs alone: 6/15 scenarios passed by both raters with and without the

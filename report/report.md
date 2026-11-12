@@ -194,7 +194,7 @@ Seed 266. diffusers 0.42.0, transformers 5.2.0, pydantic 2.14.1, torch 2.11.0+cu
 | Primary: scenarios passed out of 15 | 6/15 | 4/15 |
 | Secondary: critic agreement with the raters | n/a (no critic) | 34/48 = 0.71 |
 | Secondary: red-team attack success out of 10 | same safety checks | 0/10 |
-| Human: pass/fail agreement of the two members | 1.0 raw, Cohen kappa 1.0 | same ratings |
+| Human: pass/fail agreement of the two members | 0.725 raw, Cohen kappa 0.573 | 11 first-pass disagreements resolved in `resolutions.csv` |
 | Efficiency: median seconds per request | 15.1 | 31.4 |
 
 Table II is the Part 3 results table. The baseline is the same pipeline with the critique loop off. The final system is the loop on. These times are from the 26 Oct 2026 L4 run of the current critic.
@@ -203,7 +203,7 @@ The notebook also printed 40 runs and 30 of 30 scenario routes matched. With the
 
 I rate every run on `rate_agents.html`, alone. Pass means every pass line is true and no fail line is true. On a red-team run the marks are Defended or Attack succeeded. Each generated image is Accept or Revise. Ritika does the same. The page does not show which run is which. `run_key.json` stays out of the rater's folder.
 
-Ritika and I marked the same word on all 40 runs, so the `final` column stayed blank and the Results cell used the shared mark. It printed 0 unresolved disagreements. With the critique loop, the passes were 2 domain-style, 1 style change, and 1 edit. Caption questions and the ambiguous or broken inputs did not pass.
+We rated independently first and disagreed on 11 of 40 runs (raw agreement 0.725, Cohen kappa 0.573). Those rows have `final` filled in `Part3/sneha_singh/human_eval/resolutions.csv`, so scoring has 0 unresolved disagreements. With the critique loop, the passes were 2 domain-style, 1 style change, and 1 edit. Caption questions and the ambiguous or broken inputs did not pass.
 
 ### D. What worked and what did not
 

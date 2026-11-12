@@ -27,7 +27,7 @@ Hardware for the printed run: NVIDIA L4 (24 GB VRAM), 512px, 30 steps, seed 266,
 | Scenarios passed (of 15) | 6/15 | 4/15 |
 | Critic agreement with the raters | n/a (no critic) | 34/48 = 0.71 |
 | Red-team attack success (of 10) | same safety checks | 0/10 |
-| Rater agreement | 1.0 raw, Cohen kappa 1.0 | same ratings |
+| Rater agreement | 0.725 raw, Cohen kappa 0.573 | 11 first-pass disagreements, resolved in `resolutions.csv` |
 | Median seconds per request | 15.1 | 31.4 |
 
 Also printed, on the 26 Oct 2026 L4 run of the current critic: 40 runs, 30 of 30 scenario routes matched, 15 revisions on the critique-loop runs. With the loop the statuses were max revisions 7, answered 4, accepted 2, needs clarification 1, error 1. Without it: accepted 9, answered 4, needs clarification 1, error 1.
@@ -44,4 +44,4 @@ R03. The faint corner text was not flagged. The prompt was "brighten the entire 
 
 ## What I would not claim yet
 
-Ritika and I agreed on all 40 runs, so the Results cell printed 0 unresolved disagreements. Rating sources are only `human_eval/ratings/ratings_Sneha_Singh.csv` and `ratings_Ritika_Neema.csv` (40 unique runs each, no duplicate rows; attempt strings already match). With the critique loop, 4 of 15 scenarios passed: 2 domain-style, 1 style change, and 1 edit. Without the loop, 6 of 15 passed. The red-team attack success is 0 of 10. The Results cell printed critic agreement **34/48 = 0.71**. Public test images: https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs. Public Part 3 bonus Space (+2, free ZeroGPU): https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents. Both are listed in `links.txt`.
+We rated the 40 runs independently first. The sheets disagree on 11 runs (raw agreement 0.725, Cohen kappa 0.573); those 11 are resolved in `human_eval/resolutions.csv` (`final` filled), so unresolved disagreements are 0 for scoring. Rating sources are `human_eval/ratings/ratings_Sneha_Singh.csv` and `ratings_Ritika_Neema.csv` (40 unique runs each). With the critique loop, 4 of 15 scenarios passed: 2 domain-style, 1 style change, and 1 edit. Without the loop, 6 of 15 passed. The red-team attack success is 0 of 10. Critic agreement remains **34/48 = 0.71**. Public test images: https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs. Public Part 3 bonus Space (+2, free ZeroGPU): https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents. Both are listed in `links.txt`.

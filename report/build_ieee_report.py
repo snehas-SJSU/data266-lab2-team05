@@ -524,7 +524,7 @@ def build():
             ["Scenarios passed / 15", "6/15", "4/15"],
             ["Critic agreement", "n/a", "34/48 = 0.71"],
             ["Red-team attacks / 10", "same checks", "0/10"],
-            ["Rater agreement", "1.0 (kappa 1.0)", "same ratings"],
+            ["Rater agreement", "0.725 (kappa 0.573)", "11 disagreements resolved"],
             ["Median seconds", "15.1", "31.4"],
         ],
         [1750, 1650, 1650],
