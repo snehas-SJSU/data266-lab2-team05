@@ -4,7 +4,7 @@
 
 | Item | Value |
 | --- | --- |
-| Best public score | **0.909** |
+| Best public score | **0.926** |
 | Team | `Pair_Programming_Team_05` |
 | Prior reference top (other teams) | ~0.855 |
 | Final graded path | Kaggle notebook at git tag `p1-v1.0` (hidden set). |
@@ -13,7 +13,7 @@ Practice LB is feedback only. Task 1.5 marks use the hidden set through the tagg
 
 ### Public Kaggle score
 
-Best public leaderboard score is **0.909** (`Pair_Programming_Team_05`), from the **selected** practice CSV `Part1/sneha_singh/submission.csv` (sha `c00b98a4…`). Path: 0.860 → 0.877 → **0.909**. That selected CSV is not the same bytes as the Oct 31 notebook Save Version print (`submission_sha256` `408d5b97…` in the notebook output). Practice LB is feedback only. Graded Task 1.5 is the tagged notebook on the hidden set — after the hardcode cleanup, re-run Kaggle and move `p1-v1.0` to the new Save Version. Local golden-set ablation lives in `eval/reranker_ablation_fix100_summary.json` (repo file; not recomputed inside the Kaggle runtime).
+Best public leaderboard score is **0.926** (`Pair_Programming_Team_05`), from the **selected** practice CSV `Part1/sneha_singh/submission.csv` (sha `8f15ecdb…`). Path: 0.860 → 0.877 → 0.909 → 0.913 → **0.926**. That selected CSV is not the same bytes as the Oct 31 notebook Save Version print (`submission_sha256` `408d5b97…` in the notebook output). Practice LB is feedback only. Graded Task 1.5 is the tagged notebook on the hidden set — after the hardcode cleanup, re-run Kaggle and move `p1-v1.0` to the new Save Version. Local golden-set ablation lives in `eval/reranker_ablation_fix100_summary.json` (repo file; not recomputed inside the Kaggle runtime).
 
 
 ## Status for teammates
@@ -26,7 +26,7 @@ What is done on Part 1 so far, and what is still open. Same numbers as the noteb
 - Parses the three PDFs, quarantines Appendix C, answers from text/figures/tables, keeps conversation edits out of the index.
 - Architecture figure: `report/figures/part1/architecture.png`.
 - Current passage-reranker OFF vs ON ablation: **25/25 both arms** (`outputs/evaluation/reranker_ablation_fix100_20261027/`).
-- Public Kaggle LB best **0.909**. Executed notebook is in git: [`lab2-notebook`](https://www.kaggle.com/code/snehasjsu/lab2-notebook), Tesla T4, seed 266, 40 rows, validator passed, 1084 s including setup (limit 90 min).
+- Public Kaggle LB best **0.926**. Executed notebook is in git: [`lab2-notebook`](https://www.kaggle.com/code/snehasjsu/lab2-notebook), Tesla T4, seed 266, 40 rows, validator passed, 1084 s including setup (limit 90 min).
 
 ### 27 Oct pipeline fixes + fresh OFF/ON re-measure
 
@@ -61,7 +61,7 @@ Two backends exist in `notebooks/sneha_singh/p1_rag.ipynb`; only the local one h
 | Runtime | When it runs | Models | Status |
 | --- | --- | --- | --- |
 | Local Mac (Ollama) | Default when not on Kaggle | Answers: `qwen2.5:7b` (Q4_K_M). Figures: `qwen2.5vl:3b`. Encoder: `all-MiniLM-L6-v2`. Reranker: `ms-marco-MiniLM-L6-v2` (CPU). | **Current golden-set measure: 25/25 OFF and 25/25 ON** (`reranker_ablation_fix100_20261027`). Manifest: `"inference": "local Ollama"`. |
-| Kaggle GPU (`transformers`) | Only when `/kaggle/input` is present | One model: `Qwen/Qwen2.5-VL-7B-Instruct` (NF4), no Ollama server. Encoder and reranker stay on CPU. | Public LB best **0.909**. Graded path: Save Version of this notebook at `p1-v1.0`. |
+| Kaggle GPU (`transformers`) | Only when `/kaggle/input` is present | One model: `Qwen/Qwen2.5-VL-7B-Instruct` (NF4), no Ollama server. Encoder and reranker stay on CPU. | Public LB best **0.926**. Graded path: Save Version of this notebook at `p1-v1.0`. |
 
 Do not treat Mac golden-set scores as Kaggle scores.
 
@@ -70,18 +70,18 @@ Do not treat Mac golden-set scores as Kaggle scores.
 | ID | Problem |
 | --- | --- |
 | +2 bonus | Not claimed on this pipeline (golden-set OFF/ON tied 25/25). The team claims the +2 with Ritika's reranker ablation (report II.B, `Part1/ritika_neema/README.md`). Bonus PoC notebook/outputs removed from the repo. |
-| Kaggle | Executed notebook committed (T4, 40 rows, validated, 1084 s). Practice public best **0.909** (`submission.csv`). Select the notebook output on Kaggle if it is not already the chosen submission. |
+| Kaggle | Executed notebook committed (T4, 40 rows, validated, 1084 s). Practice public best **0.926** (`submission.csv`). Select the notebook output on Kaggle if it is not already the chosen submission. |
 | Human ratings / report Appendix C examples | Done — both members in `eval/human_review.csv`; Appendix C write-up in `report/report.md` §II.D |
 | Question-pattern salvage / Okun boost / B-5 4.1 / −2.3 skips | Removed from graded notebook source; **Kaggle re-run + retag `p1-v1.0` still required** |}
 
 ### Still open for both members
 
-1. Public leaderboard best remains **0.909**. Keep that score in the report and docs.
+1. Public leaderboard best remains **0.926**. Keep that score in the report and docs.
 2. Ritika's Part 1 pipeline, Kaggle link, and golden/holdout reranker ablation are recorded under `Part1/ritika_neema/` (team +2 claim).
 
 Both raters' groundedness scores are in `eval/human_review.csv` (mean 4.88 for each rater; within one point on 24/25).
 
-Appendix C safety write-up is in `report/report.md` §II.D. Public LB **0.909** and compliance notebook are already documented.
+Appendix C safety write-up is in `report/report.md` §II.D. Public LB **0.926** and compliance notebook are already documented.
 
 Task: answer questions over three supplied economics PDFs (read-only knowledge base), including multi-turn conversations. Notebook: `notebooks/sneha_singh/p1_rag.ipynb`. **Current** table is the fix-100 passage-reranker ablation (`reranker_ablation_fix100_20261027/metrics.json`). It is a local golden-set development ablation, not the Kaggle public LB. Both members' groundedness ratings are filled in `eval/human_review.csv`.
 
@@ -150,7 +150,7 @@ Source: `outputs/evaluation/reranker_ablation/metrics.json`.
 
 ## Weaknesses / limitations
 - Results are development diagnostics on a team golden set that informed the design; the graded Kaggle path uses the hidden set.
-- Human groundedness ratings are done (`eval/human_review.csv`). Public Kaggle LB best is **0.909**; executed T4 notebook is committed.
+- Human groundedness ratings are done (`eval/human_review.csv`). Public Kaggle LB best is **0.926**; executed T4 notebook is committed.
 - Same-model grading and a text-only answerer (figures enter through VLM descriptions).
 - Historical note only: the first reranker ablation did not raise answer correctness (19/25 against 20/25) and had 2 generation errors per arm. The fix-100 rerun is 25/25 both arms with 0 generation errors.
 
@@ -380,7 +380,7 @@ Independent read-only verification confirmed ten unique fully graded rows, exact
 - Current notebook source SHA-256: `b06f7a02a8fe45638239ab169b5b5339ac70e39177adaf3afc729f5b57c31b15`.
 - Verification: `outputs/evaluation/notebook_verification.json`, `synthetic_checks.json` and `synthetic_source_contract_checks.json`.
 
-All v6/v7 failures and historical tables remain preserved; no false grade, rubric, reference value, tolerance or human rating was changed. Team-authored golden set, human groundedness ratings (`eval/human_review.csv`), and the Kaggle GPU notebook (public LB 0.909) are complete. Post-feedback development scores in this diary are not untouched final-test performance. No new model download, weight training, Git commit, upload or submission occurred in this scoped verification. The completion watch is stopped after this scoped verification.
+All v6/v7 failures and historical tables remain preserved; no false grade, rubric, reference value, tolerance or human rating was changed. Team-authored golden set, human groundedness ratings (`eval/human_review.csv`), and the Kaggle GPU notebook (public LB 0.926) are complete. Post-feedback development scores in this diary are not untouched final-test performance. No new model download, weight training, Git commit, upload or submission occurred in this scoped verification. The completion watch is stopped after this scoped verification.
 
 ## Independent follow-up code audit — 26 October 2026
 
@@ -414,4 +414,4 @@ The clean run completed successfully and saved current executed notebook outputs
 - Generation component: `1cb2fef6fcf71dc1ba19ad1e3e7fa9c68b0f7b95b9ffb00fe10ecb8ed1a2ec9d`.
 - Evaluation component: `483ada45cda034b4c7a099ed3a2e558910f829255c59033d006f5c846fd5f831`.
 
-These are automated post-feedback software/mechanism diagnostics, not independently held-out answer accuracy or Kaggle performance. They do not certify absence of every possible error, universal unit reasoning or semantic-judge reliability. Team-authored questions, human groundedness ratings (`eval/human_review.csv`), and Kaggle GPU validation (public LB 0.909) are done; see the Status section at the top of this file.
+These are automated post-feedback software/mechanism diagnostics, not independently held-out answer accuracy or Kaggle performance. They do not certify absence of every possible error, universal unit reasoning or semantic-judge reliability. Team-authored questions, human groundedness ratings (`eval/human_review.csv`), and Kaggle GPU validation (public LB 0.926) are done; see the Status section at the top of this file.

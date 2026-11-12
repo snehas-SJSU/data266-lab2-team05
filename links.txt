@@ -7,7 +7,7 @@ Commit/tag p1-v1.0: same tip as p2-v1.0 / p3-v1.0 (run `git rev-parse p1-v1.0`)
 Commit/tag p2-v1.0: same tip as p1-v1.0 / p3-v1.0 (run `git rev-parse p2-v1.0`)
 Commit/tag p3-v1.0: same tip as p1-v1.0 / p2-v1.0 (run `git rev-parse p3-v1.0`)
 Final Kaggle notebook/submission: https://www.kaggle.com/code/snehasjsu/lab2-notebook
-# p1-v1.0 is the executed Kaggle notebook (outputs kept). Public Kaggle best score 0.909.
+# p1-v1.0 is the executed Kaggle notebook (outputs kept). Public Kaggle best score 0.926.
 
 ## Sneha Singh
 # Part 1

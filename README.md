@@ -90,7 +90,7 @@ Python 3.13. Open a notebook from the repo root and use Restart & Run All. The f
 
 | Part | Sneha Singh | Ritika Neema |
 | --- | --- | --- |
-| 1 | Local: Ollama `qwen2.5:7b` / `qwen2.5vl:3b`. Kaggle: `Qwen/Qwen2.5-VL-7B-Instruct` (NF4). Public LB best **0.909**. | Kaggle: `Qwen/Qwen2.5-VL-7B-Instruct` (4-bit). Public LB best **0.576** (reranker ON). |
+| 1 | Local: Ollama `qwen2.5:7b` / `qwen2.5vl:3b`. Kaggle: `Qwen/Qwen2.5-VL-7B-Instruct` (NF4). Public LB best **0.926**. | Kaggle: `Qwen/Qwen2.5-VL-7B-Instruct` (4-bit). Public LB best **0.576** (reranker ON). |
 | 2 | LoRA ranks **4** and **16** (kept 16). [r16](https://huggingface.co/Sneha-subbu/data266-lab2-p2-lora_r16), [r4](https://huggingface.co/Sneha-subbu/data266-lab2-p2-lora_r4). | LoRA **r8** and DoRA **r8** (kept LoRA r8). [LoRA](https://huggingface.co/neema30/data266-lab2-p2-ritika-lora-r8), [DoRA](https://huggingface.co/neema30/data266-lab2-p2-ritika-dora-r8). |
 | 3 | `Qwen2.5-VL-3B`; SD 1.5 img2img; InstructPix2Pix; Part 2 rank-16 LoRA. | Same stack with her Part 2 LoRA r8. |
 
@@ -127,7 +127,7 @@ The PDFs stay read-only. Dense retrieval is the baseline. The final system mixes
 | Measure | Sneha (local golden, 27 Oct) | Ritika (her golden / Kaggle) |
 | --- | --- | --- |
 | Answers correct | **25/25** OFF and ON | Golden **16/25** ON vs **14/25** OFF; holdout 21/25 vs 19/25 |
-| Kaggle public LB | **0.909** | **0.576** (reranker ON) |
+| Kaggle public LB | **0.926** | **0.576** (reranker ON) |
 | +2 reranker bonus | Tie on this pipeline | Claimed on Ritika’s sets |
 
 Full notes: [Part1/sneha_singh/results.md](Part1/sneha_singh/results.md), [Part1/ritika_neema/README.md](Part1/ritika_neema/README.md).
