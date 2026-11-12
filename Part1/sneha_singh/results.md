@@ -54,28 +54,14 @@ Extra general repairs after the 22=22 tie: accept `imported` for import coverage
 
 Focused re-check G05/G12/G15/G16: **ALL_PASS** both arms. **+2 bonus not claimable** on this run (ON cannot beat a perfect OFF). Pipeline is at 100% local golden-set answers.
 
-### Kaggle GPU path (general pipeline only)
-
-Part 1 does **not** fine-tune model weights and does **not** edit answers by hand in `submission.csv`. The notebook builds each row with the same general RAG + lab policies (no question-ID / question-text answer bank). Practice leaderboard scores are feedback only.
-
-After early Kaggle runs showed runtime issues (OOM, schema/JSON parse failures, citation/figure gaps), the notebook was hardened with **general** repairs only, for example:
-
-- CUDA memory hygiene and OOM retries (fewer tokens / no images on retry)
-- Safer JSON / schema parsing on the HF answer path
-- Source-derived contracts: calc intent, follow-up memory, conflict / false-premise / session_override handling, figure-label binding, multi-entity series aliases
-
-Those changes apply to any question shaped like the lab policies. They are not per-practice-ID rules and are not a fine-tune of the CSV.
-
-Selected practice public best remains **0.909** from `Part1/sneha_singh/submission.csv` (sha `c00b98a4…`). Graded Task 1.5 uses the tagged notebook on the hidden set.
-
 ### Models in use (verified)
 
-Part 1 has **not** stopped Ollama for the scores below. Two backends exist in `notebooks/sneha_singh/p1_rag.ipynb`; only the local one has been measured on the golden set.
+Two backends exist in `notebooks/sneha_singh/p1_rag.ipynb`; only the local one has been measured on the golden set.
 
 | Runtime | When it runs | Models | Status |
 | --- | --- | --- | --- |
 | Local Mac (Ollama) | Default when not on Kaggle | Answers: `qwen2.5:7b` (Q4_K_M). Figures: `qwen2.5vl:3b`. Encoder: `all-MiniLM-L6-v2`. Reranker: `ms-marco-MiniLM-L6-v2` (CPU). | **Current golden-set measure: 25/25 OFF and 25/25 ON** (`reranker_ablation_fix100_20261027`). Manifest: `"inference": "local Ollama"`. |
-| Kaggle GPU (`transformers`) | Only when `/kaggle/input` is present | One model: `Qwen/Qwen2.5-VL-7B-Instruct` (NF4), no Ollama server. Encoder and reranker stay on CPU. | Public LB best **0.909**. Graded path: Save Version of this notebook at `p1-v1.0` (general policies only; Mac ≠ Kaggle). |
+| Kaggle GPU (`transformers`) | Only when `/kaggle/input` is present | One model: `Qwen/Qwen2.5-VL-7B-Instruct` (NF4), no Ollama server. Encoder and reranker stay on CPU. | Public LB best **0.909**. Graded path: Save Version of this notebook at `p1-v1.0`. |
 
 Do not treat Mac golden-set scores as Kaggle scores.
 
