@@ -9,7 +9,7 @@ Each of us keeps her own notebooks under `notebooks/<name>/`. Part 1 answers que
 | Sneha Singh | `sneha_singh/` under `Part1/`, `Part2/`, and `Part3/` |
 | Ritika Neema | `ritika_neema/` under `Part1/`, `Part2/`, and `Part3/` |
 
-Repo: [data266-lab2-team05](https://github.com/snehas-SJSU/data266-lab2-team05). Tags: `p1-v1.0`, `p2-v1.0`, `p3-v1.0` — commit SHAs in `links.txt`. Links for both of us are in `links.txt`.
+Repo: [data266-lab2-team05](https://github.com/snehas-SJSU/data266-lab2-team05). Tags: `p1-v1.0`, `p2-v1.0`, `p3-v1.0` (same tip; see `git rev-parse p1-v1.0`). Links for both of us are in `links.txt`.
 
 ## Folder structure
 
@@ -23,6 +23,9 @@ data266-lab2-team05/
 │   │   ├── p2_finetune.ipynb
 │   │   └── p3_agents.ipynb
 │   └── ritika_neema/
+│       ├── p1_rag.ipynb
+│       ├── p2_finetune.ipynb
+│       └── p3_agents.ipynb
 ├── eval/
 ├── traces/
 │   ├── sneha_singh/
@@ -77,79 +80,67 @@ Python 3.13. Open a notebook from the repo root and use Restart & Run All. The f
 
 | Part | Sneha Singh | Ritika Neema |
 | --- | --- | --- |
-| 1 | Canvas and the Kaggle data tab: three economics PDFs, `Questions.csv`, `kb_manifest.json` | Same files |
-| 2 | [reach-vb/pokemon-blip-captions](https://huggingface.co/datasets/reach-vb/pokemon-blip-captions) | Same dataset. Images: [data266-lab2-p2-ritika-images](https://huggingface.co/datasets/neema30/data266-lab2-p2-ritika-images) |
-| 3 | [data266-lab2-p3-inputs](https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs) (public). Bonus Space: [data266-lab2-p3-agents](https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents) (public ZeroGPU) | Same team inputs + Space |
+| 1 | Canvas and the Kaggle data tab: three economics PDFs, `Questions.csv`, `kb_manifest.json`. Team golden set: `eval/golden_set.json`. | Same competition files. Own golden/holdout: `eval/ritika_neema/`. |
+| 2 | [reach-vb/pokemon-blip-captions](https://huggingface.co/datasets/reach-vb/pokemon-blip-captions). Generated: [data266-lab2-p2-images](https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p2-images). | Same train set. Generated: [data266-lab2-p2-ritika-images](https://huggingface.co/datasets/neema30/data266-lab2-p2-ritika-images). |
+| 3 | [data266-lab2-p3-inputs](https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs) (public). Bonus Space: [data266-lab2-p3-agents](https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents). | Same team inputs + Space. |
 
 ---
 
 ## Models
 
-| Part | Models |
-| --- | --- |
-| 1, local (measured) | Ollama for current scores: `qwen2.5vl:3b` figures, `qwen2.5:7b` answers; `all-MiniLM-L6-v2`; `ms-marco-MiniLM-L6-v2` reranker. Latest ablation: **25/25 OFF**, **25/25 ON** ([results](Part1/sneha_singh/results.md)). |
-| 1, Kaggle | `Qwen/Qwen2.5-VL-7B-Instruct` (NF4). Public LB best **0.909**. Final CSV must come from this notebook at tag `p1-v1.0` (general RAG only; no question hardcodes). Mac scores are not Kaggle scores. |
-| 2 | `stable-diffusion-v1-5/stable-diffusion-v1-5`, LoRA ranks 4 and 16; `openai/clip-vit-base-patch32`; LPIPS AlexNet; torchmetrics KID |
-| 3 | `Qwen2.5-VL-3B`; Stable Diffusion 1.5 img2img; InstructPix2Pix; the Part 2 rank-16 LoRA; CLIP ViT-B/32 |
+| Part | Sneha Singh | Ritika Neema |
+| --- | --- | --- |
+| 1 | Local: Ollama `qwen2.5:7b` / `qwen2.5vl:3b`. Kaggle: `Qwen/Qwen2.5-VL-7B-Instruct` (NF4). Public LB best **0.909**. | Kaggle: `Qwen/Qwen2.5-VL-7B-Instruct` (4-bit). Public LB best **0.576** (reranker ON). |
+| 2 | LoRA ranks **4** and **16** (kept 16). [r16](https://huggingface.co/Sneha-subbu/data266-lab2-p2-lora_r16), [r4](https://huggingface.co/Sneha-subbu/data266-lab2-p2-lora_r4). | LoRA **r8** and DoRA **r8** (kept LoRA r8). [LoRA](https://huggingface.co/neema30/data266-lab2-p2-ritika-lora-r8), [DoRA](https://huggingface.co/neema30/data266-lab2-p2-ritika-dora-r8). |
+| 3 | `Qwen2.5-VL-3B`; SD 1.5 img2img; InstructPix2Pix; Part 2 rank-16 LoRA. | Same stack with her Part 2 LoRA r8. |
 
 ---
 
 ## How to run
 
-### Both
-
-| Part | Where | What to do |
-| --- | --- | --- |
-| 1 | Kaggle | Open `notebooks/sneha_singh/p1_rag.ipynb` from tag `p1-v1.0`. Attach the competition data and `Part1/validate_submission.py`. Turn on a GPU and internet. Run All. It writes `submission.csv` and checks it. Limit: 90 minutes on one 16 GB GPU. |
-| 2 | Colab | Upload `notebooks/sneha_singh/p2_finetune.ipynb` and Run All. It mounts Drive and saves to `MyDrive/data266_lab2_p2/`. A finished step is skipped. Training resumes from the checkpoint if the session drops. |
-| 3 | Colab | Put `eval/` and `inputs/` in `MyDrive/data266_lab2_p3/`, upload `notebooks/sneha_singh/p3_agents.ipynb`, and Run All. 512 pixels, 30 steps. The last cell starts Gradio. |
-
 ### Sneha Singh
 
 | Part | Where | What to do |
 | --- | --- | --- |
-| 1 | Mac | Local measured path: start Ollama `qwen2.5vl:3b` and `qwen2.5:7b`. Put the three PDFs in `Part1/data/`. Run All. Current scores are from this path, not from the Kaggle HF model. [Scores](Part1/sneha_singh/results.md). |
-| 2 | Colab | Graded run: `notebooks/sneha_singh/p2_finetune.ipynb` on an L4. Weights: [rank 16](https://huggingface.co/Sneha-subbu/data266-lab2-p2-lora_r16), [rank 4](https://huggingface.co/Sneha-subbu/data266-lab2-p2-lora_r4). Images: [data266-lab2-p2-images](https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p2-images). [Scores](Part2/sneha_singh/results.md). |
-| 3 | Colab | Graded run: `notebooks/sneha_singh/p3_agents.ipynb` on an L4 (26 Oct). Inputs: [data266-lab2-p3-inputs](https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs) (public). [Scores](Part3/sneha_singh/results.md). |
+| 1 | Kaggle / Mac | Graded: `notebooks/sneha_singh/p1_rag.ipynb` on Kaggle GPU ≤90 min. Local Ollama path measured 25/25 OFF and ON. [Scores](Part1/sneha_singh/results.md). |
+| 2 | Colab | `notebooks/sneha_singh/p2_finetune.ipynb` on L4. [Scores](Part2/sneha_singh/results.md). |
+| 3 | Colab | `notebooks/sneha_singh/p3_agents.ipynb` on L4 (26 Oct). [Scores](Part3/sneha_singh/results.md). |
 
-**Bonus (Part 3 Space, +2, public):** same Gradio app on Hugging Face free ZeroGPU: [data266-lab2-p3-agents](https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents). Upload folder: `Part3/sneha_singh/hf_space/` (own `requirements.txt`; that build is Python 3.10). This is not the graded Colab run. Also listed in `links.txt`.
+**Bonus (Part 3 Space, +2, public):** [data266-lab2-p3-agents](https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents) from `Part3/sneha_singh/hf_space/`.
 
 ### Ritika Neema
 
-| Part | Where | What to do |
+| Part | Where | Status |
 | --- | --- | --- |
-| 1 | Kaggle | `notebooks/ritika_neema/p1_rag.ipynb`. Notes: `Part1/ritika_neema/`. |
-| 2 | Colab | `notebooks/ritika_neema/p2_finetune.ipynb`. Weights: [LoRA r8](https://huggingface.co/neema30/data266-lab2-p2-ritika-lora-r8), [DoRA r8](https://huggingface.co/neema30/data266-lab2-p2-ritika-dora-r8). |
-| 3 | Colab | `notebooks/ritika_neema/p3_agents.ipynb`. Notes: `Part3/ritika_neema/`. |
+| 1 | Kaggle T4 | Executed `notebooks/ritika_neema/p1_rag.ipynb`. Public LB **0.576** with reranker (team +2 claim: 16/25 vs 14/25 golden, 21/25 vs 19/25 holdout). Notes: `Part1/ritika_neema/`. |
+| 2 | Colab T4 | Executed `notebooks/ritika_neema/p2_finetune.ipynb`. LoRA r8 vs DoRA r8; human win rate **0.747**. Notes: `Part2/ritika_neema/`. |
+| 3 | Colab T4 | Executed `notebooks/ritika_neema/p3_agents.ipynb` (28 Oct). Both raters: 6/15 with and without critique. Notes: `Part3/ritika_neema/`. |
 
 ---
 
 ## Part 1 — Multimodal RAG
 
-Notebook: `notebooks/sneha_singh/p1_rag.ipynb`. Architecture image is at the top of this README (`report/figures/part1/architecture.png`).
+Sneha notebook: `notebooks/sneha_singh/p1_rag.ipynb`. Ritika notebook: `notebooks/ritika_neema/p1_rag.ipynb`. Architecture image is at the top of this README.
 
-The PDFs stay read-only. A fact added in one chat stays in that chat. Dense retrieval is the baseline. The final system mixes dense search with BM25 and an optional passage reranker.
+The PDFs stay read-only. Dense retrieval is the baseline. The final system mixes dense search with BM25 and an optional passage reranker.
 
-| Measure (local golden set, 27 Oct) | Reranker OFF | Reranker ON |
+| Measure | Sneha (local golden, 27 Oct) | Ritika (her golden / Kaggle) |
 | --- | --- | --- |
-| Answers correct | **25/25** | **25/25** |
-| Recall@5 | 100% | 100% |
-| Citation accuracy | 100% | 100% |
-| +2 bonus (ON > OFF) | — | tie on this pipeline; the team claims the +2 with Ritika's pipeline (16/25 vs 14/25 golden, 21/25 vs 19/25 held-out; `Part1/ritika_neema/README.md`) |
-| Kaggle GPU run | v5 done (~30–40 min); re-run after 27 Oct competition fixes | same |
+| Answers correct | **25/25** OFF and ON | Golden **16/25** ON vs **14/25** OFF; holdout 21/25 vs 19/25 |
+| Kaggle public LB | **0.909** | **0.576** (reranker ON) |
+| +2 reranker bonus | Tie on this pipeline | Claimed on Ritika’s sets |
 
-Full notes: [Part1/sneha_singh/results.md](Part1/sneha_singh/results.md).
+Full notes: [Part1/sneha_singh/results.md](Part1/sneha_singh/results.md), [Part1/ritika_neema/README.md](Part1/ritika_neema/README.md).
 
 ## Part 2 — Diffusion fine-tuning
 
-Notebook: `notebooks/sneha_singh/p2_finetune.ipynb`. Architecture image is at the top of this README (`report/figures/part2/architecture.png`).
-
-Two LoRA ranks, 4 and 16, on the same data and the same step budget. Rank 16 is the one we kept. Prompts are in `eval/p2_prompts.json`, written before training.
+Sneha: LoRA ranks 4 and 16 (`notebooks/sneha_singh/p2_finetune.ipynb`); kept rank 16.  
+Ritika: LoRA r8 vs DoRA r8 (`notebooks/ritika_neema/p2_finetune.ipynb`); kept LoRA r8.  
+Prompts: `eval/p2_prompts.json`.
 
 ## Part 3 — Multimodal agents
 
-Notebook: `notebooks/sneha_singh/p3_agents.ipynb` (graded on Colab). Architecture image is at the top of this README (`report/figures/part3/architecture.png`).
+Sneha: `notebooks/sneha_singh/p3_agents.ipynb` (L4, 26 Oct) — 6/15 vs 4/15, critic **34/48**, attack **0/10**.  
+Ritika: `notebooks/ritika_neema/p3_agents.ipynb` (T4, 28 Oct) — both raters 6/15 either way.  
 
-The planner picks a route. Vision describes the image. The prompt agent rewrites the request. Generation makes the image. Critique can send it back, at most twice. A caption stops after vision. An unsafe request stops at the planner.
-
-Bonus (+2): public Hugging Face Space [data266-lab2-p3-agents](https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents) (ZeroGPU), from `Part3/sneha_singh/hf_space/`. Test inputs: [data266-lab2-p3-inputs](https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs).
+Bonus (+2): public Space [data266-lab2-p3-agents](https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents). Inputs: [data266-lab2-p3-inputs](https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs).
