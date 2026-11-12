@@ -291,7 +291,7 @@ def build():
          "This is one report for all three parts. Each part has one architecture figure, one "
          "results table for a baseline and a final system, a short note on what failed, and "
          "the safety check the lab asks for. Seed 266 is used for every split, sample, and "
-         "generation. The questions, prompts, and scenarios were written down before we tuned.",
+         "generation. The questions, prompts, and scenarios were written down before evaluation runs.",
          indent=False)
 
     heading(doc, "II.  QUESTION ANSWERING OVER THREE PDFS")

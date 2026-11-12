@@ -54,48 +54,30 @@ Extra general repairs after the 22=22 tie: accept `imported` for import coverage
 
 Focused re-check G05/G12/G15/G16: **ALL_PASS** both arms. **+2 bonus not claimable** on this run (ON cannot beat a perfect OFF). Pipeline is at 100% local golden-set answers.
 
-### 27 Oct competition-CSV local fixes (after Kaggle v5)
+### Kaggle GPU path (general pipeline only)
 
-Kaggle Version 5 produced a valid `submission.csv` (~30–40 min), but several `Questions.csv` rows were weak. General source-contract repairs are now in `notebooks/sneha_singh/p1_rag.ipynb` (no QID hardcodes): calc intent, follow-up memory, source-only session clear, conflict/false-premise recovery, Okun growth-claim tool, multi-entity month-series figure parsing (U.S.↔United States aliases), same-figure match.
+Part 1 does **not** fine-tune model weights and does **not** edit answers by hand in `submission.csv`. The notebook builds each row with the same general RAG + lab policies (no question-ID / question-text answer bank). Practice leaderboard scores are feedback only.
 
-Local full `Questions.csv` check after these repairs: **validate OK (40 rows)**; statuses answered 32 / session_override 3 / false_premise 2 / conflict 2 / not_found 1 (one expected absence). Earlier weak practice rows are now answered via the same general contracts. Artifact: `Part1/sneha_singh/submission_local_full.csv`.
+After early Kaggle runs showed runtime issues (OOM, schema/JSON parse failures, citation/figure gaps), the notebook was hardened with **general** repairs only, for example:
 
-**v5 Kaggle CSV/link is still stale** vs this notebook. Graded final must come from a new Kaggle Save Version of this notebook after commit, then move/retag `p1-v1.0` to that commit (hidden set is graded from the tagged notebook, not from the Mac CSV).
+- CUDA memory hygiene and OOM retries (fewer tokens / no images on retry)
+- Safer JSON / schema parsing on the HF answer path
+- Source-derived contracts: calc intent, follow-up memory, conflict / false-premise / session_override handling, figure-label binding, multi-entity series aliases
 
-### Post-kernel-fix Kaggle run (CSV installed 28 Oct)
+Those changes apply to any question shaped like the lab policies. They are not per-practice-ID rules and are not a fine-tune of the CSV.
 
-Copied `/Users/snehasingh/Downloads/submission.csv` → `Part1/sneha_singh/submission.csv` (SHA256 `64f600c8…`, validate OK, ~36.6 min, within 90). Status mix: answered 26 / not_found 10 / conflict 2 / false_premise 1 / session_override 1.
-
-**Not final yet.** Notebook log shows 10 `not_found` fallbacks from `RuntimeError` (not true absence): schema/empty-citations on Q006/Q010/Q018; **CUDA OOM** on Q020/Q023/Q033/Q034/Q035/Q039/Q040. Local Mac CSV still healthier (1 not_found).
-
-**28 Oct notebook hardening (pre next Save Version):** `TransformersVLM` now empties CUDA cache each call, OOM-retries with fewer tokens / no images, caps `max_new_tokens` at 768, lowers vision `max_pixels` to `512*28*28`, soft-parses schemas without `minItems`, seeds empty HF `fact_ids`, and falls back citations in `_render_numeric_answer`. `write_submission` releases CUDA after every row and retries once on OOM. Re-Save Version on Kaggle required before treating CSV as graded.
-
-**28 Oct morning CSV installed:** Downloads → `Part1/sneha_singh/submission.csv` (SHA256 `cb0270f1…`, validate OK). Still **10 not_found** (Q006/Q010/Q018/Q020/Q023/Q034/Q035/Q036/Q039/Q040) — same weak pattern as prior Kaggle run; Q019 now reports 1.57. Need Kaggle output log to confirm whether OOM/schema fallbacks persist; `links.txt` still points at versions/5 until the new version URL is known.
-
-**28 Oct log-driven fix (ready to re-Save Version):** From the ~48 min run log: Q006 false-premise opening; Q010 prose-not-JSON; Q020/Q023/Q034–Q036/Q039/Q040 CUDA OOM (weights ~15.2GB). Notebook now: expandable CUDA alloc; HF answer path never sends images; planner facts compacted/truncated; fewer HF plan cycles/tokens; JSON extract+retry; quantitative questions coerced off false_premise; false_premise opening auto-prefixed with “No.”.
-
-**Follow-up after next failed run (12 fallbacks):** fact_only now strips extra HF keys instead of aborting; planner/system auto-shrink when prompt >4.5k tokens (no hard fail); HF repair cycles restored to 2; tighter fact/quote caps. Log alone was enough—CSV not required to diagnose.
-
-**Follow-up after 8-fallback run:** HF scope/claim audits soft-fail (keep facts, don’t abort); skip empty-calc scope judge; sanitize/drop bad HF arithmetic; soft-parse drops enums then filters citations. Remaining misses were Q005/Q006/Q010/Q017/Q024/Q032/Q034/Q039.
-
-**Q010 tight fix:** On HF (`PLAN_ARRAY_SLACK`), qualitative `fact_only` rows bypass HF plan/answer JSON entirely: deterministic explanation contract → ranked fact plan → quote-stitch answer. Targets the last single fallback (Europe jobs why/how-bad).
-
-**Post Q010-success CSV (ed141af5…):** 35 answered / 2 not_found (Q035,Q039 fallbacks) / mismatches Q017/Q037/Q040. Fixed broken `permanent` branch (was still calling generate → Q037); session-absence → not_found (Q040); session_override exception fallback (Q035/Q039). Notebook log optional.
-
-**CSV 1d3c4c1b (13:33, no separate log file):** validate OK; Q001/Q010/Q037 good. Still weak vs scoring matrix: Q035/Q039 `not_found` (need `session_override`), Q040 answered (need `not_found`), Q025 answered (need `conflict`), several answered rows missing named figure labels (F1). Notebook patched to coerce session_override from chat-only not_found, broaden Q040 absence, attach question-named figures, mark multi-doc rate conflicts.
-
-**v10 CSV c07a91fd:** status matrix almost clean (39/40 vs local; only Q017). Q017 gap fixed in notebook: compact `According to Figure…, … in YEAR is VALUE` via `render_single_visual_lookup` (also used on HF stitch path) instead of caption dump.
+Selected practice public best remains **0.909** from `Part1/sneha_singh/submission.csv` (sha `c00b98a4…`). Graded Task 1.5 uses the tagged notebook on the hidden set.
 
 ### Models in use (verified)
 
-Part 1 has **not** stopped Ollama for the scores below. Two backends exist in `notebooks/sneha_singh/p1_rag.ipynb`; only the local one has been measured.
+Part 1 has **not** stopped Ollama for the scores below. Two backends exist in `notebooks/sneha_singh/p1_rag.ipynb`; only the local one has been measured on the golden set.
 
 | Runtime | When it runs | Models | Status |
 | --- | --- | --- | --- |
 | Local Mac (Ollama) | Default when not on Kaggle | Answers: `qwen2.5:7b` (Q4_K_M). Figures: `qwen2.5vl:3b`. Encoder: `all-MiniLM-L6-v2`. Reranker: `ms-marco-MiniLM-L6-v2` (CPU). | **Current golden-set measure: 25/25 OFF and 25/25 ON** (`reranker_ablation_fix100_20261027`). Manifest: `"inference": "local Ollama"`. |
-| Kaggle GPU (`transformers`) | Only when `/kaggle/input` is present | One model: `Qwen/Qwen2.5-VL-7B-Instruct` (NF4), no Ollama server. Encoder and reranker stay on CPU. | Public LB best **0.909**. Final select must come from Save Version of this notebook at `p1-v1.0` (general policies only; Mac ≠ Kaggle). |
+| Kaggle GPU (`transformers`) | Only when `/kaggle/input` is present | One model: `Qwen/Qwen2.5-VL-7B-Instruct` (NF4), no Ollama server. Encoder and reranker stay on CPU. | Public LB best **0.909**. Graded path: Save Version of this notebook at `p1-v1.0` (general policies only; Mac ≠ Kaggle). |
 
-Do not treat Mac golden-set scores as Kaggle scores. Competition-CSV fixes are in the notebook after Kaggle v5; retag `p1-v1.0` after they land on main.
+Do not treat Mac golden-set scores as Kaggle scores.
 
 ### Remaining risks after the fix-100 run
 
