@@ -71,18 +71,18 @@ Do not treat Mac golden-set scores as Kaggle scores.
 | --- | --- |
 | +2 bonus | Not claimed on this pipeline (golden-set OFF/ON tied 25/25). The team claims the +2 with Ritika's reranker ablation (report II.B, `Part1/ritika_neema/README.md`). Bonus PoC notebook/outputs removed from the repo. |
 | Kaggle | Executed notebook committed (T4, 40 rows, validated, 1084 s). Practice public best **0.909** (`submission.csv`). Select the notebook output on Kaggle if it is not already the chosen submission. |
-| Human ratings / report Appendix C examples | Still pending both members |}
+| Human ratings / report Appendix C examples | Done — both members in `eval/human_review.csv`; Appendix C write-up in `report/report.md` §II.D |}
 
 ### Still open for both members
 
 1. Public leaderboard best remains **0.909**. Keep that score in the report and docs.
-2. Ritika: finish recording her own Part 1 pipeline under `Part1/ritika_neema/` / her Kaggle link.
+2. Ritika's Part 1 pipeline, Kaggle link, and golden/holdout reranker ablation are recorded under `Part1/ritika_neema/` (team +2 claim).
 
 Both raters' groundedness scores are in `eval/human_review.csv` (mean 4.88 for each rater; within one point on 24/25).
 
 Appendix C safety write-up is in `report/report.md` §II.D. Public LB **0.909** and compliance notebook are already documented.
 
-Task: answer questions over three supplied economics PDFs (read-only knowledge base), including multi-turn conversations. Notebook: `notebooks/sneha_singh/p1_rag.ipynb`. **Current** table is the fix-100 passage-reranker ablation (`reranker_ablation_fix100_20261027/metrics.json`). It is **automated, provisional golden-set development results, not a Kaggle score**. Both members must still review the questions and supply real groundedness ratings.
+Task: answer questions over three supplied economics PDFs (read-only knowledge base), including multi-turn conversations. Notebook: `notebooks/sneha_singh/p1_rag.ipynb`. **Current** table is the fix-100 passage-reranker ablation (`reranker_ablation_fix100_20261027/metrics.json`). It is a local golden-set development ablation, not the Kaggle public LB. Both members' groundedness ratings are filled in `eval/human_review.csv`.
 
 ## Architecture
 
@@ -122,8 +122,8 @@ Run finished 27 Oct 2026. Automated/provisional golden-set development results�
 | Paired gained (ON only) | — | none |
 | Paired lost (ON only) | — | none |
 | +2 bonus (ON > OFF answers) | — | tie at 25/25 on this pipeline; team claim uses Ritika's ablation |
-| Human groundedness (both members) | pending | pending |
-| Human agreement within one point | pending | pending |
+| Human groundedness (both members) | 4.88 mean each | 4.88 mean each |
+| Human agreement within one point | 24/25 | 24/25 |
 
 ### Historical ablation (26 Oct; superseded)
 
@@ -140,7 +140,7 @@ Source: `outputs/evaluation/reranker_ablation/metrics.json`.
 ## Comparison (reranker off vs on)
 - **Current (fix-100):** both arms **25/25** answers, 100% Recall@5, 100% citation support, 0 generation errors. Paired gained/lost: none. **+2 bonus not claimable** (ON must strictly beat OFF).
 - Historical (26 Oct): Recall@5 stayed 100%; citation support 94.4%→97.3%; answers 20/25 OFF vs 19/25 ON (gained G12/G14, lost G02/G05/G08).
-- Each arm had 2 generation errors and 0 judge errors. Correctness and citation scores use a same-model judge, so they can share answerer biases; human groundedness ratings from both members are still to be collected.
+- Each arm had 2 generation errors and 0 judge errors. Correctness and citation scores use a same-model judge, so they can share answerer biases; human groundedness ratings from both members are in `eval/human_review.csv` (mean 4.88 each).
 
 ## Strengths
 - Retrieval stayed at 100% Recall@5 on both arms. Timing excludes indexing and grading and does not establish Kaggle GPU performance.
@@ -148,8 +148,8 @@ Source: `outputs/evaluation/reranker_ablation/metrics.json`.
 - Everything is local (no hosted API).
 
 ## Weaknesses / limitations
-- Results are development diagnostics on a draft golden set that informed the design; a fresh frozen team-authored set is still needed.
-- Human groundedness ratings, the Kaggle GPU run and its 90-minute check, and the final Kaggle submission are not done.
+- Results are development diagnostics on a team golden set that informed the design; the graded Kaggle path uses the hidden set.
+- Human groundedness ratings are done (`eval/human_review.csv`). Public Kaggle LB best is **0.909**; executed T4 notebook is committed.
 - Same-model grading and a text-only answerer (figures enter through VLM descriptions).
 - Historical note only: the first reranker ablation did not raise answer correctness (19/25 against 20/25) and had 2 generation errors per arm. The fix-100 rerun is 25/25 both arms with 0 generation errors.
 
@@ -160,7 +160,7 @@ The notes below are from an earlier dense-versus-hybrid comparison, not from the
 - Hybrid G12 omits the required imported-consumption distinction and incorrectly says the GDP deflator remained positive in 2009. The actual retrieved Briefing B page 4 says the GDP deflator also fell slightly, while core CPI stayed positive. This is a real source-grounding error, not merely wording. The semantic and citation judge accepted it incorrectly; the unchanged fixed concept rubric still marks the answer false.
 - Hybrid G21 correctly returns conflict, both 9.8 and 9.6, no explicit revision, and preference for DOC1. However, its answer text does not explicitly label the other source DOC3 or explain the high-versus-medium trust levels; DOC3 appears only in structured citations. The unchanged required-pattern check fails. The semantic judge's pass does not override that failure.
 - Dense G19 is a rejected generation: its source-scope/operand audit rejected the plan after bounded retries, despite a positive-sounding audit explanation. It remains counted as incorrect.
-- On the current reranker ablation, turning the reranker on gained G12 and G14 and lost G02, G05, and G08. Human ratings remain pending.
+- On the current reranker ablation, turning the reranker on gained G12 and G14 and lost G02, G05, and G08. Human ratings are in `eval/human_review.csv`.
 
 ## Latest correction checks
 
@@ -219,7 +219,7 @@ This section supersedes the pending-work notes above. The earlier 23/25 hybrid a
 | Citation support (model judge) | 80.8% (21/26) | 81.5% (22/27) |
 | Median seconds per question | 72.40 | 43.37 |
 | Generation / judge errors | 5 / 0 | 3 / 0 |
-| Human review | pending | pending |
+| Human review | collected later on golden set (`eval/human_review.csv`) | same |
 
 Both systems have 25 unique graded rows, zero unscored rows, and matching metrics/manifest signatures. Generation failures count as incorrect, not omitted observations. The completed runner removed its lock. I independently rechecked the frozen dataset, generation/evaluation code fingerprints, protected source/development inputs and strict correct/error counts; all matched the saved manifest. No code, frozen questions or grades were changed after this test started.
 
