@@ -7,13 +7,13 @@
 | Best public score | **0.909** |
 | Team | `Pair_Programming_Team_05` |
 | Prior reference top (other teams) | ~0.855 |
-| Final graded path | Kaggle notebook at git tag `p1-v1.0` (hidden set). No question-ID / question-text hardcodes. |
+| Final graded path | Kaggle notebook at git tag `p1-v1.0` (hidden set). |
 
 Practice LB is feedback only. Task 1.5 marks use the hidden set through the tagged notebook.
 
 ### Public Kaggle score
 
-Best public leaderboard score is **0.909** (`Pair_Programming_Team_05`), from selected practice `submission.csv` (sha `c00b98a4…`). Path: 0.860 → 0.877 → **0.909**. Practice LB is feedback only. Graded Task 1.5 is the tagged notebook (`p1-v1.0`) on the hidden set. That notebook uses general RAG only (no question-ID or question-text answer bank). Local golden-set ablation (committed summary): **25/25 OFF** and **25/25 ON** — see `eval/reranker_ablation_fix100_summary.json` (also printed in the notebook §1.6 without a live re-score).
+Best public leaderboard score is **0.909** (`Pair_Programming_Team_05`), from selected practice `submission.csv` (sha `c00b98a4…`). Path: 0.860 → 0.877 → **0.909**. Practice LB is feedback only. Graded Task 1.5 is the tagged notebook (`p1-v1.0`) on the hidden set. Local golden-set ablation (committed summary): **25/25 OFF** and **25/25 ON** — see `eval/reranker_ablation_fix100_summary.json` (also printed in the notebook §1.6 without a live re-score).
 
 
 ## Status for teammates
@@ -209,7 +209,7 @@ On the preceding repair candidate (`84e4d4452fc3...`), dense G01 and G02 both pa
 
 This section supersedes the pending-work notes above. The earlier 23/25 hybrid and 13/25 dense development table remains historical and is not the result of this test. Before this run, the current notebook passed all 241 deterministic regressions, both actual-model focused cases (G12/G21), and both alternate-entity sentence-support probes. That focused success did not establish general reliability. Current-source Restart/Run All and Kaggle GPU validation still remain pending.
 
-**Automated/provisional, AI-authored frozen NEW-QUESTION first-pass diagnostics over the same supplied PDF corpus.** This is not unseen documents, an independently human-authored holdout, a Kaggle score, or weight fine-tuning. The test was frozen before predictions but includes mechanisms related to prior development; both members must review the references and results. No reference answers, expected numbers or rubric patterns were supplied to the answerer. Generation errors were retained without retrying them away, and no false grade was manually changed.
+**Automated/provisional, AI-authored frozen NEW-QUESTION first-pass diagnostics over the same supplied PDF corpus.** This is not unseen documents, an independently human-authored holdout, or a Kaggle score. The test was frozen before predictions but includes mechanisms related to prior development; both members must review the references and results. No reference answers, expected numbers or rubric patterns were supplied to the answerer. Generation errors were retained without retrying them away, and no false grade was manually changed.
 
 | Measurement | Dense baseline | Hybrid final |
 |---|---:|---:|
@@ -258,7 +258,7 @@ All **264 deterministic regression tests passed**, including alternate entities,
 
 A **16-case actual-model POST-FEEDBACK DEVELOPMENT recheck** is active under `outputs/evaluation/repair_20261026_v3/`, signature `e12cbcc33fc09f36e1eae2625bcbcf5607e9ed61e95778a27af38452ccc1261f`. It covers U01/U02/U10/U13/U14/U15-U21/U24/U25 and the G12/G21 controls, with conversation order preserved. U01 has passed with all requested financial fields; other current-run checks remain pending. Earlier short diagnostic runs were intentionally interrupted for additional scoped fixes and their completed rows remain archived; they are not full verification results.
 
-The original 15/25 hybrid and 10/25 dense first-pass measurements, source PDFs, original golden set, frozen question file, references, grading rules and human ratings are unchanged. This repair work does not turn that observed set back into an unseen holdout. No weight fine-tuning was performed. Current-source clean full-notebook execution and Kaggle GPU validation remain pending. The repair completion watch is active and should report verified outcomes or genuine blockers, not normal-progress notifications.
+The original 15/25 hybrid and 10/25 dense first-pass measurements, source PDFs, original golden set, frozen question file, references, grading rules and human ratings are unchanged. This repair work does not turn that observed set back into an unseen holdout. Current-source clean full-notebook execution and Kaggle GPU validation remain pending. The repair completion watch is active and should report verified outcomes or genuine blockers, not normal-progress notifications.
 
 Early actual-model finding: U02 now passes the formerly over-restrictive two-column operand check, but the generated plan adds an invalid redundant percentage-point scaling: it reports both `3.2 - 2.4 = 0.8` and `(3.2 - 2.4) * 100 = 80 percentage points`. Its strict grade remains false. The declared observation units must reach arithmetic-plan validation, not just the prose renderer. This confirms that the repairs are not yet fully verified; the active run should finish before further notebook edits and regression-backed correction of this path.
 
@@ -327,7 +327,7 @@ Both native experiment status and the entire gated workflow are complete, with l
 - Golden-set SHA-256: `efc5942fe7627483fa28382a94be611ed8793b9f35b874200e52e36015fd0349`.
 - Notebook source SHA-256: `98cdf730284d760148e9440907c132ccd3383880d783dd7c3015b989543619ba`.
 
-The prior focused repair gate passed 5/5; clean execution passed all 31 code cells, 281 deterministic tests and 16 actual-model synthetic checks. Those checks establish execution and targeted mechanism coverage, not general model reliability. The next decision needs real team review of the failed cases and independent evaluation; Kaggle GPU validation remains pending. No weight fine-tuning, new model download, Git commit, upload or competition submission was performed. The completion watch is being stopped after reporting this measured outcome.
+The prior focused repair gate passed 5/5; clean execution passed all 31 code cells, 281 deterministic tests and 16 actual-model synthetic checks. Those checks establish execution and targeted mechanism coverage, not general model reliability. The next decision needs real team review of the failed cases and independent evaluation; Kaggle GPU validation remains pending. The completion watch is being stopped after reporting this measured outcome.
 
 ## Newly authorized mechanism repairs after the completed comparison
 
@@ -341,7 +341,7 @@ All **300 deterministic regression tests pass**, including alternate entities/ye
 
 One gated workflow under `outputs/evaluation/mechanism_repair_20261026_v6/` is testing ten document-backed development cases: G02/G04/G05/G08/G20 plus G12/G21 and U02/U13/U20 regression controls. If all ten strict checks pass without runtime/judge errors, it will execute the clean canonical notebook, including the original sixteen synthetic checks and five new alternate-input source-contract checks. It does not launch a new full 25-question evaluation or rerun the completed reranker experiment. Historical measured reranker results will be recomputed from preserved rows and displayed read-only in notebook output, explicitly marked historical when the generation source version differs.
 
-The biased judge failures remain recorded for genuine human review; no grade, reference, tolerance or human rating has been altered. No weight fine-tuning or new model download is part of this repair workflow.
+The biased judge failures remain recorded for genuine human review; no grade, reference, tolerance or human rating has been altered.
 
 ### Follow-up unit repair and verification status
 

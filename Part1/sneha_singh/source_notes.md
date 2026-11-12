@@ -26,7 +26,7 @@ Apply `kb_manifest.json`: an explicit erratum/revision replaces the older value;
 - `src/p1_rag.py` extracts text chunks and separate numbered visual objects with doc ID, file page, exact label, caption, trust, and a local crop path. It keeps the low-trust records only for audit and excludes them from the normal retriever.
 - Each trusted figure is described by the declared local VLM. The description cache records the image hash, caption, model version/digest, and actual model output. Descriptions can contain extraction errors, so they are evaluation aids rather than independent ground truth. Appendix C's visual has status `excluded_low_trust` and is not described.
 - The local run uses the real MiniLM encoder, persistent ChromaDB, and a local image-capable Qwen2.5-VL answerer. Derived records are in `outputs/index/`; figure crops, descriptions, model metadata, raw evaluation records, and generated results stay under `outputs/`.
-- Kaggle graded path: `notebooks/sneha_singh/p1_rag.ipynb` with `Qwen/Qwen2.5-VL-7B-Instruct` (NF4), hybrid retrieval + general answering policies only (no question-specific canned answers). Public practice best score: **0.909**. Final select/tag follows the executed Save Version.
+- Kaggle graded path: `notebooks/sneha_singh/p1_rag.ipynb` with `Qwen/Qwen2.5-VL-7B-Instruct` (NF4), hybrid retrieval + general answering policies. Public practice best score: **0.909**. Final select/tag follows the executed Save Version.
 
 ## Research references and design choices
 
