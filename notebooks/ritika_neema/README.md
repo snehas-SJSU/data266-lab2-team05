@@ -1,6 +1,9 @@
 # Ritika Neema — notebooks
 
-Put Ritika's executed Part 1 / Part 2 / Part 3 notebooks here when ready
-(`p1_rag.ipynb`, `p2_finetune.ipynb`, `p3_agents.ipynb`).
+Executed notebooks (with outputs):
+
+- `p1_rag.ipynb` — Kaggle T4, public LB 0.576 (reranker ON)
+- `p2_finetune.ipynb` — Colab T4, LoRA r8 vs DoRA r8
+- `p3_agents.ipynb` — Colab T4, 28 Oct run
 
 Sneha's notebooks are in `../sneha_singh/`.
