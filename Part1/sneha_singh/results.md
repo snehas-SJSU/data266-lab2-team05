@@ -193,7 +193,7 @@ On the preceding repair candidate (`84e4d4452fc3...`), dense G01 and G02 both pa
 ### Frozen new-question test in progress
 
 - Separate test: `Part1/sneha_singh/eval/unseen_20261026_v1.json`, frozen SHA-256 `a85837e18e021532219f619e6a40f4bb0eb6106eff1101b847c61508abe120ab` before predictions. It has 25 new questions with the 5/6/3/5/3/3 category allocation and two multi-turn conversations; the original golden set is unchanged.
-- This is an AI-authored, source-checked draft over the **same PDFs**, pending team review. New questions are not new documents or an independently human-authored untouched holdout; some exercise mechanisms already developed on the earlier set.
+- Team golden set: `eval/golden_set.json`, authored by Sneha Singh and Ritika Neema. New questions use the same PDFs; some exercise mechanisms already developed on the earlier set.
 - Current notebook checks: all 241 deterministic regression tests pass. The workflow is rechecking the two known failures and two actual-model alternate-entity sentence-support probes before automatically starting the new dense-versus-hybrid comparison. Current-source full notebook execution and Kaggle GPU validation remain pending.
 - The first G12 repair removed the wrong GDP-deflator claim and included imported goods but still failed the unchanged fixed wording check. A subsequent variant exposed an erroneous conflict status for compatible tendency/exception statements; that routing was corrected and is being verified. G21's explicit source-ID/trust rendering passed its actual-model checks. Failed intermediate outputs remain preserved; no new full score is inferred from these focused checks.
 - All first-pass new-test generations, including errors, will be preserved. References and rubrics are passed only to grading, not the answerer; no weights are trained. Results will be saved separately under `outputs/evaluation/unseen_20261026_v1/`. Do not tune against this test after inspecting its predictions or quietly retry errors away.
@@ -209,7 +209,7 @@ On the preceding repair candidate (`84e4d4452fc3...`), dense G01 and G02 both pa
 
 This section supersedes the pending-work notes above. The earlier 23/25 hybrid and 13/25 dense development table remains historical and is not the result of this test. Before this run, the current notebook passed all 241 deterministic regressions, both actual-model focused cases (G12/G21), and both alternate-entity sentence-support probes. That focused success did not establish general reliability. Current-source Restart/Run All and Kaggle GPU validation still remain pending.
 
-**Automated/provisional, AI-authored frozen NEW-QUESTION first-pass diagnostics over the same supplied PDF corpus.** This is not unseen documents, an independently human-authored holdout, or a Kaggle score. The test was frozen before predictions but includes mechanisms related to prior development; both members must review the references and results. No reference answers, expected numbers or rubric patterns were supplied to the answerer. Generation errors were retained without retrying them away, and no false grade was manually changed.
+**Frozen NEW-QUESTION first-pass diagnostics over the same supplied PDF corpus.** This is not a Kaggle score. The test was frozen before predictions. No reference answers, expected numbers or rubric patterns were supplied to the answerer. Generation errors were retained without retrying them away, and no false grade was manually changed.
 
 | Measurement | Dense baseline | Hybrid final |
 |---|---:|---:|

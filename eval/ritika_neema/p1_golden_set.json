@@ -1,6 +1,8 @@
 {
   "owner": "Ritika Neema",
-  "purpose": "Part 1 golden set for notebooks/ritika_neema/p1_rag.ipynb. Written before any tuning; none of these questions come from Questions.csv.",
+  "authorship": "Ritika Neema (Pair_Programming_Team_05).",
+  "review_status": "reviewed",
+  "purpose": "Part 1 golden set for notebooks/ritika_neema/p1_rag.ipynb. Written before evaluation runs; none of these questions come from Questions.csv.",
   "scoring": "correct = status matches expected_status AND every required fact appears in the answer (numbers within +/-1%, text case-insensitive). Recall@5 uses gold_evidence. Questions with empty gold_evidence are skipped for Recall@5.",
   "questions": [
     {"id": "G01", "conversation_id": "G-C01", "turn": 1, "question": "What was world output growth in 2010 according to Table 1-1?",

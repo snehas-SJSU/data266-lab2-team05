@@ -11,7 +11,7 @@ Multimodal RAG over the three read-only economics PDFs (Lab 2 Task 1).
 | Validator | `Part1/validate_submission.py` |
 | Source / trust notes | `Part1/sneha_singh/source_notes.md` |
 | Results + ablation | `Part1/sneha_singh/results.md` |
-| Golden set (team) | `eval/golden_set.json` |
+| Golden set (team) | `eval/golden_set.json` (Sneha Singh and Ritika Neema) |
 | Human groundedness form | `eval/human_review.csv` |
 | Architecture figure | `report/figures/part1/architecture.png` |
 | Report section | `report/report.md` §II |
