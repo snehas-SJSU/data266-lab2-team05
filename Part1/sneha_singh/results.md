@@ -13,7 +13,7 @@ Practice LB is feedback only. Task 1.5 marks use the hidden set through the tagg
 
 ### Public Kaggle score
 
-Best public leaderboard score is **0.909** (`Pair_Programming_Team_05`), from selected practice `submission.csv` (sha `c00b98a4…`). Path: 0.860 → 0.877 → **0.909**. Practice LB is feedback only. Graded Task 1.5 is the tagged notebook (`p1-v1.0`) on the hidden set. Local golden-set ablation (committed summary): **25/25 OFF** and **25/25 ON** — see `eval/reranker_ablation_fix100_summary.json` (also printed in the notebook §1.6 without a live re-score).
+Best public leaderboard score is **0.909** (`Pair_Programming_Team_05`), from the **selected** practice CSV `Part1/sneha_singh/submission.csv` (sha `c00b98a4…`). Path: 0.860 → 0.877 → **0.909**. That selected CSV is not the same bytes as the Oct 31 notebook Save Version print (`submission_sha256` `408d5b97…` in the notebook output). Practice LB is feedback only. Graded Task 1.5 is the tagged notebook on the hidden set — after the hardcode cleanup, re-run Kaggle and move `p1-v1.0` to the new Save Version. Local golden-set ablation lives in `eval/reranker_ablation_fix100_summary.json` (repo file; not recomputed inside the Kaggle runtime).
 
 
 ## Status for teammates
@@ -71,7 +71,8 @@ Do not treat Mac golden-set scores as Kaggle scores.
 | --- | --- |
 | +2 bonus | Not claimed on this pipeline (golden-set OFF/ON tied 25/25). The team claims the +2 with Ritika's reranker ablation (report II.B, `Part1/ritika_neema/README.md`). Bonus PoC notebook/outputs removed from the repo. |
 | Kaggle | Executed notebook committed (T4, 40 rows, validated, 1084 s). Practice public best **0.909** (`submission.csv`). Select the notebook output on Kaggle if it is not already the chosen submission. |
-| Human ratings / report Appendix C examples | Done — both members in `eval/human_review.csv`; Appendix C write-up in `report/report.md` §II.D |}
+| Human ratings / report Appendix C examples | Done — both members in `eval/human_review.csv`; Appendix C write-up in `report/report.md` §II.D |
+| Question-pattern salvage / Okun boost / B-5 4.1 / −2.3 skips | Removed from graded notebook source; **Kaggle re-run + retag `p1-v1.0` still required** |}
 
 ### Still open for both members
 
