@@ -13,7 +13,7 @@ Practice LB is feedback only. Task 1.5 marks use the hidden set through the tagg
 
 ### Public Kaggle score
 
-Best public leaderboard score is **0.909** (`Pair_Programming_Team_05`), from `submission.csv` (sha `c00b98a4…`). Path: 0.860 → 0.877 → **0.909** (general citation/status/figure fixes on the Kaggle Save Version). The executed Kaggle notebook at tag `p1-v1.0` uses general RAG only (no question-ID or question-text answer bank). Graded Task 1.5 uses the hidden set through that tagged notebook.
+Best public leaderboard score is **0.909** (`Pair_Programming_Team_05`), from selected practice `submission.csv` (sha `c00b98a4…`). Path: 0.860 → 0.877 → **0.909**. Practice LB is feedback only. Graded Task 1.5 is the tagged notebook (`p1-v1.0`) on the hidden set. That notebook uses general RAG only (no question-ID or question-text answer bank). Local golden-set ablation (committed summary): **25/25 OFF** and **25/25 ON** — see `eval/reranker_ablation_fix100_summary.json` (also printed in the notebook §1.6 without a live re-score).
 
 
 ## Status for teammates
