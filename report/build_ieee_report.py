@@ -396,7 +396,11 @@ def build():
          "The two runs share the data, 1500 steps, batch 4, and learning rate 0.0001. Both "
          "are LoRA adapters on the attention projections, with the VAE, the text encoder, and "
          "the base UNet frozen [2]. Rank 4 has 797,184 trainable parameters. Rank 16 has "
-         "3,188,736. We kept rank 16. Mean loss over the last tenth of training was 0.0535 "
+         "3,188,736. We kept rank 16: at the same training cost (0.2399 against 0.2401 "
+         "GPU-hours) it had the lower KID (0.02314 against 0.02671) and the higher CLIP "
+         "score (0.3155 against 0.3110). The KID gap is inside the noise, so this is a "
+         "tie-break, and the blind study below did not favor rank 16 over the base model "
+         "either. Mean loss over the last tenth of training was 0.0535 "
          "and 0.0533. The runs took 864.2 s and 863.8 s. Fig. 2 is this pipeline.")
     figure(doc, FIG / "part2" / "architecture.jpg",
            "Fig. 2. One dataset, two LoRA ranks on a frozen Stable Diffusion 1.5, then the same 20 prompts for the base model and both adapters.")

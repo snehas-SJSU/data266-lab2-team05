@@ -85,4 +85,4 @@ compositional prompts and seed diversity). LoRA r8 is the final run because it i
 ## Demo
 
 `python Part2/ritika_neema/demo_generate.py "<prompt>" ...` writes base and LoRA r8 side by side for the same
-seed. `smoke_test/` holds a 256px, 10-step check on a Mac that the adapter loads from Hugging Face.
+seed. `smoke_test/` documents a 256px, 10-step check on a Mac that the adapter loads from Hugging Face; its two images are in the `smoke_test/` folder of `neema30/data266-lab2-p2-ritika-images`.

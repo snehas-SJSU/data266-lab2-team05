@@ -1,8 +1,10 @@
 # Part 3 human rating (Ritika's run)
 
 The 50 runs from `notebooks/ritika_neema/p3_agents.ipynb` (Colab T4, 28 Oct 2026): 25 cases, without and with
-the critique loop. `images/` holds every generated attempt and `inputs/` the test inputs
-(from `Sneha-subbu/data266-lab2-p3-inputs`).
+the critique loop. Every generated attempt (`images/`) and the test inputs (`inputs/`, from
+`Sneha-subbu/data266-lab2-p3-inputs`) are in the Hugging Face dataset
+[neema30/data266-lab2-p3-ritika-images](https://huggingface.co/datasets/neema30/data266-lab2-p3-ritika-images),
+not in git; `make_gallery.py` reads them from there.
 
 1. `python Part3/ritika_neema/human_eval/make_gallery.py`, then open `index.html`. Each card shows the input, every
    attempt with the critic's verdict, the agents' outputs and the frozen rubric for that case.

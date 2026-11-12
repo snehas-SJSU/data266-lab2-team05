@@ -72,7 +72,7 @@ Public LB best **0.909** is practice feedback. Hidden-set Task 1.5 score and fin
 
 ### A. Architecture
 
-I fine-tuned Stable Diffusion 1.5 on Pokemon BLIP captions with two LoRA runs, rank 4 and rank 16. Same data, 1500 steps, batch 4. I compared both with the base model on 20 fixed prompts, 40 images per model. I kept rank 16.
+I fine-tuned Stable Diffusion 1.5 on Pokemon BLIP captions with two LoRA runs, rank 4 and rank 16. Same data, 1500 steps, batch 4. I compared both with the base model on 20 fixed prompts, 40 images per model. I kept rank 16: at the same training cost (0.2399 against 0.2401 GPU-hours) it had the lower KID (0.02314 against 0.02671) and the higher CLIP score (0.3155 against 0.3110). The KID gap is inside the noise, so this is a tie-break, and the blind study did not favor rank 16 over the base model either (win rate 0.387).
 
 Stable Diffusion denoises in the latent space of a frozen autoencoder, and the text gets in through cross-attention in the UNet [4]. I left the VAE, the CLIP text encoder, and the original UNet weights frozen, and trained only LoRA adapters [5] on `to_q`, `to_k`, `to_v`, and `to_out`, with `lora_alpha` equal to the rank. Rank 4 has 797,184 trainable parameters. Rank 16 has 3,188,736. The loss is the mean squared error between the predicted noise and the noise that was added. AdamW, learning rate 0.0001, gradient clip 1.0, fp16 autocast, micro-batch 2 with 2 accumulation steps (batch 4), 1500 steps. Both runs start from seed 266, so the data order and the noise draws start the same way. Figure 1 is that pipeline.
 

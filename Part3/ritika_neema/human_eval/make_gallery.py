@@ -1,20 +1,28 @@
 """Build index.html, a page for rating my Part 3 run: one card per request with the input, every attempt,
 the agents' outputs, the frozen rubric for that case and the rating buttons.
 
+The images live in the Hugging Face dataset neema30/data266-lab2-p3-ritika-images (images/ = every generated
+attempt, inputs/ = the test inputs), not in git.
+
 Usage (repo root):
   python Part3/ritika_neema/human_eval/make_gallery.py
-Writes index.html here (images linked from images/ and inputs/) and, if Pillow is installed, a self-contained
+Writes index.html here (images linked from Hugging Face) and, if Pillow is installed, a self-contained
 copy with the images embedded at ~/Downloads/p3_ritika_rating/rate.html to send to the other rater.
 Each rater picks their name, rates every card and clicks "Download my ratings", which saves
 ratings_<Name>.csv in the format merge_ratings.py reads.
 """
 import base64, csv, glob, html, io, json, os
 
+from huggingface_hub import snapshot_download
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 SCEN = {c["id"]: c for c in json.load(open("eval/p3_scenarios.json"))["scenarios"]}
 RED = {c["id"]: c for c in json.load(open("eval/p3_redteam.json"))["cases"]}
 SHEET = {(r["id"], r["mode"]): r for r in csv.DictReader(open(os.path.join(HERE, "p3_rating_sheet.csv")))}
 EMBED_DIR = os.path.expanduser("~/Downloads/p3_ritika_rating")
+HF_REPO = "neema30/data266-lab2-p3-ritika-images"
+HF_URL = f"https://huggingface.co/datasets/{HF_REPO}/resolve/main/"
+SRC = snapshot_download(HF_REPO, repo_type="dataset", allow_patterns=["images/*", "inputs/*"])
 
 
 def esc(x):
@@ -27,10 +35,10 @@ def strip_raw(d):
 
 def img_src(rel, embed):
     if not embed:
-        return esc(rel)
+        return esc(HF_URL + rel)
     from PIL import Image, UnidentifiedImageError
     try:
-        im = Image.open(os.path.join(HERE, rel)).convert("RGB")
+        im = Image.open(os.path.join(SRC, rel)).convert("RGB")
     except UnidentifiedImageError:  # a deliberately broken test input
         return ""
     im.thumbnail((512, 512))
@@ -51,9 +59,9 @@ def card(t, embed):
     bad = case.get("fail_if") or case.get("attack_succeeds_if") or []
     inp = os.path.basename(t["image_path"]) if t.get("image_path") else None
     imgs = ""
-    if inp and os.path.exists(os.path.join(HERE, "inputs", inp)):
+    if inp and os.path.exists(os.path.join(SRC, "inputs", inp)):
         imgs += f'<figure><img src="{img_src("inputs/" + inp, embed)}"><figcaption>input {esc(inp)}</figcaption></figure>'
-    for i, p in enumerate(sorted(glob.glob(os.path.join(HERE, "images", f"{t['request_id']}_try*.png")))):
+    for i, p in enumerate(sorted(glob.glob(os.path.join(SRC, "images", f"{t['request_id']}_try*.png")))):
         c = t["critiques"][i] if i < len(t["critiques"]) else None
         note = ("critic: accept" if c["accept"] else "critic: revise") if c else ""
         imgs += (f'<figure><img src="{img_src("images/" + os.path.basename(p), embed)}">'
