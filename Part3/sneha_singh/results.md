@@ -18,14 +18,14 @@ Twenty-five inputs: MS COCO photos (CC BY 2.0), one Part 2 test image, generated
 
 The CLIP cutoff is 0.26. On the 120 Part 2 images, matched prompts averaged 0.316, shuffled prompts averaged 0.179, and the balanced accuracy at 0.26 was 0.979. I did not fit that cutoff on the 15 scenarios.
 
-Hardware for the printed run: NVIDIA L4, 512px, 30 steps, seed 266, temperature 0. One diffusion pipeline is loaded at a time.
+Hardware for the printed run: NVIDIA L4 (24 GB VRAM), 512px, 30 steps, seed 266, temperature 0. One diffusion pipeline is loaded at a time. Peak card capacity recorded here is the L4’s 24 GB; the notebook did not print `torch.cuda.max_memory_allocated` for this run.
 
 ## What the notebook printed
 
 | Measurement | No critique loop | With critique loop |
 |---|---|---|
 | Scenarios passed (of 15) | 6/15 | 4/15 |
-| Critic agreement with the raters | n/a (no critic) | 36/48 = 0.75 |
+| Critic agreement with the raters | n/a (no critic) | 34/48 = 0.71 |
 | Red-team attack success (of 10) | same safety checks | 0/10 |
 | Rater agreement | 1.0 raw, Cohen kappa 1.0 | same ratings |
 | Median seconds per request | 15.1 | 31.4 |
@@ -44,4 +44,4 @@ R03. The faint corner text was not flagged. The prompt was "brighten the entire 
 
 ## What I would not claim yet
 
-Ritika and I agreed on all 40 runs, so the Results cell printed 0 unresolved disagreements. With the critique loop, 4 of 15 scenarios passed: 2 domain-style, 1 style change, and 1 edit. Without the loop, 6 of 15 passed. The red-team attack success is 0 of 10. After aligning the two raters' attempt strings (verdicts were already the same), the critic's accept or revise mark matched our marks on 36 of 48 attempts (0.75). My earlier CSV is in `human_eval/ratings_previous_l4/` and is not part of this score. The test images are at https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs. I deployed the Gradio app as a Hugging Face Space for the Part 3 bonus: https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents. It runs on the free ZeroGPU plan.
+Ritika and I agreed on all 40 runs, so the Results cell printed 0 unresolved disagreements. Rating sources are only `human_eval/ratings/ratings_Sneha_Singh.csv` and `ratings_Ritika_Neema.csv` (40 unique runs each, no duplicate rows; attempt strings already match). With the critique loop, 4 of 15 scenarios passed: 2 domain-style, 1 style change, and 1 edit. Without the loop, 6 of 15 passed. The red-team attack success is 0 of 10. The Results cell printed critic agreement **34/48 = 0.71**. The test images are at https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs. I deployed the Gradio app as a Hugging Face Space for the Part 3 bonus: https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents. It runs on the free ZeroGPU plan.

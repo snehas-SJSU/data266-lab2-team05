@@ -13,7 +13,7 @@ Practice LB is feedback only. Task 1.5 marks use the hidden set through the tagg
 
 ### Public Kaggle score
 
-Best public leaderboard score is **0.909** (`Pair_Programming_Team_05`), from `submission.csv` (sha `c00b98a4…`). Path: 0.860 → 0.877 → **0.909** (page+label citations, Q026 conflict, Q018=0.45). The executed Kaggle notebook at tag `p1-v1.0` uses general RAG only (no question-text answer bank). Graded Task 1.5 uses the hidden set through that tagged notebook.
+Best public leaderboard score is **0.909** (`Pair_Programming_Team_05`), from `submission.csv` (sha `c00b98a4…`). Path: 0.860 → 0.877 → **0.909** (general citation/status/figure fixes on the Kaggle Save Version). The executed Kaggle notebook at tag `p1-v1.0` uses general RAG only (no question-ID or question-text answer bank). Graded Task 1.5 uses the hidden set through that tagged notebook.
 
 
 ## Status for teammates
@@ -58,7 +58,7 @@ Focused re-check G05/G12/G15/G16: **ALL_PASS** both arms. **+2 bonus not claimab
 
 Kaggle Version 5 produced a valid `submission.csv` (~30–40 min), but several `Questions.csv` rows were weak. General source-contract repairs are now in `notebooks/sneha_singh/p1_rag.ipynb` (no QID hardcodes): calc intent, follow-up memory, source-only session clear, conflict/false-premise recovery, Okun growth-claim tool, multi-entity month-series figure parsing (U.S.↔United States aliases), same-figure match.
 
-Local full `Questions.csv` check after these repairs: **validate OK (40 rows)**; statuses answered 32 / session_override 3 / false_premise 2 / conflict 2 / not_found 1 (`Q040` only, expected absence). Prior weak `Q008`/`Q019` now answered. Artifact: `Part1/sneha_singh/submission_local_full.csv`.
+Local full `Questions.csv` check after these repairs: **validate OK (40 rows)**; statuses answered 32 / session_override 3 / false_premise 2 / conflict 2 / not_found 1 (one expected absence). Earlier weak practice rows are now answered via the same general contracts. Artifact: `Part1/sneha_singh/submission_local_full.csv`.
 
 **v5 Kaggle CSV/link is still stale** vs this notebook. Graded final must come from a new Kaggle Save Version of this notebook after commit, then move/retag `p1-v1.0` to that commit (hidden set is graded from the tagged notebook, not from the Mac CSV).
 

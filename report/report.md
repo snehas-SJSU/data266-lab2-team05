@@ -185,14 +185,14 @@ Critique runs the Stable Diffusion checker first. A flag blocks the image only i
 
 The orchestrator is plain Python. If an agent throws, the message says which step failed and the trace is still saved. The last notebook cell starts the Gradio demo and shows each agent's output. I also deployed that app as a Hugging Face Space for the Part 3 bonus, on the free ZeroGPU plan: https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents.
 
-Seed 266. diffusers 0.42.0, transformers 5.2.0, pydantic 2.14.1, torch 2.11.0+cu130. One NVIDIA L4, 512px, 30 steps. CLIP cutoff 0.26: matched prompts averaged 0.316, shuffled prompts 0.179, balanced accuracy 0.979, all on the Part 2 images. The scenarios, the red-team cases, and the input list were written first (`eval/p3_scenarios.json`, `eval/p3_redteam.json`, `eval/p3_inputs.json`). Sources are in `Part3/data/inputs_sources.json`. The test images are at https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs. The link is in `links.txt`.
+Seed 266. diffusers 0.42.0, transformers 5.2.0, pydantic 2.14.1, torch 2.11.0+cu130. One NVIDIA L4 (24 GB VRAM), 512px, 30 steps. CLIP cutoff 0.26: matched prompts averaged 0.316, shuffled prompts 0.179, balanced accuracy 0.979, all on the Part 2 images. The scenarios, the red-team cases, and the input list were written first (`eval/p3_scenarios.json`, `eval/p3_redteam.json`, `eval/p3_inputs.json`). Sources are in `Part3/data/inputs_sources.json`. The test images are at https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs. The link is in `links.txt`.
 
 ### C. Results
 
 | Measurement | Baseline (no critique loop) | Final (critique loop) |
 | --- | --- | --- |
 | Primary: scenarios passed out of 15 | 6/15 | 4/15 |
-| Secondary: critic agreement with the raters | n/a (no critic) | 36/48 = 0.75 |
+| Secondary: critic agreement with the raters | n/a (no critic) | 34/48 = 0.71 |
 | Secondary: red-team attack success out of 10 | same safety checks | 0/10 |
 | Human: pass/fail agreement of the two members | 1.0 raw, Cohen kappa 1.0 | same ratings |
 | Efficiency: median seconds per request | 15.1 | 31.4 |
@@ -253,7 +253,7 @@ Ritika Neema and Sneha Singh each rated all 50 runs alone on the rating page (`P
 
 ## V. Conclusion
 
-Part 1 has a local golden-set results table (25/25 OFF and ON, a tie), Ritika's reranker ablation (golden 16/25 ON against 14/25 OFF, held-out 21/25 against 19/25, Kaggle public 0.576 against 0.526), which is the +2 reranker claim, its architecture figure, an Appendix C safety write-up, groundedness ratings (mean 4.88, within one point on 24 of 25), and a public Kaggle practice best of 0.909. The executed Kaggle notebook is committed (Tesla T4, 40 rows validated, 1084 s). Public Kaggle best score is **0.909**. Part 2 has Sneha's rank-16 table and Ritika's LoRA-versus-DoRA table. Rank 16 was not preferred by the raters. Ritika's LoRA rank 8 won 0.747 of 75 blind votes against the base model. Part 3 has the 26 Oct L4 run and both rating files. The Results cell printed 6/15 without the critique loop and 4/15 with it. After the two raters' attempt strings were aligned, critic agreement is 36/48 = 0.75, and attack success is 0/10. Ritika's 28 Oct automatic table is in section IV.G. On her run, both raters passed 6 of 15 scenarios with and without the critique loop (agreement 0.800 and 0.867, kappa 0.615 and 0.732), and one red-team attack (R03) was marked as succeeded by one rater. The test images are at https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs. The Part 3 bonus Space is https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents.
+Part 1 has a local golden-set results table (25/25 OFF and ON, a tie), Ritika's reranker ablation (golden 16/25 ON against 14/25 OFF, held-out 21/25 against 19/25, Kaggle public 0.576 against 0.526), which is the +2 reranker claim, its architecture figure, an Appendix C safety write-up, groundedness ratings (mean 4.88, within one point on 24 of 25), and a public Kaggle practice best of 0.909. The executed Kaggle notebook is committed (Tesla T4, 40 rows validated, 1084 s). Public Kaggle best score is **0.909**. Part 2 has Sneha's rank-16 table and Ritika's LoRA-versus-DoRA table. Rank 16 was not preferred by the raters. Ritika's LoRA rank 8 won 0.747 of 75 blind votes against the base model. Part 3 has the 26 Oct L4 (24 GB) run and both rating files. The Results cell printed 6/15 without the critique loop and 4/15 with it. Critic agreement is 34/48 = 0.71, and attack success is 0/10. Ritika's 28 Oct automatic table is in section IV.G. On her run, both raters passed 6 of 15 scenarios with and without the critique loop (agreement 0.800 and 0.867, kappa 0.615 and 0.732), and one red-team attack (R03) was marked as succeeded by one rater. The test images are at https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs. The Part 3 bonus Space is https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents.
 
 ## References
 
