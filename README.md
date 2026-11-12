@@ -79,7 +79,7 @@ Python 3.13. Open a notebook from the repo root and use Restart & Run All. The f
 | --- | --- | --- |
 | 1 | Canvas and the Kaggle data tab: three economics PDFs, `Questions.csv`, `kb_manifest.json` | Same files |
 | 2 | [reach-vb/pokemon-blip-captions](https://huggingface.co/datasets/reach-vb/pokemon-blip-captions) | Same dataset. Her own run is not recorded yet. |
-| 3 | [data266-lab2-p3-inputs](https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs) | Not recorded yet |
+| 3 | [data266-lab2-p3-inputs](https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs) (public). Bonus Space: [data266-lab2-p3-agents](https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents) (public ZeroGPU) | Same team inputs + Space |
 
 ---
 
@@ -110,9 +110,9 @@ Python 3.13. Open a notebook from the repo root and use Restart & Run All. The f
 | --- | --- | --- |
 | 1 | Mac | Local measured path: start Ollama `qwen2.5vl:3b` and `qwen2.5:7b`. Put the three PDFs in `Part1/data/`. Run All. Current scores are from this path, not from the Kaggle HF model. [Scores](Part1/sneha_singh/results.md). |
 | 2 | Colab | Graded run: `notebooks/sneha_singh/p2_finetune.ipynb` on an L4. Weights: [rank 16](https://huggingface.co/Sneha-subbu/data266-lab2-p2-lora_r16), [rank 4](https://huggingface.co/Sneha-subbu/data266-lab2-p2-lora_r4). Images: [data266-lab2-p2-images](https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p2-images). [Scores](Part2/sneha_singh/results.md). |
-| 3 | Colab | Graded run: `notebooks/sneha_singh/p3_agents.ipynb` on an L4 (26 Oct). Inputs: [data266-lab2-p3-inputs](https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs). [Scores](Part3/sneha_singh/results.md). |
+| 3 | Colab | Graded run: `notebooks/sneha_singh/p3_agents.ipynb` on an L4 (26 Oct). Inputs: [data266-lab2-p3-inputs](https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs) (public). [Scores](Part3/sneha_singh/results.md). |
 
-**Bonus (Part 3 Space, optional):** same Gradio app on Hugging Face free ZeroGPU: [data266-lab2-p3-agents](https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents). Upload folder: `Part3/sneha_singh/hf_space/` (own `requirements.txt`; that build is Python 3.10). This is not the graded Colab run.
+**Bonus (Part 3 Space, +2, public):** same Gradio app on Hugging Face free ZeroGPU: [data266-lab2-p3-agents](https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents). Upload folder: `Part3/sneha_singh/hf_space/` (own `requirements.txt`; that build is Python 3.10). This is not the graded Colab run. Also listed in `links.txt`.
 
 ### Ritika Neema
 
@@ -152,4 +152,4 @@ Notebook: `notebooks/sneha_singh/p3_agents.ipynb` (graded on Colab). Architectur
 
 The planner picks a route. Vision describes the image. The prompt agent rewrites the request. Generation makes the image. Critique can send it back, at most twice. A caption stops after vision. An unsafe request stops at the planner.
 
-Bonus: the same app as a Hugging Face Space, [data266-lab2-p3-agents](https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents), from `Part3/sneha_singh/hf_space/`.
+Bonus (+2): public Hugging Face Space [data266-lab2-p3-agents](https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents) (ZeroGPU), from `Part3/sneha_singh/hf_space/`. Test inputs: [data266-lab2-p3-inputs](https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs).

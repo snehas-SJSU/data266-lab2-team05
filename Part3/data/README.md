@@ -24,4 +24,4 @@ What is in the local `inputs/` folder:
 
 The full source list, with COCO ids and URLs, is `Part3/data/inputs_sources.json` next to the images. That file is ignored by the same `data/` rule.
 
-The only Hugging Face dataset this notebook loads by itself is the Part 2 generated-image set, `Sneha-subbu/data266-lab2-p2-images`, and it uses that only to set the CLIP cutoff. The same files are also at [Sneha-subbu/data266-lab2-p3-inputs](https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs).
+The only Hugging Face dataset this notebook loads by itself is the Part 2 generated-image set, `Sneha-subbu/data266-lab2-p2-images`, and it uses that only to set the CLIP cutoff. The same Part 3 test files are also public at [Sneha-subbu/data266-lab2-p3-inputs](https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs). The Part 3 Gradio bonus Space (public ZeroGPU) is [Sneha-subbu/data266-lab2-p3-agents](https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents).

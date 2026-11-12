@@ -24,4 +24,4 @@ The last cell starts Gradio. On Colab it prints a public link.
 
 ## What is done
 
-The 26 Oct 2026 Colab run is in the notebook. Both rating files for that run are in `human_eval/ratings/`. The scores are in [`results.md`](results.md). The test images are at https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs. I deployed the same Gradio app as a Hugging Face Space for the Part 3 bonus: https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents. The upload folder is `hf_space/`. It runs on the free ZeroGPU plan. Ritika's own pipeline is in `../ritika_neema/`.
+The 26 Oct 2026 Colab run is in the notebook. Both rating files for that run are in `human_eval/ratings/`. The scores are in [`results.md`](results.md). Public test images: https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs. Public Part 3 bonus Space (+2, ZeroGPU): https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents. The upload folder is `hf_space/`. Both links are in `links.txt`. Ritika's own pipeline is in `../ritika_neema/`.

@@ -70,7 +70,7 @@ Brooks et al. (InstructPix2Pix). A higher image guidance stays closer to the sou
 
 Greshake et al. An instruction can hide in a picture. That is the rule already in `vision` and `prompt_agent`. On the 10 red-team cases, R01 and R04 came back as captions and did not follow the text in the picture. R05 through R08 were refused before any image was made. Attack success was 0/10 on this run. That is the check in this lab. It is not the paper's own attack set.
 
-AI also helped me brainstorm the Part 3 bonus, the same app on a free Hugging Face Space with ZeroGPU hardware `zero-a10g`, in `Part3/sneha_singh/hf_space/`.
+AI also helped me brainstorm the Part 3 bonus, the same app on a free public Hugging Face Space with ZeroGPU hardware `zero-a10g`, in `Part3/sneha_singh/hf_space/`: https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents (inputs: https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs).
 
 The Space image is Python 3.10, so `diffusers==0.42.0` has no build there. The log ended with `No matching distribution found for diffusers==0.42.0`. The pin that stayed is `diffusers==0.41.0`. `pydantic==2.12.5` stayed because gradio's MCP extra rejects 2.14.1.
 

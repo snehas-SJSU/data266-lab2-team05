@@ -17,9 +17,9 @@ Part 1 Kaggle notebook (Sneha): https://www.kaggle.com/code/snehasjsu/lab2-noteb
 Hugging Face Part 2 models: https://huggingface.co/Sneha-subbu/data266-lab2-p2-lora_r16 (final, rank 16); https://huggingface.co/Sneha-subbu/data266-lab2-p2-lora_r4 (rank 4)
 Hugging Face generated images: https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p2-images
 
-# Part 3
-Hugging Face Part 3 inputs: https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs
-Hugging Face Part 3 Space (bonus): https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents
+# Part 3 (public HF links)
+Hugging Face Part 3 inputs (public): https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs
+Hugging Face Part 3 Space / +2 bonus (public, ZeroGPU): https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents
 
 ## Ritika Neema
 # Part 1
@@ -28,4 +28,5 @@ Part 1 Kaggle notebook (Ritika): https://www.kaggle.com/code/ritikamukeshneema/n
 Ritika Part 2 models: https://huggingface.co/neema30/data266-lab2-p2-ritika-lora-r8 (LoRA rank 8); https://huggingface.co/neema30/data266-lab2-p2-ritika-dora-r8 (DoRA rank 8)
 Ritika Part 2 generated images: https://huggingface.co/datasets/neema30/data266-lab2-p2-ritika-images
 # Part 3
-Ritika Part 3 inputs: https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs (team inputs)
+Ritika Part 3 inputs: https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs (team inputs, public)
+Ritika Part 3 Space / +2 bonus (team): https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents (public)
