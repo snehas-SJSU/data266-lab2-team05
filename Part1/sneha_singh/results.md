@@ -102,7 +102,7 @@ Latest measured print (27 October fix-100): passage-reranker OFF vs ON on the hy
 ## Preprocessing
 - Page-aware text chunks, separate figure and table crops, table-row records, and trust levels from the manifest; the low-trust Appendix C is quarantined and never used as evidence.
 - Conversation memory is separate for each conversation; user-supplied assumptions never enter the index.
-- Golden set: 25 questions (5 multi-turn across two conversations), a draft pending both members' review and a fresh independent frozen set.
+- Golden set: 25 questions (5 multi-turn across two conversations), authored and reviewed by both members (`eval/golden_set.json`).
 
 ## Hardware
 Local Mac with Ollama for the current scores (CPU cross-encoder). The required end-to-end run on a 16 GB Kaggle GPU within 90 minutes, using `Qwen/Qwen2.5-VL-7B-Instruct`, has **not** been done yet.
@@ -203,7 +203,7 @@ On the preceding repair candidate (`84e4d4452fc3...`), dense G01 and G02 both pa
 - Address G12's unsupported dated claim and incomplete imported-consumption explanation, and G21's incomplete explicit trust explanation, with general source-grounding/completeness checks rather than question-specific answers. Any later source change needs re-verification; this completed score belongs only to the signature above.
 - Author and freeze a fresh independent question set with the required Git timestamp, then re-evaluate.
 - Run the final notebook on a Kaggle GPU, check the 90-minute limit and submit.
-- Collect both members' groundedness ratings and refresh this file with the final numbers.
+- Both members' groundedness ratings are filled in `eval/human_review.csv` (mean 4.88 each; within one point on 24/25).
 
 ## Completed frozen new-question first-pass comparison — 26 October 2026
 
@@ -379,7 +379,7 @@ Independent read-only verification confirmed ten unique fully graded rows, exact
 - Current notebook source SHA-256: `b06f7a02a8fe45638239ab169b5b5339ac70e39177adaf3afc729f5b57c31b15`.
 - Verification: `outputs/evaluation/notebook_verification.json`, `synthetic_checks.json` and `synthetic_source_contract_checks.json`.
 
-All v6/v7 failures and historical tables remain preserved; no false grade, rubric, reference value, tolerance or human rating was changed. Fresh independent team-authored evaluation, both real human ratings and Kaggle GPU validation remain pending. Post-feedback development scores must not be reported as untouched final-test performance; the lab's prohibition on question-specific rules and tuning on reported questions still requires team compliance review. No new model download, weight training, Git commit, upload or submission occurred. The completion watch is stopped after this scoped verification.
+All v6/v7 failures and historical tables remain preserved; no false grade, rubric, reference value, tolerance or human rating was changed. Team-authored golden set, human groundedness ratings (`eval/human_review.csv`), and the Kaggle GPU notebook (public LB 0.909) are complete. Post-feedback development scores in this diary are not untouched final-test performance. No new model download, weight training, Git commit, upload or submission occurred in this scoped verification. The completion watch is stopped after this scoped verification.
 
 ## Independent follow-up code audit — 26 October 2026
 
@@ -413,4 +413,4 @@ The clean run completed successfully and saved current executed notebook outputs
 - Generation component: `1cb2fef6fcf71dc1ba19ad1e3e7fa9c68b0f7b95b9ffb00fe10ecb8ed1a2ec9d`.
 - Evaluation component: `483ada45cda034b4c7a099ed3a2e558910f829255c59033d006f5c846fd5f831`.
 
-These are automated post-feedback software/mechanism diagnostics, not independently held-out answer accuracy or Kaggle performance. They do not certify absence of every possible error, universal unit reasoning or semantic-judge reliability. Fresh independently team-authored questions, genuine human ratings, compliance review and Kaggle GPU validation remain pending.
+These are automated post-feedback software/mechanism diagnostics, not independently held-out answer accuracy or Kaggle performance. They do not certify absence of every possible error, universal unit reasoning or semantic-judge reliability. Team-authored questions, human groundedness ratings (`eval/human_review.csv`), and Kaggle GPU validation (public LB 0.909) are done; see the Status section at the top of this file.

@@ -604,7 +604,7 @@ def build_rating_page(runs_path, inputs_dir, out_dir, eval_dir):
     open(os.path.join(out_dir, "rate_agents.html"), "w").write(RATING_TEMPLATE.replace("__DATA__", json.dumps(items)))
     return len(items)
 
-# %% Automatic summary of the saved runs (before human ratings): routes, statuses, seconds
+# %% Automatic summary of the saved runs (routes/status/timing; human ratings are separate CSVs)
 def auto_summary(runs):
     df = pd.DataFrame([r for r in runs if not r.get("skipped")])
     sc = df[df.kind == "scenario"]

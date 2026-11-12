@@ -38,9 +38,11 @@ laptop plumbing test with a stub model (never for reported numbers).
 
 ## Human evaluation
 
-After the run, `p1_groundedness_to_rate.csv` holds the 25 final answers. Both members rate groundedness
-1-5 in `rater_ritika` and `rater_sneha`, save it as `eval/ritika_neema/p1_groundedness_ratings.csv`, and
-re-run the last cell for the mean and agreement.
+Team Part 1 groundedness (both members, 1–5) is filled in `eval/human_review.csv`
+(mean 4.88 each; within one point on 24/25). That sheet is what the report uses.
+If a notebook run also writes `p1_groundedness_to_rate.csv`, optional per-pipeline
+columns can still be saved under `eval/ritika_neema/`, but they are not required
+for the submitted human score.
 
 ## Results
 
