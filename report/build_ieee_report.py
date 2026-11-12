@@ -269,7 +269,7 @@ def build():
         "and 25 of 25 with it on. Recall at 5 was 100%, and mean groundedness was 4.88. In a "
         "second pipeline the reranker raised correct answers from 14 to 16 of 25 on the golden "
         "set and from 19 to 21 on 25 held-out questions. The "
-        "best public Kaggle submission.csv score is 0.909. LoRA fine-tuning of "
+        "best public Kaggle submission.csv score is 0.926. LoRA fine-tuning of "
         "Stable Diffusion 1.5 lowered KID from 0.06024 to 0.02314. Rank 16 won 29 of 75 blind "
         "votes against the base model. A five-step image agent passed 6 of 15 scenarios without "
         "a critique loop and 4 of 15 with the loop. None of 10 red-team attacks succeeded."
@@ -355,8 +355,8 @@ def build():
     body(doc,
          "Both members scored the same answers from 1 to 5. The mean was 4.88. Scores agreed "
          "within one point on 24 of 25 questions and matched exactly on 22. The Kaggle "
-         "run finished 40 questions in 1084 seconds, inside the 90 minute limit. Our best "
-         "public leaderboard score is 0.909. Our 25 questions were easier than that set.")
+         "run finished 40 questions in 1171 seconds, inside the 90 minute limit. Our best "
+         "public leaderboard score is 0.926. Our 25 questions were easier than that set.")
 
     subhead(doc, "C.  What worked and what did not")
     body(doc,
@@ -585,7 +585,7 @@ def build():
          "not change any answer on that set. In Ritika's pipeline it raised correct answers "
          "from 14 to 16 on her golden set and from 19 to 21 on held-out questions, and her "
          "public Kaggle score from 0.526 to 0.576. On the public Kaggle leaderboard our best "
-         "submission.csv score is 0.909 (team Pair_Programming_Team_05). Appendix C stayed "
+         "submission.csv score is 0.926 (team Pair_Programming_Team_05). Appendix C stayed "
          "out of the index, so the injected chart instruction could not steer answers.",
          indent=False)
     body(doc,

@@ -13,7 +13,7 @@ Practice LB is feedback only. Task 1.5 marks use the hidden set through the tagg
 
 ### Public Kaggle score
 
-Best public leaderboard score is **0.926** (`Pair_Programming_Team_05`), from the **selected** practice CSV `Part1/sneha_singh/submission.csv` (sha `8f15ecdb…`). Path: 0.860 → 0.877 → 0.909 → 0.913 → **0.926**. That selected CSV is not the same bytes as the Oct 31 notebook Save Version print (`submission_sha256` `408d5b97…` in the notebook output). Practice LB is feedback only. Graded Task 1.5 is the tagged notebook on the hidden set — after the hardcode cleanup, re-run Kaggle and move `p1-v1.0` to the new Save Version. Local golden-set ablation lives in `eval/reranker_ablation_fix100_summary.json` (repo file; not recomputed inside the Kaggle runtime).
+Best public leaderboard score is **0.926** (`Pair_Programming_Team_05`), from the **selected** practice CSV `Part1/sneha_singh/submission.csv` (sha `8f15ecdb…`). Path: 0.860 → 0.877 → 0.909 → 0.913 → **0.926**. That selected CSV is not the same bytes as this Save Version notebook print (`submission_sha256` `47948d4e…`). Practice LB is feedback only. Graded Task 1.5 is the tagged notebook (`p1-v1.0`) on the hidden set. Local golden-set ablation lives in `eval/reranker_ablation_fix100_summary.json` (repo file; not recomputed inside the Kaggle runtime).
 
 
 ## Status for teammates
@@ -26,7 +26,7 @@ What is done on Part 1 so far, and what is still open. Same numbers as the noteb
 - Parses the three PDFs, quarantines Appendix C, answers from text/figures/tables, keeps conversation edits out of the index.
 - Architecture figure: `report/figures/part1/architecture.png`.
 - Current passage-reranker OFF vs ON ablation: **25/25 both arms** (`outputs/evaluation/reranker_ablation_fix100_20261027/`).
-- Public Kaggle LB best **0.926**. Executed notebook is in git: [`lab2-notebook`](https://www.kaggle.com/code/snehasjsu/lab2-notebook), Tesla T4, seed 266, 40 rows, validator passed, 1084 s including setup (limit 90 min).
+- Public Kaggle LB best **0.926**. Executed notebook is in git: [`lab2-notebook`](https://www.kaggle.com/code/snehasjsu/lab2-notebook), Tesla T4, seed 266, 40 rows, validator passed, **1171 s** including setup (within 90 min).
 
 ### 27 Oct pipeline fixes + fresh OFF/ON re-measure
 
@@ -70,9 +70,9 @@ Do not treat Mac golden-set scores as Kaggle scores.
 | ID | Problem |
 | --- | --- |
 | +2 bonus | Not claimed on this pipeline (golden-set OFF/ON tied 25/25). The team claims the +2 with Ritika's reranker ablation (report II.B, `Part1/ritika_neema/README.md`). Bonus PoC notebook/outputs removed from the repo. |
-| Kaggle | Executed notebook committed (T4, 40 rows, validated, 1084 s). Practice public best **0.926** (`submission.csv`). Select the notebook output on Kaggle if it is not already the chosen submission. |
+| Kaggle | Executed hardcode-cleaned notebook committed (T4, 40 rows, validated, 1171 s, output sha `47948d4e…`). Practice public best **0.926** (selected `submission.csv` sha `8f15ecdb…`). |
 | Human ratings / report Appendix C examples | Done — both members in `eval/human_review.csv`; Appendix C write-up in `report/report.md` §II.D |
-| Question-pattern salvage / Okun boost / B-5 4.1 / −2.3 skips | Removed from graded notebook source; **Kaggle re-run + retag `p1-v1.0` still required** |}
+| Question-pattern salvage / Okun boost / B-5 4.1 / −2.3 skips | Removed; executed cleaned Kaggle notebook committed and tagged `p1-v1.0` |}
 
 ### Still open for both members
 
