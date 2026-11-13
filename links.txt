@@ -3,9 +3,9 @@
 
 ## Shared (team)
 GitHub repository: https://github.com/snehas-SJSU/data266-lab2-team05
-Commit/tag p1-v1.0: same tip as p2-v1.0 / p3-v1.0 (run `git rev-parse p1-v1.0`)
-Commit/tag p2-v1.0: same tip as p1-v1.0 / p3-v1.0 (run `git rev-parse p2-v1.0`)
-Commit/tag p3-v1.0: same tip as p1-v1.0 / p2-v1.0 (run `git rev-parse p3-v1.0`)
+Commit/tag p1-v1.0: hardcode-cleaned executed Kaggle notebook (run `git rev-parse p1-v1.0`; currently ahead of p2/p3 tags)
+Commit/tag p2-v1.0: run `git rev-parse p2-v1.0`
+Commit/tag p3-v1.0: run `git rev-parse p3-v1.0`
 Final Kaggle notebook/submission: https://www.kaggle.com/code/snehasjsu/lab2-notebook
 # p1-v1.0 is the executed Kaggle notebook (outputs kept). Public Kaggle best score 0.926.
 
@@ -13,11 +13,11 @@ Final Kaggle notebook/submission: https://www.kaggle.com/code/snehasjsu/lab2-not
 # Part 1
 Part 1 Kaggle notebook (Sneha): https://www.kaggle.com/code/snehasjsu/lab2-notebook
 
-# Part 2 (graded links)
+# Part 2 (graded HF links)
 Hugging Face Part 2 models: https://huggingface.co/Sneha-subbu/data266-lab2-p2-lora_r16 (final, rank 16); https://huggingface.co/Sneha-subbu/data266-lab2-p2-lora_r4 (rank 4)
 Hugging Face generated images: https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p2-images
 
-# Part 3 (public HF links)
+# Part 3 (public HF links + bonus)
 Hugging Face Part 3 inputs (public): https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs
 Hugging Face Part 3 Space / +2 bonus (public, ZeroGPU): https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents
 
