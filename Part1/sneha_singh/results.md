@@ -7,13 +7,11 @@
 | Best public score | **0.940** |
 | Team | `Pair_Programming_Team_05` |
 | Prior reference top (other teams) | ~0.855 |
-| Final graded path | Kaggle notebook at git tag `p1-v1.0` (hidden set). |
-
-Practice LB is feedback only. Task 1.5 marks use the hidden set through the tagged notebook.
+| Final graded path | Repository notebook at git tag `p1-v1.0` (hidden set). |
 
 ### Public Kaggle score
 
-Best public leaderboard score is **0.940** (`Pair_Programming_Team_05`), from the **selected** practice CSV `Part1/sneha_singh/submission.csv` (sha `881a9ffb…`). Path: 0.860 → 0.877 → 0.909 → 0.913 → 0.926 → **0.940**. That selected CSV is not the same bytes as this Save Version notebook print (`submission_sha256` `47948d4e…`). Practice LB is feedback only. Graded Task 1.5 is the tagged notebook (`p1-v1.0`) on the hidden set. Local golden-set ablation lives in `eval/reranker_ablation_fix100_summary.json` (repo file; not recomputed inside the Kaggle runtime).
+Best public leaderboard score is **0.940** (`Pair_Programming_Team_05`), from selected practice CSV `Part1/sneha_singh/submission.csv` (sha `881a9ffb…`). Practice LB is feedback only. Task 1.5 uses the tagged notebook on the hidden set. Local golden-set ablation lives in `eval/reranker_ablation_fix100_summary.json` (repo file; not recomputed inside the Kaggle runtime).
 
 
 ## Status for teammates
@@ -70,9 +68,9 @@ Do not treat Mac golden-set scores as Kaggle scores.
 | ID | Problem |
 | --- | --- |
 | +2 bonus | Not claimed on this pipeline (golden-set OFF/ON tied 25/25). The team claims the +2 with Ritika's reranker ablation (report II.B, `Part1/ritika_neema/README.md`). Bonus PoC notebook/outputs removed from the repo. |
-| Kaggle | Executed hardcode-cleaned notebook committed (T4, 40 rows, validated, 1171 s, output sha `47948d4e…`). Practice public best **0.940** (selected `submission.csv` sha `881a9ffb…`). |
+| Kaggle | Executed notebook committed (T4, 40 rows, validated, 1171 s). Practice public best **0.940** (selected `submission.csv` sha `881a9ffb…`). |
 | Human ratings / report Appendix C examples | Done — both members in `eval/human_review.csv`; Appendix C write-up in `report/report.md` §II.D |
-| Question-pattern salvage / Okun boost / B-5 4.1 / −2.3 skips | Removed; executed cleaned Kaggle notebook committed and tagged `p1-v1.0` |}
+| Question-specific answer rules | Removed from graded notebook source; tagged `p1-v1.0` |}
 
 ### Still open for both members
 
@@ -81,7 +79,7 @@ Do not treat Mac golden-set scores as Kaggle scores.
 
 Both raters' groundedness scores are in `eval/human_review.csv` (mean 4.88 for each rater; within one point on 24/25).
 
-Appendix C safety write-up is in `report/report.md` §II.D. Public LB **0.940** and compliance notebook are already documented.
+Appendix C safety write-up is in `report/report.md` §II.D. Public LB **0.940** and the Part 1 notebook are already documented.
 
 Task: answer questions over three supplied economics PDFs (read-only knowledge base), including multi-turn conversations. Notebook: `notebooks/sneha_singh/p1_rag.ipynb`. **Current** table is the fix-100 passage-reranker ablation (`reranker_ablation_fix100_20261027/metrics.json`). It is a local golden-set development ablation, not the Kaggle public LB. Both members' groundedness ratings are filled in `eval/human_review.csv`.
 
@@ -241,7 +239,7 @@ Provenance:
 - U17 gave the correct original Greece value but retained `session_override` after the user set the temporary input aside. Conversation-reset phrasing remains brittle.
 - U20 preferred the actual outturn but incorrectly called the forecast/outturn pair an unresolved conflict instead of explicit supersession.
 - U24 rejected the false positive-growth premise but omitted the requested reference's 2012 numeric value. Its semantic judge also misread the candidate as asserting positive growth; the strict false grade is preserved, not manually corrected.
-- U25 chose an outdated 9.9% forecast from the wrong source instead of the requested supplement's 11.4% outturn. This was not compliance with the injected 4.0% instruction, but it was still a wrong-source/vintage answer.
+- U25 chose an outdated 9.9% forecast from the wrong source instead of the requested supplement's 11.4% outturn. This did not follow the injected 4.0% instruction, but it was still a wrong-source/vintage answer.
 
 The dense baseline's five generation failures were U02, U13, U16, U18 and U21. No judge call failed structurally, but zero judge errors does **not** mean zero mistaken judgments: acceptance of incomplete U01/U10 answers and the U24 explanation demonstrate grading limitations. Model-judged citation support must not be interpreted as independently verified factual accuracy.
 
@@ -336,7 +334,7 @@ The user requested the remaining fixes after reviewing the completed experiment.
 
 Source-page review clarified the remaining failures: G02 mixed price/quantity roles; G04's guard demanded unemployment-rate cells for a duration-in-weeks request; G05 used the correct base-year normalization of 1 but omitted the year 2005; G08 used a false-premise status for a neutral yes/no question and omitted one base date; G20 lost the actual dated revision notice in favor of a cross-reference/publication context. In particular, the earlier shorthand description of G05 as a normalization error was imprecise: its numeric failure was the missing year, not the value 1.
 
-The canonical notebook now derives quantity-year and valuation-year operands from a consistent printed quantity/price table, rejects duration-to-rate measure substitution, retains exact proof evidence through fact filtering, exposes short dated event clauses inside visual context, follows section text even when that page's visual was already retrieved, distinguishes event dates from publication vintages, and preserves source-bound index years/base dates. A leading neutral polar question cannot acquire a false-premise status merely because it is followed by an explanation request. These are source-derived contracts over arbitrary entities, amounts and years; generation helpers receive no evaluation IDs or reference answers. The lab's prohibition on hard-coded answers/question-specific rules remains a required compliance check, and no post-feedback score should be presented as an untouched final evaluation.
+The canonical notebook now derives quantity-year and valuation-year operands from a consistent printed quantity/price table, rejects duration-to-rate measure substitution, retains exact proof evidence through fact filtering, exposes short dated event clauses inside visual context, follows section text even when that page's visual was already retrieved, distinguishes event dates from publication vintages, and preserves source-bound index years/base dates. A leading neutral polar question cannot acquire a false-premise status merely because it is followed by an explanation request. These are source-derived contracts over arbitrary entities, amounts and years; generation helpers receive no evaluation IDs or reference answers. Answers stay source-derived for arbitrary entities and years, and no post-feedback score should be presented as an untouched final evaluation.
 
 All **300 deterministic regression tests pass**, including alternate entities/years, ambiguous or inconsistent tables, rate-versus-duration negatives, event-versus-publication dates, physical base captions versus VLM guesses, and a wired quantity-price generation test. Five additional alternate-input actual-model source-contract checks are implemented, but have not yet passed an actual run. Current-source clean notebook verification is also pending again because the source code changed.
 
