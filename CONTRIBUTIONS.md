@@ -14,7 +14,7 @@ Pair_Programming_Team_05: Sneha Singh, Ritika Neema
 
 ### Part 1
 
-I built `notebooks/sneha_singh/p1_rag.ipynb` (ingestion, hybrid dense+BM25 retrieval, optional CE passage reranker, conversation memory, Appendix C quarantine, grounded JSON answers). Local golden-set ablation (27 Oct fix-100, Ollama): **25/25 OFF** and **25/25 ON**, Recall@5 100%, a tie on this pipeline; the team's +2 reranker claim uses Ritika's ablation. The graded notebook is the executed Kaggle run in `notebooks/sneha_singh/p1_rag.ipynb` (`Qwen/Qwen2.5-VL-7B-Instruct` NF4). Tag `p1-v1.0` points at the executed Kaggle notebook commit (outputs kept). Public Kaggle leaderboard best **0.926**. Notes: `Part1/sneha_singh/results.md`, `source_notes.md`, and `report/DATA266_Lab2_Team05_IEEE.docx`.
+I built `notebooks/sneha_singh/p1_rag.ipynb` (ingestion, hybrid dense+BM25 retrieval, optional CE passage reranker, conversation memory, Appendix C quarantine, grounded JSON answers). Local golden-set ablation (27 Oct fix-100, Ollama): **25/25 OFF** and **25/25 ON**, Recall@5 100%, a tie on this pipeline; the team's +2 reranker claim uses Ritika's ablation. The graded notebook is the executed Kaggle run in `notebooks/sneha_singh/p1_rag.ipynb` (`Qwen/Qwen2.5-VL-7B-Instruct` NF4). Tag `p1-v1.0` points at the executed Kaggle notebook commit (outputs kept). Public Kaggle leaderboard best **0.940**. Notes: `Part1/sneha_singh/results.md`, `source_notes.md`, and `report/DATA266_Lab2_Team05_IEEE.docx`.
 
 ### Part 2
 
@@ -34,11 +34,11 @@ I built my own pipeline in `notebooks/ritika_neema/p1_rag.ipynb`: PyMuPDF ingest
 and Table cropped as an image with its label and caption, Qwen2.5-VL figure descriptions, bge-small-en-v1.5
 embeddings in ChromaDB plus BM25 with reciprocal rank fusion, exact figure lookup, a separate memory per
 conversation, and citations built from the evidence the model used. My golden set is
-`eval/ritika_neema/p1_golden_set.json` (25 questions, none from `Questions.csv`), committed before tuning.
+`eval/ritika_neema/p1_golden_set.json` (25 questions, none from `Questions.csv`), committed before later pipeline changes.
 I ran five versions on a Kaggle T4 (public scores 0.441, 0.495, 0.526, then 0.576). My final is version 3
 with the `ms-marco-MiniLM-L-6-v2` passage reranker: on my golden set it gets 16/25 against 14/25 for hybrid
-without it, and on a held-out set of 25 new questions (`eval/ritika_neema/p1_holdout_set.json`, never used to
-tune) 21/25 against 19/25. It also costs some figure and citation accuracy. Details and every table are in
+without it, and on a held-out set of 25 new questions (`eval/ritika_neema/p1_holdout_set.json`, never used while
+building the system) 21/25 against 19/25. It also costs some figure and citation accuracy. Details and every table are in
 `Part1/ritika_neema/README.md`.
 
 ### Part 2

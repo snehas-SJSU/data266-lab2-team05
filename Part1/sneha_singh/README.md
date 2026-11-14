@@ -7,7 +7,7 @@ Multimodal RAG over the three read-only economics PDFs (Lab 2 Task 1).
 | Item | Location |
 | --- | --- |
 | Notebook (Kaggle + local) | `notebooks/sneha_singh/p1_rag.ipynb` |
-| Selected CSV (best public LB) | `Part1/sneha_singh/submission.csv` (sha `8f15ecdb…`, score **0.926**; distinct from this Save Version notebook output sha `47948d4e…`) |
+| Selected CSV (best public LB) | `Part1/sneha_singh/submission.csv` (sha `881a9ffb…`, score **0.940**; distinct from this Save Version notebook output sha `47948d4e…`) |
 | Validator | `Part1/validate_submission.py` |
 | Source / trust notes | `Part1/sneha_singh/source_notes.md` |
 | Results + ablation | `Part1/sneha_singh/results.md` |
@@ -26,8 +26,8 @@ Multimodal RAG over the three read-only economics PDFs (Lab 2 Task 1).
 
 ## Public LB
 
-Best practice score **0.926** (`Pair_Programming_Team_05`). Final Task 1.5 marks use the hidden set through the tagged notebook.
+Best practice score **0.940** (`Pair_Programming_Team_05`). Final Task 1.5 marks use the hidden set through the tagged notebook.
 
 ## Status
 
-Tag `p1-v1.0` points at the post-hardcode-cleanup executed Kaggle notebook. Reported public practice LB best is **0.926** from selected `submission.csv` (`8f15ecdb…`), which is not the same bytes as this Save Version output hash (`47948d4e…`).
+Tag `p1-v1.0` points at the post-hardcode-cleanup executed Kaggle notebook. Reported public practice LB best is **0.940** from selected `submission.csv` (`881a9ffb…`), which is not the same bytes as this Save Version output hash (`47948d4e…`).

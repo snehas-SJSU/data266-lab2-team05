@@ -7,7 +7,7 @@ Commit/tag p1-v1.0: hardcode-cleaned executed Kaggle notebook (run `git rev-pars
 Commit/tag p2-v1.0: run `git rev-parse p2-v1.0`
 Commit/tag p3-v1.0: run `git rev-parse p3-v1.0`
 Final Kaggle notebook/submission: https://www.kaggle.com/code/snehasjsu/lab2-notebook
-# p1-v1.0 is the executed Kaggle notebook (outputs kept). Public Kaggle best score 0.926.
+# p1-v1.0 is the executed Kaggle notebook (outputs kept). Public Kaggle best score 0.940.
 
 ## Sneha Singh
 # Part 1

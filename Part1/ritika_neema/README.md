@@ -2,8 +2,8 @@
 
 My own Part 1 pipeline is `notebooks/ritika_neema/p1_rag.ipynb` (version 3 code with the passage reranker as
 the final system; Kaggle public score **0.576**). The golden set is `eval/ritika_neema/p1_golden_set.json`,
-written before any tuning; none of its 25 questions come from `Questions.csv`. The held-out set is
-`eval/ritika_neema/p1_holdout_set.json`, 25 new questions written after versions 1-4 and never used to tune.
+written before any later pipeline changes; none of its 25 questions come from `Questions.csv`. The held-out set is
+`eval/ritika_neema/p1_holdout_set.json`, 25 new questions written after versions 1-4 and never used while building later versions.
 
 ## Pipeline
 
@@ -178,7 +178,7 @@ Golden set (Kaggle Tesla T4, 30 Oct 2026, `p1_rag.ipynb`; whole run 36.3 min, th
 Reranker ON vs OFF: fixed G04, G14, G15; broke G23. Kaggle-style components, hybrid → reranker: facts 0.667 →
 0.707, status 0.800 → 0.840, figures 0.733 → 0.640, citations 0.883 → 0.800.
 
-Held-out set (same run, never used for tuning):
+Held-out set (same run, never used while building the system):
 
 | System | Correct / 25 | Recall@5 | Kaggle-style score | Facts | Status | Figures | Citations |
 | --- | --- | --- | --- | --- | --- | --- | --- |
