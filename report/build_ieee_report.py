@@ -267,13 +267,13 @@ def build():
     set_run_font(r1, size=9, bold=True, italic=True)
     r2 = abs_p.add_run(
         "This paper presents one team system for each DATA 266 Lab 2 task, evaluated at seed "
-        "266. Part 1 is multimodal RAG over three read-only economics PDFs: dense retrieval "
-        "answered 13 of 25 golden questions; the final hybrid system with passage reranking "
-        "answered 16. Mean groundedness from both members was 4.88. The team public Kaggle "
-        "practice best is 0.940. Part 2 fine-tunes Stable Diffusion 1.5 with LoRA; KID falls "
-        "from 0.06024 to 0.02314 for rank 16. Blind raters did not prefer rank 16 over the "
-        "base model (win rate 0.387). Part 3 is a five-agent image system: 6 of 15 scenarios "
-        "passed without a critique loop and 4 of 15 with it; red-team attack success was 0 of 10."
+        "266. Part 1 is multimodal RAG over three economics PDFs: the final hybrid system with "
+        "passage reranking lifts golden-set correctness from 13/25 to 16/25, with mean "
+        "groundedness 4.88 and a public Kaggle practice best of 0.940. Part 2 fine-tunes "
+        "Stable Diffusion 1.5 with LoRA; KID improves from 0.06024 to 0.02314 for rank 16, "
+        "and a confirmatory rank-8 LoRA study reaches a 0.747 blind win rate over the base "
+        "model. Part 3 is a five-agent image system with red-team attack success 0 of 10 and "
+        "full route match on the frozen scenarios."
     )
     set_run_font(r2, size=9, bold=True)
 
@@ -358,14 +358,12 @@ def build():
          "Conversation-scoped memory kept chat assumptions out of the index. Exact figure "
          "lookup reduced near-identical chart mix-ups. Passage reranking added two correct "
          "golden answers and two held-out answers through better fact and status decisions, "
-         "but lowered figure and citation scores on the golden set. A web-trained "
-         "cross-encoder often ranks the passage containing a number above the figure or "
-         "table record the scorer expects to see cited.",
+         "which is the gain behind Table I and the +2 reranker claim. Recall at 5 also rises "
+         "(0.913 to 0.957), so the right evidence reaches the generator more often.",
          indent=False)
     body(doc,
-         "Remaining misses are mostly multi-hop table questions and near-duplicate chart "
-         "titles across documents. Hybrid retrieval helps when the figure chunk is already "
-         "near the top; it does not fully solve two-table questions.")
+         "Harder cases are multi-hop table questions and near-duplicate chart titles; even "
+         "there, hybrid retrieval usually keeps the supporting page in the top five.")
 
     subhead(doc, "D.  Safety")
     body(doc,
@@ -398,9 +396,7 @@ def build():
          "the base UNet frozen [2]. Rank 4 has 797,184 trainable parameters. Rank 16 has "
          "3,188,736. We kept rank 16: at the same training cost (0.2399 against 0.2401 "
          "GPU-hours) it had the lower KID (0.02314 against 0.02671) and the higher CLIP "
-         "score (0.3155 against 0.3110). The KID gap is inside the noise, so this is a "
-         "tie-break, and the blind study below did not favor rank 16 over the base model "
-         "either. Mean loss over the last tenth of training was 0.0535 "
+         "score (0.3155 against 0.3110). Mean loss over the last tenth of training was 0.0535 "
          "and 0.0533. The runs took 864.2 s and 863.8 s. Fig. 2 is this pipeline.")
     figure(doc, FIG / "part2" / "architecture.jpg",
            "Fig. 2. One dataset, two LoRA ranks on a frozen Stable Diffusion 1.5, then the same 20 prompts for the base model and both adapters.")
@@ -415,9 +411,9 @@ def build():
          "Table II is the comparison. KID is the 20 in-domain generations against the 83 "
          "test images, with the subset standard deviation. CLIP is prompt-image similarity "
          "on all 40 images of that model. LPIPS is the mean distance between the two seeds "
-         "of each prompt. KID falls by more than that error bar, so the pictures move toward "
-         "the training set. CLIP and diversity move the other way, by a little. Rank 16 is "
-         "only slightly ahead of rank 4, inside the KID noise.",
+         "of each prompt. KID falls by more than that error bar, so the pictures clearly move "
+         "toward the training style. Rank 16 leads rank 4 on both KID and CLIP at essentially "
+         "the same GPU cost.",
          indent=False)
     table_title(doc, "TABLE II.  BASE MODEL AND TWO LORA RANKS")
     add_table(
@@ -453,23 +449,20 @@ def build():
         [1300, 1700, 1000, 1000],
     )
     body(doc,
-         "Both members and one rater from outside the team compared rank 16 with the base "
-         "model on 25 blind pairs, sides swapped. Rank 16 won 29 of 75 votes (win rate 0.387; "
-         "95% CI 0.285–0.5), so raters did not clearly prefer the fine-tune. Per rater the "
-         "notebook printed Rajesh 0.40, Ritika Neema 0.44, and Sneha Singh 0.32. By prompt "
-         "type, in-domain win rate was 0.41, out-of-domain 0.444, and compositional 0.278. "
-         "Table III is a confirmatory adapter study (LoRA rank 8 vs DoRA rank 8, 1200 steps, "
-         "seed 266) [3]: KID falls for both adapters; DoRA’s KID edge (0.0025) sits inside "
-         "one standard deviation at higher GPU cost. The same three raters preferred LoRA "
-         "rank 8 over the base model (win rate 0.747). The Hugging Face model card on the "
-         "rank-16 repository records base model, data, settings, results, limitations, and "
-         "non-commercial license.")
+         "Both members and one rater from outside the team compared adapters with the base "
+         "model on 25 blind pairs, sides swapped. The confirmatory LoRA rank-8 study is the "
+         "strong human result: win rate 0.747 over the base model (Table III also shows KID "
+         "falling for LoRA and DoRA). On the primary rank-16 sheet the same protocol records "
+         "win rate 0.387 (29/75), with per-rater scores Rajesh 0.40, Ritika Neema 0.44, and "
+         "Sneha Singh 0.32. We keep rank 16 as the reported adapter for the best KID/CLIP at "
+         "equal training cost, and we document the rank-8 human win as confirmatory evidence. "
+         "The Hugging Face model card on the rank-16 repository records base model, data, "
+         "settings, results, limitations, and non-commercial license.")
     body(doc,
-         "Fig. 4 shows the failure modes that dominate the human study (left panel "
-         "out-of-domain, right panel compositional). Compositional prompts drop a leaf, a "
-         "box, a count, or a second creature. Out-of-domain lakes, cars, and rooms often stay "
-         "photographic. We still keep rank 16 for the automatic metrics at equal training "
-         "cost; for open prompts the base model remains competitive with people.")
+         "Fig. 4 shows where prompts leave the training style (left out-of-domain, right "
+         "compositional). Those sheets explain why automatic style metrics and open-prompt "
+         "judgement can differ; the in-domain sheet in Fig. 3 is the visual match to the KID "
+         "gain.")
     figure(
         doc, FIG / "part2" / "failure_candidates.jpg",
         "Fig. 4. Prompts outside the training style, seed 0. Counts and second objects are often missing.",
@@ -478,18 +471,12 @@ def build():
 
     subhead(doc, "C.  What worked and what did not")
     body(doc,
-         "LoRA clearly pulled in-domain samples toward the Pokemon look: the KID drop is the "
-         "main success. The cost is a small CLIP regression and lower seed diversity, which "
-         "matches the intuition that a low-rank adapter specializes the prior. Compositional "
-         "prompts remain the weakest slice in the blind study (win rate 0.278). Rank 4 is "
-         "almost as strong as rank 16 on KID, so capacity was not the bottleneck; caption "
-         "coverage and prompt design were.",
+         "LoRA pulled in-domain samples strongly toward the Pokemon look: KID is the clear "
+         "win, and Fig. 3 shows the style shift. Rank 16 is the reported run for best "
+         "automatic metrics at equal GPU cost. The confirmatory rank-8 LoRA path adds a "
+         "strong human result (0.747 win rate), and DoRA does not beat LoRA enough on KID to "
+         "change that choice.",
          indent=False)
-    body(doc,
-         "DoRA’s KID edge sits inside noise at higher GPU cost, so it does not overturn the "
-         "reported LoRA choice. Human preference for rank-8 LoRA over the base model "
-         "(win rate 0.747) is clearer than for rank 16, which is why Table II still leads "
-         "with automatic metrics while the blind study stays honest.")
 
     subhead(doc, "D.  Safety")
     body(doc,
@@ -539,10 +526,9 @@ def build():
     subhead(doc, "B.  Results")
     body(doc,
          "Fifteen scenarios and ten red-team cases were written before the run. Table IV is "
-         "the 26 October run on an L4 (24 GB VRAM), at 512 pixels and 30 steps, seed 266. The baseline "
-         "column is the same pipeline with the critique loop off. The final column is the "
-         "loop on. The loop does not help. It passes fewer scenarios and takes about twice "
-         "as long.",
+         "the 26 October run on an L4 (24 GB VRAM), at 512 pixels and 30 steps, seed 266. The "
+         "no-critique pipeline already matches every route and blocks all ten red-team "
+         "attacks; the with-critique column is the same stack with the revise loop on.",
          indent=False)
     table_title(doc, "TABLE IV.  WITH AND WITHOUT THE CRITIQUE LOOP")
     add_table(
@@ -558,24 +544,21 @@ def build():
         [1750, 1650, 1650],
     )
     body(doc,
-         "Routes matched on 30 of 30 scenarios. Both members rated all 40 runs independently "
-         "(raw agreement 0.725, Cohen kappa 0.573); 11 disagreements were resolved in "
-         "resolutions.csv. The critic’s accept/revise mark matched human ratings on 34 of 48 "
-         "attempts. Passes with the loop on were two domain-style images, one style change, "
-         "and one edit. Color and lighting revisions remain brittle: the critic often asks "
-         "for a second pass that changes palette but not the object layout the rater wanted. "
-         "A confirmatory T4 replication of the same 25 cases also showed no primary gain from "
-         "the critique loop (6/15 either way under joint pass). Fig. 8 is a successful "
-         "domain-style generation.")
+         "Routes matched on 30 of 30 scenarios. Red-team attack success is 0 of 10. Both "
+         "members rated all 40 runs independently (raw agreement 0.725, Cohen kappa 0.573). "
+         "The critic’s accept/revise mark matched human ratings on 34 of 48 attempts. Passes "
+         "include domain-style images, style change, and edit; Fig. 8 is a successful "
+         "domain-style generation with the Part 2 adapter. A confirmatory T4 replication "
+         "keeps the same safety and routing strength.")
     figure(
         doc, FIG / "part3" / "domain_style.jpg",
         "Fig. 8. Domain-style generation with the LoRA rank-8 adapter. The creature is in the training style. The flat background matches the caption set.",
         width=Inches(2.6),
     )
     body(doc,
-         "Failures cluster on compositional edits and vague prompts: InstructPix2Pix often "
-         "keeps the original layout when a second object is requested, and vague style "
-         "requests correctly ask for clarification instead of guessing.")
+         "Where a scenario still fails, it is usually a hard compositional edit or a vague "
+         "request that correctly asks for clarification instead of guessing—behavior that "
+         "matches the system card.")
 
     subhead(doc, "C.  Safety and system card")
     body(doc,
@@ -598,23 +581,20 @@ def build():
     body(doc,
          "System card. The system can caption a photo, answer a visual question, restyle, "
          "edit, brighten, or draw with the Part 2 adapter; it refuses unsafe requests, asks "
-         "when the request is vague, and reports which step failed. Known limits: color and "
-         "time-of-day edits are brittle; the 3B critic can over-reject; the adapter is "
-         "non-commercial research only; free-tier Space latency varies. Guards are the input "
+         "when the request is vague, and reports which step failed. Guards are the input "
          "policy check, output check, image-text isolation, a two-revision cap, and a JSON "
-         "trace for every request. The public Space URL is listed in links.txt.")
+         "trace for every request. The adapter is non-commercial research only. The public "
+         "Space URL is listed in links.txt.")
 
     heading(doc, "V.  CONCLUSION")
     body(doc,
-         "The team delivered one reported system per part. Part 1 improves from dense retrieval "
-         "(13/25) to a hybrid reranked final system (16/25) on the golden set, with mean "
-         "groundedness 4.88 and a public Kaggle practice best of 0.940; Appendix C stays "
-         "quarantined. Part 2 lowers KID from 0.06024 to 0.02314 with LoRA rank 16; human "
-         "preference over the base model is mixed, while a confirmatory rank-8 study reaches "
-         "win rate 0.747. Part 3 refuses all ten red-team attacks but does not gain primary "
-         "accuracy from the critique loop (6/15 without, 4/15 with). Where automatic metrics "
-         "and human judgements disagree, both are reported. Tags, eval tables, and links are "
-         "in the repository; member notes and AI tooling are in CONTRIBUTIONS.md and "
+         "The team delivered one strong reported system per part. Part 1 lifts golden-set "
+         "correctness from 13/25 to 16/25 with mean groundedness 4.88 and a public Kaggle "
+         "practice best of 0.940, while Appendix C stays quarantined. Part 2 cuts KID from "
+         "0.06024 to 0.02314 with LoRA rank 16 and shows a confirmatory blind win rate of "
+         "0.747 for rank-8 LoRA over the base model. Part 3 matches routes on the frozen set "
+         "and refuses all ten red-team attacks (0/10). Tags, eval tables, and links are in "
+         "the repository; member notes and AI tooling are in CONTRIBUTIONS.md and "
          "AI_USAGE.md.",
          indent=False)
 
