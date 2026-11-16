@@ -1,13 +1,14 @@
 # Final submission links - Team 05 (Pair_Programming_Team_05)
-# Shared team lines first, then one section per member. Each member fills only her own section.
+# Shared team lines first, then one section per member.
 
 ## Shared (team)
 GitHub repository: https://github.com/snehas-SJSU/data266-lab2-team05
-Commit/tag p1-v1.0: executed Part 1 notebook in git. Run `git rev-parse p1-v1.0`
-Commit/tag p2-v1.0: run `git rev-parse p2-v1.0`
-Commit/tag p3-v1.0: run `git rev-parse p3-v1.0`
+Tag p1-v1.0: https://github.com/snehas-SJSU/data266-lab2-team05/releases/tag/p1-v1.0
+Tag p2-v1.0: https://github.com/snehas-SJSU/data266-lab2-team05/releases/tag/p2-v1.0
+Tag p3-v1.0: https://github.com/snehas-SJSU/data266-lab2-team05/releases/tag/p3-v1.0
+# After push, tags point at the graded commits (executed notebooks + report). Verify with: git rev-parse p1-v1.0^{} p2-v1.0^{} p3-v1.0^{}
 Final Kaggle notebook/submission: https://www.kaggle.com/code/snehasjsu/lab2-notebook
-# p1-v1.0 = executed Part 1 notebook in git (graded path). Practice public LB best 0.940 from selected submission.csv.
+# Practice public LB best 0.940 from selected Part1/sneha_singh/submission.csv. Graded path: notebook at p1-v1.0.
 
 ## Sneha Singh
 # Part 1

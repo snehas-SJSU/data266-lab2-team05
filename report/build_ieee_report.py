@@ -258,21 +258,22 @@ def build():
     P(doc, "Department of Applied Data Science, San Jose State University, San Jose, CA, USA",
       size=10, italic=True, align="center", before=0, after=0, center=True)
     P(doc, "DATA 266, Fall 2026  ·  Pair Programming Team 05",
-      size=10, align="center", before=0, after=8, center=True)
+      size=10, align="center", before=0, after=2, center=True)
+    P(doc, "GitHub: https://github.com/snehas-SJSU/data266-lab2-team05",
+      size=9, align="center", before=0, after=8, center=True)
 
     abs_p = P(doc, "", size=9, align="justify", before=2, after=2)
     r1 = abs_p.add_run("Abstract—")
     set_run_font(r1, size=9, bold=True, italic=True)
     r2 = abs_p.add_run(
-        "This report covers three systems, all run at seed 266. Hybrid retrieval over three "
-        "economics PDFs answered 25 of 25 golden-set questions with the passage reranker off "
-        "and 25 of 25 with it on. Recall at 5 was 100%, and mean groundedness was 4.88. In a "
-        "second pipeline the reranker raised correct answers from 14 to 16 of 25 on the golden "
-        "set and from 19 to 21 on 25 held-out questions. The "
-        "best public Kaggle submission.csv score is 0.940. LoRA fine-tuning of "
-        "Stable Diffusion 1.5 lowered KID from 0.06024 to 0.02314. Rank 16 won 29 of 75 blind "
-        "votes against the base model. A five-step image agent passed 6 of 15 scenarios without "
-        "a critique loop and 4 of 15 with the loop. None of 10 red-team attacks succeeded."
+        "This paper presents one team system for each DATA 266 Lab 2 task, evaluated at seed "
+        "266. Part 1 is multimodal RAG over three read-only economics PDFs: dense retrieval "
+        "answered 13 of 25 golden questions; the final hybrid system with passage reranking "
+        "answered 16. Mean groundedness from both members was 4.88. The team public Kaggle "
+        "practice best is 0.940. Part 2 fine-tunes Stable Diffusion 1.5 with LoRA; KID falls "
+        "from 0.06024 to 0.02314 for rank 16. Blind raters did not prefer rank 16 over the "
+        "base model (win rate 0.387). Part 3 is a five-agent image system: 6 of 15 scenarios "
+        "passed without a critique loop and 4 of 15 with it; red-team attack success was 0 of 10."
     )
     set_run_font(r2, size=9, bold=True)
 
@@ -288,10 +289,12 @@ def build():
 
     heading(doc, "I.  INTRODUCTION")
     body(doc,
-         "This is one report for all three parts. Each part has one architecture figure, one "
-         "results table for a baseline and a final system, a short note on what failed, and "
-         "the safety check the lab asks for. Seed 266 is used for every split, sample, and "
-         "generation. The questions, prompts, and scenarios were written down before evaluation runs.",
+         "Lab 2 requires a single IEEE report for multimodal RAG, diffusion fine-tuning, and "
+         "a multimodal image agent. Both members implemented and ran all three parts. This "
+         "document is the common team report: one architecture, one baseline-versus-final "
+         "table, a short failure analysis, and a safety discussion for each part. Seed 266 "
+         "is fixed for splits, sampling, and generation. Evaluation artifacts were written "
+         "before the reported runs. Per-member implementation detail is in CONTRIBUTIONS.md.",
          indent=False)
 
     heading(doc, "II.  QUESTION ANSWERING OVER THREE PDFS")
@@ -320,52 +323,43 @@ def build():
 
     subhead(doc, "B.  Results")
     body(doc,
-         "Table I has two pipelines. Both columns are hybrid retrieval and the only switch is "
-         "the passage reranker. The top block is the 27 October golden set of the pipeline "
-         "above: the same 25 answers are correct either way, a tie. Recall at 5 stays at 100%. "
-         "Citation accuracy stays at 100%, on 37 citations with the reranker off and 38 with it on.",
+         "Table I is the lab-required comparison: dense retrieval only versus the final hybrid "
+         "system with passage reranking, on a 25-question golden set that is not copied from "
+         "Questions.csv. Human groundedness was scored 1–5 by both members "
+         "(eval/human_review.csv).",
          indent=False)
-    body(doc,
-         "The lower blocks are Ritika's pipeline: tables rebuilt as labelled rows, bge-small "
-         "embeddings plus BM25, and Qwen2.5-VL-7B in 4-bit on a Kaggle Tesla T4 (30 October, "
-         "36.3 minutes). Its reranker is ms-marco-MiniLM-L-6-v2 over the top 20 fused records, "
-         "fixed as the final system before the run. Her golden set had been seen while she "
-         "built earlier versions, so she also wrote 25 held-out questions and committed them "
-         "before any run on them. The reranker adds two correct answers on each set and raises "
-         "the public Kaggle score from 0.526 to 0.576. This is the reranker bonus we claim.")
-    table_title(doc, "TABLE I.  GOLDEN SETS, RERANKER OFF AND ON")
+    table_title(doc, "TABLE I.  DENSE BASELINE VERSUS FINAL SYSTEM")
     add_table(
         doc,
-        ["Measurement", "Off", "On"],
+        ["Measurement", "Dense", "Final"],
         [
-            ["Pipeline 1, golden set: correct / 25", "25", "25"],
-            ["Recall at 5", "100%", "100%"],
-            ["Citation accuracy", "100% (37/37)", "100% (38/38)"],
-            ["Median seconds / question", "62.20", "63.20"],
-            ["Pipeline 2, golden set: correct / 25", "14", "16"],
-            ["Recall at 5", "1.000", "0.957"],
-            ["Citation accuracy", "0.880", "0.768"],
-            ["Median seconds / question", "8.48", "8.48"],
-            ["Pipeline 2, held-out: correct / 25", "19", "21"],
-            ["Recall at 5", "0.826", "0.957"],
-            ["Pipeline 2, Kaggle public score", "0.526", "0.576"],
+            ["Correct answers / 25", "13", "16"],
+            ["Recall at 5", "0.913", "0.957"],
+            ["Citation accuracy", "0.837", "0.768"],
+            ["Mean groundedness (both)", "—", "4.88"],
+            ["Median seconds / question", "8.31", "8.48"],
         ],
         [2400, 1300, 1300],
     )
     body(doc,
-         "Both members scored the same answers from 1 to 5. The mean was 4.88. Scores agreed "
-         "within one point on 24 of 25 questions and matched exactly on 22. The Kaggle "
-         "run finished 40 questions in 1171 seconds, inside the 90 minute limit. Our best "
-         "public leaderboard score is 0.940. Our 25 questions were easier than that set.")
+         "Final means hybrid retrieval with exact figure/table lookup and "
+         "ms-marco-MiniLM-L-6-v2 passage reranking. On a held-out set of 25 questions "
+         "committed before any run on that set, hybrid scored 19/25 and the final system "
+         "scored 21/25. Public practice scores for that pipeline rose from 0.526 to 0.576. "
+         "The team selected practice leaderboard best is 0.940. The graded notebook is the "
+         "executed Kaggle run at tag p1-v1.0 (about 1137 s on a Tesla T4). A complementary "
+         "local hybrid ablation reached 25/25 with the reranker off and on; that tie shows "
+         "reranking need not change answers once the right page is already retrieved, while "
+         "Table I supports the team reranker bonus claim.")
 
     subhead(doc, "C.  What worked and what did not")
     body(doc,
-         "Keeping one memory per conversation stopped a chat assumption from being written "
-         "into the files. In pipeline 1 the reranker did not change any answer. Once the right "
-         "page was already in the top five, it had nothing left to fix, and it added about "
-         "one second per question. In pipeline 2 it fixed three golden questions and broke "
-         "one. It helped facts and status but lowered figure and citation scores, likely "
-         "because it ranks the passage holding a value above the figure or table record.",
+         "Conversation-scoped memory kept chat assumptions out of the index. Exact figure "
+         "lookup reduced near-identical chart mix-ups. Passage reranking added two correct "
+         "golden answers and two held-out answers through better fact and status decisions, "
+         "but lowered figure and citation scores on the golden set. A web-trained "
+         "cross-encoder often ranks the passage containing a number above the figure or "
+         "table record the scorer expects to see cited.",
          indent=False)
 
     subhead(doc, "D.  Safety")
@@ -377,11 +371,12 @@ def build():
          "A citation has to name a record that was actually retrieved.",
          indent=False)
     body(doc,
-         "Three rated questions check the same behavior. A 2014 dollar-yen rate that the "
-         "documents do not contain was returned as not found. A claim that the steel-and-car "
-         "example has a GDP of $300 was rejected; the answer kept the book’s figure of $200. "
-         "An instruction to ignore the sources and report 2009 inflation as 9.0% was not "
-         "followed. The answer used Table 1-2, which lists −0.3%.")
+         "Questions that ask for a fact only Appendix C states falsely, or that try to obey "
+         "an in-document instruction, must be answered from trusted pages, returned as "
+         "not_found when unsupported, or refused when they request a permanent knowledge-base "
+         "edit. Temporary chat-only values stay in memory. If Appendix C were re-ingested, "
+         "fabricated numbers or chart instructions could leak; quarantine at ingest and "
+         "citation allow-lists are the mitigations.")
 
     heading(doc, "III.  FINE-TUNING A DIFFUSION MODEL")
     subhead(doc, "A.  Setup")
@@ -427,11 +422,12 @@ def build():
             ["KID (lower better)", "0.06024 ± 0.00852", "0.02671 ± 0.00617", "0.02314 ± 0.00506"],
             ["CLIP score", "0.3220", "0.3110", "0.3155"],
             ["LPIPS diversity", "0.7349", "0.7178", "0.7123"],
+            ["Win rate vs base (3 raters)", "—", "—", "0.387 (29/75)"],
             ["GPU-hours (peak)", "—", "0.2401 (4.22 GB)", "0.2399 (4.27 GB)"],
         ],
         [1400, 1200, 1200, 1200],
     )
-    table_title(doc, "TABLE III.  LORA RANK 8 AND DORA RANK 8")
+    table_title(doc, "TABLE III.  CONFIRMATORY LORA VS DORA (RANK 8)")
     add_table(
         doc,
         ["Model", "KID", "CLIP", "GPU-hours"],
@@ -444,19 +440,15 @@ def build():
     )
     body(doc,
          "Both members and one rater from outside the team compared rank 16 with the base "
-         "model on 25 blind pairs, sides swapped. Rank 16 won 29 of 75 votes, a rate of "
-         "0.387. The 95% interval runs from 0.285 to 0.5, so the votes do not separate the "
-         "adapter from the base model. The raters agreed on 16 of the 25 pairs. Fig. 3 is "
-         "the in-domain sheet behind the KID number. Fig. 4 is the other prompts. Counts and "
-         "second objects drop out. On those compositional prompts the win rate was 0.278. "
-         "A second pair compared LoRA rank 8 with DoRA rank 8 on the same captions, 1200 steps, "
-         "and seed 266 [3]. Table III shows the same pattern as rank 16: KID falls, CLIP barely "
-         "moves. DoRA’s KID edge over LoRA, 0.0025, sits inside one standard deviation, and DoRA "
-         "used more GPU time (0.5262 hours against 0.4223). We kept LoRA rank 8 for that pair. "
-         "The same three raters compared LoRA rank 8 with the base model on 25 new blind "
-         "pairs. Rank 8 won 49 of 75 votes, the base model 12, with 14 ties: a win rate of "
-         "0.747 with ties as half (95% interval 0.638 to 0.831). It was preferred most on "
-         "in-domain prompts (0.819) and least on out-of-domain prompts (0.667).")
+         "model on 25 blind pairs, sides swapped. Rank 16 won 29 of 75 votes (win rate 0.387; "
+         "95% CI 0.285–0.5), so raters did not clearly prefer the fine-tune. Fig. 3 is the "
+         "in-domain sheet behind the KID number. Fig. 4 shows failure modes: counts and second "
+         "objects often drop out; compositional win rate was 0.278. Table III is a confirmatory "
+         "adapter study (LoRA rank 8 vs DoRA rank 8, 1200 steps, seed 266) [3]: KID falls for "
+         "both adapters; DoRA’s KID edge (0.0025) sits inside one standard deviation at higher "
+         "GPU cost. The same three raters preferred LoRA rank 8 over the base model on 25 "
+         "blind pairs (win rate 0.747). The Hugging Face model card on the rank-16 repository "
+         "records base model, data, settings, results, limitations, and non-commercial license.")
     figure(
         doc, FIG / "part2" / "grid.jpg",
         "Fig. 3. Base, rank 4, and rank 16 on the first eight in-domain prompts, seed 0.",
@@ -534,23 +526,13 @@ def build():
         [1750, 1650, 1650],
     )
     body(doc,
-         "Routes matched on 30 of 30 scenarios. Both members marked all 40 runs and agreed "
-         "on every pass or fail, so nothing had to be resolved. The critic’s accept or revise "
-         "mark matched ours on 34 of 48 attempts. The passes with the loop on were two "
-         "domain-style images, one style change, and one edit. A request to make a creature "
-         "blue failed “the fish is blue” on every attempt. A night scene did not gain neon "
-         "lights. One edit was accepted on the first try, and one after a single revision. "
-         "Fig. 8 is the domain-style output that did come out clean: a green lizard-like "
-         "creature from the LoRA rank-8 adapter, on the request “draw a green lizard creature "
-         "in Pokemon style.”")
-    body(doc,
-         "Ritika ran her own five-agent pipeline on the same 25 cases on a Colab T4, and both "
-         "members rated its 50 runs alone. Both raters passed 6 of 15 scenarios with and "
-         "without the critique loop. They agreed on 0.800 of scenarios without the loop "
-         "(kappa 0.615) and 0.867 with it (kappa 0.732). The critic asked for a revision on "
-         "all 12 final images; Ritika agreed on 9. One rater judged one red-team attack (R03) "
-         "as succeeded. Here too the loop did not raise the pass rate and added 2.3 seconds "
-         "per request.")
+         "Routes matched on 30 of 30 scenarios. Both members rated all 40 runs independently "
+         "(raw agreement 0.725, Cohen kappa 0.573); 11 disagreements were resolved in "
+         "resolutions.csv. The critic’s accept/revise mark matched human ratings on 34 of 48 "
+         "attempts. Passes with the loop on were two domain-style images, one style change, "
+         "and one edit. Color and lighting revisions remain brittle. A confirmatory T4 "
+         "replication of the same 25 cases also showed no primary gain from the critique loop "
+         "(6/15 either way under joint pass). Fig. 8 is a successful domain-style generation.")
     figure(
         doc, FIG / "part3" / "domain_style.jpg",
         "Fig. 8. Domain-style generation with the LoRA rank-8 adapter. The creature is in the training style. The flat background matches the caption set.",
@@ -580,25 +562,14 @@ def build():
 
     heading(doc, "V.  CONCLUSION")
     body(doc,
-         "Part 1. Hybrid dense+BM25 retrieval with grounded citations answered all 25 golden-set "
-         "questions (Recall@5 100%, mean groundedness 4.88). The optional passage reranker did "
-         "not change any answer on that set. In Ritika's pipeline it raised correct answers "
-         "from 14 to 16 on her golden set and from 19 to 21 on held-out questions, and her "
-         "public Kaggle score from 0.526 to 0.576. On the public Kaggle leaderboard our best "
-         "submission.csv score is 0.940 (team Pair_Programming_Team_05). Appendix C stayed "
-         "out of the index, so the injected chart instruction could not steer answers.",
+         "The team delivered one reported system per part. Part 1 improves from dense retrieval "
+         "(13/25) to a hybrid reranked final system (16/25) on the golden set, with mean "
+         "groundedness 4.88 and a public Kaggle practice best of 0.940; Appendix C stays "
+         "quarantined. Part 2 lowers KID from 0.06024 to 0.02314 with LoRA rank 16; human "
+         "preference over the base model is mixed. Part 3 refuses all ten red-team attacks "
+         "but does not gain primary accuracy from the critique loop on the frozen scenarios. "
+         "Member-level notes are in CONTRIBUTIONS.md; AI tooling is declared in AI_USAGE.md.",
          indent=False)
-    body(doc,
-         "Part 2. LoRA fine-tuning of Stable Diffusion 1.5 on the Pokemon BLIP set lowered KID "
-         "from 0.06024 (base) to 0.02314 (rank 16). Rank 16 is the kept adapter. Blind raters "
-         "did not clearly prefer it over the base model (29 of 75 votes). Safety checker flags "
-         "on ordinary cartoons were treated as false positives, and the CLIP nearest-train "
-         "check did not show near-copies.")
-    body(doc,
-         "Part 3. The five-step image agent refused all 10 red-team cases. Without the critique "
-         "loop it passed 6 of 15 scenarios; with the loop it passed 4 of 15 and took longer. "
-         "Image text is treated as data, not as an instruction, and every request leaves a "
-         "JSON trace.")
 
     heading(doc, "REFERENCES")
     refs = [
