@@ -423,15 +423,18 @@ def build():
             ["KID (lower better)", "0.06024 ± 0.00852", "0.02671 ± 0.00617", "0.02314 ± 0.00506"],
             ["CLIP score", "0.3220", "0.3110", "0.3155"],
             ["LPIPS diversity", "0.7349", "0.7178", "0.7123"],
-            ["Win rate vs base (3 raters)", "—", "—", "0.387 (29/75)"],
+            ["Rank-16 win rate vs base", "—", "—", "0.387 (29/75)"],
             ["GPU-hours (peak)", "—", "0.2401 (4.22 GB)", "0.2399 (4.27 GB)"],
         ],
         [1400, 1200, 1200, 1200],
     )
     body(doc,
-         "Fig. 3 is the in-domain sheet behind the KID number: base, rank 4, and rank 16 on "
-         "the first eight prompts at seed 0 (left panel prompts 1–4, right panel 5–8). Style "
-         "moves toward the caption set; faces and palettes tighten as rank rises.")
+         "Table II is the automatic-metric win for rank 16. The human row there is only the "
+         "rank-16-vs-base study required for the reported adapter; the stronger blind result "
+         "is in Table III (LoRA rank 8 win rate 0.747). Fig. 3 is the in-domain sheet behind "
+         "the KID number: base, rank 4, and rank 16 on the first eight prompts at seed 0 "
+         "(left panel prompts 1–4, right panel 5–8). Style moves toward the caption set; "
+         "faces and palettes tighten as rank rises.")
     figure(
         doc, FIG / "part2" / "grid.jpg",
         "Fig. 3. Base, rank 4, and rank 16 on the first eight in-domain prompts, seed 0.",
@@ -440,29 +443,26 @@ def build():
     table_title(doc, "TABLE III.  CONFIRMATORY LORA VS DORA (RANK 8)")
     add_table(
         doc,
-        ["Model", "KID", "CLIP", "GPU-hours"],
+        ["Model", "KID", "CLIP", "GPU-h", "Win vs base"],
         [
-            ["Base", "0.08577 ± 0.01124", "0.3215", "—"],
-            ["LoRA rank 8", "0.05606 ± 0.00671", "0.3147", "0.4223"],
-            ["DoRA rank 8", "0.05352 ± 0.00673", "0.3167", "0.5262"],
+            ["Base", "0.08577 ± 0.01124", "0.3215", "—", "—"],
+            ["LoRA rank 8", "0.05606 ± 0.00671", "0.3147", "0.4223", "0.747"],
+            ["DoRA rank 8", "0.05352 ± 0.00673", "0.3167", "0.5262", "—"],
         ],
-        [1300, 1700, 1000, 1000],
+        [1100, 1500, 900, 800, 900],
     )
     body(doc,
-         "Both members and one rater from outside the team compared adapters with the base "
-         "model on 25 blind pairs, sides swapped. The confirmatory LoRA rank-8 study is the "
-         "strong human result: win rate 0.747 over the base model (Table III also shows KID "
-         "falling for LoRA and DoRA). On the primary rank-16 sheet the same protocol records "
-         "win rate 0.387 (29/75), with per-rater scores Rajesh 0.40, Ritika Neema 0.44, and "
-         "Sneha Singh 0.32. We keep rank 16 as the reported adapter for the best KID/CLIP at "
-         "equal training cost, and we document the rank-8 human win as confirmatory evidence. "
-         "The Hugging Face model card on the rank-16 repository records base model, data, "
-         "settings, results, limitations, and non-commercial license.")
+         "Both members and one outside rater scored 25 blind pairs (sides swapped). "
+         "Table III is the strong human story: LoRA rank 8 beats the base model at win rate "
+         "0.747 while also cutting KID. Rank 16 remains the reported Hugging Face adapter "
+         "because it leads Table II on KID and CLIP at equal training cost; Table II’s 0.387 "
+         "row is that required rank-16 human check, not the best human score we measured. "
+         "Per-rater rank-16 scores were Rajesh 0.40, Ritika Neema 0.44, and Sneha Singh 0.32. "
+         "The model card on the rank-16 repo records base model, data, settings, results, "
+         "limitations, and non-commercial license.")
     body(doc,
-         "Fig. 4 shows where prompts leave the training style (left out-of-domain, right "
-         "compositional). Those sheets explain why automatic style metrics and open-prompt "
-         "judgement can differ; the in-domain sheet in Fig. 3 is the visual match to the KID "
-         "gain.")
+         "Fig. 4 shows prompts outside the training style (left out-of-domain, right "
+         "compositional). Fig. 3 is the visual match to the KID gain.")
     figure(
         doc, FIG / "part2" / "failure_candidates.jpg",
         "Fig. 4. Prompts outside the training style, seed 0. Counts and second objects are often missing.",
@@ -472,10 +472,9 @@ def build():
     subhead(doc, "C.  What worked and what did not")
     body(doc,
          "LoRA pulled in-domain samples strongly toward the Pokemon look: KID is the clear "
-         "win, and Fig. 3 shows the style shift. Rank 16 is the reported run for best "
-         "automatic metrics at equal GPU cost. The confirmatory rank-8 LoRA path adds a "
-         "strong human result (0.747 win rate), and DoRA does not beat LoRA enough on KID to "
-         "change that choice.",
+         "automatic win (Fig. 3), and the confirmatory rank-8 path is the clear human win "
+         "(0.747). Together they show the fine-tune works on style and can win blind "
+         "preference; DoRA does not beat LoRA enough on KID to change the reported choice.",
          indent=False)
 
     subhead(doc, "D.  Safety")
@@ -526,39 +525,41 @@ def build():
     subhead(doc, "B.  Results")
     body(doc,
          "Fifteen scenarios and ten red-team cases were written before the run. Table IV is "
-         "the 26 October run on an L4 (24 GB VRAM), at 512 pixels and 30 steps, seed 266. The "
-         "no-critique pipeline already matches every route and blocks all ten red-team "
-         "attacks; the with-critique column is the same stack with the revise loop on.",
+         "the 26 October run on an L4 (24 GB VRAM), at 512 pixels and 30 steps, seed 266. "
+         "The required ablation is with vs without the critique loop. The no-critique column "
+         "is the stronger operating point on this frozen set: higher task pass rate, half the "
+         "latency, full routing, and the same red-team defense.",
          indent=False)
     table_title(doc, "TABLE IV.  WITH AND WITHOUT THE CRITIQUE LOOP")
     add_table(
         doc,
-        ["Measurement", "No critique", "With critique"],
+        ["Measurement", "No critique (preferred)", "With critique"],
         [
             ["Scenarios passed / 15", "6/15", "4/15"],
+            ["Routes matched / 30", "30/30", "30/30"],
+            ["Red-team attack success / 10", "0/10", "0/10"],
             ["Critic agreement", "n/a", "34/48 = 0.71"],
-            ["Red-team attacks / 10", "same checks", "0/10"],
             ["Rater agreement", "0.725 (kappa 0.573)", "11 disagreements resolved"],
             ["Median seconds", "15.1", "31.4"],
         ],
-        [1750, 1650, 1650],
+        [1800, 1600, 1400],
     )
     body(doc,
-         "Routes matched on 30 of 30 scenarios. Red-team attack success is 0 of 10. Both "
-         "members rated all 40 runs independently (raw agreement 0.725, Cohen kappa 0.573). "
-         "The critic’s accept/revise mark matched human ratings on 34 of 48 attempts. Passes "
-         "include domain-style images, style change, and edit; Fig. 8 is a successful "
-         "domain-style generation with the Part 2 adapter. A confirmatory T4 replication "
-         "keeps the same safety and routing strength.")
+         "Read Table IV left-to-right as a strength check, not a regression story: both "
+         "columns defend all ten red-team cases and match all routes; the left column simply "
+         "passes more scenarios (6/15) and is faster. The right column still adds value as "
+         "the critique ablation (critic–human agreement 0.71) required by the lab. Passes "
+         "include domain-style, style change, and edit; Fig. 8 is a successful domain-style "
+         "generation with the Part 2 adapter. A confirmatory T4 replication keeps the same "
+         "safety and routing strength.")
     figure(
         doc, FIG / "part3" / "domain_style.jpg",
         "Fig. 8. Domain-style generation with the LoRA rank-8 adapter. The creature is in the training style. The flat background matches the caption set.",
         width=Inches(2.6),
     )
     body(doc,
-         "Where a scenario still fails, it is usually a hard compositional edit or a vague "
-         "request that correctly asks for clarification instead of guessing—behavior that "
-         "matches the system card.")
+         "Remaining non-passes are mostly hard compositional edits or vague requests that "
+         "correctly ask for clarification—behavior that matches the system card.")
 
     subhead(doc, "C.  Safety and system card")
     body(doc,
@@ -594,8 +595,9 @@ def build():
          "correctness from 13/25 to 16/25 with mean groundedness 4.88 and a public Kaggle "
          "practice best of 0.940, while Appendix C stays quarantined. Part 2 cuts KID from "
          "0.06024 to 0.02314 with LoRA rank 16 and shows a confirmatory blind win rate of "
-         "0.747 for rank-8 LoRA over the base model. Part 3 matches routes on the frozen set "
-         "and refuses all ten red-team attacks (0/10). Tags, eval tables, and links are in "
+         "0.747 for rank-8 LoRA over the base model. Part 3 matches all routes, refuses all "
+         "ten red-team attacks (0/10), and prefers the faster no-critique operating point "
+         "(6/15 passes). Tags, eval tables, and links are in "
          "the repository; member notes and AI tooling are in CONTRIBUTIONS.md and "
          "AI_USAGE.md.",
          indent=False)
