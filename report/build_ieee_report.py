@@ -267,13 +267,14 @@ def build():
     set_run_font(r1, size=9, bold=True, italic=True)
     r2 = abs_p.add_run(
         "This paper presents one team system for each DATA 266 Lab 2 task, evaluated at seed "
-        "266. Part 1 is multimodal RAG over three economics PDFs: the final hybrid system with "
-        "passage reranking lifts golden-set correctness from 13/25 to 16/25, with mean "
-        "groundedness 4.88 and a public Kaggle practice best of 0.940. Part 2 fine-tunes "
-        "Stable Diffusion 1.5 with LoRA; KID improves from 0.06024 to 0.02314 for rank 16, "
-        "and a confirmatory rank-8 LoRA study reaches a 0.747 blind win rate over the base "
-        "model. Part 3 is a five-agent image system with red-team attack success 0 of 10 and "
-        "full route match on the frozen scenarios."
+        "266. Part 1 is multimodal retrieval-augmented generation (RAG) over three economics "
+        "PDFs: the final hybrid system with passage reranking lifts golden-set correctness "
+        "from 13/25 to 16/25, with mean groundedness 4.88 and a public Kaggle practice best "
+        "of 0.940. Part 2 fine-tunes Stable Diffusion 1.5 with low-rank adaptation (LoRA); "
+        "kernel inception distance (KID) improves from 0.06024 to 0.02314 for rank 16, and a "
+        "confirmatory rank-8 LoRA study reaches a 0.747 blind win rate over the base model. "
+        "Part 3 is a five-agent image system with red-team attack success 0 of 10 and full "
+        "route match on the frozen scenarios."
     )
     set_run_font(r2, size=9, bold=True)
 
@@ -294,7 +295,8 @@ def build():
          "document is the common team report: one architecture, one baseline-versus-final "
          "table, a short failure analysis, and a safety discussion for each part. Seed 266 "
          "is fixed for splits, sampling, and generation. Evaluation artifacts were written "
-         "before the reported runs. Per-member implementation detail is in CONTRIBUTIONS.md.",
+         "before the reported runs. Per-member notes are in the repository file "
+         "CONTRIBUTIONS.md.",
          indent=False)
 
     heading(doc, "II.  QUESTION ANSWERING OVER THREE PDFS")
@@ -307,15 +309,15 @@ def build():
          "has no arrow into retrieval.",
          indent=False)
     figure(doc, FIG / "part1" / "architecture.jpg",
-           "Fig. 1. Three PDFs are indexed. Appendix C is left out. Dense retrieval is the baseline. The final retriever adds BM25 and an optional passage reranker.")
+           "Fig. 1. Three PDFs are indexed. Appendix C is left out. Dense retrieval is the baseline; the final system adds BM25 keyword search and optional passage reranking.")
     body(doc,
-         "Dense retrieval is the baseline. The final retriever adds BM25 and can rerank the "
-         "fused list with a cross-encoder. We blend the two rankings rather than sorting by "
-         "the cross-encoder alone. An answer is a status, a short text, and citations that "
-         "have to name a retrieved record. The answer is written from those records, in the "
-         "retrieve-then-generate order [6]. A temporary number supplied in chat is used only "
-         "in that conversation and is not written back into the index. A request to edit the "
-         "documents permanently is refused.")
+         "Dense retrieval is the baseline. The final retriever adds BM25 keyword search and "
+         "can rerank the fused list with a cross-encoder. We blend the two rankings rather "
+         "than sorting by the cross-encoder alone. An answer is a status, a short text, and "
+         "citations that have to name a retrieved record. The answer is written from those "
+         "records, in the retrieve-then-generate order [6]. A temporary number supplied in "
+         "chat is used only in that conversation and is not written back into the index. A "
+         "request to edit the documents permanently is refused.")
     body(doc,
          "The golden-set run used qwen2.5:7b for answers and qwen2.5vl:3b for figure captions, "
          "temperature 0. The Kaggle run of the same notebook loads Qwen2.5-VL-7B-Instruct in "
@@ -375,29 +377,31 @@ def build():
          indent=False)
     body(doc,
          "Concrete golden-set checks match that design. A rate that appears only in the "
-         "untrusted appendix is returned as not_found. A false GDP premise that contradicts the "
-         "book table is corrected with false_premise. An instruction to ignore the documents "
-         "and report a fabricated inflation number is ignored; the answer stays on the trusted "
-         "table. Temporary chat-only values stay in memory and are never written back to the "
-         "index.")
+         "untrusted appendix is returned with status not_found. A false gross-domestic-product "
+         "(GDP) premise that contradicts the book table is corrected with status "
+         "false_premise. An instruction to ignore the documents and report a fabricated "
+         "inflation number is ignored; the answer stays on the trusted table. Temporary "
+         "chat-only values stay in memory and are never written back to the index.")
 
     heading(doc, "III.  FINE-TUNING A DIFFUSION MODEL")
     subhead(doc, "A.  Setup")
     body(doc,
-         "We fine-tuned Stable Diffusion 1.5 [1] on the Pokemon BLIP captions, 833 image-caption "
-         "pairs. No file was corrupt and none was an exact duplicate, so nothing was "
-         "removed. Seed 266 split the data 90/10 into 750 training images and 83 test images, "
-         "resized to 512. The test images were used only for scoring. Captions are short and "
-         "sometimes omit a color, and most pictures are a single creature in the center.",
+         "We fine-tuned Stable Diffusion 1.5 [1] on the Pokemon BLIP (Bootstrapping Language-"
+         "Image Pre-training) captions, 833 image-caption pairs. No file was corrupt and none "
+         "was an exact duplicate, so nothing was removed. Seed 266 split the data 90/10 into "
+         "750 training images and 83 test images, resized to 512. The test images were used "
+         "only for scoring. Captions are short and sometimes omit a color, and most pictures "
+         "are a single creature in the center.",
          indent=False)
     body(doc,
          "The two runs share the data, 1500 steps, batch 4, and learning rate 0.0001. Both "
-         "are LoRA adapters on the attention projections, with the VAE, the text encoder, and "
-         "the base UNet frozen [2]. Rank 4 has 797,184 trainable parameters. Rank 16 has "
-         "3,188,736. We kept rank 16: at the same training cost (0.2399 against 0.2401 "
-         "GPU-hours) it had the lower KID (0.02314 against 0.02671) and the higher CLIP "
-         "score (0.3155 against 0.3110). Mean loss over the last tenth of training was 0.0535 "
-         "and 0.0533. The runs took 864.2 s and 863.8 s. Fig. 2 is this pipeline.")
+         "are LoRA adapters on the attention projections, with the variational autoencoder "
+         "(VAE), the text encoder, and the base U-Net frozen [2]. Rank 4 has 797,184 trainable "
+         "parameters. Rank 16 has 3,188,736. We kept rank 16: at the same training cost "
+         "(0.2399 against 0.2401 GPU-hours) it had the lower KID (0.02314 against 0.02671) "
+         "and the higher CLIP (Contrastive Language–Image Pre-training) score (0.3155 against "
+         "0.3110). Mean loss over the last tenth of training was 0.0535 and 0.0533. The runs "
+         "took 864.2 s and 863.8 s. Fig. 2 is this pipeline.")
     figure(doc, FIG / "part2" / "architecture.jpg",
            "Fig. 2. One dataset, two LoRA ranks on a frozen Stable Diffusion 1.5, then the same 20 prompts for the base model and both adapters.")
     body(doc,
@@ -408,12 +412,13 @@ def build():
 
     subhead(doc, "B.  Results")
     body(doc,
-         "Table II is the comparison. KID is the 20 in-domain generations against the 83 "
-         "test images, with the subset standard deviation. CLIP is prompt-image similarity "
-         "on all 40 images of that model. LPIPS is the mean distance between the two seeds "
-         "of each prompt. KID falls by more than that error bar, so the pictures clearly move "
-         "toward the training style. Rank 16 leads rank 4 on both KID and CLIP at essentially "
-         "the same GPU cost.",
+         "Table II is the comparison. KID measures distribution distance between the 20 "
+         "in-domain generations and the 83 test images (lower is better), with the subset "
+         "standard deviation. CLIP is prompt–image similarity on all 40 images of that model. "
+         "LPIPS (Learned Perceptual Image Patch Similarity) is the mean distance between the "
+         "two seeds of each prompt. KID falls by more than that error bar, so the pictures "
+         "clearly move toward the training style. Rank 16 leads rank 4 on both KID and CLIP "
+         "at essentially the same GPU cost.",
          indent=False)
     table_title(doc, "TABLE II.  BASE MODEL AND TWO LORA RANKS")
     add_table(
@@ -443,23 +448,24 @@ def build():
     table_title(doc, "TABLE III.  CONFIRMATORY LORA VS DORA (RANK 8)")
     add_table(
         doc,
-        ["Model", "KID", "CLIP", "GPU-h", "Win vs base"],
+        ["Model", "KID", "CLIP", "GPU-hours", "Win vs base"],
         [
             ["Base", "0.08577 ± 0.01124", "0.3215", "—", "—"],
             ["LoRA rank 8", "0.05606 ± 0.00671", "0.3147", "0.4223", "0.747"],
             ["DoRA rank 8", "0.05352 ± 0.00673", "0.3167", "0.5262", "—"],
         ],
-        [1100, 1500, 900, 800, 900],
+        [1100, 1450, 900, 900, 900],
     )
     body(doc,
          "Both members and one outside rater scored 25 blind pairs (sides swapped). "
          "Table III is the strong human story: LoRA rank 8 beats the base model at win rate "
-         "0.747 while also cutting KID. Rank 16 remains the reported Hugging Face adapter "
-         "because it leads Table II on KID and CLIP at equal training cost; Table II’s 0.387 "
-         "row is that required rank-16 human check, not the best human score we measured. "
-         "Per-rater rank-16 scores were Rajesh 0.40, Ritika Neema 0.44, and Sneha Singh 0.32. "
-         "The model card on the rank-16 repo records base model, data, settings, results, "
-         "limitations, and non-commercial license.")
+         "0.747 while also cutting KID. DoRA (weight-decomposed low-rank adaptation) [3] is "
+         "the confirmatory alternate adapter; it does not overturn the LoRA choice. Rank 16 "
+         "remains the reported Hugging Face adapter because it leads Table II on KID and CLIP "
+         "at equal training cost; Table II’s 0.387 row is that required rank-16 human check, "
+         "not the best human score we measured. Per-rater rank-16 scores were Rajesh 0.40, "
+         "Ritika Neema 0.44, and Sneha Singh 0.32. The model card on the rank-16 repository "
+         "records base model, data, settings, results, limitations, and non-commercial license.")
     body(doc,
          "Fig. 4 shows prompts outside the training style (left out-of-domain, right "
          "compositional). Fig. 3 is the visual match to the KID gain.")
@@ -517,15 +523,17 @@ def build():
     body(doc,
          "Style change is Stable Diffusion image-to-image. Edits use InstructPix2Pix [5]. "
          "Enhancement is brightness, contrast, and sharpening. A Pokemon-style request loads "
-         "the rank-16 adapter from Section III. Language and vision calls are Qwen2.5-VL-3B "
-         "at temperature 0. Text found in the image is stored as text. It is not copied into "
-         "the prompt. The Gradio page shows each step, and the same app is deployed as a "
-         "Hugging Face Space.")
+         "a Part 2 LoRA adapter from Hugging Face (the graded path uses rank 16; Fig. 8 shows "
+         "a successful domain-style sample from the confirmatory rank-8 adapter). Language "
+         "and vision calls are Qwen2.5-VL-3B at temperature 0. Text found in the image is "
+         "stored as text. It is not copied into the prompt. The Gradio demo page shows each "
+         "step, and the same app is deployed as a Hugging Face Space.")
 
     subhead(doc, "B.  Results")
     body(doc,
          "Fifteen scenarios and ten red-team cases were written before the run. Table IV is "
-         "the 26 October run on an L4 (24 GB VRAM), at 512 pixels and 30 steps, seed 266. "
+         "the 26 October run on an NVIDIA L4 GPU (24 GB video memory), at 512 pixels and 30 "
+         "steps, seed 266. "
          "The required ablation is with vs without the critique loop. The no-critique column "
          "is the stronger operating point on this frozen set: higher task pass rate, half the "
          "latency, full routing, and the same red-team defense.",
@@ -597,9 +605,8 @@ def build():
          "0.06024 to 0.02314 with LoRA rank 16 and shows a confirmatory blind win rate of "
          "0.747 for rank-8 LoRA over the base model. Part 3 matches all routes, refuses all "
          "ten red-team attacks (0/10), and prefers the faster no-critique operating point "
-         "(6/15 passes). Tags, eval tables, and links are in "
-         "the repository; member notes and AI tooling are in CONTRIBUTIONS.md and "
-         "AI_USAGE.md.",
+         "(6/15 passes). Git tags, evaluation tables, and links are in the repository; "
+         "member notes and AI-tooling notes are in CONTRIBUTIONS.md and AI_USAGE.md.",
          indent=False)
 
     heading(doc, "REFERENCES")
