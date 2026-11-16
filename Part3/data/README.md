@@ -22,6 +22,6 @@ What is in the local `inputs/` folder:
 | IMG16, IMG17, IMG18, IMG19 | Synthetic images with text drawn on them |
 | FILE23, FILE24 | A broken file and an empty file |
 
-The full source list, with COCO ids and URLs, is `Part3/data/inputs_sources.json` next to the images. That file is ignored by the same `data/` rule.
+The committed provenance list is `eval/p3_inputs_sources.json` (IDs, licenses, how each file was made). Binary images stay local under `Part3/data/inputs/` (gitignored) and on Hugging Face. Exact COCO file ids were not retained in git; the HF dataset is the file source of truth.
 
 The only Hugging Face dataset this notebook loads by itself is the Part 2 generated-image set, `Sneha-subbu/data266-lab2-p2-images`, and it uses that only to set the CLIP cutoff. The same Part 3 test files are also public at [Sneha-subbu/data266-lab2-p3-inputs](https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs). The Part 3 Gradio bonus Space (public ZeroGPU) is [Sneha-subbu/data266-lab2-p3-agents](https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents).

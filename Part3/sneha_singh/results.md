@@ -14,7 +14,7 @@ I use Qwen2.5-VL-3B for every language and vision step. It is the same family as
 
 ## Setup
 
-Twenty-five inputs: MS COCO photos (CC BY 2.0), one Part 2 test image, generated images, synthetic images with text in them, plus a broken file and an empty file. The list is `Part3/data/inputs_sources.json`. The 15 scenarios and 10 red-team cases were written before the run.
+Twenty-five inputs: MS COCO photos (CC BY 2.0), one Part 2 test image, generated images, synthetic images with text in them, plus a broken file and an empty file. The list is `eval/p3_inputs.json`; provenance is `eval/p3_inputs_sources.json`. The 15 scenarios and 10 red-team cases were written before the run.
 
 The CLIP cutoff is 0.26. On the 120 Part 2 images, matched prompts averaged 0.316, shuffled prompts averaged 0.179, and the balanced accuracy at 0.26 was 0.979. I did not fit that cutoff on the 15 scenarios.
 

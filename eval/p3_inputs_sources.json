@@ -1,0 +1,334 @@
+{
+  "meta": {
+    "written_on": "2026-11-15",
+    "purpose": "Committed source/provenance list for Part 3 inputs (Sneha pipeline docs referenced Part3/data/inputs_sources.json, which is gitignored under data/).",
+    "authors": "Sneha Singh, Ritika Neema",
+    "seed": 266,
+    "related_frozen_file": "eval/p3_inputs.json",
+    "hf_dataset": "https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs",
+    "note": "Exact MS COCO file ids are not listed here because they were never committed; binaries live on HF and local inputs/."
+  },
+  "inputs": [
+    {
+      "id": "IMG01",
+      "source": "COCO or own photo",
+      "description": "everyday street or room scene, at least 3 clear objects",
+      "used_in": [
+        "S01"
+      ],
+      "provenance_kind": "MS COCO val2017",
+      "license": "CC BY 2.0",
+      "provenance_notes": "everyday street or room scene",
+      "binary_location": "local Part3/data/inputs/ (gitignored) and Hugging Face dataset Sneha-subbu/data266-lab2-p3-inputs",
+      "coco_id": null
+    },
+    {
+      "id": "IMG02",
+      "source": "own photo",
+      "description": "photo with readable sign/menu text and known colour",
+      "used_in": [
+        "S02"
+      ],
+      "provenance_kind": "own photo",
+      "license": "team",
+      "provenance_notes": "readable sign/menu text",
+      "binary_location": "local Part3/data/inputs/ (gitignored) and Hugging Face dataset Sneha-subbu/data266-lab2-p3-inputs",
+      "coco_id": null
+    },
+    {
+      "id": "IMG03",
+      "source": "COCO or own photo",
+      "description": "clearly countable group of 3 to 6 people or objects",
+      "used_in": [
+        "S03"
+      ],
+      "provenance_kind": "MS COCO val2017",
+      "license": "CC BY 2.0",
+      "provenance_notes": "",
+      "binary_location": "local Part3/data/inputs/ (gitignored) and Hugging Face dataset Sneha-subbu/data266-lab2-p3-inputs",
+      "coco_id": null
+    },
+    {
+      "id": "IMG04",
+      "source": "own photo or COCO",
+      "description": "landscape (mountains, lake or field)",
+      "used_in": [
+        "S04"
+      ],
+      "provenance_kind": "Stable Diffusion 1.5 generation",
+      "license": "model license / research use",
+      "provenance_notes": "base SD 1.5, seed 0",
+      "binary_location": "local Part3/data/inputs/ (gitignored) and Hugging Face dataset Sneha-subbu/data266-lab2-p3-inputs",
+      "coco_id": null
+    },
+    {
+      "id": "IMG05",
+      "source": "own photo or COCO",
+      "description": "single cat or dog on simple background",
+      "used_in": [
+        "S05"
+      ],
+      "provenance_kind": "MS COCO val2017",
+      "license": "CC BY 2.0",
+      "provenance_notes": "",
+      "binary_location": "local Part3/data/inputs/ (gitignored) and Hugging Face dataset Sneha-subbu/data266-lab2-p3-inputs",
+      "coco_id": null
+    },
+    {
+      "id": "IMG06",
+      "source": "own photo or COCO",
+      "description": "daylight street or city scene",
+      "used_in": [
+        "S06"
+      ],
+      "provenance_kind": "MS COCO val2017",
+      "license": "CC BY 2.0",
+      "provenance_notes": "",
+      "binary_location": "local Part3/data/inputs/ (gitignored) and Hugging Face dataset Sneha-subbu/data266-lab2-p3-inputs",
+      "coco_id": null
+    },
+    {
+      "id": "IMG07",
+      "source": "COCO or own photo",
+      "description": "exactly one car",
+      "used_in": [
+        "S07"
+      ],
+      "provenance_kind": "photo or SD 1.5 fallback",
+      "license": "team / model",
+      "provenance_notes": "exactly one car; notebook may generate if missing (seed 266)",
+      "binary_location": "local Part3/data/inputs/ (gitignored) and Hugging Face dataset Sneha-subbu/data266-lab2-p3-inputs",
+      "coco_id": null
+    },
+    {
+      "id": "IMG08",
+      "source": "COCO or own photo",
+      "description": "dog facing the camera",
+      "used_in": [
+        "S08"
+      ],
+      "provenance_kind": "MS COCO val2017",
+      "license": "CC BY 2.0",
+      "provenance_notes": "",
+      "binary_location": "local Part3/data/inputs/ (gitignored) and Hugging Face dataset Sneha-subbu/data266-lab2-p3-inputs",
+      "coco_id": null
+    },
+    {
+      "id": "IMG09",
+      "source": "own photo",
+      "description": "dim or slightly blurry ordinary scene",
+      "used_in": [
+        "S09"
+      ],
+      "provenance_kind": "MS COCO derived",
+      "license": "CC BY 2.0",
+      "provenance_notes": "darkened and slightly blurred",
+      "binary_location": "local Part3/data/inputs/ (gitignored) and Hugging Face dataset Sneha-subbu/data266-lab2-p3-inputs",
+      "coco_id": null
+    },
+    {
+      "id": "IMG10",
+      "source": "unused spare",
+      "description": "spare ordinary photo",
+      "used_in": [],
+      "provenance_kind": "unused spare",
+      "license": "see README",
+      "provenance_notes": "",
+      "binary_location": "local Part3/data/inputs/ (gitignored) and Hugging Face dataset Sneha-subbu/data266-lab2-p3-inputs",
+      "coco_id": null
+    },
+    {
+      "id": "IMG11",
+      "source": "own photo or COCO",
+      "description": "clear photo of a cat",
+      "used_in": [
+        "S11"
+      ],
+      "provenance_kind": "MS COCO val2017",
+      "license": "CC BY 2.0",
+      "provenance_notes": "",
+      "binary_location": "local Part3/data/inputs/ (gitignored) and Hugging Face dataset Sneha-subbu/data266-lab2-p3-inputs",
+      "coco_id": null
+    },
+    {
+      "id": "IMG12",
+      "source": "Part 2 test split",
+      "description": "a Pokemon creature image from the held-out test images",
+      "used_in": [
+        "S12"
+      ],
+      "provenance_kind": "Part 2 test split",
+      "license": "dataset license (non-commercial research)",
+      "provenance_notes": "Pokemon BLIP test image, seed 266",
+      "binary_location": "local Part3/data/inputs/ (gitignored) and Hugging Face dataset Sneha-subbu/data266-lab2-p3-inputs",
+      "coco_id": null
+    },
+    {
+      "id": "IMG13",
+      "source": "own photo or COCO",
+      "description": "any clear photo",
+      "used_in": [
+        "S13"
+      ],
+      "provenance_kind": "MS COCO val2017",
+      "license": "CC BY 2.0",
+      "provenance_notes": "",
+      "binary_location": "local Part3/data/inputs/ (gitignored) and Hugging Face dataset Sneha-subbu/data266-lab2-p3-inputs",
+      "coco_id": null
+    },
+    {
+      "id": "IMG14",
+      "source": "generated",
+      "description": "very low-quality image (about 32x32 or heavy noise) made from a normal photo",
+      "used_in": [
+        "S14"
+      ],
+      "provenance_kind": "MS COCO derived",
+      "license": "CC BY 2.0",
+      "provenance_notes": "reduced to 32x32 with noise",
+      "binary_location": "local Part3/data/inputs/ (gitignored) and Hugging Face dataset Sneha-subbu/data266-lab2-p3-inputs",
+      "coco_id": null
+    },
+    {
+      "id": "IMG15",
+      "source": "own photo or COCO",
+      "description": "any clear photo (used with the simulated generation error)",
+      "used_in": [
+        "S15"
+      ],
+      "provenance_kind": "MS COCO val2017",
+      "license": "CC BY 2.0",
+      "provenance_notes": "",
+      "binary_location": "local Part3/data/inputs/ (gitignored) and Hugging Face dataset Sneha-subbu/data266-lab2-p3-inputs",
+      "coco_id": null
+    },
+    {
+      "id": "IMG16",
+      "source": "synthetic",
+      "description": "image of a sign with the text from R01",
+      "used_in": [
+        "R01"
+      ],
+      "provenance_kind": "synthetic with drawn text",
+      "license": "team",
+      "provenance_notes": "text-in-image for red-team / OCR",
+      "binary_location": "local Part3/data/inputs/ (gitignored) and Hugging Face dataset Sneha-subbu/data266-lab2-p3-inputs",
+      "coco_id": null
+    },
+    {
+      "id": "IMG17",
+      "source": "synthetic",
+      "description": "photo with a visible label with the text from R02",
+      "used_in": [
+        "R02"
+      ],
+      "provenance_kind": "synthetic with drawn text",
+      "license": "team",
+      "provenance_notes": "",
+      "binary_location": "local Part3/data/inputs/ (gitignored) and Hugging Face dataset Sneha-subbu/data266-lab2-p3-inputs",
+      "coco_id": null
+    },
+    {
+      "id": "IMG18",
+      "source": "synthetic",
+      "description": "ordinary scene with small low-contrast corner text from R03",
+      "used_in": [
+        "R03"
+      ],
+      "provenance_kind": "synthetic with drawn text",
+      "license": "team",
+      "provenance_notes": "",
+      "binary_location": "local Part3/data/inputs/ (gitignored) and Hugging Face dataset Sneha-subbu/data266-lab2-p3-inputs",
+      "coco_id": null
+    },
+    {
+      "id": "IMG19",
+      "source": "synthetic",
+      "description": "image whose text is the instruction from R04",
+      "used_in": [
+        "R04"
+      ],
+      "provenance_kind": "synthetic with drawn text",
+      "license": "team",
+      "provenance_notes": "",
+      "binary_location": "local Part3/data/inputs/ (gitignored) and Hugging Face dataset Sneha-subbu/data266-lab2-p3-inputs",
+      "coco_id": null
+    },
+    {
+      "id": "IMG20",
+      "source": "COCO or own photo (consent)",
+      "description": "generic photo of a clothed person, no named individual",
+      "used_in": [
+        "R05"
+      ],
+      "provenance_kind": "MS COCO val2017",
+      "license": "CC BY 2.0",
+      "provenance_notes": "",
+      "binary_location": "local Part3/data/inputs/ (gitignored) and Hugging Face dataset Sneha-subbu/data266-lab2-p3-inputs",
+      "coco_id": null
+    },
+    {
+      "id": "IMG21",
+      "source": "COCO or own photo",
+      "description": "photo of a crowd or group",
+      "used_in": [
+        "R07"
+      ],
+      "provenance_kind": "MS COCO val2017",
+      "license": "CC BY 2.0",
+      "provenance_notes": "",
+      "binary_location": "local Part3/data/inputs/ (gitignored) and Hugging Face dataset Sneha-subbu/data266-lab2-p3-inputs",
+      "coco_id": null
+    },
+    {
+      "id": "IMG22",
+      "source": "COCO or own photo (consent)",
+      "description": "generic photo of a real person, not a public figure",
+      "used_in": [
+        "R08"
+      ],
+      "provenance_kind": "MS COCO val2017",
+      "license": "CC BY 2.0",
+      "provenance_notes": "",
+      "binary_location": "local Part3/data/inputs/ (gitignored) and Hugging Face dataset Sneha-subbu/data266-lab2-p3-inputs",
+      "coco_id": null
+    },
+    {
+      "id": "FILE23",
+      "source": "generated",
+      "description": "broken.jpg: random bytes, not a valid image",
+      "used_in": [
+        "R09"
+      ],
+      "provenance_kind": "broken file",
+      "license": "n/a",
+      "provenance_notes": "unreadable / corrupt image bytes",
+      "binary_location": "local Part3/data/inputs/ (gitignored) and Hugging Face dataset Sneha-subbu/data266-lab2-p3-inputs",
+      "coco_id": null
+    },
+    {
+      "id": "FILE24",
+      "source": "generated",
+      "description": "empty.png: zero-byte file",
+      "used_in": [
+        "R10"
+      ],
+      "provenance_kind": "empty file",
+      "license": "n/a",
+      "provenance_notes": "zero-byte file",
+      "binary_location": "local Part3/data/inputs/ (gitignored) and Hugging Face dataset Sneha-subbu/data266-lab2-p3-inputs",
+      "coco_id": null
+    },
+    {
+      "id": "IMG25",
+      "source": "spare",
+      "description": "spare image for demo practice (not used in any scenario)",
+      "used_in": [],
+      "provenance_kind": "spare",
+      "license": "see README",
+      "provenance_notes": "",
+      "binary_location": "local Part3/data/inputs/ (gitignored) and Hugging Face dataset Sneha-subbu/data266-lab2-p3-inputs",
+      "coco_id": null
+    }
+  ]
+}
