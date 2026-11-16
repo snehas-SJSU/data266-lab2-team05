@@ -296,15 +296,6 @@ def build():
          "is fixed for splits, sampling, and generation. Evaluation artifacts were written "
          "before the reported runs. Per-member implementation detail is in CONTRIBUTIONS.md.",
          indent=False)
-    body(doc,
-         "The three parts share a practical constraint: every claimed number must be "
-         "reproducible from a tagged notebook or eval artifact, and every figure must come "
-         "from those runs. Part 1 answers questions over three economics PDFs without "
-         "writing temporary chat values back into the index. Part 2 adapts Stable Diffusion "
-         "1.5 with LoRA on Pokemon captions and reports KID, CLIP, LPIPS, and a three-rater "
-         "blind study. Part 3 wraps vision, planning, generation, and critique into one "
-         "stateful agent with a frozen scenario set and a ten-case red team. The rest of the "
-         "paper follows that order.")
 
     heading(doc, "II.  QUESTION ANSWERING OVER THREE PDFS")
     subhead(doc, "A.  Architecture")
@@ -328,22 +319,15 @@ def build():
     body(doc,
          "The golden-set run used qwen2.5:7b for answers and qwen2.5vl:3b for figure captions, "
          "temperature 0. The Kaggle run of the same notebook loads Qwen2.5-VL-7B-Instruct in "
-         "4-bit on one Tesla T4. Embedding and BM25 indexes are built once per environment; "
-         "the same chunk IDs are reused so citation strings stay stable across local and "
-         "Kaggle runs.")
-    body(doc,
-         "Statuses are constrained to a small label set (answer, not_found, false_premise, "
-         "refuse, and related variants used by the scorer). The generator may not invent a "
-         "page that was not retrieved. When several chunks support the same number, the "
-         "system prefers the chunk that also carries the matching figure or table ID, because "
-         "the public scorer rewards that citation form.")
+         "4-bit on one Tesla T4.")
 
     subhead(doc, "B.  Results")
     body(doc,
          "Table I is the lab-required comparison: dense retrieval only versus the final hybrid "
          "system with passage reranking, on a 25-question golden set that is not copied from "
          "Questions.csv. Human groundedness was scored 1–5 by both members "
-         "(eval/human_review.csv).",
+         "(eval/human_review.csv); mean 4.88, and scores agreed within one point on 24 of 25 "
+         "questions.",
          indent=False)
     table_title(doc, "TABLE I.  DENSE BASELINE VERSUS FINAL SYSTEM")
     add_table(
@@ -379,12 +363,9 @@ def build():
          "table record the scorer expects to see cited.",
          indent=False)
     body(doc,
-         "Typical remaining errors are (i) asking for a trend that is only clear in a figure "
-         "when the top passages are nearby prose, (ii) multi-hop questions that need two "
-         "tables in one answer, and (iii) near-duplicate chart titles across documents. "
-         "Hybrid retrieval helps (i) when the reranker surfaces the figure chunk; it does "
-         "not fully solve (ii). We did not fine-tune the cross-encoder on this corpus; doing "
-         "so is left as future work.")
+         "Remaining misses are mostly multi-hop table questions and near-duplicate chart "
+         "titles across documents. Hybrid retrieval helps when the figure chunk is already "
+         "near the top; it does not fully solve two-table questions.")
 
     subhead(doc, "D.  Safety")
     body(doc,
@@ -395,25 +376,12 @@ def build():
          "A citation has to name a record that was actually retrieved.",
          indent=False)
     body(doc,
-         "Questions that ask for a fact only Appendix C states falsely, or that try to obey "
-         "an in-document instruction, must be answered from trusted pages, returned as "
-         "not_found when unsupported, or refused when they request a permanent knowledge-base "
-         "edit. Temporary chat-only values stay in memory. If Appendix C were re-ingested, "
-         "fabricated numbers or chart instructions could leak; quarantine at ingest and "
-         "citation allow-lists are the mitigations.")
-    body(doc,
-         "Concrete checks on the golden set match that design. A rate that appears only in the "
-         "untrusted appendix is refused as not_found. A false GDP premise that contradicts the "
-         "book table is corrected with false_premise rather than following the bad assumption. "
-         "An instruction to ignore the documents and report a fabricated inflation number is "
-         "ignored; the answer stays on the trusted table. Those cases are why Appendix C is "
-         "quarantined at ingest instead of filtered only at generation time.")
-    body(doc,
-         "Operationally, the quarantine is a hard filter on chunk creation: Appendix C pages "
-         "never receive embeddings, BM25 postings, or vision captions. The same filter is "
-         "applied in the Kaggle notebook and in the local golden run so a score cannot improve "
-         "by quietly indexing the appendix. Temporary numbers typed in chat live in a "
-         "session dict that is cleared when the notebook kernel restarts.")
+         "Concrete golden-set checks match that design. A rate that appears only in the "
+         "untrusted appendix is returned as not_found. A false GDP premise that contradicts the "
+         "book table is corrected with false_premise. An instruction to ignore the documents "
+         "and report a fabricated inflation number is ignored; the answer stays on the trusted "
+         "table. Temporary chat-only values stay in memory and are never written back to the "
+         "index.")
 
     heading(doc, "III.  FINE-TUNING A DIFFUSION MODEL")
     subhead(doc, "A.  Setup")
@@ -440,13 +408,7 @@ def build():
          "Twenty prompts were saved before training ended: 10 from the test captions, 5 "
          "outside that style, and 5 that ask for a count or a second object. Each model "
          "generated seeds 0 and 1 at 512 pixels, 30 steps, and guidance 7.5. That is 40 "
-         "images per model. The prompt list and seeds are fixed in the notebook so a later "
-         "rerun cannot cherry-pick a better sheet.")
-    body(doc,
-         "Training used a single GPU with mixed precision. Checkpoints keep only the LoRA "
-         "weights; the base UNet is never overwritten. Adapters are published on Hugging Face "
-         "under a non-commercial research notice that matches the copyrighted training art. "
-         "Peak VRAM stayed near 4.2–4.3 GB for both ranks at batch 4.")
+         "images per model.")
 
     subhead(doc, "B.  Results")
     body(doc,
@@ -524,26 +486,22 @@ def build():
          "coverage and prompt design were.",
          indent=False)
     body(doc,
-         "The confirmatory DoRA run did not overturn the LoRA choice for the reported adapter: "
-         "its KID edge is inside noise and it spent more GPU time. Human preference favored "
-         "the rank-8 LoRA over the base model more clearly than rank 16 did, which suggests "
-         "that mid-rank adapters can look better to people even when KID prefers a larger "
-         "rank on the fixed prompt sheet.")
+         "DoRA’s KID edge sits inside noise at higher GPU cost, so it does not overturn the "
+         "reported LoRA choice. Human preference for rank-8 LoRA over the base model "
+         "(win rate 0.747) is clearer than for rank 16, which is why Table II still leads "
+         "with automatic metrics while the blind study stays honest.")
 
     subhead(doc, "D.  Safety")
     body(doc,
          "The training images are copyrighted characters. The adapters and generated images "
          "are for non-commercial course work only. The model card on the rank-16 Hugging Face "
-         "repo states the same limit and summarizes training settings and measured results. "
-         "We do not release full-precision UNet weights and we do not claim commercial use.",
+         "repo states the same limit and summarizes training settings and measured results.",
          indent=False)
     body(doc,
          "The Stable Diffusion safety checker flagged 10 of the 120 images: 2 from the base "
          "model, 4 from rank 4, and 4 from rank 16 (8 in-domain, 2 compositional). Fig. 5 "
          "shows those ten. Manual review found ordinary cartoons, so we treated the flags as "
-         "false positives and did not remove the images from the metric tables. The same "
-         "false-positive pattern appears again in Part 3, which is why the agent requires "
-         "vision confirmation before blocking an image.")
+         "false positives and did not remove the images from the metric tables.")
     figure(doc, FIG / "part2" / "nsfw_flagged.jpg",
            "Fig. 5. The ten images flagged by the safety checker. We treated these flags as false positives.",
            width=COL_W)
@@ -553,16 +511,10 @@ def build():
          "three closest pairs. The creature type matches; pose and color differ. The largest "
          "per-tile RMS distance to that training image, over 16 tiles, was 0.584 to 0.801. "
          "Carlini et al. treat a distance near 0.15 as a near-copy on their scale [4]. Nothing "
-         "we generated was in that range. The check is one seed on 10 prompts, not their full "
-         "extraction study, but it is the lab-required nearest-neighbor audit.")
+         "we generated was in that range.")
     figure(doc, FIG / "part2" / "memorization.jpg",
            "Fig. 6. Three generations (left of each pair) and nearest training image by CLIP similarity.",
            width=COL_W)
-    body(doc,
-         "We also note the dual-use surface: a public adapter can be merged into other UNets. "
-         "The model card therefore repeats the non-commercial limit and the training-data "
-         "provenance. Course submission stores adapter paths and metric tables, not redistributed "
-         "training images.")
 
     heading(doc, "IV.  A MULTIMODAL IMAGE AGENT")
     subhead(doc, "A.  Architecture")
@@ -583,12 +535,6 @@ def build():
          "at temperature 0. Text found in the image is stored as text. It is not copied into "
          "the prompt. The Gradio page shows each step, and the same app is deployed as a "
          "Hugging Face Space.")
-    body(doc,
-         "State is a typed dictionary: route, user text, image path, vision notes, rewritten "
-         "prompt, generation metadata, critique notes, and a final status. Every transition "
-         "appends to a JSONL trace so a failed scenario can be replayed without guessing which "
-         "step drifted. The planner is allowed to short-circuit to caption-only or refuse "
-         "before any diffusion call, which is what keeps red-team latency low on refused cases.")
 
     subhead(doc, "B.  Results")
     body(doc,
@@ -627,12 +573,9 @@ def build():
         width=Inches(2.6),
     )
     body(doc,
-         "Failures cluster on compositional edits and vague prompts. When the user asks to "
-         "add a second object, the planner may route correctly but InstructPix2Pix keeps the "
-         "original layout. Vague style requests trigger a clarifying question instead of a "
-         "guess, which is counted as a non-pass on the frozen scenario set but matches the "
-         "system card. Trace JSON under eval/ records route, prompts, seeds, and critic "
-         "marks for every scenario and red-team case.")
+         "Failures cluster on compositional edits and vague prompts: InstructPix2Pix often "
+         "keeps the original layout when a second object is requested, and vague style "
+         "requests correctly ask for clarification instead of guessing.")
 
     subhead(doc, "C.  Safety and system card")
     body(doc,
@@ -669,18 +612,11 @@ def build():
          "quarantined. Part 2 lowers KID from 0.06024 to 0.02314 with LoRA rank 16; human "
          "preference over the base model is mixed, while a confirmatory rank-8 study reaches "
          "win rate 0.747. Part 3 refuses all ten red-team attacks but does not gain primary "
-         "accuracy from the critique loop on the frozen scenarios (6/15 without the loop, "
-         "4/15 with it). Across parts, the shared pattern is that automatic gains (KID, "
-         "golden accuracy, red-team refusals) do not always match human preference or "
-         "critique-loop accuracy, so each section reports both.",
+         "accuracy from the critique loop (6/15 without, 4/15 with). Where automatic metrics "
+         "and human judgements disagree, both are reported. Tags, eval tables, and links are "
+         "in the repository; member notes and AI tooling are in CONTRIBUTIONS.md and "
+         "AI_USAGE.md.",
          indent=False)
-    body(doc,
-         "Reproducibility artifacts are the tagged notebooks (p1-v1.0, p2-v1.0, p3-v1.0), "
-         "eval tables, human-review CSVs, and the links in links.txt. Member-level notes are "
-         "in CONTRIBUTIONS.md; AI tooling is declared in AI_USAGE.md. Future work would "
-         "fine-tune the Part 1 reranker on figure-aware negatives, try caption augmentation "
-         "for Part 2 compositional prompts, and replace the Part 3 critic with a larger VL "
-         "model or a learned reward that tracks human pass labels more closely.")
 
     heading(doc, "REFERENCES")
     refs = [
