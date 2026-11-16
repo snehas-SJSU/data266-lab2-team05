@@ -296,6 +296,15 @@ def build():
          "is fixed for splits, sampling, and generation. Evaluation artifacts were written "
          "before the reported runs. Per-member implementation detail is in CONTRIBUTIONS.md.",
          indent=False)
+    body(doc,
+         "The three parts share a practical constraint: every claimed number must be "
+         "reproducible from a tagged notebook or eval artifact, and every figure must come "
+         "from those runs. Part 1 answers questions over three economics PDFs without "
+         "writing temporary chat values back into the index. Part 2 adapts Stable Diffusion "
+         "1.5 with LoRA on Pokemon captions and reports KID, CLIP, LPIPS, and a three-rater "
+         "blind study. Part 3 wraps vision, planning, generation, and critique into one "
+         "stateful agent with a frozen scenario set and a ten-case red team. The rest of the "
+         "paper follows that order.")
 
     heading(doc, "II.  QUESTION ANSWERING OVER THREE PDFS")
     subhead(doc, "A.  Architecture")
@@ -319,7 +328,15 @@ def build():
     body(doc,
          "The golden-set run used qwen2.5:7b for answers and qwen2.5vl:3b for figure captions, "
          "temperature 0. The Kaggle run of the same notebook loads Qwen2.5-VL-7B-Instruct in "
-         "4-bit on one Tesla T4.")
+         "4-bit on one Tesla T4. Embedding and BM25 indexes are built once per environment; "
+         "the same chunk IDs are reused so citation strings stay stable across local and "
+         "Kaggle runs.")
+    body(doc,
+         "Statuses are constrained to a small label set (answer, not_found, false_premise, "
+         "refuse, and related variants used by the scorer). The generator may not invent a "
+         "page that was not retrieved. When several chunks support the same number, the "
+         "system prefers the chunk that also carries the matching figure or table ID, because "
+         "the public scorer rewards that citation form.")
 
     subhead(doc, "B.  Results")
     body(doc,
@@ -361,6 +378,13 @@ def build():
          "cross-encoder often ranks the passage containing a number above the figure or "
          "table record the scorer expects to see cited.",
          indent=False)
+    body(doc,
+         "Typical remaining errors are (i) asking for a trend that is only clear in a figure "
+         "when the top passages are nearby prose, (ii) multi-hop questions that need two "
+         "tables in one answer, and (iii) near-duplicate chart titles across documents. "
+         "Hybrid retrieval helps (i) when the reranker surfaces the figure chunk; it does "
+         "not fully solve (ii). We did not fine-tune the cross-encoder on this corpus; doing "
+         "so is left as future work.")
 
     subhead(doc, "D.  Safety")
     body(doc,
@@ -384,6 +408,12 @@ def build():
          "An instruction to ignore the documents and report a fabricated inflation number is "
          "ignored; the answer stays on the trusted table. Those cases are why Appendix C is "
          "quarantined at ingest instead of filtered only at generation time.")
+    body(doc,
+         "Operationally, the quarantine is a hard filter on chunk creation: Appendix C pages "
+         "never receive embeddings, BM25 postings, or vision captions. The same filter is "
+         "applied in the Kaggle notebook and in the local golden run so a score cannot improve "
+         "by quietly indexing the appendix. Temporary numbers typed in chat live in a "
+         "session dict that is cleared when the notebook kernel restarts.")
 
     heading(doc, "III.  FINE-TUNING A DIFFUSION MODEL")
     subhead(doc, "A.  Setup")
@@ -410,7 +440,13 @@ def build():
          "Twenty prompts were saved before training ended: 10 from the test captions, 5 "
          "outside that style, and 5 that ask for a count or a second object. Each model "
          "generated seeds 0 and 1 at 512 pixels, 30 steps, and guidance 7.5. That is 40 "
-         "images per model.")
+         "images per model. The prompt list and seeds are fixed in the notebook so a later "
+         "rerun cannot cherry-pick a better sheet.")
+    body(doc,
+         "Training used a single GPU with mixed precision. Checkpoints keep only the LoRA "
+         "weights; the base UNet is never overwritten. Adapters are published on Hugging Face "
+         "under a non-commercial research notice that matches the copyrighted training art. "
+         "Peak VRAM stayed near 4.2–4.3 GB for both ranks at batch 4.")
 
     subhead(doc, "B.  Results")
     body(doc,
@@ -436,13 +472,12 @@ def build():
     )
     body(doc,
          "Fig. 3 is the in-domain sheet behind the KID number: base, rank 4, and rank 16 on "
-         "the first eight prompts at seed 0. Style moves toward the caption set; faces and "
-         "palettes tighten as rank rises.")
-    # Tall 3×N sheets blow past a column page if scaled by width alone; cap height.
+         "the first eight prompts at seed 0 (left panel prompts 1–4, right panel 5–8). Style "
+         "moves toward the caption set; faces and palettes tighten as rank rises.")
     figure(
         doc, FIG / "part2" / "grid.jpg",
         "Fig. 3. Base, rank 4, and rank 16 on the first eight in-domain prompts, seed 0.",
-        height=Inches(2.35),
+        width=COL_W,
     )
     table_title(doc, "TABLE III.  CONFIRMATORY LORA VS DORA (RANK 8)")
     add_table(
@@ -468,27 +503,47 @@ def build():
          "rank-16 repository records base model, data, settings, results, limitations, and "
          "non-commercial license.")
     body(doc,
-         "Fig. 4 shows the failure modes that dominate the human study. Compositional prompts "
-         "drop a leaf, a box, a count, or a second creature. Out-of-domain lakes, cars, and "
-         "rooms often stay photographic. We still keep rank 16 for the automatic metrics at "
-         "equal training cost; for open prompts the base model remains competitive with people.")
+         "Fig. 4 shows the failure modes that dominate the human study (left panel "
+         "out-of-domain, right panel compositional). Compositional prompts drop a leaf, a "
+         "box, a count, or a second creature. Out-of-domain lakes, cars, and rooms often stay "
+         "photographic. We still keep rank 16 for the automatic metrics at equal training "
+         "cost; for open prompts the base model remains competitive with people.")
     figure(
         doc, FIG / "part2" / "failure_candidates.jpg",
         "Fig. 4. Prompts outside the training style, seed 0. Counts and second objects are often missing.",
-        height=Inches(2.35),
+        width=COL_W,
     )
 
-    subhead(doc, "C.  Safety")
+    subhead(doc, "C.  What worked and what did not")
+    body(doc,
+         "LoRA clearly pulled in-domain samples toward the Pokemon look: the KID drop is the "
+         "main success. The cost is a small CLIP regression and lower seed diversity, which "
+         "matches the intuition that a low-rank adapter specializes the prior. Compositional "
+         "prompts remain the weakest slice in the blind study (win rate 0.278). Rank 4 is "
+         "almost as strong as rank 16 on KID, so capacity was not the bottleneck; caption "
+         "coverage and prompt design were.",
+         indent=False)
+    body(doc,
+         "The confirmatory DoRA run did not overturn the LoRA choice for the reported adapter: "
+         "its KID edge is inside noise and it spent more GPU time. Human preference favored "
+         "the rank-8 LoRA over the base model more clearly than rank 16 did, which suggests "
+         "that mid-rank adapters can look better to people even when KID prefers a larger "
+         "rank on the fixed prompt sheet.")
+
+    subhead(doc, "D.  Safety")
     body(doc,
          "The training images are copyrighted characters. The adapters and generated images "
          "are for non-commercial course work only. The model card on the rank-16 Hugging Face "
-         "repo states the same limit and summarizes training settings and measured results.",
+         "repo states the same limit and summarizes training settings and measured results. "
+         "We do not release full-precision UNet weights and we do not claim commercial use.",
          indent=False)
     body(doc,
          "The Stable Diffusion safety checker flagged 10 of the 120 images: 2 from the base "
          "model, 4 from rank 4, and 4 from rank 16 (8 in-domain, 2 compositional). Fig. 5 "
          "shows those ten. Manual review found ordinary cartoons, so we treated the flags as "
-         "false positives and did not remove the images from the metric tables.")
+         "false positives and did not remove the images from the metric tables. The same "
+         "false-positive pattern appears again in Part 3, which is why the agent requires "
+         "vision confirmation before blocking an image.")
     figure(doc, FIG / "part2" / "nsfw_flagged.jpg",
            "Fig. 5. The ten images flagged by the safety checker. We treated these flags as false positives.",
            width=COL_W)
@@ -501,8 +556,13 @@ def build():
          "we generated was in that range. The check is one seed on 10 prompts, not their full "
          "extraction study, but it is the lab-required nearest-neighbor audit.")
     figure(doc, FIG / "part2" / "memorization.jpg",
-           "Fig. 6. Three generations and the nearest training image by CLIP similarity.",
-           height=Inches(2.2))
+           "Fig. 6. Three generations (left of each pair) and nearest training image by CLIP similarity.",
+           width=COL_W)
+    body(doc,
+         "We also note the dual-use surface: a public adapter can be merged into other UNets. "
+         "The model card therefore repeats the non-commercial limit and the training-data "
+         "provenance. Course submission stores adapter paths and metric tables, not redistributed "
+         "training images.")
 
     heading(doc, "IV.  A MULTIMODAL IMAGE AGENT")
     subhead(doc, "A.  Architecture")
@@ -523,6 +583,12 @@ def build():
          "at temperature 0. Text found in the image is stored as text. It is not copied into "
          "the prompt. The Gradio page shows each step, and the same app is deployed as a "
          "Hugging Face Space.")
+    body(doc,
+         "State is a typed dictionary: route, user text, image path, vision notes, rewritten "
+         "prompt, generation metadata, critique notes, and a final status. Every transition "
+         "appends to a JSONL trace so a failed scenario can be replayed without guessing which "
+         "step drifted. The planner is allowed to short-circuit to caption-only or refuse "
+         "before any diffusion call, which is what keeps red-team latency low on refused cases.")
 
     subhead(doc, "B.  Results")
     body(doc,
@@ -606,9 +672,15 @@ def build():
          "accuracy from the critique loop on the frozen scenarios (6/15 without the loop, "
          "4/15 with it). Across parts, the shared pattern is that automatic gains (KID, "
          "golden accuracy, red-team refusals) do not always match human preference or "
-         "critique-loop accuracy, so each section reports both. Member-level notes are in "
-         "CONTRIBUTIONS.md; AI tooling is declared in AI_USAGE.md.",
+         "critique-loop accuracy, so each section reports both.",
          indent=False)
+    body(doc,
+         "Reproducibility artifacts are the tagged notebooks (p1-v1.0, p2-v1.0, p3-v1.0), "
+         "eval tables, human-review CSVs, and the links in links.txt. Member-level notes are "
+         "in CONTRIBUTIONS.md; AI tooling is declared in AI_USAGE.md. Future work would "
+         "fine-tune the Part 1 reranker on figure-aware negatives, try caption augmentation "
+         "for Part 2 compositional prompts, and replace the Part 3 critic with a larger VL "
+         "model or a learned reward that tracks human pass labels more closely.")
 
     heading(doc, "REFERENCES")
     refs = [
