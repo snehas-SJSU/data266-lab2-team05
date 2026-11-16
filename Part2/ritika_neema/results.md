@@ -50,8 +50,10 @@ the "pikachu" prompt against Pikachu training images, the same character rather 
 Human evaluation: blinded 25 pairs, LoRA r8 against base, 3 raters (Ritika Neema, Sneha Singh, Rajesh), each
 rating alone. The first set from Cell 9 (pair-sampling seed 266) was not rated because its key had been opened;
 `human_eval/make_pairs.py` rebuilt the pairs with the same code and seed 267 from the published images.
-`human_eval/merge_ratings.py` (the code of Cell 10) printed: 3 raters x 25 pairs | final wins 49, base wins 12,
-ties 14 | win rate (ties as half) 0.747 (95% Wilson interval 0.638 to 0.831).
+Cell 10 of the notebook printed: 3 raters x 25 pairs | final wins 49, base wins 12, ties 14 | win rate
+(ties as half) 0.747 (95% Wilson interval 0.638 to 0.831, from `human_eval/merge_ratings.py`). Cells 1 and 10
+were re-run on 15 Nov 2026 (Colab T4) to print this, so Cell 1 shows that session's commit and library versions;
+every other output is from the 28 Oct T4 run.
 
 | Breakdown | Win rate | Votes |
 | --- | --- | --- |
