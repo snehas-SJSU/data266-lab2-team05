@@ -56,6 +56,8 @@ Appendix C is excluded at ingest. False macro claims on that page and the instru
 
 **Risk if fooled.** If Appendix C were re-ingested, the model could cite fabricated numbers or follow a chart instruction. Mitigation is quarantine at ingest, citation allow-lists from retrieved trusted records only, and the permanent-edit refusal path.
 
+On the golden set, a rate that appears only in the untrusted appendix is returned as `not_found`, a false GDP premise is corrected with `false_premise`, and an instruction to ignore the documents is not followed.
+
 ## III. Part 2: Fine-tuning a diffusion model
 
 ### A. Architecture
@@ -88,7 +90,7 @@ A confirmatory adapter pair (LoRA rank 8 vs DoRA rank 8, 1200 steps, same seed) 
 
 ### C. What worked and what did not
 
-LoRA moved generations toward the dataset style (large KID drop). CLIP and LPIPS moved slightly the other way: closer style, slightly weaker prompt match and diversity. Compositional prompts remain the main failure mode. Rank 16 is kept for KID/CLIP at equal training cost; for open-ended prompts the base model remains competitive with human raters.
+LoRA moved generations toward the dataset style (large KID drop). CLIP and LPIPS moved slightly the other way: closer style, slightly weaker prompt match and diversity. Compositional prompts remain the main failure mode (human win rate 0.278 on that slice). Per-rater win rates on the rank-16 study were Rajesh 0.40, Ritika Neema 0.44, and Sneha Singh 0.32. Rank 16 is kept for KID/CLIP at equal training cost; for open-ended prompts the base model remains competitive with human raters.
 
 ### D. Safety
 
