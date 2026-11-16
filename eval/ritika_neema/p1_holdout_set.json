@@ -1,5 +1,5 @@
 {
-  "description": "Ritika's Part 1 held-out set: 25 new questions written on 28 Oct 2026 after versions 1-4 were run and before any further change. None is from Questions.csv or p1_golden_set.json. Used only to compare versions fairly; never used while building later versions.",
+  "description": "Ritika's Part 1 held-out set: 25 new questions written on 28 Oct 2026 after versions 1-4 were run and before any further change. None is from Questions.csv or p1_golden_set.json. Used only to compare versions fairly; never used to tune.",
   "questions": [
     {"id": "H01", "conversation_id": "H-C01", "turn": 1, "question": "What was output growth in emerging and developing economies in 2013?", "expected_status": "answered", "required_facts": [4.6], "gold_evidence": ["DOC2:Table A-1", "DOC2:p2"]},
     {"id": "H02", "conversation_id": "H-C02", "turn": 1, "question": "After the July 2013 benchmark revision, what is U.S. output growth for 2010?", "expected_status": "answered", "required_facts": [2.4], "gold_evidence": ["DOC2:p3"]},
