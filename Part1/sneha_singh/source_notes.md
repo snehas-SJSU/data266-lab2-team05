@@ -23,10 +23,11 @@ Apply `kb_manifest.json`: an explicit erratum/revision replaces the older value;
 
 ## Implementation checks
 
-- `src/p1_rag.py` extracts text chunks and separate numbered visual objects with doc ID, file page, exact label, caption, trust, and a local crop path. It keeps the low-trust records only for audit and excludes them from the normal retriever.
-- Each trusted figure is described by the declared local VLM. The description cache records the image hash, caption, model version/digest, and actual model output. Descriptions can contain extraction errors, so they are evaluation aids rather than independent ground truth. Appendix C's visual has status `excluded_low_trust` and is not described.
-- The local run uses the real MiniLM encoder, persistent ChromaDB, and a local image-capable Qwen2.5-VL answerer. Derived records are in `outputs/index/`; figure crops, descriptions, model metadata, raw evaluation records, and generated results stay under `outputs/`.
-- Kaggle / graded path: `notebooks/sneha_singh/p1_rag.ipynb` with `Qwen/Qwen2.5-VL-7B-Instruct` (NF4), hybrid retrieval + general answering policies. Public practice best score: **0.940** from selected `submission.csv`. Task 1.5 uses the tagged notebook (`p1-v1.0`) on the hidden set.
+- Graded notebook: `notebooks/sneha_singh/p1_rag.ipynb`. On Run All it writes a local `mmrag/` package (ingest, index, facts, attribution, RAG), so the Kaggle kernel stays self-contained.
+- Text chunks and separate figure/table crops keep doc ID, page, exact label, caption, and trust. Low-trust Appendix C content is filtered out of normal retrieval / image evidence.
+- Each trusted figure is described by `Qwen/Qwen2.5-VL-7B-Instruct`. Descriptions are cached under the run’s `artifacts/` and are aids, not independent ground truth.
+- Dense index: `BAAI/bge-small-en-v1.5` in ChromaDB + BM25 with RRF. Exact label routing when the question names a Figure/Table. Final selected flags keep the cross-encoder **off** (LB test showed a drop when ON).
+- Kaggle / graded path answerer: same Qwen2.5-VL-7B (NF4). Selected practice score: **0.927** from `Part1/sneha_singh/submission.csv` (sha `65d699b5…`). Task 1.5 uses the tagged notebook (`p1-v1.0`) on the hidden set.
 
 ## Research references and design choices
 

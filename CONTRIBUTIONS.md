@@ -14,7 +14,7 @@ Pair_Programming_Team_05: Sneha Singh, Ritika Neema
 
 ### Part 1
 
-I built `notebooks/sneha_singh/p1_rag.ipynb` (ingestion, hybrid dense+BM25 retrieval, optional CE passage reranker, conversation memory, Appendix C quarantine, grounded JSON answers). Local golden-set ablation (27 Oct fix-100, Ollama): **25/25 OFF** and **25/25 ON**, Recall@5 100%, a tie on this pipeline; the team's +2 reranker claim uses Ritika's ablation. The graded notebook is the executed Kaggle run in `notebooks/sneha_singh/p1_rag.ipynb` (`Qwen/Qwen2.5-VL-7B-Instruct` NF4). Tag `p1-v1.0` points at the executed Kaggle notebook commit (outputs kept). Public Kaggle leaderboard best **0.940**. Notes: `Part1/sneha_singh/results.md`, `source_notes.md`, and `report/DATA266_Lab2_Team05_IEEE.docx`.
+I own `notebooks/sneha_singh/p1_rag.ipynb`: self-contained `mmrag` package (ingest, `BAAI/bge-small-en-v1.5` + BM25 RRF, exact-label routing, trust/precedence filters, Appendix C quarantine, grounded JSON). Answer/figure model: `Qwen/Qwen2.5-VL-7B-Instruct` (NF4 on Kaggle). Selected final flags keep the cross-encoder **off**. Selected practice LB **0.927** (`Part1/sneha_singh/submission.csv`, sha `65d699b5…`). Team +2 reranker claim remains Ritika’s ablation. Tag `p1-v1.0` should point at this notebook commit. Notes: `Part1/sneha_singh/results.md`, `source_notes.md`, and `report/DATA266_Lab2_Team05_IEEE.docx`.
 
 ### Part 2
 

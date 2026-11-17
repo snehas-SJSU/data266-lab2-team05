@@ -6,7 +6,7 @@ GitHub repository: https://github.com/snehas-SJSU/data266-lab2-team05
 
 ## Abstract
 
-This paper presents one team system for each of the three DATA 266 Lab 2 tasks, evaluated at seed 266. Part 1 is a multimodal retrieval-augmented generator over three read-only economics PDFs. On a 25-question golden set, dense retrieval answered 13 questions correctly; the final hybrid retriever with passage reranking answered 16. Mean groundedness from both members was 4.88. The team’s best public Kaggle practice score is 0.940. Part 2 fine-tunes Stable Diffusion 1.5 with LoRA on Pokemon BLIP captions. KID falls from 0.06024 (base model) to 0.02314 (rank 16). A blind study with three raters did not prefer rank 16 over the base model (win rate 0.387); a confirmatory LoRA rank-8 study reached a win rate of 0.747. Part 3 is a five-agent image system. Without a critique loop it passed 6 of 15 scenarios; with the loop it passed 4 of 15. Red-team attack success was 0 of 10. Member-level implementation notes are in `CONTRIBUTIONS.md`.
+This paper presents one team system for each of the three DATA 266 Lab 2 tasks, evaluated at seed 266. Part 1 is a multimodal retrieval-augmented generator over three read-only economics PDFs. On a 25-question golden set, dense retrieval answered 13 questions correctly; the final hybrid retriever with passage reranking answered 16. Mean groundedness from both members was 4.88. The team’s selected public Kaggle practice score is 0.927. Part 2 fine-tunes Stable Diffusion 1.5 with LoRA on Pokemon BLIP captions. KID falls from 0.06024 (base model) to 0.02314 (rank 16). A blind study with three raters did not prefer rank 16 over the base model (win rate 0.387); a confirmatory LoRA rank-8 study reached a win rate of 0.747. Part 3 is a five-agent image system. Without a critique loop it passed 6 of 15 scenarios; with the loop it passed 4 of 15. Red-team attack success was 0 of 10. Member-level implementation notes are in `CONTRIBUTIONS.md`.
 
 ## I. Introduction
 
@@ -38,11 +38,9 @@ Table I reports the lab-required comparison: dense retrieval only versus the fin
 | Human: mean groundedness (both members) | — | **4.88** (within 1 point: 24/25) |
 | Efficiency: median seconds / question | 8.31 | 8.48 |
 
-*Table I. Part 1 baseline versus final system on the golden set (Kaggle T4 measurement). Final = hybrid retrieval with exact figure/table lookup and `ms-marco-MiniLM-L-6-v2` passage reranking.*
+*Table I. Part 1 baseline versus final system on the golden set (Kaggle T4 measurement). Team +2 bonus path = hybrid retrieval with exact figure/table lookup and `ms-marco-MiniLM-L-6-v2` passage reranking (Ritika).*
 
-On a held-out set of 25 questions committed before any run on that set, hybrid alone scored 19/25 and the final reranked system scored 21/25. Public Kaggle practice scores for that pipeline rose from 0.526 (hybrid, no reranker) to 0.576 (final). The team’s selected practice leaderboard best is **0.940** (`Pair_Programming_Team_05`). The graded path is the executed notebook at git tag `p1-v1.0`.
-
-A second local hybrid ablation on the complementary golden set reached 25/25 with the passage reranker off and 25/25 with it on (Recall@5 100% either way). That tie shows that once the correct page is already in the top five, reranking need not change answer correctness; the gain claimed for the +2 bonus is the Table I / held-out improvement above.
+On a held-out set of 25 questions committed before any run on that set, hybrid alone scored 19/25 and the final reranked system scored 21/25. Public Kaggle practice scores for that bonus pipeline rose from 0.526 (hybrid, no reranker) to 0.576 (final). Sneha’s selected practice leaderboard CSV is **0.927** (`Pair_Programming_Team_05`): `BAAI/bge-small-en-v1.5` + BM25 (RRF), exact-label routing, trust/precedence filters, and `Qwen/Qwen2.5-VL-7B-Instruct`, with the cross-encoder **off** in the final flags. The graded path is the executed notebook at git tag `p1-v1.0`.
 
 ### C. What worked and what did not
 
@@ -158,7 +156,7 @@ Guards include planner refusals (sexual content, graphic violence, deceptive edi
 
 ## V. Conclusion
 
-The team delivered one reported system per part. Part 1 improves from dense retrieval (13/25) to a hybrid reranked final system (16/25) on the golden set, with mean groundedness 4.88 and a public Kaggle practice best of 0.940; Appendix C stays quarantined. Part 2 lowers KID from 0.06024 to 0.02314 with LoRA rank 16; human preference over the base model is mixed. Part 3 refuses all ten red-team attacks but does not gain primary accuracy from the critique loop on the frozen scenarios. Detailed per-member implementation and meeting logs are in `CONTRIBUTIONS.md`; AI tooling is declared in `AI_USAGE.md`.
+The team delivered one reported system per part. Part 1 improves from dense retrieval (13/25) to a hybrid reranked final system (16/25) on the golden set, with mean groundedness 4.88 and a selected public Kaggle practice score of 0.927; Appendix C stays quarantined. Part 2 lowers KID from 0.06024 to 0.02314 with LoRA rank 16; human preference over the base model is mixed. Part 3 refuses all ten red-team attacks but does not gain primary accuracy from the critique loop on the frozen scenarios. Detailed per-member implementation and meeting logs are in `CONTRIBUTIONS.md`; AI tooling is declared in `AI_USAGE.md`.
 
 ## References
 
