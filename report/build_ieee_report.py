@@ -314,14 +314,14 @@ def build():
          "Dense retrieval is the baseline. The selected Kaggle system fuses "
          "BAAI/bge-small-en-v1.5 dense embeddings with BM25 (reciprocal rank fusion), routes "
          "exact figure/table labels named in the question, and applies trust and precedence "
-         "filters. A cross-encoder is available but left off in the selected flags after it "
-         "lowered the practice score. An answer is a status, a short text, and citations that "
-         "name a retrieved record, in the retrieve-then-generate order [6]. A temporary number "
+         "filters. An ablation kept cross-encoder passage reranking off for this selected "
+         "configuration. An answer is a status, a short text, and citations that name a "
+         "retrieved record, in the retrieve-then-generate order [6]. A temporary number "
          "supplied in chat is used only in that conversation and is not written back into the "
          "index. A request to edit the documents permanently is refused.")
     body(doc,
-         "The graded Kaggle notebook (v24, scriptVersionId 370792951) loads "
-         "Qwen/Qwen2.5-VL-7B-Instruct in 4-bit on one Tesla T4 for figure captions and answers.")
+         "The graded Kaggle notebook loads Qwen/Qwen2.5-VL-7B-Instruct in 4-bit on one Tesla "
+         "T4 for figure captions and answers.")
 
     subhead(doc, "B.  Results")
     body(doc,
@@ -349,11 +349,11 @@ def build():
          "figure/table lookup and ms-marco-MiniLM-L-6-v2 passage reranking. On a held-out set "
          "of 25 questions committed before any run on that set, hybrid scored 19/25 and the "
          "reranked system scored 21/25; public practice scores for that path rose from 0.526 "
-         "to 0.576. Sneha’s selected practice leaderboard CSV is 0.927 "
-         "(Pair_Programming_Team_05): bge-small + BM25, label routing, trust/precedence "
-         "filters, Qwen2.5-VL-7B-Instruct, cross-encoder off. Graded notebook: "
-         "https://www.kaggle.com/code/snehasjsu/lab2-notebook/notebook?scriptVersionId=370792951 "
-         "(v24) at git tag p1-v1.0.")
+         "to 0.576. Sneha’s selected practice leaderboard score is 0.927 "
+         "(Pair_Programming_Team_05), using bge-small + BM25 with label routing and "
+         "trust/precedence filters, and Qwen2.5-VL-7B-Instruct without cross-encoder "
+         "reranking. The graded notebook is the executed Kaggle run at git tag p1-v1.0 "
+         "(links.txt).")
 
     subhead(doc, "C.  What worked and what did not")
     body(doc,
