@@ -36,3 +36,8 @@ Ritika Part 2 generated images: https://huggingface.co/datasets/neema30/data266-
 Ritika Part 3 inputs: https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs (team inputs, public)
 Ritika Part 3 generated images: https://huggingface.co/datasets/neema30/data266-lab2-p3-ritika-images
 Ritika Part 3 Space / +2 bonus (team): https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents (public)
+
+# Meetings
+Meeting 1 (2026-10-28, Part 1): https://sjsu.zoom.us/j/89284605930?pwd=KyMUdEmQ1Fq8Pwej4Mnv9Hni4ZRftF.1
+Meeting 2 (2026-11-05, Part 2): https://sjsu.zoom.us/j/82993667587?pwd=Ro6iy32todAYZLsaJd3xDKgYhE3TI8.1
+Meeting 3 (2026-11-08, Part 3): https://sjsu.zoom.us/j/89469214298?pwd=BS2u5l6KikgjT673LF6mdac88uHxtF.1
