@@ -12,7 +12,7 @@ Final Kaggle notebook/submission: https://www.kaggle.com/code/snehasjsu/lab2-not
 
 ## Sneha Singh
 # Part 1
-Part 1 Kaggle notebook (Sneha): https://www.kaggle.com/code/snehasjsu/lab2-notebook/notebook?scriptVersionId=370792951 (v24 + bge-small hybrid, public score 0.927)
+Part 1 Kaggle notebook (Sneha): https://www.kaggle.com/code/snehasjsu/lab2-notebook/notebook?scriptVersionId=370792951 (v24)
 
 # Part 2 (graded HF links)
 Hugging Face Part 2 model (final, rank 16): https://huggingface.co/Sneha-subbu/data266-lab2-p2-lora_r16
