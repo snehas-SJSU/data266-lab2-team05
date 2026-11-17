@@ -6,9 +6,9 @@ GitHub repository: https://github.com/snehas-SJSU/data266-lab2-team05
 Tag p1-v1.0: https://github.com/snehas-SJSU/data266-lab2-team05/releases/tag/p1-v1.0
 Tag p2-v1.0: https://github.com/snehas-SJSU/data266-lab2-team05/releases/tag/p2-v1.0
 Tag p3-v1.0: https://github.com/snehas-SJSU/data266-lab2-team05/releases/tag/p3-v1.0
-# After push, tags point at the graded commits (executed notebooks + report). Verify with: git rev-parse p1-v1.0^{} p2-v1.0^{} p3-v1.0^{}
+# Tags p1-v1.0 / p2-v1.0 / p3-v1.0 point at the graded commit on main (demo runs from these tags). Verify: git rev-parse p1-v1.0^{} p2-v1.0^{} p3-v1.0^{}
 Final Kaggle notebook/submission: https://www.kaggle.com/code/snehasjsu/lab2-notebook/notebook?scriptVersionId=370792951 (v24, selected practice LB 0.927)
-# Selected CSV: Part1/sneha_singh/submission.csv (sha 65d699b5…). Graded path: notebook at p1-v1.0. Share notebook with instructor/ISAs or make public (currently private fails access rule).
+# Selected CSV: Part1/sneha_singh/submission.csv (sha 65d699b5…). Graded path: tagged notebook at p1-v1.0. Share notebook with instructor/ISAs or make public.
 
 ## Sneha Singh
 # Part 1
