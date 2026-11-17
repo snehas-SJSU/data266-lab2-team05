@@ -268,9 +268,9 @@ def build():
     r2 = abs_p.add_run(
         "This paper presents one team system for each DATA 266 Lab 2 task, evaluated at seed "
         "266. Part 1 is multimodal retrieval-augmented generation (RAG) over three economics "
-        "PDFs: the final hybrid system with passage reranking lifts golden-set correctness "
-        "from 13/25 to 16/25, with mean groundedness 4.88 and a public Kaggle practice best "
-        "of 0.940. Part 2 fine-tunes Stable Diffusion 1.5 with low-rank adaptation (LoRA); "
+        "PDFs: a hybrid dense+BM25 system lifts golden-set correctness from 13/25 to 16/25 "
+        "with passage reranking on the team bonus path, mean groundedness 4.88, and a selected "
+        "public Kaggle practice score of 0.927. Part 2 fine-tunes Stable Diffusion 1.5 with low-rank adaptation (LoRA); "
         "kernel inception distance (KID) improves from 0.06024 to 0.02314 for rank 16, and a "
         "confirmatory rank-8 LoRA study reaches a 0.747 blind win rate over the base model. "
         "Part 3 is a five-agent image system with red-team attack success 0 of 10 and full "
@@ -311,17 +311,17 @@ def build():
     figure(doc, FIG / "part1" / "architecture.jpg",
            "Fig. 1. Three PDFs are indexed. Appendix C is left out. Dense retrieval is the baseline; the final system adds BM25 keyword search and optional passage reranking.")
     body(doc,
-         "Dense retrieval is the baseline. The final retriever adds BM25 keyword search and "
-         "can rerank the fused list with a cross-encoder. We blend the two rankings rather "
-         "than sorting by the cross-encoder alone. An answer is a status, a short text, and "
-         "citations that have to name a retrieved record. The answer is written from those "
-         "records, in the retrieve-then-generate order [6]. A temporary number supplied in "
-         "chat is used only in that conversation and is not written back into the index. A "
-         "request to edit the documents permanently is refused.")
+         "Dense retrieval is the baseline. The selected Kaggle system fuses "
+         "BAAI/bge-small-en-v1.5 dense embeddings with BM25 (reciprocal rank fusion), routes "
+         "exact figure/table labels named in the question, and applies trust and precedence "
+         "filters. A cross-encoder is available but left off in the selected flags after it "
+         "lowered the practice score. An answer is a status, a short text, and citations that "
+         "name a retrieved record, in the retrieve-then-generate order [6]. A temporary number "
+         "supplied in chat is used only in that conversation and is not written back into the "
+         "index. A request to edit the documents permanently is refused.")
     body(doc,
-         "The golden-set run used qwen2.5:7b for answers and qwen2.5vl:3b for figure captions, "
-         "temperature 0. The Kaggle run of the same notebook loads Qwen2.5-VL-7B-Instruct in "
-         "4-bit on one Tesla T4.")
+         "The graded Kaggle notebook (v24, scriptVersionId 370792951) loads "
+         "Qwen/Qwen2.5-VL-7B-Instruct in 4-bit on one Tesla T4 for figure captions and answers.")
 
     subhead(doc, "B.  Results")
     body(doc,
@@ -345,15 +345,15 @@ def build():
         [2400, 1300, 1300],
     )
     body(doc,
-         "Final means hybrid retrieval with exact figure/table lookup and "
-         "ms-marco-MiniLM-L-6-v2 passage reranking. On a held-out set of 25 questions "
-         "committed before any run on that set, hybrid scored 19/25 and the final system "
-         "scored 21/25. Public practice scores for that pipeline rose from 0.526 to 0.576. "
-         "The team selected practice leaderboard best is 0.940. The graded notebook is the "
-         "executed Kaggle run at tag p1-v1.0 (about 1137 s on a Tesla T4). A complementary "
-         "local hybrid ablation reached 25/25 with the reranker off and on; that tie shows "
-         "reranking need not change answers once the right page is already retrieved, while "
-         "Table I supports the team reranker bonus claim.")
+         "Table I is the team +2 bonus path (Ritika): hybrid retrieval with exact "
+         "figure/table lookup and ms-marco-MiniLM-L-6-v2 passage reranking. On a held-out set "
+         "of 25 questions committed before any run on that set, hybrid scored 19/25 and the "
+         "reranked system scored 21/25; public practice scores for that path rose from 0.526 "
+         "to 0.576. Sneha’s selected practice leaderboard CSV is 0.927 "
+         "(Pair_Programming_Team_05): bge-small + BM25, label routing, trust/precedence "
+         "filters, Qwen2.5-VL-7B-Instruct, cross-encoder off. Graded notebook: "
+         "https://www.kaggle.com/code/snehasjsu/lab2-notebook/notebook?scriptVersionId=370792951 "
+         "(v24) at git tag p1-v1.0.")
 
     subhead(doc, "C.  What worked and what did not")
     body(doc,
@@ -600,8 +600,8 @@ def build():
     heading(doc, "V.  CONCLUSION")
     body(doc,
          "The team delivered one strong reported system per part. Part 1 lifts golden-set "
-         "correctness from 13/25 to 16/25 with mean groundedness 4.88 and a public Kaggle "
-         "practice best of 0.940, while Appendix C stays quarantined. Part 2 cuts KID from "
+         "correctness from 13/25 to 16/25 with mean groundedness 4.88 and a selected public "
+         "Kaggle practice score of 0.927, while Appendix C stays quarantined. Part 2 cuts KID from "
          "0.06024 to 0.02314 with LoRA rank 16 and shows a confirmatory blind win rate of "
          "0.747 for rank-8 LoRA over the base model. Part 3 matches all routes, refuses all "
          "ten red-team attacks (0/10), and prefers the faster no-critique operating point "

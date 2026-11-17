@@ -9,7 +9,7 @@ Multimodal RAG over the three read-only economics PDFs (Lab 2 Task 1).
 | Notebook | `notebooks/sneha_singh/p1_rag.ipynb` (self-contained `mmrag` package written by the notebook) |
 | Selected practice CSV | `Part1/sneha_singh/submission.csv` (sha `65d699b5…`, public LB **0.927**) |
 | Team | `Pair_Programming_Team_05` |
-| Kaggle | `links.txt` → `lab2-notebook` (must be public or shared with instructor/ISAs) |
+| Kaggle | https://www.kaggle.com/code/snehasjsu/lab2-notebook/notebook?scriptVersionId=370792951 (v24; must be public or shared with instructor/ISAs) |
 | Tag | Retag `p1-v1.0` to this notebook commit before deadline |
 
 ### Pipeline (selected)

@@ -20,11 +20,11 @@ The knowledge base is three read-only economics PDFs. Pages are stored as text c
 
 ![Architecture](figures/part1/architecture.png)
 
-*Fig. 1. Ingestion quarantines Appendix C. Dense retrieval is the baseline. The final system adds BM25 fusion and an optional cross-encoder passage reranker. Conversation memory is chat-local only.*
+*Fig. 1. Ingestion quarantines Appendix C. Dense retrieval is the baseline. The selected system adds BM25 fusion and exact label routing; a cross-encoder is optional (off for the selected 0.927 CSV). Conversation memory is chat-local only.*
 
-Dense retrieval is the required baseline. The final system fuses dense embeddings with BM25, can boost a figure or table named in the question, and may rerank the fused list with a cross-encoder. Answers follow a retrieve-then-generate pattern [1]: a short text, a status, and citations restricted to retrieved records. Temporary user values apply only inside that conversation and are never written back into the index. Permanent edits of the knowledge base are refused.
+Dense retrieval is the required baseline. The selected Kaggle system fuses `BAAI/bge-small-en-v1.5` with BM25 (RRF), routes exact figure/table labels named in the question, and applies trust/precedence filters. A cross-encoder was tested and left **off** in the selected flags. Answers follow a retrieve-then-generate pattern [1]: a short text, a status, and citations restricted to retrieved records. Temporary user values apply only inside that conversation and are never written back into the index. Permanent edits of the knowledge base are refused.
 
-Local golden-set runs used `qwen2.5:7b` for answers and `qwen2.5vl:3b` for figure captions (temperature 0). The graded Kaggle notebook loads `Qwen/Qwen2.5-VL-7B-Instruct` in 4-bit on one Tesla T4 and finishes within 90 minutes (executed run about 1137 s including setup).
+The graded Kaggle notebook loads `Qwen/Qwen2.5-VL-7B-Instruct` in 4-bit on one Tesla T4 (v24, `scriptVersionId=370792951`): https://www.kaggle.com/code/snehasjsu/lab2-notebook/notebook?scriptVersionId=370792951.
 
 ### B. Results
 
@@ -40,7 +40,7 @@ Table I reports the lab-required comparison: dense retrieval only versus the fin
 
 *Table I. Part 1 baseline versus final system on the golden set (Kaggle T4 measurement). Team +2 bonus path = hybrid retrieval with exact figure/table lookup and `ms-marco-MiniLM-L-6-v2` passage reranking (Ritika).*
 
-On a held-out set of 25 questions committed before any run on that set, hybrid alone scored 19/25 and the final reranked system scored 21/25. Public Kaggle practice scores for that bonus pipeline rose from 0.526 (hybrid, no reranker) to 0.576 (final). Sneha’s selected practice leaderboard CSV is **0.927** (`Pair_Programming_Team_05`): `BAAI/bge-small-en-v1.5` + BM25 (RRF), exact-label routing, trust/precedence filters, and `Qwen/Qwen2.5-VL-7B-Instruct`, with the cross-encoder **off** in the final flags. The graded path is the executed notebook at git tag `p1-v1.0`.
+On a held-out set of 25 questions committed before any run on that set, hybrid alone scored 19/25 and the final reranked system scored 21/25. Public Kaggle practice scores for that bonus pipeline rose from 0.526 (hybrid, no reranker) to 0.576 (final). Sneha’s selected practice leaderboard CSV is **0.927** (`Pair_Programming_Team_05`): `BAAI/bge-small-en-v1.5` + BM25 (RRF), exact-label routing, trust/precedence filters, and `Qwen/Qwen2.5-VL-7B-Instruct`, with the cross-encoder **off** in the final flags. Graded notebook: https://www.kaggle.com/code/snehasjsu/lab2-notebook/notebook?scriptVersionId=370792951 (v24) at git tag `p1-v1.0`.
 
 ### C. What worked and what did not
 
