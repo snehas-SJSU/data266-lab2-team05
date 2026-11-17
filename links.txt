@@ -34,4 +34,5 @@ Ritika Part 2 model (DoRA rank 8): https://huggingface.co/neema30/data266-lab2-p
 Ritika Part 2 generated images: https://huggingface.co/datasets/neema30/data266-lab2-p2-ritika-images
 # Part 3
 Ritika Part 3 inputs: https://huggingface.co/datasets/Sneha-subbu/data266-lab2-p3-inputs (team inputs, public)
+Ritika Part 3 generated images: https://huggingface.co/datasets/neema30/data266-lab2-p3-ritika-images
 Ritika Part 3 Space / +2 bonus (team): https://huggingface.co/spaces/Sneha-subbu/data266-lab2-p3-agents (public)
